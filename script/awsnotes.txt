@@ -1,0 +1,3 @@
+History is in awshist
+Untested script is in awssetup.sh
+

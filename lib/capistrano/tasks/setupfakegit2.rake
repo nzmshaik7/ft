@@ -14,15 +14,24 @@ namespace :setupgit do
 	    if test("[ -f #{fetch(:deploy_to)}/shared/setupgit.sh ]")
 	        execute :rm, "#{fetch(:deploy_to)}/shared/setupgit.sh"
 	    end
-	    invoke "setupgit:fakegit3"
+	    invoke "setupgit:fakegit4"
+	    invoke "setupgit:fakegit9"
 	end
     end
 
     remote_file 'setupgit.sh' => 'script/setupgit.sh', roles: :all
+    remote_file '/tmp/dlaw-clpe.pub' => 'script/dlaw-clpe.pub', roles: :all
 
-    task :fakegit3 => 'setupgit.sh' do
+    task :fakegit4 => '/tmp/dlaw-clpe.pub' do
+	on roles(:all) do |h|
+	    info "Copy public key on #{h}"
+	end
+    end
+
+    task :fakegit9 => 'setupgit.sh' do
 	set :scr, "#{fetch(:deploy_to)}/shared/setupgit.sh"
 	on roles(:all) do |h|
+	    info "(failed status on /home/deployer/ft/shared/setupgit.sh is OK)"
 	    info "***"
 	    info "*** Run #{fetch(:scr)} as root on #{h} ***"
 	    info "***"

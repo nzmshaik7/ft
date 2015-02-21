@@ -32,8 +32,10 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano'
-# gem 'capistrano-passenger'
+gem 'capistrano', '~> 3.1'
+gem 'capistrano-bundler', '~> 1.1.2'
+# capistrano-passenger just does a touch restart after deploy.
+gem 'capistrano-passenger'
 
 # To use debugger
 # gem 'debugger'
