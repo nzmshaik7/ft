@@ -48,7 +48,7 @@
 #     # password: 'please use keys'
 #   }
 
-server '54.85.10.40',
+server '52.0.247.174',
   user: 'deployer',
   roles: %w{web app},
   ssh_options: {
