@@ -10,6 +10,10 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
+# Ignore file with real production passwords.
+/config/database.real
+/db/dbprdcreate.sh
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp

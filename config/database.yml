@@ -37,6 +37,6 @@ production:
   reconnect: false
   database: ft_production
   pool: 5
-  username: root
-  password:
+  username: deployer
+  password: to-be-replaced-by-dbpass.rake
   socket: /var/lib/mysql/mysql.sock

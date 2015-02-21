@@ -50,7 +50,7 @@
 
 server '52.0.247.174',
   user: 'deployer',
-  roles: %w{web app},
+  roles: %w{web app db},
   ssh_options: {
     user: 'deployer', # overrides user setting above
     keys: %w(/home/dlaw/rails/ssh/capistkey),
