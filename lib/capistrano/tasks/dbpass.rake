@@ -17,7 +17,9 @@ namespace :deploy do
 
     before :updated, :dbpass => fetch(:holdyml) do
 	on roles(:all) do |host|
-	    info "*** Fail on /home/deployer/private/db.yml is OK ***"
+	    info ""
+	    info ">>>>>>>> Fail on /home/deployer/private/db.yml is OK <<<<<<<<"
+	    info ""
 	    execute :mv, fetch(:holdyml), release_path.join('config/database.yml')
 	    execute :chmod, '640', release_path.join('config/database.yml')
 	end

@@ -19,7 +19,7 @@ require 'capistrano/deploy'
 # require 'capistrano/rbenv'
 # require 'capistrano/chruby'
 require 'capistrano/bundler'
-# require 'capistrano/rails/assets'
+require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
 # Passenger just does touch restart after deploy
 require 'capistrano/passenger'
