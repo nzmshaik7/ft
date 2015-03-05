@@ -2,7 +2,7 @@
 
 # this runs on the clean AWS server before running cap.
 
-yum install -y nodejs epel-release httpd
+yum install -y epel-release httpd
 sudo dd if=/dev/zero of=/swap bs=1M count=2048
 mkswap /swap
 chmod 600 /swap
@@ -53,3 +53,22 @@ chmod 600 authorized_keys
 
 gem install mysql2
 yum install --enablerepo=epel -y nodejs
+
+
+## Passenger:
+## Suppose you have a web application in /somewhere. Add a virtual host to your
+## Apache configuration file and set its DocumentRoot to /somewhere/public:
+## 
+##    <VirtualHost *:80>
+##       ServerName www.yourhost.com
+##       # !!! Be sure to point DocumentRoot to 'public'!
+##       DocumentRoot /somewhere/public    
+##       <Directory /somewhere/public>
+##          # This relaxes Apache security settings.
+##          AllowOverride all
+##          # MultiViews must be turned off.
+##          Options -MultiViews
+##          # Uncomment this if you're on Apache >= 2.4:
+##          #Require all granted
+##       </Directory>
+##    </VirtualHost>

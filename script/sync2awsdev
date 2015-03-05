@@ -1,0 +1,13 @@
+#!/bin/bash
+
+IP=futuretech.membershipauto.com
+
+# Sync the working directory ft project up to the MA AWS server
+# development environment (not production)
+
+if [ "`basename $PWD`" != ft ]; then
+    echo "Must run from ft directory"
+    exit 1
+fi
+
+rsync -az . rails@$IP:/home/rails/ft

@@ -40,3 +40,6 @@ gem 'capistrano-rails'
 
 # To use debugger
 # gem 'debugger'
+
+gem 'devise', '~> 2.1.0'
+gem 'thin', '~> 1.6.3'

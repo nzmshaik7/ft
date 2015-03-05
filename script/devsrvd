@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Run rails dev server in bg.
+
+cd /home/rails/ft
+nohup ./script/srvssl.sh  > /home/rails/var/srvssl.out 2>&1 < /dev/null &
