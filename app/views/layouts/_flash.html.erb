@@ -1,0 +1,20 @@
+<div style="color: green"><%= notice %></div>
+<% xa = alert %>
+<% unless xa.nil? %>
+  <p class="alert"><B><font color="#800000"><%= alert %></font></B></p>
+<% end %>
+<% if flash %>
+  <% xf = flash[:error] %>
+  <% unless xf.nil? %>
+    <p class="alert"><B><font color="#800000">
+      <%= flash[:error] %>
+    </font></B></p>
+  <% end %>
+<% end %>
+<% if session[:role_error] %>
+  <p class="alert"><B><font color="#800000">
+    Security Violation: You are not authorized to 
+    access <%= session[:role_error]  %>.
+  </font></B></p>
+  <% session[:role_error] = nil %>
+<% end %>

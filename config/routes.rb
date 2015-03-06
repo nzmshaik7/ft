@@ -1,4 +1,20 @@
 Ft::Application.routes.draw do
+  devise_for :users
+
+  devise_scope :user  do
+    match '/logout'  => 'devise/sessions#destroy'
+  end
+
+  get "mockup/internal_veh"
+
+  get "mockup/multi_veh"
+
+  get "mockup/customer_veh"
+
+  get "mockup/store"
+
+  get "static/home"
+
   resources :users
 
   # The priority is based upon order of creation:
@@ -50,7 +66,7 @@ Ft::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'static#home'
 
   # See how all your routes lay out with "rake routes"
 

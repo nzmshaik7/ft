@@ -1,0 +1,34 @@
+<% cu = current_user %>
+<% unless defined?(showSignIn) %>
+  <% showSignIn = false %>
+<% end %>
+
+<table width="100%" border="0" class="navtab"><tr><td>
+
+  <% if cu.nil? %>
+    <i>(Not signed in)</i>
+    <% if defined?(showSignIn) and showSignIn %>
+	&nbsp; <B>|</B> &nbsp;
+	<a href="/users/sign_in">Sign In</a>
+    <% end %>
+  <% else %>
+    Signed in as <%=h cu.first_name %> <%=h cu.last_name %>
+    <% if cu.role.nil? %>
+      <i>(User has no role)</i>
+    <% else %>
+
+      (<%= cu.role.toText %>)
+      <% if cu.role == User::ROLE_ADMIN %>
+        &nbsp; <B>|</B> &nbsp;
+	<a href="/users">Users</a>
+      <% end %>
+      <% if cu.role == User::ROLE_ADMIN or cu.role == User::ROLE_MOCKER %>
+        &nbsp; <B>|</B> &nbsp;
+	<a href="/mockup">Mockup</a>
+      <% end %>
+
+    <% end %>
+    &nbsp; <B>|</B> &nbsp; <a href="/logout">Sign Out</a>
+  <% end %>
+
+</td></tr></table>

@@ -34,4 +34,9 @@ Ft::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Added for devise.  Won't work for cent6631, but will work OK for 
+  # dev ma ssl version I think.
+  config.action_mailer.default_url_options = { 
+         :host => 'futuretech.membershipauto.com:3443', :protocol => 'https' }
 end
