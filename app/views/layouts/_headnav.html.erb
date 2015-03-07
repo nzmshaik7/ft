@@ -17,7 +17,7 @@
       <i>(User has no role)</i>
     <% else %>
 
-      (<%= cu.role.toText %>)
+      (<%= cu.roleText %>)
       <% if cu.role == User::ROLE_ADMIN %>
         &nbsp; <B>|</B> &nbsp;
 	<a href="/users">Users</a>

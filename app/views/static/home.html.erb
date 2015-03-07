@@ -6,7 +6,7 @@
 <% else %>
   Welcome <%= cu.first_name %> <%= cu.last_name %>. <br>
   <% if not cu.role.nil? %>
-    You are classified as <%= cu.role.toText %>.
+    You are classified as <%= cu.roleText %>.
   <% end %>
 
   <% if cu.role == User::ROLE_ADMIN %>
