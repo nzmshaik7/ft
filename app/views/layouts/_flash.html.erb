@@ -11,6 +11,12 @@
     </font></B></p>
   <% end %>
 <% end %>
+<% if session[:aux_error] %>
+  <p class="alert"><B><font color="#800000">
+    <%= session[:aux_error].html_safe %>
+  </font></B></p>
+  <% session[:aux_error] = nil %>
+<% end %>
 <% if session[:role_error] %>
   <p class="alert"><B><font color="#800000">
     Security Violation: You are not authorized to 

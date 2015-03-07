@@ -1,20 +1,25 @@
-<h2>Futuretech home page</h2>
+<h2>Futuretech Prototype Home Page</h2>
 
 <% cu = current_user %>
 <% if cu.nil? %>
-  Please log in.
+  <font size="+1"><B>
+  Please sign in from <a href="/users/sign_in"> the sign in page.</a>
+  </B></font>
 <% else %>
   Welcome <%= cu.first_name %> <%= cu.last_name %>. <br>
   <% if not cu.role.nil? %>
-    You are classified as <%= cu.roleText %>.
+    You are classified as <%= cu.roleText %>. <br>
   <% end %>
 
   <% if cu.role == User::ROLE_ADMIN %>
     <a href="/users">Manage Users</a><br>
   <% end %>
   <% if cu.role == User::ROLE_ADMIN or cu.role == User::ROLE_MOCKER %>
-    <a href="/users">View Mockup</a><br>
+    <a href="/mockup/internal_veh">View Mockup</a><br>
+  <% end %>
+  <% if cu.role == User::ROLE_CUSTOMER %>
+    (Customer section isn't ready yet.)<br>
   <% end %>
 <% end %>
 
-<p>Find me in app/views/static/home.html.erb</p>
+<!-- Find me in app/views/static/home.html.erb -->

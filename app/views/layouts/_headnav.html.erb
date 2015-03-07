@@ -11,20 +11,26 @@
 	&nbsp; <B>|</B> &nbsp;
 	<a href="/users/sign_in">Sign In</a>
     <% end %>
+    &nbsp; <B>|</B> &nbsp;
+    <a href="/">Home</a>
   <% else %>
     Signed in as <%=h cu.first_name %> <%=h cu.last_name %>
     <% if cu.role.nil? %>
       <i>(User has no role)</i>
+      &nbsp; <B>|</B> &nbsp;
+      <a href="/">Home</a>
     <% else %>
 
       (<%= cu.roleText %>)
+      &nbsp; <B>|</B> &nbsp;
+      <a href="/">Home</a>
       <% if cu.role == User::ROLE_ADMIN %>
         &nbsp; <B>|</B> &nbsp;
 	<a href="/users">Users</a>
       <% end %>
       <% if cu.role == User::ROLE_ADMIN or cu.role == User::ROLE_MOCKER %>
         &nbsp; <B>|</B> &nbsp;
-	<a href="/mockup">Mockup</a>
+	<a href="/mockup/internal_veh">Mockup</a>
       <% end %>
 
     <% end %>

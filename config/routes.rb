@@ -1,8 +1,12 @@
 Ft::Application.routes.draw do
-  devise_for :users
+
+  devise_for :users, :controllers => {
+      :registrations => "ft_devise/registrations",
+      :sessions => "ft_devise/sessions",
+  }
 
   devise_scope :user  do
-    match '/logout'  => 'devise/sessions#destroy'
+      match '/logout'  => 'devise/sessions#destroy'
   end
 
   get "mockup/internal_veh"
@@ -14,6 +18,7 @@ Ft::Application.routes.draw do
   get "mockup/store"
 
   get "static/home"
+  get "static/signed_up"
 
   resources :users
 

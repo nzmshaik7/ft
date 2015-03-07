@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+    include ApplicationHelper
+
 
     def setRolesForm(u)
         @roles = { 'Select' => 0 }
@@ -18,6 +20,7 @@ class UsersController < ApplicationController
     # GET /users
     # GET /users.json
     def index
+        return  unless roleValid?([User::ROLE_ADMIN], 'user administration')
         @users = User.all
 
         respond_to do |format|
@@ -26,9 +29,11 @@ class UsersController < ApplicationController
         end
     end
 
+
     # GET /users/1
     # GET /users/1.json
     def show
+        return  unless roleValid?([User::ROLE_ADMIN], 'user administration')
         @user = User.find(params[:id])
 
         respond_to do |format|
@@ -37,9 +42,11 @@ class UsersController < ApplicationController
         end
     end
 
+
     # GET /users/new
     # GET /users/new.json
     def new
+        return  unless roleValid?([User::ROLE_ADMIN], 'user administration')
         @user = User.new
 
         respond_to do |format|
@@ -48,17 +55,24 @@ class UsersController < ApplicationController
         end
     end
 
+
     # GET /users/1/edit
     def edit
+        return  unless roleValid?([User::ROLE_ADMIN], 'user administration')
         @user = User.find(params[:id])
         setRolesForm(@user)
     end
 
+
     # POST /users
     # POST /users.json
+    # Devise user creation does not come here.
+    # See FtDevise::RegistrationsController#create
     def create
+        return  unless roleValid?([User::ROLE_ADMIN], 'user administration')
         @user = User.new(params[:user])
         setRolesForm(@user)
+        @user.role = User::ROLE_CUSTOMER
 
         respond_to do |format|
             if @user.save
@@ -74,10 +88,12 @@ class UsersController < ApplicationController
         end
     end
 
+
     # PUT /users/1
     # PUT /users/1.json
     def update
-        logger.info("=== params: #{params.inspect}")
+        return  unless roleValid?([User::ROLE_ADMIN], 'user administration')
+        # logger.info("=== params: #{params.inspect}")
         @user = User.find(params[:id])
 
         respond_to do |format|
@@ -93,9 +109,11 @@ class UsersController < ApplicationController
         end
     end
 
+
     # DELETE /users/1
     # DELETE /users/1.json
     def destroy
+        return  unless roleValid?([User::ROLE_ADMIN], 'user administration')
         @user = User.find(params[:id])
         @user.destroy
 

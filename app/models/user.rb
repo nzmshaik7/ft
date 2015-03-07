@@ -9,9 +9,10 @@ class User < ActiveRecord::Base
     attr_accessible :email, :password, :password_confirmation, :remember_me
     attr_accessible :first_name, :last_name, :role
 
-    validate :password_complexity
+    # validate :password_complexity
+    # password complexity is handled in ft_devise/registrations_controller.rb
 
-    # See vpatient if you need to hook user creation: before_create :pre_create
+    before_create :pre_create
 
     ROLE_ADMIN = 11
     ROLE_CLERK = 12
@@ -30,21 +31,12 @@ class User < ActiveRecord::Base
         return 'Unknown'
     end
 
-    def password_complexity
-        if password.present? 
-            if password.length < 8
-                errors.add :password, "XXYour password is #{password.length} " +
-                                      "characters; a minimum of 8 is required."
-            end
-            classes = 0
-            classes += 1 if password.match(/[a-z]/)
-            classes += 1 if password.match(/[A-Z]/)
-            classes += 1 if password.match(/[^\W\d]/)
-            if classes < 2
-                errors.add :password, "Mixed case, numbers, and/or " +
-                                      "symbols required"
-            end
+    def pre_create
+        if not self.encrypted_password.nil?  # devise called us
+            logger.info("==== create from devise")
+            self.role = ROLE_CUSTOMER
         end
     end
 
-  end
+
+end
