@@ -9,12 +9,15 @@ class User < ActiveRecord::Base
     attr_accessible :email, :password, :password_confirmation, :remember_me
     attr_accessible :first_name, :last_name, :role
 
+    validate :password_complexity
+
     # See vpatient if you need to hook user creation: before_create :pre_create
 
     ROLE_ADMIN = 11
     ROLE_CLERK = 12
     ROLE_MOCKER = 13
-    ALL_ROLES = [ ROLE_ADMIN, ROLE_CLERK, ROLE_MOCKER, ]
+    ROLE_CUSTOMER = 14
+    ALL_ROLES = [ ROLE_ADMIN, ROLE_CLERK, ROLE_MOCKER, ROLE_CUSTOMER, ]
 
 
     def roleText(r = nil)
@@ -23,7 +26,25 @@ class User < ActiveRecord::Base
         return 'Administrator'   if r == ROLE_ADMIN
         return 'Clerk'           if r == ROLE_CLERK
         return 'Mockup Viewer'   if r == ROLE_MOCKER
+        return 'Customer'   if r == ROLE_CUSTOMER
         return 'Unknown'
     end
 
-end
+    def password_complexity
+        if password.present? 
+            if password.length < 8
+                errors.add :password, "XXYour password is #{password.length} " +
+                                      "characters; a minimum of 8 is required."
+            end
+            classes = 0
+            classes += 1 if password.match(/[a-z]/)
+            classes += 1 if password.match(/[A-Z]/)
+            classes += 1 if password.match(/[^\W\d]/)
+            if classes < 2
+                errors.add :password, "Mixed case, numbers, and/or " +
+                                      "symbols required"
+            end
+        end
+    end
+
+  end
