@@ -1,0 +1,11 @@
+#!/bin/bash
+
+x=`hostname | sed -e "s/-.*//"`
+if [ $x != ip ]; then
+    echo "ERROR: Only run this on the aws host."
+    exit 1
+fi
+
+set -e
+cd ft/app/controllers
+sed -i application_controller.rb -e "s/#IF AWS //"

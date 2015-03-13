@@ -374,6 +374,7 @@ DEPENDENCIES
   capistrano-rails
   coffee-rails (~> 3.2.1)
   devise (~> 2.1.0)
+  eventmachine (~> 1.0.7)
   jquery-rails
   mysql2
   rails (= 3.2.8)

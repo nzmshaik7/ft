@@ -1,3 +1,12 @@
 History is in awshist
 Untested script is in awssetup.sh
 
+gem install eventmachine --platform=ruby
+got rid of Unable to load the EventMachine C extension;, instead got:
+LoadError: cannot load such file -- thin_parser
+
+Based on
+http://stackoverflow.com/questions/5380826/thin-loaderror-no-such-file-to-load-thin-parser
+cd /usr/local/share/gems1.9/gems/thin-1.6.3/lib
+ln -s ../ext/thin_parser/thin_parser.so .
+

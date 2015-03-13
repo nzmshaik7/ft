@@ -11,3 +11,6 @@ if [ "`basename $PWD`" != ft ]; then
 fi
 
 rsync -az . rails@$IP:/home/rails/ft
+ssh rails@$IP ft/script/awsdevpatch
+
+echo "Don't forget rake db:migrate"
