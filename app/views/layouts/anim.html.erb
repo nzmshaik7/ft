@@ -3,10 +3,10 @@
 <head>
   <title>Futuretech</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <script src="/assets/ftlogo.js" type="text/javascript"></script>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body onload="bodyloaded()">
 <%= render :partial => 'layouts/headnav' %>
 <%= render :partial => 'layouts/flash' %>
 
