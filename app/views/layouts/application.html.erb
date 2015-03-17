@@ -3,7 +3,17 @@
 <head>
   <title>Futuretech</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <% if params[:controller] == 'mockup' %>
+    <%= stylesheet_link_tag 'mockup/mcommon' %>
+    <%= stylesheet_link_tag 'mockup/mock' %>
+    <%= stylesheet_link_tag 'mockup/bootstrap-popbase' %>
+  <% end %>
   <%= javascript_include_tag "application" %>
+  <% if params[:controller] == 'mockup' %>
+    <%= javascript_include_tag 'mockup/bootstrap-tooltip' %>
+    <%= javascript_include_tag 'mockup/bootstrap-popover' %>
+    <%= javascript_include_tag 'mockup/mockup' %>
+  <% end %>
   <%= csrf_meta_tags %>
 </head>
 <body>

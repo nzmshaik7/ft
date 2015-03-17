@@ -1,0 +1,13 @@
+Changed application.css to only require the sheets we actually use.
+Then added code to layouts/application.html.erb to pull in
+extra stylesheets for the mockup controller.
+
+Be sure to add the conditional ones to config/environments/production.rb
+
+See 
+
+http://stackoverflow.com/questions/16386545/controller-specific-stylesheets-in-rails-3-inheritence
+
+http://fspengler.github.io/blog/2013/05/10/using-controller-specific-css-slash-javascript-with-rails-asset-pipeline/
+
+https://gist.github.com/ffmike/2338096
