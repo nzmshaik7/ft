@@ -1,1 +1,1359 @@
+
+<div class="mockframe">
   <B>Mockup pages: </B>
+  &nbsp; &nbsp; <a href="internal_veh.html">Single Vehicle Internal</a>
+  &nbsp; &nbsp; <a href="multi_veh.html">Multi Vehicle</a>
+  &nbsp; &nbsp; <a href="store.html">Store</a>
+  &nbsp; &nbsp; <a href="softwareprinc.html">Software Principles</a>
+</div>
+<div class="navframe">
+  <font color="#000080">
+    <%= image_tag("mockup/LogoJan120tr.png") %> &nbsp;
+    <B><I>FUTURETECH</I></B>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    Home &nbsp; | &nbsp; Search Vehicles &nbsp; | &nbsp; All Vehicles &nbsp; 
+    | &nbsp; Search Customers &nbsp; | &nbsp; Stores &nbsp; 
+    | &nbsp; Demographics &nbsp; | &nbsp; Help
+  </font>
+</div>
+
+<div class="periodframe">
+  <div class="periodbox">
+    Report on time period: &nbsp;
+    <input type="radio" name="periodradio" checked="checked" value="ytd">
+    Last 12 months
+    &nbsp; &nbsp;
+    <input type="radio" name="periodradio" value="qtd">
+    YTD 2014  
+    &nbsp; &nbsp;
+    <input type="radio" name="periodradio" value="last12">
+    QTD Q4 2014  
+    &nbsp; &nbsp;
+    <input type="radio" name="periodradio" value="custom">
+    From 
+    <select id="periodstmon" name="periodstmon">
+      <option value="1" selected="selected">Jan</option>
+      <option value="2">Feb</option>
+      <option value="3">Mar</option>
+      <option value="4">Apr</option>
+      <option value="5">May</option>
+      <option value="6">Jun</option>
+      <option value="7">Jul</option>
+      <option value="8">Aug</option>
+      <option value="9">Sep</option>
+      <option value="10">Oct</option>
+      <option value="11">Nov</option>
+      <option value="12">Dec</option>
+    </select>
+    <select id="periodstday" name="periodstday">
+      <option value="1" selected="selected">1</option>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16">16</option>
+      <option value="17">17</option>
+      <option value="18">18</option>
+      <option value="19">19</option>
+      <option value="20">20</option>
+      <option value="21">21</option>
+      <option value="22">22</option>
+      <option value="23">23</option>
+      <option value="24">24</option>
+      <option value="25">25</option>
+      <option value="26">26</option>
+      <option value="27">27</option>
+      <option value="28">28</option>
+      <option value="29">29</option>
+      <option value="30">30</option>
+      <option value="31">31</option>
+    </select>
+    <select id="periodstyear" name="periodstyear">
+      <option value="2010">2010</option>
+      <option value="2011">2011</option>
+      <option value="2012">2012</option>
+      <option value="2013">2013</option>
+      <option value="2014" selected="selected">2014</option>
+      <option value="2015">2015</option>
+    </select>
+    to
+    <select id="periodenmon" name="periodenmon">
+      <option value="1">Jan</option>
+      <option value="2">Feb</option>
+      <option value="3">Mar</option>
+      <option value="4">Apr</option>
+      <option value="5">May</option>
+      <option value="6">Jun</option>
+      <option value="7">Jul</option>
+      <option value="8">Aug</option>
+      <option value="9">Sep</option>
+      <option value="10">Oct</option>
+      <option value="11">Nov</option>
+      <option value="12" selected="selected">Dec</option>
+    </select>
+    <select id="periodenday" name="periodenday">
+      <option value="1">1</option>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16">16</option>
+      <option value="17">17</option>
+      <option value="18">18</option>
+      <option value="19">19</option>
+      <option value="20">20</option>
+      <option value="21">21</option>
+      <option value="22">22</option>
+      <option value="23">23</option>
+      <option value="24">24</option>
+      <option value="25">25</option>
+      <option value="26">26</option>
+      <option value="27">27</option>
+      <option value="28">28</option>
+      <option value="29">29</option>
+      <option value="30">30</option>
+      <option value="31" selected="selected">31</option>
+    </select>
+    <select id="periodenyear" name="periodenyear">
+      <option value="2010">2010</option>
+      <option value="2011">2011</option>
+      <option value="2012">2012</option>
+      <option value="2013">2013</option>
+      <option value="2014" selected="selected">2014</option>
+      <option value="2015">2015</option>
+    </select>
+    &nbsp; &nbsp;
+    <a href="#">Update</a>
+  </div>
+</div>
+
+<div class="vehtopframe">
+  <div class="custbox">
+    <div class="boxhdr">
+      <B>Customer/Owner</B>
+    </div>
+    <div class="custbox2">
+      <table border="1">
+	<tr><td>ID# FL-9022-4811</td></tr>
+	<tr><td>Lucy Jackson</td></tr>
+	<tr><td>123 Main Street</td></tr>
+	<tr><td>West Palm Beach, FL  32123</td></tr>
+	<tr><td>(561) 555-1234 </td></tr>
+	<tr><td>Member since Feb 2, 2014, <B>304 days</B></td></tr>
+	<tr><td>AAA member? <B>No</B></td></tr>
+	<tr><td>App Installed? <B>Yes</B></td></tr>
+	<tr><td>Web Registered? <B>Yes</B></td></tr>
+	<tr><td>
+	  <a id="cust1id" class="show_hide_popover" title="Lucy Jackson" 
+	     data-placement='right' data-trigger="focus" 
+	     tabindex="0" href='#'>View Details</a>
+	  <a id="xcust1id" class='hide_popover' href='#'>Hide Details</a>
+	</td></tr>
+	<tr><td>
+	  <a id="cust2id" class="show_hide_popover" title="Lucy Jackson" 
+	     data-placement='right' data-trigger="focus" 
+	     tabindex="0" href='#'>View History</a>
+	  <a id="xcust2id" class='hide_popover' href='#'>Hide Details</a>
+	</td></tr>
+	<tr><td>
+	  Other vehicles: <br>
+	  <a href='internal_veh.html'>2011 Honda Accord</a> <br>
+	  <a href='internal_veh.html'>2013 Ford Focus</a>
+	</td></tr>
+	<tr><td>
+	  <a href='Contract.html'>View Contract #98411</a>
+	</td></tr>
+	<tr><td>
+	  <a href='Classifications.html'>View Classifications</a>
+	</td></tr>
+	<tr><td>
+	  <a href='Insurance.html'>View Insurance</a>
+	</td></tr>
+	<tr><td>
+	  <a href='VideoTestm.html'>Video Testimony</a>
+	</td></tr>
+	<tr><td>
+	  <a href='WrittenTestm.html'>Written Testimony</a>
+	</td></tr>
+      </table>
+    </div>
+  </div>
+  <div id="cust1id_div" style="display: none">
+    <table border="1">
+      <tr>
+	<th colspan="2">Customer Details</th>
+      </tr>
+      <tr>
+	<td>MA ID#</td>
+	<td>FL-9022-4811</td>
+      <tr>
+	<td>First Name</td>
+	<td>Lucy</td>
+      </tr>
+      <tr>
+	<td>Last Name</td>
+	<td>Jackson</td>
+      </tr>
+      <tr>
+	<td>Spouse Name</td>
+	<td>Fred</td>
+      </tr>
+      <tr>
+	<td>Street</td>
+	<td>123 Main Street</td>
+      </tr>
+      <tr>
+	<td>Street2/Apt</td>
+	<td>#505</td>
+      </tr>
+      <tr>
+	<td>City</td>
+	<td>West Palm Beach</td>
+      </tr>
+      <tr>
+	<td>State Zip</td>
+	<td>FL 32123</td>
+      </tr>
+      <tr>
+	<td>Home Phone</td>
+	<td>(561) 555-1234</td>
+      </tr>
+      <tr>
+	<td>Work Phone</td>
+	<td>(561) 444-1234</td>
+      </tr>
+      <tr>
+	<td>Mobile Phone</td>
+	<td>(561) 333-1234</td>
+      </tr>
+      <tr>
+	<td>Signup Store</td>
+	<td>FL1/1917 N Dixie Hwy<br>West Palm Beach, FL</td>
+      </tr>
+      <tr>
+	<td>Dist to Signup Store</td>
+	<td>12.2 miles</td>
+      </tr>
+      <tr>
+	<td>Member Since</td>
+	<td>Feb 2, 2014<br>(304 days)</td>
+      </tr>
+      <tr>
+	<td>Referred by</td>
+	<td>Radio ad WRMF</td>
+      </tr>
+      <tr>
+	<td>DOB</td>
+	<td>Feb 28, 1980<br>(age 34)</td>
+      </tr>
+      <tr>
+	<td>Gender</td>
+	<td>Female</td>
+      </tr>
+      <tr>
+	<td>SSN</td>
+	<td>251-23-4567</td>
+      </tr>
+      <tr>
+	<td>DLN (FL)</td>
+	<td>K523-503-85-888-0</td>
+      </tr>
+      <tr>
+	<td colspan="2"><%= image_tag("mockup/lucydl.png") %></td>
+      </tr>
+      <tr>
+	<td>CC</td>
+	<td>Visa ending 7899</td>
+      </tr>
+      <tr>
+	<td colspan="2"><%= image_tag("mockup/visa1.png") %></td>
+      </tr>
+    </table>
+  </div>
+  <div id="cust2id_div" style="display: none">
+    <table border="1">
+      <tr>
+	<th colspan="2" bgcolor="#e0e0e0"><font color="#006040">
+	  Customer History
+	</font></th>
+      </tr>
+      <tr>
+	<td>Signup Store</td>
+	<td>FL1/1917 N Dixie Hwy<br>West Palm Beach, FL</td>
+      </tr>
+      <tr>
+	<td>Member Since</td>
+	<td>Feb 2, 2014<br>(304 days)</td>
+      </tr>
+      <tr>
+	<td>Referred by</td>
+	<td>Radio ad WRMF</td>
+      </tr>
+      <tr>
+	<th colspan="2" bgcolor="#e0e0e0"><font color="#006040">
+	  Store Visits
+	</font></th>
+      </tr>
+      <tr>
+	<td>Jan 4, 2014</td>
+	<td>FL1/West Palm Beach</td>
+      </tr>
+      <tr>
+	<td>Mar 14, 2014</td>
+	<td>FL1/West Palm Beach</td>
+      </tr>
+      <tr>
+	<td>Jul 9, 2014</td>
+	<td>FL2/West Palm Beach</td>
+      </tr>
+      <tr>
+	<td>Aug 19, 2014</td>
+	<td>FL3/Jupiter</td>
+      <tr>
+	<td>Nov 2, 2014</td>
+	<td>FL1/West Palm Beach</td>
+      </tr>
+    </table>
+  </div>
+  <div class="carbox">
+    <div class="boxhdr">
+      <B>Vehicle - <font color="#008000">Profitable by 50.2%</font></B>
+    </div>
+    <div class="carbox2">
+      <table border="1">
+	<tr>
+	  <td><B>Year | Make | Model | Sub</B></td>
+	  <td>2011 | Toyota | Matrix | ES</td>
+	</tr>
+	<tr>
+	  <td><B>Carfax</B></td>
+	  <td><a href="http://www.carfax.com/phoenix/vehicle_history/SampleReport.cfx?reportName=consumerMobileWeb">View</a></td>
+	</tr>
+	<tr>
+	  <td><B>VIN #</B></td>
+	  <td>1234-5678-4321-9876 </td>
+	</tr>
+	<tr>
+	  <td><B>VIN Decoded</B></td>
+	  <td><a href="VinDecode.html">View</a></td>
+	</tr>
+	<tr>
+	  <td><B>Door Plate</B></td>
+	  <td>
+	    <a id="doorphot" class="show_hide_popover" 
+	       title="Door Plate" 
+	       data-placement='right' data-trigger="focus" 
+	       tabindex="0" href='#'>View</a>
+	    <a id="xdoorphot" class='hide_popover' href='#'>Hide</a>
+	  </td>
+	</tr>
+	<tr>
+	  <td><B>Color</B></td>
+	  <td>Light blue</td>
+	</tr>
+	<tr>
+	  <td><B>Mileage</B></td>
+	  <td>53,488 </td>
+	</tr>
+	<tr>
+	  <td><B>Miles to 300K limit</B></td>
+	  <td>246,512</td>
+	</tr>
+	<tr>
+	  <td><B>FL Lic Plate</B></td>
+	  <td>D12 E34</td>
+	</tr>
+	<tr>
+	  <td><B>Date of Manufacture</B></td>
+	  <td>May 15 2010</td>
+	</tr>
+	<tr>
+	  <td><B>Country of Manufacture</B></td>
+	  <td>Japan</td>
+	</tr>
+	<tr>
+	  <td><B>MSRP</B></td>
+	  <td>$22,500</td>
+	</tr>
+	<tr>
+	  <td><B>Manufacturer Warranty</B></td>
+	  <td>3 years/36,000</td>
+	</tr>
+	<tr>
+	  <td><B>KBB value on qualification</B></td>
+	  <td>$12,430</td>
+	</tr>
+	<tr>
+	  <td><B>Current KBB value</B></td>
+	  <td>$8,430</td>
+	</tr>
+	<tr>
+	  <td><B>Consumer Reports</B></td>
+	  <td><a href="http://www.consumerreports.org/cro/cars/models/used/acura/ilx/overview.htm">View Report</a><br></td>
+	</tr>
+	<tr>
+	  <td><B>Engine</B></td>
+	  <td>2.5L V6</td>
+	</tr>
+	<tr>
+	  <td><B>Drive</B></td>
+	  <td>FWD</td>
+	</tr>
+	<tr>
+	  <td><B>MPG 30 days after initial service</B></td>
+	  <td>16.2 mpg</td>
+	</tr>
+	<tr>
+	  <td><B>Latest mileage: Oct 1, 2014</B></td>
+	  <td>16.0 mpg, down 0.2</td>
+	</tr>
+	<tr>
+	  <td><B>Average Miles Per Year</B></td>
+	  <td>12,544</td>
+	</tr>
+	<tr>
+	  <td><B>Contract expires</B></td>
+	  <td>Jun 15, 2025 </td>
+	</tr>
+	<tr>
+	  <td><B>Time to 15 year limit</B></td>
+	  <td>10 years, 210 days</td>
+	</tr>
+	<tr>
+	  <td><B>Photos</B></td>
+	  <td>
+	  <a id="vehphot" class="show_hide_popover" 
+	     title="2011 Toyota Matrix ES" 
+	     data-placement='right' data-trigger="focus" 
+	     tabindex="0" href='#'>View Photos</a>
+	  <a id="xvehphot" class='hide_popover' href='#'>Hide Photos</a>
+	  </td>
+	</tr>
+	<tr>
+	  <td><B>Non-MA Maintenance</B></td>
+	  <td><a href="NonMaMaint.html">View Records</a><br></td>
+	</tr>
+      </table>
+    </div>
+    <div id="vehphot_div" style="display: none">
+      <%= image_tag("mockup/car1.jpg") %><br>
+      <%= image_tag("mockup/car2.jpg") %><br>
+      <%= image_tag("mockup/car3.jpg") %><br>
+      <%= image_tag("mockup/car4.jpg") %><br>
+    </div>
+    <div id="doorphot_div" style="display: none">
+      <%= image_tag("mockup/DoorPlate.jpg") %>
+    </div>
+  </div>
+  <div class="carbox">
+    <div class="boxhdr">
+      <B>Fuel Economy</B>
+    </div>
+    <%= image_tag("mockup/mileageChart.png") %>
+  </div>
+  <div class="carbox">
+    <div class="boxhdr">
+      <B>Referrals</B>
+    </div>
+    <div class="carbox2">
+      <table border="1">
+	<tr><td><B>3 referred</B></td></tr>
+	<tr><td>&nbsp;&nbsp;Jack Sparrow</td></tr>
+	<tr><td>&nbsp;&nbsp;James Dean</td></tr>
+	<tr><td>&nbsp;&nbsp;Carrie Fisher</td></tr>
+	<tr><td><B>Credit Earned:</B><br>3 months</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="carbox">
+    <div class="boxhdr">
+      <B>Qualification Readings</B>
+    </div>
+    <div class="carbox2">
+      <table border="1">
+	<tr bgcolor="#e0e0e0">
+	  <th colspan="3"><font color="#006040">
+	    <center>Compression</center>
+	  </font></th>
+	</tr>
+	<tr>
+	  <td colspan="3">Spec: 145 +/-20%</td>
+	</tr>
+
+	<tr>
+	  <th>Cyl</th><th>PSI</th>
+	  <th>Diff</th>
+	</tr>
+	<tr>
+	  <td>1</td>
+	  <td><font color="#a00000">125</font></td>
+	  <td align="right"><font color="#a00000">13.8%</font></td>
+	</tr>
+	<tr>
+	  <td>2</td><td>135</td>
+	  <td align="right"><font color="#00a000">6.9%</font></td>
+	</tr>
+	<tr>
+	  <td>3</td><td>130</td>
+	  <td align="right"><font color="#a00000">10.3%</font></td>
+	</tr>
+	<tr>
+	  <td>4</font></td>
+	  <td><font color="#00a000">145</font></td>
+	  <td align="right"><font color="#00a000">0.0%</font></td>
+	</tr>
+	<tr>
+	  <td>5</td><td>142</td>
+	  <td align="right"><font color="#00a000">2.1%</font></td>
+	</tr>
+	<tr>
+	  <td>6</td><td>139</td>
+	  <td align="right"><font color="#00a000">4.1%</font></td>
+	</tr>
+	<tr bgcolor="#e0e0e0">
+	  <th colspan="3"><font color="#006040">
+	    <center>Other</center>
+	  </font></th>
+	</tr>
+	<tr>
+	  <td colspan="2">Leakdown</td>
+	  <td colspan="1">10%</td>
+	</tr>
+	<tr>
+	  <td colspan="3">
+	    <a href="QualReport.html">Qualification Reports</a><br>
+	    <a href="AlighmentReport.html">Alighment Reports</a><br>
+	    <a href="6Gas.html">6-Gas Readout</a><br>
+	    <a href="Spectrum.html">Spectrum Analysis</a><br>
+	  </td>
+	</tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="carbox">
+    <div class="boxhdr">
+      <B>Code History</B>
+    </div>
+    <div class="carbox2">
+      <table border="1">
+	<tr>
+	  <td>Mar 17, 2014</td>
+	  <td>P151</td>
+	</tr>
+	<tr>
+	  <td>Apr 30, 2014</td>
+	  <td>P744</td>
+	</tr>
+	<tr>
+	  <td>Jun 7, 2014</td>
+	  <td>X101</td>
+	</tr>
+	<tr>
+	  <td>Jul 30, 2014</td>
+	  <td>C5001</td>
+	</tr>
+	<tr>
+	  <td>Aug 2, 2014</td>
+	  <td>C5002</td>
+	</tr>
+      </table>
+    </div>
+    <div class="boxhdr">
+      <B>Tire TD Readings</B>
+    </div>
+    <div class="carbox2">
+      <table border="1">
+	<tr>
+	  <td>Mar 17, 2014</td>
+	  <td>7/32</td>
+	</tr>
+	<tr>
+	  <td>Apr 30, 2014</td>
+	  <td>7/32</td>
+	</tr>
+	<tr>
+	  <td>Jun 7, 2014</td>
+	  <td>6/32</td>
+	</tr>
+	<tr>
+	  <td>Jul 30, 2014</td>
+	  <td>6/32</td>
+	</tr>
+	<tr>
+	  <td>Aug 2, 2014</td>
+	  <td>6/32</td>
+	</tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="carbox">
+    <div class="boxhdr">
+      <B>BG Compliance</B>
+    </div>
+    <div class="carbox2">
+      <table border="1">
+	<tr>
+	  <td>BG Compliant?</td>
+	  <td><B>Yes</B></td>
+	</tr>
+	<tr>
+	  <td colspan="2">
+	    <a href='BgPaper.html'>View Paperwork</a>
+	  </td>
+	</tr>
+      </table>
+    </div>
+    <div class="boxhdr">
+      <B>Systems Covered</B>
+    </div>
+    <div class="carbox2">
+      <table border="1">
+	<tr>
+	  <td>fuel</td><td><B>$4,000</B></td>
+	</tr>
+	<tr>
+	  <td>engine</td><td><B>$4,000</B></td>
+	</tr>
+	<tr>
+	  <td>transmission</td><td><B>$2,000</B></td>
+	</tr>
+	<tr>
+	  <td>drive line</td><td><B>No</B></td>
+	</tr>
+	<tr>
+	  <td>cooling</td><td><B>$4,000</B></td>
+	</tr>
+	<tr>
+	  <td>power steering </td><td><B>$4,000</B></td>
+	</tr>
+	<tr>
+	  <td>brakes</td><td><B>$4,000</B></td>
+	</tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="endfloat">
+  </div>
+
+</div>
+
+<div class="vehhistframe">
+  <div class="payhistbox">
+    <div class="boxhdr">
+      <B>Membership Payment History</B>
+    </div>
+    <div class="payhistbox2">
+      <center>
+      <table border="1">
+	<tr bgcolor="#e0e0e0">
+	  <th colspan="3">
+	    <font color="#006040">Level 3</font>
+	    &nbsp; &nbsp; &nbsp; &nbsp;  
+	    Payment Agreement: 
+	    <a href='PaymentAgrmnt.html'>View</a>
+	  </th>
+	</tr>
+	<tr>
+	  <th>Base</th>
+	  <th>Upgrade</th>
+	  <th>Date</th>
+	</tr>
+	<!-- 10x 5.99 turbo  3 x 9.99 detail  4x7.00 tow -->
+	<tr>
+	  <td>$49.99</td>
+	  <td>$5.99 (turbo)</td>
+	  <td>Apr 1, 2014</td>
+	</tr>
+	<tr>
+	  <td>$49.99</td>
+	  <td>$5.99 (turbo)</td>
+	  <td>May 1, 2014</td>
+	</tr>
+	<tr>
+	  <td>$49.99</td>
+	  <td>$5.99 (turbo)</td>
+	  <td>Jun 1, 2014</td>
+	</tr>
+	<tr>
+	  <td>$49.99</td>
+	  <td>$5.99 (turbo)</td>
+	  <td>Jul 2, 2014</td>
+	</tr>
+	<tr>
+	  <td>$49.99</td>
+	  <td>$5.99 (turbo)</td>
+	  <td>Aug 1, 2014</td>
+	</tr>
+	<tr>
+	  <td>$49.99</td>
+	  <td>$5.99 (turbo)</td>
+	  <td>Sep 2, 2014</td>
+	</tr>
+	<tr>
+	  <td>$15.98</td>
+	  <td>$19.99 (turbo, detailing)</td>
+	  <td>Oct 1, 2014</td>
+	</tr>
+	<tr>
+	  <td>$49.99</td>
+	  <td>$22.98 (towing, turbo, detailing)</td>
+	  <td>Nov 1, 2014</td>
+	</tr>
+	<tr>
+	  <td>$49.99</td>
+	  <!-- 
+	  <td>
+	    $22.98
+	    <img src="images/tow30.png">
+	    <img src="images/turbo30.png">
+	    <img src="images/wash30.png">
+	  </td>
+	  -->
+	  <td>$22.98 (towing, turbo, detailing)</td>
+	  <td>Dec 1, 2014</td>
+	</tr>
+	<tr>
+	  <td>Ref.</td>
+	  <td>$22.98 (towing, turbo, detailing)</td>
+	  <td>Mar 1, 2014</td>
+	</tr>
+	<tr>
+	  <td><B>$449.91</B></td>
+	  <td><B>$117.87</B></td>
+	  <td><B>$567.78</B></td>
+	</tr>
+      </table>
+      </center>
+    </div>
+    <div class="payhistbox2">
+      <center>
+      <B>Club Fees Only</B><br>
+      <%= image_tag("mockup/PieSchdUnschd.png") %>
+      </center>
+    </div>
+  </div>
+  <div class="visithistbox">
+    <div class="boxhdr">
+      <B>This Vehicle Service History</B>
+    </div>
+    <div class="visithistbox2">
+      <table border="1">
+	<tr bgcolor="#e0e0e0">
+	  <th colspan="8"><font color="#006040">
+	    <center>Scheduled</center>
+	  </font></th>
+	</tr>
+	<tr>
+	  <th>Num</th>
+	  <th>Date</th>
+	  <th>Location</th>
+	  <th>Hours in Garage</th>
+	  <th>Description</th>
+	  <th>Labor</th>
+	  <th>Parts</th>
+	  <th>View</th>
+	</tr>
+	<tr>
+	  <td>1</td>
+	  <td>Mar 15, 2014</td>
+	  <td>FL72</td>
+	  <td>2.5</td>
+	  <td>Oil/Filter Change</td>
+	  <td>1.3hr/$19.50</td>
+	  <td>$17.50</td>
+	  <td>
+	    <a id="vr1id" class="show_hide_popover" title="1: Mar 15" 
+	       data-placement='left' data-trigger="focus" 
+	       tabindex="0" href='#'>View</a>
+	    <a id="xvr1id" class='hide_popover' href='#'>Hide</a>
+	  </td>
+	</tr>
+	<tr>
+	  <td>2</td>
+	  <td>May 5, 2014</td>
+	  <td>FL72</td>
+	  <td>1.5</td>
+	  <td>Plugs, Bulbs, Wheel repair</td>
+	  <td>2.25hr/$37.50</td>
+	  <td>$31.17</td>
+	  <td>
+	    <a id="vr2id" class="show_hide_popover" title="2: May 5" 
+	       data-placement='left' data-trigger="focus" 
+	       tabindex="0" href='#'>View</a>
+	    <a id="xvr2id" class='hide_popover' href='#'>Hide</a>
+	  </td>
+	</tr>
+	<tr>
+	  <td>3</td>
+	  <td>Jul 8, 2014</td>
+	  <td>FL72</td>
+	  <td>3.2</td>
+	  <td>Tire Rotation</td>
+	  <td>1.2hr/$18.00</td>
+	  <td>$0.00</td>
+	  <td>
+	    <a id="vr3id" class="show_hide_popover" title="3: Jul 8" 
+	       data-placement='left' data-trigger="focus" 
+	       tabindex="0" href='#'>View</a>
+	    <a id="xvr3id" class='hide_popover' href='#'>Hide</a>
+	  </td>
+	</tr>
+	<tr>
+	  <td>4</td>
+	  <td>Oct 8, 2014</td>
+	  <td>FL72</td>
+	  <td>0.8</td>
+	  <td>Oil/Filter Change</td>
+	  <td>1.3hr/$19.50</td>
+	  <td>$27.50</td>
+	  <td>
+	    <a id="vr4id" class="show_hide_popover" title="4: Oct 8" 
+	       data-placement='left' data-trigger="focus" 
+	       tabindex="0" href='#'>View</a>
+	    <a id="xvr4id" class='hide_popover' href='#'>Hide</a>
+	  </td>
+	</tr>
+	<tr>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td><B>SUBTOTAL</B></td>
+	  <td><B>$170.67</B></td>
+	  <td><B>6.05hr/$94.50</B></td>
+	  <td><B>$76.17</B></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <th colspan="8" bgcolor="#ffffff">
+	    <font size="+4">&nbsp; </font>
+	  </th>
+	</tr>
+	<tr bgcolor="#e0e0e0">
+	  <th colspan="8"><font color="#006040">
+	    <center>Unscheduled</center>
+	  </font></th>
+	</tr>
+	<tr>
+	  <th colspan="8">
+	    <font size="+3">&nbsp; </font>
+	  </th>
+	</tr>
+	<tr>
+	  <th>Num</th>
+	  <th>Date</th>
+	  <th>Location</th>
+	  <th>Hours in Garage</th>
+	  <th>Description</th>
+	  <th>Labor</th>
+	  <th>Parts</th>
+	  <th>View</th>
+	</tr>
+	<tr>
+	  <td>5</td>
+	  <td>May 01, 2014</td>
+	  <td>FL72</td>
+	  <td>5.8</td>
+	  <td>Front-end Repair</td>
+	  <td>1.3hr/$19.50</td>
+	  <td>$27.50</td>
+	  <td>
+	    <a id="vr5id" class="show_hide_popover" title="5: May 01" 
+	       data-placement='left' data-trigger="focus" 
+	       tabindex="0" href='#'>View</a>
+	    <a id="xvr5id" class='hide_popover' href='#'>Hide</a>
+	  </td>
+	</tr>
+	<tr>
+	  <td>6</td>
+	  <td>Jul 25, 2014</td>
+	  <td>FL72</td>
+	  <td>3.7</td>
+	  <td>Replace Shocks</td>
+	  <td>2.5hr/$37.50</td>
+	  <td>$29.05</td>
+	  <td>
+	    <a id="vr6id" class="show_hide_popover" title="6: May 5" 
+	       data-placement='left' data-trigger="focus" 
+	       tabindex="0" href='#'>View</a>
+	    <a id="xvr6id" class='hide_popover' href='#'>Hide</a>
+	  </td>
+	</tr>
+	<tr>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td><B>SUBTOTAL</B></td>
+	  <td><B>$113.55</B></td>
+	  <td><B>3.8hr/$57.00</B></td>
+	  <td><B>$56.55</B></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td><B>TOTAL</B></td>
+	  <td><B>9.85hr/$151.50</B></td>
+	  <td><B>$132.72</B></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td><B>YTD EXPECTED</B></td>
+	  <td><B>10.0hr/$160.00</B></td>
+	  <td><B>$140.00</B></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td><B>DIFFERENCE</B></td>
+	  <td><B><font color="#008000">-0.15hr/$8.50</B></font></td>
+	  <td><B><font color="#008000">-$7.28</B></font></td>
+	  <td></td>
+	</tr>
+      </table>
+    </div> <!-- visithistbox2 -->
+
+    <!-- contents of popovers -->
+    <div id="vr1id_div" style="display: none">
+      <table border="1">
+        <tr>
+	  <th>Labor</th>
+	  <th>Parts</th>
+        </tr>
+        <tr>
+	  <td>T#181/Jackson 1.3hrs @ $15.00</td>
+	  <td>P#F99-84424/Oil Filter $8.50</td>
+        </tr>
+        <tr>
+	  <td>&nbsp;</td>
+	  <td>P#AX-12345/Air Filter $7.50</td>
+        </tr>
+        <tr>
+	  <td>&nbsp;</td>
+	  <td>P#78AA7-99/Cabin Filter $1.50</td>
+        </tr>
+        <tr>
+	  <td><B>Total:</B>$19.50</td>
+	  <td><B>Total:</B>$17.50</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="vr2id_div" style="display: none">
+      <table border="1">
+        <tr>
+	  <th>Labor</th>
+	  <th>Parts</th>
+        </tr>
+        <tr>
+	  <td>T#131/Johnson 1.5hrs @ $20.00</td>
+	  <td>P#F99-84424/Spark Plugs $18.50</td>
+        </tr>
+        <tr>
+	  <td>T#135/Jones 0.5hrs @ $10.00</td>
+	  <td>P#AX-12345/Rear Signal Bulb $7.50</td>
+        </tr>
+        <tr>
+	  <td>T#135/Jones 0.25hrs @ $10.00</td>
+	  <td>P#78AA7-99/Steering Wheel $5.17</td>
+        </tr>
+        <tr>
+	  <td><B>Total:</B>$37.50</td>
+	  <td><B>Total:</B>$31.17</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="vr3id_div" style="display: none">
+      <table border="1">
+        <tr>
+	  <th>Labor</th>
+	  <th>Parts</th>
+        </tr>
+        <tr>
+	  <td>T#181/Jackson 1.2hrs @ $15.00</td>
+	  <td>&nbsp;</td>
+        </tr>
+        <tr>
+	  <td><B>Total:</B>$18.00</td>
+	  <td><B>Total:</B>$0.00</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="vr4id_div" style="display: none">
+      <table border="1">
+        <tr>
+	  <th>Labor</th>
+	  <th>Parts</th>
+        </tr>
+        <tr>
+	  <td>T#181/Jackson 1.3hrs @ $15.00</td>
+	  <td>P#F99-84424/Oil Filter $18.50</td>
+        </tr>
+        <tr>
+	  <td>&nbsp;</td>
+	  <td>P#AX-12345/Air Filter $7.50</td>
+        </tr>
+        <tr>
+	  <td>&nbsp;</td>
+	  <td>P#78AA7-99/Cabin Filter $1.50</td>
+        </tr>
+        <tr>
+	  <td><B>Total:</B>$19.50</td>
+	  <td><B>Total:</B>$27.50</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="vr5id_div" style="display: none">
+      <table border="1">
+        <tr>
+	  <th>Labor</th>
+	  <th>Parts</th>
+        </tr>
+        <tr>
+	  <td>T#181/Jackson 1.3hrs @ $15.00</td>
+	  <td>P#12345/Tie rod $27.50</td>
+        </tr>
+        <tr>
+	  <td><B>Total:</B>$19.50</td>
+	  <td><B>Total:</B>$27.50</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="vr6id_div" style="display: none">
+      <table border="1">
+        <tr>
+	  <th>Labor</th>
+	  <th>Parts</th>
+        </tr>
+        <tr>
+	  <td>T#181/Jackson 2.5hrs @ $15.00</td>
+	  <td>P#12345/Shocks $29.05</td>
+        </tr>
+        <tr>
+	  <td><B>Total:</B>$37.50</td>
+	  <td><B>Total:</B>$29.05</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="plbox">
+    <div class="boxhdr">
+      <B>Profit/Loss This Vehicle</B>
+    </div>
+    <div class="plbox2">
+      <center>
+      <table border="1">
+	<tr>
+	  <td>Qualification Sale</td>
+	  <td><font color="#00a000">$1000.00</font></td>
+	</tr>
+	<tr>
+	  <td>Qualification Labor Cost</td>
+	  <td><font color="#a00000">$250.00</td>
+	</tr>
+	<tr>
+	  <td>Qualification Parts Cost</td>
+	  <td><font color="#a00000">$150.00</td>
+	</tr>
+	<tr>
+	  <td>Gross Profit on Qual</td>
+	  <td>&nbsp;$600.00</td>
+	</tr>
+	<tr>
+	  <td colspan="2">&nbsp;</td>
+	</tr>
+	<tr>
+	  <td>Membership Income</td>
+	  <td><font color="#00a000">$449.91</td>
+	</tr>
+	<tr>
+	  <td>Membership Labor Cost</td>
+	  <td><font color="#a00000">$151.50</td>
+	</tr>
+	<tr>
+	  <td>Membership Parts Cost</td>
+	  <td><font color="#a00000">$132.72</td>
+	</tr>
+	<tr>
+	  <td>Membership Total Expense</td>
+	  <td><font color="#a00000">$284.22</td>
+	</tr>
+	<tr>
+	  <td colspan="2">&nbsp;</td>
+	</tr>
+	<tr>
+	  <td>Vehicle Gross Income</td>
+	  <td>&nbsp;$1449.91</td>
+	</tr>
+	<tr>
+	  <td><font color="#008000"><B>NET PROFIT</B></font></td>
+	  <td><font color="#008000"><B>&nbsp;$765.69</B></font></td>
+	</tr>
+      </table>
+      <B>Total Vehicle Profitability</B><br>
+      <%= image_tag("mockup/piePl.png") %><br>
+      &nbsp;<br>
+      <B>Vehicle Profitability Trend</B><br>
+      <%= image_tag("mockup/profitability.png") %><br>
+      </center>
+    </div>
+  </div>
+
+  <div class="genitembox">
+    <div class="boxhdr">
+      <B>&nbsp; Membership Parts and Labor Cost &nbsp;</B>
+    </div>
+    <div class="gendatabox">
+      <center>
+        <%= image_tag("mockup/BarPartLabr.png") %>
+      </center>
+    </div>
+  </div>
+
+  <div class="genitembox">
+    <div class="boxhdr">
+      <B>Finance Agreement</B>
+    </div>
+    <div class="gendatabox">
+      <div class="financetblbox">
+	<table border="1">
+	  <tr>
+	    <th colspan="2">
+	      <center><B>Overview</B></center>
+	    </th>
+	  </tr>
+	  <tr>
+	    <td>Missed Payments</td>
+	    <td>1</td>
+	  </tr>
+	  <tr>
+	    <td>Missed Payment Fee</td>
+	    <td>$30.00</td>
+	  </tr>
+	  <tr>
+	    <td>Total Principal</td>
+	    <td>$800.00</td>
+	  </tr>
+	  <tr>
+	    <td>Finance Fee 10%</td>
+	    <td>$80.00</td>
+	  </tr>
+	  <tr>
+	    <td>Monthly Payment</td>
+	    <td>$88.00</td>
+	  </tr>
+	  <tr>
+	    <td>Total Fees</td>
+	    <td>$110.00</td>
+	  </tr>
+	  <tr>
+	    <td>Start Date</td>
+	    <td>Mar 1, 2014</td>
+	  </tr>
+	  <tr>
+	    <td>End Date</td>
+	    <td>Sep 1, 2014</td>
+	  </tr>
+	</table>
+      </div>
+      <div class="financetblbox">
+	<table border="1">
+	  <tr>
+	    <th>Payment Amount</th>
+	    <th>Payment Date</th>
+	  </tr>
+	  <tr>
+	    <td>$88.00</td>
+	    <td>Feb 15, 2014</td>
+	  </tr>
+	  <tr>
+	    <td>$88.00</td>
+	    <td>Mar 15, 2014</td>
+	  </tr>
+	  <tr>
+	    <td>$88.00</td>
+	    <td>Apr 18, 2014</td>
+	  </tr>
+	  <tr>
+	    <td>$100.00</td>
+	    <td>May 15, 2014</td>
+	  </tr>
+	  <tr>
+	    <td>$88.00</td>
+	    <td>Jun 12, 2014</td>
+	  </tr>
+	  <tr>
+	    <td><B>Income Total</B></td>
+	    <td><B>$452.00</B></td>
+	  </tr>
+	  <tr>
+	    <td><B>Balance</B></td>
+	    <td><B>$458.00</B></td>
+	  </tr>
+	  <tr>
+	    <td>Title</td>
+	    <td>
+	      <a id="titlphot" class="show_hide_popover" 
+		 title="Title" 
+		 data-placement='left' data-trigger="focus" 
+		 tabindex="0" href='#'>View</a>
+	      <a id="xtitlphot" class='hide_popover' href='#'>Hide</a>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>Finance Agreement</td>
+	    <td>
+	      <a href='LoanAgrmnt.html'>View</a>
+	    </td>
+	  </tr>
+	</table>
+      </div>
+      <div id="titlphot_div" style="display: none">
+        <%= image_tag("mockup/FloridaTitle.jpg") %>
+      </div>
+      <div class="endfloat">
+      </div>
+    </div>  <!-- end gendatabox -->
+  </div>
+
+  <div class="genitembox">
+    <div class="boxhdr">
+      <B>&nbsp;Automatic Data Link Info&nbsp;</B>
+    </div>
+    <div class="gendatabox">
+      <div class="financetblbox">
+	<table border="1">
+	  <tr>
+	    <th colspan="2">
+	      <center><B>S/N 541938</B></center>
+	    </th>
+	  </tr>
+	  <tr>
+	    <td>Data</td>
+	    <td>1</td>
+	  </tr>
+	  <tr>
+	    <td>Data</td>
+	    <td>2</td>
+	  </tr>
+	  <tr>
+	    <td>Data</td>
+	    <td>3</td>
+	  </tr>
+	  <tr>
+	    <td>Data</td>
+	    <td>4</td>
+	  </tr>
+	  <tr>
+	    <td>Data</td>
+	    <td>5</td>
+	  </tr>
+	  <tr>
+	    <td>Data</td>
+	    <td>6</td>
+	  </tr>
+	  <tr>
+	    <td>Data</td>
+	    <td>Mar 1, 2014</td>
+	  </tr>
+	</table>
+      </div>
+      <div class="endfloat">
+      </div>
+    </div>  <!-- end gendatabox -->
+  </div>
+
+  <div class="genitembox">
+    <div class="boxhdr">
+      <B>&nbsp;TSB and Recalls&nbsp;</B>
+    </div>
+    <div class="gendatabox">
+      <div class="financetblbox">
+	<table border="1">
+	  <tr>
+	    <td>R8112: Alternator</td>
+	    <td><font color="#800000">NOT DONE</font></td>
+	  </tr>
+	  <tr>
+	    <td>R4622: ABS sensor</td>
+	    <td><font color="#008000">Done 03/14/2013</font></td>
+	  </tr>
+	  <tr>
+	    <td>R1982: Accelerator</td>
+	    <td><font color="#008000">Done 03/14/2013</font></td>
+	  </tr>
+	</table>
+      </div>
+      <div class="endfloat">
+      </div>
+    </div>  <!-- end gendatabox -->
+  </div>
+
+  <div class="genitembox">
+    <div class="boxhdr">
+      <B>Mileage Tracker</B>
+    </div>
+    <div class="gendatabox">
+      <center>
+        <%= image_tag("mockup/15kMilYr.png") %>
+      </center>
+    </div>
+    <div class="gendatabox">
+      <center>
+        <font color="#008000"><B>Under by 2867 miles</B></font>
+      </center>
+    </div>
+  </div>
+
+  <div class="endfloat">
+    <center>
+      Copyright &copy; 1999-2015 Innovative Auto, Inc. and Membership Auto.  All rights reserved.
+    </center>
+  </div>
+</div>
+
+<div class="footframe">
+
+</body>
+</html>
