@@ -10,11 +10,8 @@ Ft::Application.routes.draw do
   end
 
   get "mockup/internal_veh"
-
   get "mockup/multi_veh"
-
   get "mockup/customer_veh"
-
   get "mockup/store"
 
   get "static/home"

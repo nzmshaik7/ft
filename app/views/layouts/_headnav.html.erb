@@ -5,6 +5,11 @@
 
 <table width="100%" border="0" class="navtab"><tr><td class="navtab">
 
+  <font color="#000080">
+  <%= image_tag("mockup/LogoJan120tr.png") %> &nbsp;
+   <B><I>FUTURETECH</I></B>
+   &nbsp; <B>|</B> &nbsp;
+
   <% if cu.nil? %>
     <i>(Not signed in)</i>
     <% if defined?(showSignIn) and showSignIn %>
@@ -30,11 +35,12 @@
       <% end %>
       <% if cu.role == User::ROLE_ADMIN or cu.role == User::ROLE_MOCKER %>
         &nbsp; <B>|</B> &nbsp;
-	<a href="/mockup/internal_veh">Mockup</a>
+	<a href="/mockup/internal_veh">Analytics (Mockup)</a>
       <% end %>
 
     <% end %>
     &nbsp; <B>|</B> &nbsp; <a href="/logout">Sign Out</a>
   <% end %>
+  </font>
 
 </td></tr></table>
