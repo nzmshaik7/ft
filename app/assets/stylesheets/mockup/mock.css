@@ -14,6 +14,8 @@
              margin: 0; padding: 4px; }
 .gendatabox2 { background-color: #F0FFF0; 
              margin: 0; padding: 4px; }
+.gentextbox { background-color: #F0FFF0; 
+             margin: 0; padding: 12px; }
 
 .vehhistframe { background-color: #D0E0FF;
                 border:1px solid #00f; }

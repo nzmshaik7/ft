@@ -10,3 +10,4 @@ http://stackoverflow.com/questions/5380826/thin-loaderror-no-such-file-to-load-t
 cd /usr/local/share/gems1.9/gems/thin-1.6.3/lib
 ln -s ../ext/thin_parser/thin_parser.so .
 
+FT creds are in clpe:/home/dlaw/salient/membershipauto/server/aws.notes

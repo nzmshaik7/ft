@@ -14,9 +14,7 @@ class ApplicationController < ActionController::Base
         if resource.is_a?(User)
             if resource.role == User::ROLE_ADMIN
                 '/static/home'
-            elsif resource.role == User::ROLE_CASE_MAKER
-                '/static/home'
-            elsif resource.role == User::ROLE_STUDENT
+            elsif resource.role == User::ROLE_MOCKER
                 '/static/home'
             else
                 '/static/home'
