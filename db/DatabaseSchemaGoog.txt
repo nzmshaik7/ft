@@ -1,0 +1,149 @@
+Database Schema
+
+
+Customer
+        First name
+        Last name
+        Street Address 1
+        Street Address 2
+        City
+        State
+        Zip
+        Home phone
+        OK to text to Home phone
+        Work phone
+        OK to text to Work phone
+        Mobile phone
+        OK to text to Mobile phone
+        Other phone
+        OK to text to Other phone
+        Email
+        Password
+        List of Vehicles
+        List of Invoices
+        List of Payments
+        Reference to payment information
+        Date of Birth
+        Gender
+
+
+Vehicle
+        VIN
+        License Plate
+        Reference to Customer
+        List of ServiceVisits
+        List of ScheduledAppointments
+        Reference to Make and Model
+        Date of manufacture
+        Color
+        Doors
+        Convertible
+        Comments
+        Number of breakdowns
+
+
+ScheduledAppointments
+        Date and Time
+        Actual Date and Time
+        Status (completed, pending, cancelled)
+        Purpose (regular checkup, repair needed)
+        Reference to Vehicle
+        Reference to Store
+
+
+ServiceVisit
+        Date and Time, entry time, exit time, journal of how long everything took during the visit.
+        Mileage
+        Reference to Store
+        Reference to Vehicle
+        Reference to InvoiceLineItem
+        List of ServiceLineItems
+        Comments
+
+
+ServiceLineItem
+        Description
+        Reference to Part
+        Part retail price
+        Part actual price  (These are copied from the part since the part may change later.)
+        Labor hours retail
+        Labor rate retail
+        Labor hours actual
+        Labor rate actual
+        Reference to Technician (ok if not a list?)
+        Regular maintenance or repair.
+
+
+Part
+        Manufacturer
+        Name
+        Description
+        Part Number
+        Reference to Make and Model?  Year?
+        Actual cost
+        Retail price
+
+
+Make
+        Name
+
+
+Model
+        Name
+        Reference to Make
+        First year made
+        Last year made
+
+
+Payment
+        Date and Time
+        Reference to Invoice (or InvoiceLineItem)
+        Amount
+        Payment method used
+
+
+Payment Information
+        Type (Visa, ACH, etc.)
+        Account number
+        Routing number (for ACH)
+        Expiration Date
+        CVV
+
+
+Invoice
+        Invoice number
+        Date and Time
+        Reference to Customer
+        List of InvoiceLineItems
+
+
+InvoiceLineItem
+        Amount
+        Reference to Service Visit or
+        Purpose (such as monthly membership dues)
+        Reference to Vehicle
+
+
+Store
+        Name
+        Manager
+        Street Address
+        City
+        State
+        Zip
+        Phone
+        Number of lifts
+
+
+Technician
+        First Name
+        Last Name
+        Reference to Store
+        Level
+        Hourly rate
+
+
+Inventory
+        Reference to Store
+        Reference to Part
+        Count
