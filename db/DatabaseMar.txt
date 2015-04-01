@@ -1,0 +1,377 @@
+DATABASE SCHEMA
+
+Customer
+	ID
+        First name
+        Last name
+        Street Address 1
+        Street Address 2
+        City
+        State
+        Zip
+        Home phone
+        OK to text to Home phone
+        Work phone
+        OK to text to Work phone
+        Mobile phone
+        OK to text to Mobile phone
+        Other phone
+        OK to text to Other phone
+        Email
+        (Devise Password)
+	Joined date
+	AAA member?
+	Web registered?
+	Spouse Name
+	Spouse id
+	Signup Store id
+	ReferredBy id  # points to ReferredBy table
+	ReferredBy customer id  # points to customer
+	ReferredBy other text
+	SSN
+	Driver License num
+	Driver License state id
+	Driver License image id
+        Date of Birth
+        Gender
+	Video testimony URL
+	Written testimony id
+	Referral Credits Earned
+	Referral Credits Used
+	FinanceAgreement id
+	# Primary keys that point here
+        List of Vehicles
+        List of Invoices
+        List of Payments
+        List of Payment Methods
+
+FinanceAgreement
+	MissedPaymentFee
+	TotalPrincipal
+	FinanceFee
+	MonthlyPaymentAmount
+	StartDate
+	EndDate
+	TitleImage id
+	AgreementImage id
+	# Primary keys that point here
+        List of Payments
+
+ReferredBy 
+        Description
+
+Contract
+	BeginDate
+        Number
+	Image id
+	Salesperson id
+	Level
+	BaseCost
+	# Primary keys that point here
+	List of Upgrades
+	DayOfPayment
+	Discount (amount)
+	Discount (percentage)
+
+Upgrades
+	Contract id
+        UpgradeType id
+	Cost (copied and adjustable)
+
+UpgradeType 
+        Name
+	Cost
+
+Testimony 
+        User Text
+
+Image
+        Filename
+	Next image id  # Linked list
+
+Vehicle
+        VIN
+	VinDecoded
+        License Plate
+        License Plate State id
+        Customer id
+        Make id
+	Model id
+	Submodel id
+        Date of manufacture
+        Country of manufacture
+	MSRP
+	Manufacturer Warranty id
+	KBB value on qualification
+	Current KBB value
+	ConsumeReportsUrl
+	Engine cyl
+	Engine displacement
+	WheelDrive id
+        Color id
+        Doors
+        Convertible
+        Comments
+	Classifications id
+	Insurance company id
+	Insurance policy number
+	Insurance image id
+	Carfax url
+	DoorPlateImage id
+	Mileage
+	MPG 30 days after initial service
+	Photos Image id
+	Qualification id
+	BGCompliant
+	BGComplianceImages id
+	Contract id
+	# Primary keys that point here
+        List of ServiceVisits
+        List of ScheduledAppointments
+	List of GasMileages
+	List of NonMaMaintenance
+	List of CodeHistories
+	List of TireTdReadings
+	List of BGSystemsCovered
+        List of Breakdowns
+        List of AutomaticDataLinkInfos
+        List of TSBandRecalls
+
+AutomaticDataLinkInfos
+	Vehicle id
+        SerialNumber
+	Date
+	Data
+
+TSBandRecalls
+	Vehicle id
+        Name
+	DateCompleted
+
+Breakdowns
+	Vehicle id
+        Date
+	Description
+
+ManufacturerWarranties
+        Months
+	Miles
+
+BGSystemsCovered
+        Vehicle id
+	System id
+	Coverage  (Can be zero to indicate not covered)
+
+BGSystems
+        Name
+
+TireTdReadings
+        Vehicle id
+	Date
+	Depth32nds
+
+CodeHistories
+        Vehicle id
+	Date
+	Code
+        
+Qualification
+        Date
+	Leakdown
+	QualReportImages id
+	AlignmentReportImages id
+	SixgasReportImages id
+	SpectrumReportImages id
+	CylinderCompressionSpec
+	ServiceVisit id
+	# Primary keys that point here
+	List of CylinderCompressions
+
+CylinderCompressions
+	Qualification id
+        CylNum
+	PSI
+
+GasMileages
+        Vehicle id
+	Mileage
+	Date
+
+NonMaMaintenance
+	Vehicle id
+        Date
+	Where
+	Document Image id
+
+Color
+        Name
+
+WheelDrive 
+        Name (4WD, AWD, etc)
+
+
+Classifications
+        Image id
+	# Primary keys that point here
+	List of ScheduledService
+
+ScheduledServices
+	Classifications id
+        Date
+	Mileage
+	# Primary keys that point here
+	List of ScheduledServiceItems
+
+ScheduledServiceItems
+	ScheduledServices id
+        Name
+
+ScheduledAppointments
+        Date and Time
+        Actual Date and Time
+        Status (completed, pending, cancelled)
+        Purpose (regular checkup, repair needed)
+        Vehicle id
+        Store id
+
+ServiceVisit
+        Mileage
+	Date
+	Description
+        Store id
+        Vehicle id
+        InvoiceLineItem id
+        Comments
+	# Primary keys that point here
+        List of ServiceLineItems
+	List of ServiceJournals
+
+ServiceJournals
+	ServiceVisit id
+        Event id
+	Date and Time
+
+ServiceJournalsEvents
+        Name
+
+ServiceLineItem
+	ServiceVisit id
+        ServiceDescription id
+        ServiceDescriptionText
+        Labor hours retail
+        Labor rate retail
+        Labor hours actual
+        Labor rate actual
+        Technician1 id (ok if not a list?)
+        Technician2 id (ok if not a list?)
+        Technician3 id (ok if not a list?)
+        Scheduled or unscheduled
+	# Primary keys that point here
+        List of ServiceParts
+
+ServiceDescription
+        Name
+        Labor rate retail
+        Labor hours retail
+
+ServiceParts
+	ServiceLineItem id
+        Part id
+	# (These are copied from the part since the part may change later.)
+        Part retail price
+        Part actual price  
+
+
+Part
+        Manufacturer
+        Name
+        Description
+        Part Number
+        Make id
+	Model id
+	Year
+        Actual cost
+        Retail price
+
+
+Make
+        Name
+
+
+Model
+        Name
+        Make id
+        First year made
+        Last year made
+
+
+Payment
+        Date and Time
+        Invoice id (or InvoiceLineItem?)  # one or the other of these
+	FinanceAgreement id
+        Customer id
+        Amount
+        Payment method used
+	Status
+	MerchantServicesStatus
+	Comment
+
+
+Payment Methods
+	Customer id
+        Type (Visa, ACH, etc.)
+	Priority
+        Account number id
+        Routing number (for ACH)
+        Expiration Date
+        CVV id
+	Image id (front and back)
+
+
+Invoice
+        Invoice number
+        Date and Time
+        Customer id
+        List of InvoiceLineItems
+
+
+InvoiceLineItem
+        Amount
+	Invoice id
+        LineItemPurpose id (such as monthly membership dues)
+        ServiceVisit id
+        Vehicle id
+
+LineItemPurpose
+        Name  (monthly dues, service item, late fee, etc.)
+
+
+Store
+        Name
+        Manager
+        Street Address
+        City
+        State
+        Zip
+        Phone
+        Number of lifts
+
+
+Technician
+	Employee id
+        Level
+        Hourly rate
+
+Salesperson
+	Employee id
+
+
+Employee
+        First Name
+        Last Name
+        Store id
+
+Inventory
+        Store id
+        Part id
+        Count
