@@ -38,14 +38,15 @@ Customer
 	Written testimony id
 	Referral Credits Earned
 	Referral Credits Used
-	FinanceAgreement id
 	# Primary keys that point here
         List of Vehicles
         List of Invoices
         List of Payments
         List of Payment Methods
+	List of FinanceAgreement
 
 FinanceAgreement
+	Customer id
 	MissedPaymentFee
 	TotalPrincipal
 	FinanceFee
@@ -101,7 +102,6 @@ Vehicle
         Date of manufacture
         Country of manufacture
 	MSRP
-	Manufacturer Warranty id
 	KBB value on qualification
 	Current KBB value
 	ConsumeReportsUrl
@@ -112,18 +112,18 @@ Vehicle
         Doors
         Convertible
         Comments
-	Classifications id
+	ServiceSchedule id
 	Insurance company id
 	Insurance policy number
 	Insurance image id
 	Carfax url
+	Carfax copy at qualification
 	DoorPlateImage id
 	Mileage
 	MPG 30 days after initial service
 	Photos Image id
 	Qualification id
 	BGCompliant
-	BGComplianceImages id
 	Contract id
 	# Primary keys that point here
         List of ServiceVisits
@@ -136,6 +136,7 @@ Vehicle
         List of Breakdowns
         List of AutomaticDataLinkInfos
         List of TSBandRecalls
+	List of Manufacturer Warranty id
 
 AutomaticDataLinkInfos
 	Vehicle id
@@ -154,8 +155,11 @@ Breakdowns
 	Description
 
 ManufacturerWarranties
+	Vehicle id
         Months
 	Miles
+	Type (bumpber/bumper, powertrain, etc)
+	Image from customer or dealer
 
 BGSystemsCovered
         Vehicle id
@@ -210,13 +214,13 @@ WheelDrive
         Name (4WD, AWD, etc)
 
 
-Classifications
+ServiceSchedule
         Image id
 	# Primary keys that point here
-	List of ScheduledService
+	List of ScheduledServices
 
 ScheduledServices
-	Classifications id
+	ServiceSchedule id
         Date
 	Mileage
 	# Primary keys that point here
@@ -230,7 +234,7 @@ ScheduledAppointments
         Date and Time
         Actual Date and Time
         Status (completed, pending, cancelled)
-        Purpose (regular checkup, repair needed)
+        Purpose (regular service, repair needed)
         Vehicle id
         Store id
 
@@ -240,7 +244,7 @@ ServiceVisit
 	Description
         Store id
         Vehicle id
-        InvoiceLineItem id
+        Invoice id
         Comments
 	# Primary keys that point here
         List of ServiceLineItems
@@ -284,14 +288,14 @@ ServiceParts
 
 Part
         Manufacturer
-        Name
+        Part Name id
         Description
         Part Number
-        Make id
-	Model id
-	Year
         Actual cost
         Retail price
+
+Part Name 
+        Name
 
 
 Make
@@ -308,6 +312,7 @@ Model
 Payment
         Date and Time
         Invoice id (or InvoiceLineItem?)  # one or the other of these
+	Contract id
 	FinanceAgreement id
         Customer id
         Amount
@@ -339,6 +344,7 @@ InvoiceLineItem
         Amount
 	Invoice id
         LineItemPurpose id (such as monthly membership dues)
+	Description (optional)
         ServiceVisit id
         Vehicle id
 
@@ -348,10 +354,13 @@ LineItemPurpose
 
 Store
         Name
+	Number
         Manager
         Street Address
         City
         State
+	County
+	Region
         Zip
         Phone
         Number of lifts
