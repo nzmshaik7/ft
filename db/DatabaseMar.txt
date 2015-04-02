@@ -64,6 +64,7 @@ ReferredBy
 Contract
 	BeginDate
         Number
+	Status (Current, Lapsed, Cancelled)
 	Image id
 	Salesperson id
 	Level
@@ -364,7 +365,8 @@ Store
         Zip
         Phone
         Number of lifts
-
+        Capactiy (in number of contracts)
+	BreakEven
 
 Technician
 	Employee id
@@ -378,6 +380,7 @@ Salesperson
 Employee
         First Name
         Last Name
+	SSN
         Store id
 
 Inventory

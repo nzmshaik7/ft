@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exit 1
+
 set -v
 
 rails generate scaffold User \
