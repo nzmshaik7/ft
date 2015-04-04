@@ -2,8 +2,13 @@
 
 # DATABASE SCHEMA
 
-function rails() {
+function RAILS() {
+    echo " "
     echo rails $*
+    echo " "
+    echo -n "enter: "
+    read ans
+    rails $*
 }
 
 
@@ -43,13 +48,13 @@ gen=( generate scaffold Customer
     referral_credits_earned:integer
     referral_credits_used:integer
     )
-    # Primary keys that point here
+    # Other tables that point to my Primary Key
     # List of Vehicles
     # List of Invoices
     # List of Payments
     # List of Payment Methods
     # List of FinanceAgreement
-rails ${gen[*]}
+RAILS ${gen[*]}
 
 
 gen=( generate scaffold FinanceAgreement
@@ -63,343 +68,564 @@ gen=( generate scaffold FinanceAgreement
     title_image_id:integer
     agreement_image_id:integer
     )
-    # Primary keys that point here
+    # Other tables that point to my Primary Key
     # List of Payments
-rails ${gen[*]}
+RAILS ${gen[*]}
 
 
+# This is a dropdown.  Customer table has pointer to one of these selections.
+# If is_other is true, then this selection is "Other" and more information
+# is in the Customer table.
 gen=( generate scaffold ReferredBy 
     description:string
     is_other:boolean
     )
-rails ${gen[*]}
+RAILS ${gen[*]}
 
 
-Contract
-    BeginDate
-    Number
-    Status     # (Current, Lapsed, Cancelled)
-    Image id
-    Salesperson id
-    Level
-    BaseCost
-    # Primary keys that point here
-    List of Upgrades
-    DayOfPayment
-    Discount     # (amount)
-    Discount     # (percentage)
+# One vehicle, one contract.  Vehicle table points here.
+gen=( generate scaffold Contract
+    begin_date:datetime
+    number:string             # Contract number on contract
+    status:integer            # (Current, Lapsed, Cancelled)
+    image_id:integer
+    salesperson_id:integer
+    level:integer             # Level of car (Level 1, Level 2, etc.)
+    base_cost:decimal{8.2}
+    day_of_payment:integer    # Day of month automatic payment is made
+    discount:decimal{8.2}     # (amount)
+    discount:integer          # (percentage)
+    )
+    # Other tables that point to my Primary Key
+    # List of Upgrades
+RAILS ${gen[*]}
 
-Upgrades
-    Contract id
-    UpgradeType id
-    Cost     # (copied and adjustable)
 
-UpgradeType 
-    Name
-    Cost
+# Upgrades that apply to particular vehicles/contracts.  Points back to
+# the relevant contract.
+gen=( generate scaffold Upgrade
+    contract_id:integer       # Many to one
+    upgrade_type_id:integer   # Which upgrade this is
+    cost:decimal{8.2}         # Copied from UpgradeType, and adjustable
+    )
+RAILS ${gen[*]}
 
-Testimony 
-    User Text
 
-Image
-    Filename
-    Next image id  # Linked list
+# This is a dropdown.  Upgrades points here.
+gen=( generate scaffold UpgradeType 
+    name:string
+    cost:decimal{8.2}
+    )
+RAILS ${gen[*]}
 
-Vehicle
-    VIN
-    VinDecoded
-    License Plate
-    License Plate State id
-    Customer id
-    Make id
-    Model id
-    Submodel id
-    Date of manufacture
-    Country of manufacture
-    MSRP
-    KBB value on qualification
-    Current KBB value
-    ConsumeReportsUrl
-    Engine cyl
-    Engine displacement
-    WheelDrive id
-    Color id
-    Doors
-    Convertible
-    Comments
-    ServiceSchedule id
-    Insurance company id
-    Insurance policy number
-    Insurance image id
-    Carfax url
-    Carfax copy at qualification
-    DoorPlateImage id
-    Mileage
-    MPG 30 days after initial service
-    Photos Image id
-    Qualification id
-    BGCompliant
-    Contract id
-    # Primary keys that point here
-    List of ServiceVisits
-    List of ScheduledAppointments
-    List of GasMileages
-    List of NonMaMaintenance
-    List of CodeHistories
-    List of TireTdReadings
-    List of BGSystemsCovered
-    List of Breakdowns
-    List of AutomaticDataLinkInfos
-    List of TSBandRecalls
-    List of Manufacturer Warranty id
 
-AutomaticDataLinkInfos
-    Vehicle id
-    SerialNumber
-    Date
-    Data
+# Customer table points here
+gen=( generate scaffold WrittenTestimony 
+    user_text:text
+    )
+RAILS ${gen[*]}
 
-TSBandRecalls
-    Vehicle id
-    Name
-    DateCompleted
 
-Breakdowns
-    Vehicle id
-    Date
-    Description
+# Multi-purpose collection of images.  Lets single image id pointer
+# in another table point here, where every row could be 1 image or 
+# the start of a linked list of images.
+# filename is relative to the images directory and probably will
+# have a subdirectory in it.
+gen=( generate scaffold Image
+    filename:string
+    image_id:integer  # Next image in linked list
+    )
+RAILS ${gen[*]}
 
-ManufacturerWarranties
-    Vehicle id
-    Months
-    Miles
-    Type     # (bumpber/bumper, powertrain, etc)
-    Image from customer or dealer
 
-BGSystemsCovered
-    Vehicle id
-    System id
-    Coverage      # (Can be zero to indicate not covered)
+gen=( generate scaffold Vehicle
+    vin:string
+    vin_decoded:string
+    license_plate:string
+    license_plate_state_id:integer
+    customer_id:integer             # Many to one
+    make_id:integer
+    model_id:integer
+    submodel_id:integer
+    date_of_manufacture:datetime
+    country_of_manufacture_id:integer
+    msrp:decimal{8.2}
+    kbb_on_qual:decimal{8.2}
+    current_kbb:decimal{8.2}
+    consumer_reports_url:string
+    engine_cyl:integer
+    engine_displacement_id:integer
+    wheel_drive_id:integer
+    color_id:integer
+    doors:integer
+    convertible:boolean
+    comments:text
+    # There is one particular service schedule for this vehicle.  Form
+    # is filled out on qual.  This points to it.
+    service_schedule_id:integer
+    insurance_company_id:integer
+    insurance_policy_number:string
+    insurance_image_id:integer
+    carfax_url:string
+    carfax_copy_at_qual:string
+    door_plate_image_id:integer
+    mileage:integer
+    mpg30after_initial:decimal{8.2}
+    photos_image_id:integer
+    # Set of information collected at qualification
+    qualification_id:integer
+    bg_compliant:boolean
+    contract_id:integer        # This vehicle has one contract
+    )
+    # Other tables that point to my Primary Key
+    # List of ServiceVisits
+    # List of ScheduledAppointments
+    # List of GasMileages
+    # List of NonMaMaintenance
+    # List of CodeHistories
+    # List of TireTdReadings
+    # List of BGSystemsCovered
+    # List of Breakdowns
+    # List of AutomaticDataLinkInfos
+    # List of TSBandRecalls
+    # List of Manufacturer Warranty id
+RAILS ${gen[*]}
 
-BGSystems
-    Name
 
-TireTdReadings
-    Vehicle id
-    Date
-    Depth32nds
+gen=( generate scaffold AutomaticDataLinkInfo
+    vehicle_id:integer
+    serial_number:string
+    idate:datetime
+    data:text
+    )
+RAILS ${gen[*]}
 
-CodeHistories
-    Vehicle id
-    Date
-    Code
+
+gen=( generate scaffold TSBandRecall
+    vehicle_id:integer
+    name:string
+    date_completed:datetime
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Breakdown
+    vehicle_id:integer
+    bdate:datetime
+    description:text
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold ManufacturerWarranty
+    vehicle_id:integer
+    months:integer
+    miles:integer
+    wtype:integer     # (bumpber/bumper, powertrain, etc)
+    image:integer     # from_customer_or_dealer
+    comment:string
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold BGSystemCovered
+    vehicle_id:integer
+    system_id:integer
+    coverage:integer      # (Can be zero to indicate not covered)
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold BGSystem
+    name:string
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold TireTdReading
+    vehicle_id:integer
+    tdate:datetime
+    depth32nds:integer
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold CodeHistory
+    vehicle_id:integer
+    cdate:datetime
+    code:string
+    )
+RAILS ${gen[*]}
+
     
-Qualification
-    Date
-    Leakdown
-    QualReportImages id
-    AlignmentReportImages id
-    SixgasReportImages id
-    SpectrumReportImages id
-    CylinderCompressionSpec
-    ServiceVisit id
-    # Primary keys that point here
-    List of CylinderCompressions
-
-CylinderCompressions
-    Qualification id
-    CylNum
-    PSI
-
-GasMileages
-    Vehicle id
-    Mileage
-    Date
-
-NonMaMaintenance
-    Vehicle id
-    Date
-    Where
-    Document Image id
-
-Color
-    Name
-
-WheelDrive 
-    Name     # (4WD, AWD, etc)
+gen=( generate scaffold Qualification
+    qdate:datetime
+    leakdown:integer
+    qual_report_images_id:integer
+    alignment_report_images_id:integer
+    sixgas_report_images_id:integer
+    spectrum_report_images_id:integer
+    cylinder_compression_spec:integer
+    service_visit_id:integer
+    )
+    # Other tables that point to my Primary Key
+    # List of CylinderCompressions
+RAILS ${gen[*]}
 
 
-ServiceSchedule
-    Image id
-    # Primary keys that point here
-    List of ScheduledServices
-
-ScheduledServices
-    ServiceSchedule id
-    Date
-    Mileage
-    # Primary keys that point here
-    List of ScheduledServiceItems
-
-ScheduledServiceItems
-    ScheduledServices id
-    Name
-
-ScheduledAppointments
-    Date and Time
-    Actual Date and Time
-    Status     # (completed, pending, cancelled)
-    Purpose     # (regular service, repair needed)
-    Vehicle id
-    Store id
-
-ServiceVisit
-    Mileage
-    Date
-    Description
-    Store id
-    Vehicle id
-    Invoice id
-    Comments
-    # Primary keys that point here
-    List of ServiceLineItems
-    List of ServiceJournals
-
-ServiceJournals
-    ServiceVisit id
-    Event id
-    Date and Time
-
-ServiceJournalsEvents
-    Name
-
-ServiceLineItem
-    ServiceVisit id
-    ServiceDescription id
-    ServiceDescriptionText
-    Labor hours retail
-    Labor rate retail
-    Labor hours actual
-    Labor rate actual
-    Technician1 id     # (ok if not a list?)
-    Technician2 id     # (ok if not a list?)
-    Technician3 id     # (ok if not a list?)
-    Scheduled or unscheduled
-    # Primary keys that point here
-    List of ServiceParts
-
-ServiceDescription
-    Name
-    Labor rate retail
-    Labor hours retail
-
-ServiceParts
-    ServiceLineItem id
-    Part id
-    #     # (These are copied from the part since the part may change later.)
-    Part retail price
-    Part actual price  
+gen=( generate scaffold CylinderCompression
+    qualification_id:integer
+    cyl_num:integer
+    psi:integer
+    )
+RAILS ${gen[*]}
 
 
-Part
-    Manufacturer
-    Part Name id
-    Description
-    Part Number
-    Actual cost
-    Retail price
-
-Part Name 
-    Name
+gen=( generate scaffold GasMileage
+    vehicle_id:integer
+    mileage:decimal{8.2}
+    mdate:datetime
+    )
+RAILS ${gen[*]}
 
 
-Make
-    Name
+gen=( generate scaffold NonMaMaintenance
+    vehicle_id:integer
+    mdate:datetime
+    where:string
+    document_image_id:integer
+    )
+RAILS ${gen[*]}
 
 
-Model
-    Name
-    Make id
-    First year made
-    Last year made
+gen=( generate scaffold Color
+    name:string
+    )
+RAILS ${gen[*]}
 
 
-Payment
-    Date and Time
-    Invoice id     # (or InvoiceLineItem?)  # one or the other of these
-    Contract id
-    FinanceAgreement id
-    Customer id
-    Amount
-    Payment method used
-    Status
-    MerchantServicesStatus
-    Comment
+gen=( generate scaffold WheelDrive 
+    name:string     # 4WD, AWD, etc.
+    )
+RAILS ${gen[*]}
 
 
-Payment Methods
-    Customer id
-    Type     # (Visa, ACH, etc.)
-    Priority
-    Account number id
-    Routing number     # (for ACH)
-    Expiration Date
-    CVV id
-    Image id     # (front and back)
+# Every vehicle has one pointer to one of these, the unique service
+# schedule for that particular vehicle.
+gen=( generate scaffold ServiceSchedule
+    image_id:integer
+    )
+    # Other tables that point to my Primary Key
+    # List of ScheduledServices
+RAILS ${gen[*]}
 
 
-Invoice
-    Invoice number
-    Date and Time
-    Customer id
-    List of InvoiceLineItems
+# One particular time or mileage level, whichever comes first, where
+# this vehicle needs to come in for scheduled service.
+gen=( generate scaffold ScheduledService
+    service_schedule_id:integer
+    sdate:datetime
+    mileage:integer
+    )
+    # Other tables that point to my Primary Key
+    # List of ScheduledServiceItems
+RAILS ${gen[*]}
 
 
-InvoiceLineItem
-    Amount
-    Invoice id
-    LineItemPurpose id     # (such as monthly membership dues)
-    Description     # (optional)
-    ServiceVisit id
-    Vehicle id
-
-LineItemPurpose
-    Name      # (monthly dues, service item, late fee, etc.)
+# Items that need to be serviced during a particular ScheduledService.
+gen=( generate scaffold ScheduledServiceItem
+    scheduled_service_id:integer
+    service_description_id:integer
+    other:string  # Only used if service_description_id points to Other.
+    )
+RAILS ${gen[*]}
 
 
-Store
-    Name
-    Number
-    Manager
-    Street Address
-    City
-    State
-    County
-    Region
-    Zip
-    Phone
-    Number of lifts
-    Capactiy     # (in number of contracts)
-    BreakEven
-
-Technician
-    Employee id
-    Level
-    Hourly rate
-
-Salesperson
-    Employee id
+gen=( generate scaffold ScheduledAppointment
+    date_time:datetime  # If date_time is in the near past, we still call
+                        # it pending.  After it missed the allowed deadline,
+			# it becomes missed.  If the customer cancels it,
+			# it is cancelled.
+    actual_date_time:datetime
+    status:integer      # (completed, pending, cancelled, missed)
+    purpose:integer     # (regular service, repair needed)
+    vehicle_id:integer
+    store_id:integer
+    )
+RAILS ${gen[*]}
 
 
-Employee
-    First Name
-    Last Name
-    SSN
-    Store id
+gen=( generate scaffold ServiceVisit
+    mileage:integer
+    sdate:datetime
+    description:string
+    store_id:integer
+    vehicle_id:integer
+    invoice_id:integer
+    salesperson_id:integer
+    comments:text
+    )
+    # Other tables that point to my Primary Key
+    # List of ServiceLineItems
+    # List of ServiceJournals
+RAILS ${gen[*]}
 
-Inventory
-    Store id
-    Part id
-    Count
+
+gen=( generate scaffold ServiceJournal
+    service_visit_id:integer
+    event_id:integer
+    date_time:datetime
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold ServiceJournalsEvent
+    name:string
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold ServiceLineItem
+    service_visit_id:integer
+    service_description_id:integer
+    service_description_text:string
+    labor_hours_retail:decimal{8.2}
+    labor_rate_retail:decimal{8.2}
+    labor_hours_actual:decimal{8.2}
+    labor_rate_actual:decimal{8.2}
+    technician1_id:integer     # ok if not a list?
+    technician2_id:integer
+    technician3_id:integer
+    is_scheduled:boolean
+    )
+    # Other tables that point to my Primary Key
+    # List of ServiceParts
+RAILS ${gen[*]}
+
+
+# Dropdown of canned service items.  One item will be "Other" so that
+# objects can have an arbitrary field.  Category is to help organize
+# the UI, since one linear dropdown will probably be too long.
+gen=( generate scaffold ServiceDescription
+    name:string
+    service_category_id:integer
+    labor_rate_retail:decimal{8.2}
+    labor_hours_retail:decimal{8.2}
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold ServiceCategory
+    name:string
+    )
+RAILS ${gen[*]}
+
+
+# A particular part that was used for one service line item.  The prices
+# are copied from the part because the part prices may change later.
+gen=( generate scaffold ServicePart
+    service_line_item_id:integer
+    part_id:integer
+    # (These are copied from the part since the part may change later:
+    part_retail_price:decimal{8.2}
+    part_actual_price:decimal{8.2}
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Part
+    part_manufacturer_id:integer
+    part_name_id:integer   # Can be Other
+    description:string     # Optional
+    part_number:string
+    actual_cost:decimal{8.2}
+    retail_price:decimal{8.2}
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold PartManufacturer
+    name:string
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold PartName 
+    name:string  # Has to include Other
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Make
+    name:string
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Model
+    name:string
+    make_id:integer
+    first_year_made:integer  # Full integer year, i.e. 2008, not 8.
+    last_year_made:integer
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Submodel
+    name:string
+    make_id:integer
+    )
+RAILS ${gen[*]}
+
+
+# Dropdown.  Can contain Other.
+gen=( generate scaffold EngineDisplacement
+    name:string
+    )
+RAILS ${gen[*]}
+
+
+# A payment that has been made.
+gen=( generate scaffold Payment
+    date_time:datetime
+     invoice_id:integer     # (or InvoiceLineItem?)  # one or the other of these
+     contract_id:integer
+     finance_agreement_id:integer
+    customer_id:integer
+    amount:decimal{8.2}
+    payment_method_id:integer
+    status:integer            # Approved, Denied
+    merchant_services_status:string  # String back from bank
+    comment:string
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold PaymentMethod
+    customer_id:integer
+    paytype:integer             # Visa, Discover, ACH, etc.
+    priority:integer            # Order the customer would like to try payment.
+    account_number_id:integer   # This is an ID because the actual account 
+                                # number is over on a separate system.
+    routing_number:string       # For ACH.
+    expiration_month:integer    # 1-12
+    expiration_year:integer     # Full year, 4 digits
+    image_id:integer            # (front and back)
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Invoice
+    invoice_number:string
+    date_time:datetime          # When it was created
+    customer_id:integer
+    status:integer              # Paid, Unpaid, etc.
+    )
+    # List of InvoiceLineItems
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold InvoiceLineItem
+    amount:decimal{8.2}
+    invoice_id:integer
+    line_item_purpose_id:integer     # monthly membership dues, etc.
+    description:string               # optional
+    service_visit_id:integer
+    vehicle_id:integer
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold LineItemPurpose
+    name      # (monthly dues, service item, late fee, Other, etc.)
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Store
+    name:string
+    number:string
+    manager_id:integer      # Points to an Employee
+    street_address:string
+    city:string
+    state_id:integer
+    county_id:integer
+    region_id:integer
+    zip:string
+    phone:string
+    number_of_lifts:integer
+    capacity:integer     # in number of contracts
+    break_even:integer   # in number of contracts
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Technician
+    employee_id:integer
+    level:integer
+    hourly_rate:decimal{8.2}
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Salesperson
+    employee_id:integer
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Employee
+    first_name:string
+    last_name:string
+    ssn:string
+    store_id:integer
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold Inventory
+    store_id:integer
+    part_id:integer
+    count:integer
+    )
+RAILS ${gen[*]}
+
+
+# regions within states
+gen=( generate scaffold Region
+    name:string
+    state_id:integer
+    )
+RAILS ${gen[*]}
+
+
+# counties within states
+gen=( generate scaffold County
+    name:string
+    state_id:integer
+    )
+RAILS ${gen[*]}
+
+
+# all 50 states
+gen=( generate scaffold State
+    name:string
+    abbrev:string
+    )
+RAILS ${gen[*]}
+
+
+# Countries that make cars
+gen=( generate scaffold Country
+    name:string
+    abbrev:string
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold InsuranceCompany
+    name:string
+    )
+RAILS ${gen[*]}
 
 # vim :se noexpandtab
