@@ -44,7 +44,8 @@ class WrittenTestimoniesController < ApplicationController
 
         respond_to do |format|
             if @written_testimony.save
-                format.html { redirect_to @written_testimony, notice: 'Written testimony was successfully created.' }
+                format.html { redirect_to writtentestimonies_url,
+                              notice: 'WrittenTestimony was successfully created.' }
                 format.json { render json: @written_testimony, status: :created, location: @written_testimony }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class WrittenTestimoniesController < ApplicationController
 
         respond_to do |format|
             if @written_testimony.update_attributes(params[:written_testimony])
-                format.html { redirect_to @written_testimony, notice: 'Written testimony was successfully updated.' }
+                format.html { redirect_to writtentestimonies_url,
+                              notice: 'WrittenTestimony was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

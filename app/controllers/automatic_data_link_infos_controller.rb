@@ -44,7 +44,8 @@ class AutomaticDataLinkInfosController < ApplicationController
 
         respond_to do |format|
             if @automatic_data_link_info.save
-                format.html { redirect_to @automatic_data_link_info, notice: 'Automatic data link info was successfully created.' }
+                format.html { redirect_to automaticdatalinkinfos_url,
+                              notice: 'AutomaticDataLinkInfo was successfully created.' }
                 format.json { render json: @automatic_data_link_info, status: :created, location: @automatic_data_link_info }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class AutomaticDataLinkInfosController < ApplicationController
 
         respond_to do |format|
             if @automatic_data_link_info.update_attributes(params[:automatic_data_link_info])
-                format.html { redirect_to @automatic_data_link_info, notice: 'Automatic data link info was successfully updated.' }
+                format.html { redirect_to automaticdatalinkinfos_url,
+                              notice: 'AutomaticDataLinkInfo was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

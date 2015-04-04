@@ -44,7 +44,8 @@ class MakesController < ApplicationController
 
         respond_to do |format|
             if @make.save
-                format.html { redirect_to @make, notice: 'Make was successfully created.' }
+                format.html { redirect_to makes_url,
+                              notice: 'Make was successfully created.' }
                 format.json { render json: @make, status: :created, location: @make }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class MakesController < ApplicationController
 
         respond_to do |format|
             if @make.update_attributes(params[:make])
-                format.html { redirect_to @make, notice: 'Make was successfully updated.' }
+                format.html { redirect_to makes_url,
+                              notice: 'Make was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

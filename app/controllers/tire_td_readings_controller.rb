@@ -44,7 +44,8 @@ class TireTdReadingsController < ApplicationController
 
         respond_to do |format|
             if @tire_td_reading.save
-                format.html { redirect_to @tire_td_reading, notice: 'Tire td reading was successfully created.' }
+                format.html { redirect_to tiretdreadings_url,
+                              notice: 'TireTdReading was successfully created.' }
                 format.json { render json: @tire_td_reading, status: :created, location: @tire_td_reading }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class TireTdReadingsController < ApplicationController
 
         respond_to do |format|
             if @tire_td_reading.update_attributes(params[:tire_td_reading])
-                format.html { redirect_to @tire_td_reading, notice: 'Tire td reading was successfully updated.' }
+                format.html { redirect_to tiretdreadings_url,
+                              notice: 'TireTdReading was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

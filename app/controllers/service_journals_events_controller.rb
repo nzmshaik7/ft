@@ -44,7 +44,8 @@ class ServiceJournalsEventsController < ApplicationController
 
         respond_to do |format|
             if @service_journals_event.save
-                format.html { redirect_to @service_journals_event, notice: 'Service journals event was successfully created.' }
+                format.html { redirect_to servicejournalsevents_url,
+                              notice: 'ServiceJournalsEvent was successfully created.' }
                 format.json { render json: @service_journals_event, status: :created, location: @service_journals_event }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class ServiceJournalsEventsController < ApplicationController
 
         respond_to do |format|
             if @service_journals_event.update_attributes(params[:service_journals_event])
-                format.html { redirect_to @service_journals_event, notice: 'Service journals event was successfully updated.' }
+                format.html { redirect_to servicejournalsevents_url,
+                              notice: 'ServiceJournalsEvent was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

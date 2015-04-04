@@ -44,7 +44,8 @@ class FinanceAgreementsController < ApplicationController
 
         respond_to do |format|
             if @finance_agreement.save
-                format.html { redirect_to @finance_agreement, notice: 'Finance agreement was successfully created.' }
+                format.html { redirect_to financeagreements_url,
+                              notice: 'FinanceAgreement was successfully created.' }
                 format.json { render json: @finance_agreement, status: :created, location: @finance_agreement }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class FinanceAgreementsController < ApplicationController
 
         respond_to do |format|
             if @finance_agreement.update_attributes(params[:finance_agreement])
-                format.html { redirect_to @finance_agreement, notice: 'Finance agreement was successfully updated.' }
+                format.html { redirect_to financeagreements_url,
+                              notice: 'FinanceAgreement was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

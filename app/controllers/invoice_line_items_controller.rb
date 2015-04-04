@@ -44,7 +44,8 @@ class InvoiceLineItemsController < ApplicationController
 
         respond_to do |format|
             if @invoice_line_item.save
-                format.html { redirect_to @invoice_line_item, notice: 'Invoice line item was successfully created.' }
+                format.html { redirect_to invoicelineitems_url,
+                              notice: 'InvoiceLineItem was successfully created.' }
                 format.json { render json: @invoice_line_item, status: :created, location: @invoice_line_item }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class InvoiceLineItemsController < ApplicationController
 
         respond_to do |format|
             if @invoice_line_item.update_attributes(params[:invoice_line_item])
-                format.html { redirect_to @invoice_line_item, notice: 'Invoice line item was successfully updated.' }
+                format.html { redirect_to invoicelineitems_url,
+                              notice: 'InvoiceLineItem was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

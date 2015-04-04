@@ -44,7 +44,8 @@ class QualificationsController < ApplicationController
 
         respond_to do |format|
             if @qualification.save
-                format.html { redirect_to @qualification, notice: 'Qualification was successfully created.' }
+                format.html { redirect_to qualifications_url,
+                              notice: 'Qualification was successfully created.' }
                 format.json { render json: @qualification, status: :created, location: @qualification }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class QualificationsController < ApplicationController
 
         respond_to do |format|
             if @qualification.update_attributes(params[:qualification])
-                format.html { redirect_to @qualification, notice: 'Qualification was successfully updated.' }
+                format.html { redirect_to qualifications_url,
+                              notice: 'Qualification was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

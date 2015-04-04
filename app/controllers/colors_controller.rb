@@ -44,7 +44,8 @@ class ColorsController < ApplicationController
 
         respond_to do |format|
             if @color.save
-                format.html { redirect_to @color, notice: 'Color was successfully created.' }
+                format.html { redirect_to colors_url,
+                              notice: 'Color was successfully created.' }
                 format.json { render json: @color, status: :created, location: @color }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class ColorsController < ApplicationController
 
         respond_to do |format|
             if @color.update_attributes(params[:color])
-                format.html { redirect_to @color, notice: 'Color was successfully updated.' }
+                format.html { redirect_to colors_url,
+                              notice: 'Color was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

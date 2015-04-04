@@ -44,7 +44,8 @@ class CodeHistoriesController < ApplicationController
 
         respond_to do |format|
             if @code_history.save
-                format.html { redirect_to @code_history, notice: 'Code history was successfully created.' }
+                format.html { redirect_to codehistories_url,
+                              notice: 'CodeHistory was successfully created.' }
                 format.json { render json: @code_history, status: :created, location: @code_history }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class CodeHistoriesController < ApplicationController
 
         respond_to do |format|
             if @code_history.update_attributes(params[:code_history])
-                format.html { redirect_to @code_history, notice: 'Code history was successfully updated.' }
+                format.html { redirect_to codehistories_url,
+                              notice: 'CodeHistory was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

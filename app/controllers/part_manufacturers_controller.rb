@@ -44,7 +44,8 @@ class PartManufacturersController < ApplicationController
 
         respond_to do |format|
             if @part_manufacturer.save
-                format.html { redirect_to @part_manufacturer, notice: 'Part manufacturer was successfully created.' }
+                format.html { redirect_to partmanufacturers_url,
+                              notice: 'PartManufacturer was successfully created.' }
                 format.json { render json: @part_manufacturer, status: :created, location: @part_manufacturer }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class PartManufacturersController < ApplicationController
 
         respond_to do |format|
             if @part_manufacturer.update_attributes(params[:part_manufacturer])
-                format.html { redirect_to @part_manufacturer, notice: 'Part manufacturer was successfully updated.' }
+                format.html { redirect_to partmanufacturers_url,
+                              notice: 'PartManufacturer was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

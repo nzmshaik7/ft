@@ -44,7 +44,8 @@ class CylinderCompressionsController < ApplicationController
 
         respond_to do |format|
             if @cylinder_compression.save
-                format.html { redirect_to @cylinder_compression, notice: 'Cylinder compression was successfully created.' }
+                format.html { redirect_to cylindercompressions_url,
+                              notice: 'CylinderCompression was successfully created.' }
                 format.json { render json: @cylinder_compression, status: :created, location: @cylinder_compression }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class CylinderCompressionsController < ApplicationController
 
         respond_to do |format|
             if @cylinder_compression.update_attributes(params[:cylinder_compression])
-                format.html { redirect_to @cylinder_compression, notice: 'Cylinder compression was successfully updated.' }
+                format.html { redirect_to cylindercompressions_url,
+                              notice: 'CylinderCompression was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

@@ -44,7 +44,8 @@ class GasMileagesController < ApplicationController
 
         respond_to do |format|
             if @gas_mileage.save
-                format.html { redirect_to @gas_mileage, notice: 'Gas mileage was successfully created.' }
+                format.html { redirect_to gasmileages_url,
+                              notice: 'GasMileage was successfully created.' }
                 format.json { render json: @gas_mileage, status: :created, location: @gas_mileage }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class GasMileagesController < ApplicationController
 
         respond_to do |format|
             if @gas_mileage.update_attributes(params[:gas_mileage])
-                format.html { redirect_to @gas_mileage, notice: 'Gas mileage was successfully updated.' }
+                format.html { redirect_to gasmileages_url,
+                              notice: 'GasMileage was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

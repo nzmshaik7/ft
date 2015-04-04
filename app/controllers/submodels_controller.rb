@@ -44,7 +44,8 @@ class SubmodelsController < ApplicationController
 
         respond_to do |format|
             if @submodel.save
-                format.html { redirect_to @submodel, notice: 'Submodel was successfully created.' }
+                format.html { redirect_to submodels_url,
+                              notice: 'Submodel was successfully created.' }
                 format.json { render json: @submodel, status: :created, location: @submodel }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class SubmodelsController < ApplicationController
 
         respond_to do |format|
             if @submodel.update_attributes(params[:submodel])
-                format.html { redirect_to @submodel, notice: 'Submodel was successfully updated.' }
+                format.html { redirect_to submodels_url,
+                              notice: 'Submodel was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

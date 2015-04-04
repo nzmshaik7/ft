@@ -44,7 +44,8 @@ class NonMaMaintenancesController < ApplicationController
 
         respond_to do |format|
             if @non_ma_maintenance.save
-                format.html { redirect_to @non_ma_maintenance, notice: 'Non ma maintenance was successfully created.' }
+                format.html { redirect_to nonmamaintenances_url,
+                              notice: 'NonMaMaintenance was successfully created.' }
                 format.json { render json: @non_ma_maintenance, status: :created, location: @non_ma_maintenance }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class NonMaMaintenancesController < ApplicationController
 
         respond_to do |format|
             if @non_ma_maintenance.update_attributes(params[:non_ma_maintenance])
-                format.html { redirect_to @non_ma_maintenance, notice: 'Non ma maintenance was successfully updated.' }
+                format.html { redirect_to nonmamaintenances_url,
+                              notice: 'NonMaMaintenance was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

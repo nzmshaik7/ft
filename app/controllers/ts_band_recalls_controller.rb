@@ -44,7 +44,8 @@ class TsBandRecallsController < ApplicationController
 
         respond_to do |format|
             if @ts_band_recall.save
-                format.html { redirect_to @ts_band_recall, notice: 'Ts band recall was successfully created.' }
+                format.html { redirect_to tsbandrecalls_url,
+                              notice: 'TsBandRecall was successfully created.' }
                 format.json { render json: @ts_band_recall, status: :created, location: @ts_band_recall }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class TsBandRecallsController < ApplicationController
 
         respond_to do |format|
             if @ts_band_recall.update_attributes(params[:ts_band_recall])
-                format.html { redirect_to @ts_band_recall, notice: 'Ts band recall was successfully updated.' }
+                format.html { redirect_to tsbandrecalls_url,
+                              notice: 'TsBandRecall was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

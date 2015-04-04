@@ -44,7 +44,8 @@ class BreakdownsController < ApplicationController
 
         respond_to do |format|
             if @breakdown.save
-                format.html { redirect_to @breakdown, notice: 'Breakdown was successfully created.' }
+                format.html { redirect_to breakdowns_url,
+                              notice: 'Breakdown was successfully created.' }
                 format.json { render json: @breakdown, status: :created, location: @breakdown }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class BreakdownsController < ApplicationController
 
         respond_to do |format|
             if @breakdown.update_attributes(params[:breakdown])
-                format.html { redirect_to @breakdown, notice: 'Breakdown was successfully updated.' }
+                format.html { redirect_to breakdowns_url,
+                              notice: 'Breakdown was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

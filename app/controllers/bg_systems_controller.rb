@@ -44,7 +44,8 @@ class BgSystemsController < ApplicationController
 
         respond_to do |format|
             if @bg_system.save
-                format.html { redirect_to @bg_system, notice: 'Bg system was successfully created.' }
+                format.html { redirect_to bgsystems_url,
+                              notice: 'BgSystem was successfully created.' }
                 format.json { render json: @bg_system, status: :created, location: @bg_system }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class BgSystemsController < ApplicationController
 
         respond_to do |format|
             if @bg_system.update_attributes(params[:bg_system])
-                format.html { redirect_to @bg_system, notice: 'Bg system was successfully updated.' }
+                format.html { redirect_to bgsystems_url,
+                              notice: 'BgSystem was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

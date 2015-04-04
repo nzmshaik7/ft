@@ -44,7 +44,8 @@ class BgSystemCoveredsController < ApplicationController
 
         respond_to do |format|
             if @bg_system_covered.save
-                format.html { redirect_to @bg_system_covered, notice: 'Bg system covered was successfully created.' }
+                format.html { redirect_to bgsystemcovereds_url,
+                              notice: 'BgSystemCovered was successfully created.' }
                 format.json { render json: @bg_system_covered, status: :created, location: @bg_system_covered }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class BgSystemCoveredsController < ApplicationController
 
         respond_to do |format|
             if @bg_system_covered.update_attributes(params[:bg_system_covered])
-                format.html { redirect_to @bg_system_covered, notice: 'Bg system covered was successfully updated.' }
+                format.html { redirect_to bgsystemcovereds_url,
+                              notice: 'BgSystemCovered was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }

@@ -44,7 +44,8 @@ class WheelDrivesController < ApplicationController
 
         respond_to do |format|
             if @wheel_drife.save
-                format.html { redirect_to @wheel_drife, notice: 'Wheel drive was successfully created.' }
+                format.html { redirect_to wheeldrives_url,
+                              notice: 'WheelDrive was successfully created.' }
                 format.json { render json: @wheel_drife, status: :created, location: @wheel_drife }
             else
                 format.html { render action: "new" }
@@ -60,7 +61,8 @@ class WheelDrivesController < ApplicationController
 
         respond_to do |format|
             if @wheel_drife.update_attributes(params[:wheel_drife])
-                format.html { redirect_to @wheel_drife, notice: 'Wheel drive was successfully updated.' }
+                format.html { redirect_to wheeldrives_url,
+                              notice: 'WheelDrive was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }
