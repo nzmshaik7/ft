@@ -1,4 +1,7 @@
 class BreakdownsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /breakdowns
     # GET /breakdowns.json
     def index

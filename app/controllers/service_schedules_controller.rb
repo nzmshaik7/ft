@@ -1,4 +1,7 @@
 class ServiceSchedulesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /service_schedules
     # GET /service_schedules.json
     def index

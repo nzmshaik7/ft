@@ -1,4 +1,7 @@
 class ManufacturerWarrantiesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /manufacturer_warranties
     # GET /manufacturer_warranties.json
     def index

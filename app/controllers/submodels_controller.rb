@@ -1,4 +1,7 @@
 class SubmodelsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /submodels
     # GET /submodels.json
     def index

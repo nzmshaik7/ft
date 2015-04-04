@@ -1,4 +1,7 @@
 class InvoiceLineItemsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /invoice_line_items
     # GET /invoice_line_items.json
     def index

@@ -1,4 +1,7 @@
 class RegionsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /regions
     # GET /regions.json
     def index

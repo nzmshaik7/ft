@@ -1,4 +1,7 @@
 class PartsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /parts
     # GET /parts.json
     def index

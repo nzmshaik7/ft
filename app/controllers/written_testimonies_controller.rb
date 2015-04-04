@@ -1,4 +1,7 @@
 class WrittenTestimoniesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /written_testimonies
     # GET /written_testimonies.json
     def index

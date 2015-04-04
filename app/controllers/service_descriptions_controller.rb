@@ -1,4 +1,7 @@
 class ServiceDescriptionsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /service_descriptions
     # GET /service_descriptions.json
     def index

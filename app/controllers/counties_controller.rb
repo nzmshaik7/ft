@@ -1,4 +1,7 @@
 class CountiesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /counties
     # GET /counties.json
     def index

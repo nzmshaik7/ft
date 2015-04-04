@@ -1,4 +1,7 @@
 class WheelDrivesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /wheel_drives
     # GET /wheel_drives.json
     def index

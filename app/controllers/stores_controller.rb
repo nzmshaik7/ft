@@ -1,4 +1,7 @@
 class StoresController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /stores
     # GET /stores.json
     def index

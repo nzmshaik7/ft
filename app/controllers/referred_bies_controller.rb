@@ -1,4 +1,7 @@
 class ReferredBiesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /referred_bies
     # GET /referred_bies.json
     def index

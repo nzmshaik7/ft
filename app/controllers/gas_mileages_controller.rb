@@ -1,4 +1,7 @@
 class GasMileagesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /gas_mileages
     # GET /gas_mileages.json
     def index

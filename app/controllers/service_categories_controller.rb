@@ -1,4 +1,7 @@
 class ServiceCategoriesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /service_categories
     # GET /service_categories.json
     def index

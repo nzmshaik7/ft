@@ -1,4 +1,7 @@
 class ImagesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /images
     # GET /images.json
     def index

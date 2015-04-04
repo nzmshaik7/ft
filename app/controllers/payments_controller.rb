@@ -1,4 +1,7 @@
 class PaymentsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /payments
     # GET /payments.json
     def index

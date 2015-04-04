@@ -1,4 +1,7 @@
 class TechniciansController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /technicians
     # GET /technicians.json
     def index

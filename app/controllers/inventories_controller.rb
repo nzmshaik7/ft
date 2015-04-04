@@ -1,4 +1,7 @@
 class InventoriesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /inventories
     # GET /inventories.json
     def index

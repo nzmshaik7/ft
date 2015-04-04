@@ -1,4 +1,7 @@
 class ScheduledAppointmentsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /scheduled_appointments
     # GET /scheduled_appointments.json
     def index

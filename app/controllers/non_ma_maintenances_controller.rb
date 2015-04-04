@@ -1,4 +1,7 @@
 class NonMaMaintenancesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /non_ma_maintenances
     # GET /non_ma_maintenances.json
     def index

@@ -1,4 +1,7 @@
 class PartManufacturersController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /part_manufacturers
     # GET /part_manufacturers.json
     def index

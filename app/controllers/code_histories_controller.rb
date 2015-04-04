@@ -1,4 +1,7 @@
 class CodeHistoriesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /code_histories
     # GET /code_histories.json
     def index

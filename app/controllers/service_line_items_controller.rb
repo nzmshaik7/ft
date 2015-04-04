@@ -1,4 +1,7 @@
 class ServiceLineItemsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /service_line_items
     # GET /service_line_items.json
     def index

@@ -1,4 +1,7 @@
 class ColorsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /colors
     # GET /colors.json
     def index

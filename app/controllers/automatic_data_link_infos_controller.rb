@@ -1,4 +1,7 @@
 class AutomaticDataLinkInfosController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /automatic_data_link_infos
     # GET /automatic_data_link_infos.json
     def index

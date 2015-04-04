@@ -1,4 +1,7 @@
 class SalespeopleController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /salespeople
     # GET /salespeople.json
     def index

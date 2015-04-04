@@ -1,4 +1,7 @@
 class TireTdReadingsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /tire_td_readings
     # GET /tire_td_readings.json
     def index

@@ -1,4 +1,7 @@
 class EngineDisplacementsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /engine_displacements
     # GET /engine_displacements.json
     def index

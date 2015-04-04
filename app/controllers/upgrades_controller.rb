@@ -1,4 +1,7 @@
 class UpgradesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /upgrades
     # GET /upgrades.json
     def index

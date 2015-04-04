@@ -1,4 +1,7 @@
 class ServiceVisitsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /service_visits
     # GET /service_visits.json
     def index

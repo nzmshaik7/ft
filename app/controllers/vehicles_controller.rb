@@ -1,4 +1,7 @@
 class VehiclesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /vehicles
     # GET /vehicles.json
     def index

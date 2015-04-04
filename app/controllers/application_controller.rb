@@ -29,4 +29,26 @@ class ApplicationController < ActionController::Base
         '/users/sign_in'
     end
 
+protected
+
+    # http://guides.rubyonrails.org/action_controller_overview.html#filters
+    def only_allow_admins
+        area = 'the administration area'
+        if user_signed_in?
+            @user = current_user
+        else
+            # Should never happen.
+            addFlashError("You must be logged in to access #{area}.")
+            redirect_to :action => 'sign_in', :controller => 'users'
+            logger.info("==== only_allow_admins redirect, not signed in")
+        end
+        if not [User::ROLE_ADMIN].include?(@user.role)
+            # addFlashError("You are not authorized to access #{area}.")
+            # flash.keep(:error)
+            session[:role_error] = area
+            redirect_to '/static/home'
+            logger.info("==== role #{@user.role} not valid in admin area")
+        end
+    end
+
 end

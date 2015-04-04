@@ -1,4 +1,7 @@
 class QualificationsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /qualifications
     # GET /qualifications.json
     def index

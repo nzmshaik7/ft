@@ -1,4 +1,7 @@
 class ModelsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /models
     # GET /models.json
     def index

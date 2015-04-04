@@ -1,4 +1,7 @@
 class ServiceJournalsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /service_journals
     # GET /service_journals.json
     def index

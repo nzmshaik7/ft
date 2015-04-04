@@ -1,4 +1,7 @@
 class CustomersController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /customers
     # GET /customers.json
     def index

@@ -1,4 +1,7 @@
 class StatesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /states
     # GET /states.json
     def index

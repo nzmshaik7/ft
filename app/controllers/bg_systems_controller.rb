@@ -1,4 +1,7 @@
 class BgSystemsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /bg_systems
     # GET /bg_systems.json
     def index

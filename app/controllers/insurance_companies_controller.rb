@@ -1,4 +1,7 @@
 class InsuranceCompaniesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /insurance_companies
     # GET /insurance_companies.json
     def index

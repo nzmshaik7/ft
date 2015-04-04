@@ -1,4 +1,7 @@
 class CylinderCompressionsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /cylinder_compressions
     # GET /cylinder_compressions.json
     def index

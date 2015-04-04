@@ -1,4 +1,7 @@
 class LineItemPurposesController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /line_item_purposes
     # GET /line_item_purposes.json
     def index

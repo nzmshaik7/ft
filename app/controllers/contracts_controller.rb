@@ -1,4 +1,7 @@
 class ContractsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /contracts
     # GET /contracts.json
     def index

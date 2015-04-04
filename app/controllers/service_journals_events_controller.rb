@@ -1,4 +1,7 @@
 class ServiceJournalsEventsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /service_journals_events
     # GET /service_journals_events.json
     def index

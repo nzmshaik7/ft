@@ -1,4 +1,7 @@
 class TsBandRecallsController < ApplicationController
+
+    before_filter :only_allow_admins
+
     # GET /ts_band_recalls
     # GET /ts_band_recalls.json
     def index
