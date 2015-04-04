@@ -1,0 +1,23 @@
+<h1>Listing part_manufacturers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @part_manufacturers.each do |part_manufacturer| %>
+  <tr>
+    <td><%= part_manufacturer.name %></td>
+    <td><%= link_to 'Show', part_manufacturer %></td>
+    <td><%= link_to 'Edit', edit_part_manufacturer_path(part_manufacturer) %></td>
+    <td><%= link_to 'Destroy', part_manufacturer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Part manufacturer', new_part_manufacturer_path %>

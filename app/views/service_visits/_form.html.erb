@@ -1,0 +1,49 @@
+<%= form_for(@service_visit) do |f| %>
+  <% if @service_visit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@service_visit.errors.count, "error") %> prohibited this service_visit from being saved:</h2>
+
+      <ul>
+      <% @service_visit.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :mileage %><br />
+    <%= f.number_field :mileage %>
+  </div>
+  <div class="field">
+    <%= f.label :sdate %><br />
+    <%= f.datetime_select :sdate %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :store_id %><br />
+    <%= f.number_field :store_id %>
+  </div>
+  <div class="field">
+    <%= f.label :vehicle_id %><br />
+    <%= f.number_field :vehicle_id %>
+  </div>
+  <div class="field">
+    <%= f.label :invoice_id %><br />
+    <%= f.number_field :invoice_id %>
+  </div>
+  <div class="field">
+    <%= f.label :salesperson_id %><br />
+    <%= f.number_field :salesperson_id %>
+  </div>
+  <div class="field">
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

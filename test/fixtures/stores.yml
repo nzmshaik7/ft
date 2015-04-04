@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  number: MyString
+  manager_id: 1
+  street_address: MyString
+  city: MyString
+  state_id: 1
+  county_id: 1
+  region_id: 1
+  zip: MyString
+  phone: MyString
+  number_of_lifts: 1
+  capacity: 1
+  break_even: 1
+
+two:
+  name: MyString
+  number: MyString
+  manager_id: 1
+  street_address: MyString
+  city: MyString
+  state_id: 1
+  county_id: 1
+  region_id: 1
+  zip: MyString
+  phone: MyString
+  number_of_lifts: 1
+  capacity: 1
+  break_even: 1

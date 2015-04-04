@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  scheduled_service_id: 1
+  service_description_id: 1
+  other: MyString
+
+two:
+  scheduled_service_id: 1
+  service_description_id: 1
+  other: MyString

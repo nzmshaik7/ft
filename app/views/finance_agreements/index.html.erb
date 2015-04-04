@@ -1,0 +1,39 @@
+<h1>Listing finance_agreements</h1>
+
+<table>
+  <tr>
+    <th>Customer</th>
+    <th>Missed payment fee</th>
+    <th>Total principal</th>
+    <th>Finance fee</th>
+    <th>Monthly payment amount</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th>Title image</th>
+    <th>Agreement image</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @finance_agreements.each do |finance_agreement| %>
+  <tr>
+    <td><%= finance_agreement.customer_id %></td>
+    <td><%= finance_agreement.missed_payment_fee %></td>
+    <td><%= finance_agreement.total_principal %></td>
+    <td><%= finance_agreement.finance_fee %></td>
+    <td><%= finance_agreement.monthly_payment_amount %></td>
+    <td><%= finance_agreement.start_date %></td>
+    <td><%= finance_agreement.end_date %></td>
+    <td><%= finance_agreement.title_image_id %></td>
+    <td><%= finance_agreement.agreement_image_id %></td>
+    <td><%= link_to 'Show', finance_agreement %></td>
+    <td><%= link_to 'Edit', edit_finance_agreement_path(finance_agreement) %></td>
+    <td><%= link_to 'Destroy', finance_agreement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Finance agreement', new_finance_agreement_path %>

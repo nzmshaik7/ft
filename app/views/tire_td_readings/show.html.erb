@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @tire_td_reading.vehicle_id %>
+</p>
+
+<p>
+  <b>Tdate:</b>
+  <%= @tire_td_reading.tdate %>
+</p>
+
+<p>
+  <b>Depth32nds:</b>
+  <%= @tire_td_reading.depth32nds %>
+</p>
+
+
+<%= link_to 'Edit', edit_tire_td_reading_path(@tire_td_reading) %> |
+<%= link_to 'Back', tire_td_readings_path %>

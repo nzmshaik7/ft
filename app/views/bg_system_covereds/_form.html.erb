@@ -1,0 +1,29 @@
+<%= form_for(@bg_system_covered) do |f| %>
+  <% if @bg_system_covered.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bg_system_covered.errors.count, "error") %> prohibited this bg_system_covered from being saved:</h2>
+
+      <ul>
+      <% @bg_system_covered.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :vehicle_id %><br />
+    <%= f.number_field :vehicle_id %>
+  </div>
+  <div class="field">
+    <%= f.label :system_id %><br />
+    <%= f.number_field :system_id %>
+  </div>
+  <div class="field">
+    <%= f.label :coverage %><br />
+    <%= f.number_field :coverage %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

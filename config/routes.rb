@@ -1,5 +1,119 @@
 Ft::Application.routes.draw do
 
+  get "top/db"
+
+  resources :insurance_companies
+
+  resources :countries
+
+  resources :states
+
+  resources :counties
+
+  resources :regions
+
+  resources :inventories
+
+  resources :employees
+
+  resources :salespeople
+
+  resources :technicians
+
+  resources :stores
+
+  resources :line_item_purposes
+
+  resources :invoice_line_items
+
+  resources :invoices
+
+  resources :payment_methods
+
+  resources :payments
+
+  resources :engine_displacements
+
+  resources :submodels
+
+  resources :models
+
+  resources :makes
+
+  resources :part_names
+
+  resources :part_manufacturers
+
+  resources :parts
+
+  resources :service_parts
+
+  resources :service_categories
+
+  resources :service_descriptions
+
+  resources :service_line_items
+
+  resources :service_journals_events
+
+  resources :service_journals
+
+  resources :service_visits
+
+  resources :scheduled_appointments
+
+  resources :scheduled_service_items
+
+  resources :scheduled_services
+
+  resources :service_schedules
+
+  resources :wheel_drives
+
+  resources :colors
+
+  resources :non_ma_maintenances
+
+  resources :gas_mileages
+
+  resources :cylinder_compressions
+
+  resources :qualifications
+
+  resources :code_histories
+
+  resources :tire_td_readings
+
+  resources :bg_systems
+
+  resources :bg_system_covereds
+
+  resources :manufacturer_warranties
+
+  resources :breakdowns
+
+  resources :ts_band_recalls
+
+  resources :automatic_data_link_infos
+
+  resources :vehicles
+
+  resources :images
+
+  resources :written_testimonies
+
+  resources :upgrade_types
+
+  resources :upgrades
+
+  resources :contracts
+
+  resources :referred_bies
+
+  resources :finance_agreements
+
+  resources :customers
+
   devise_for :users, :controllers => {
       :registrations => "ft_devise/registrations",
       :sessions => "ft_devise/sessions",

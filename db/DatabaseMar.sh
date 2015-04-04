@@ -8,7 +8,7 @@ function RAILS() {
     echo " "
     echo -n "enter: "
     read ans
-    rails $*
+    rails $* --no-assets --no-helper
 }
 
 
@@ -54,7 +54,7 @@ gen=( generate scaffold Customer
     # List of Payments
     # List of Payment Methods
     # List of FinanceAgreement
-RAILS ${gen[*]}
+# RAILS ${gen[*]}
 
 
 gen=( generate scaffold FinanceAgreement

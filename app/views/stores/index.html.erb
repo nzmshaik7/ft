@@ -1,0 +1,47 @@
+<h1>Listing stores</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Number</th>
+    <th>Manager</th>
+    <th>Street address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>County</th>
+    <th>Region</th>
+    <th>Zip</th>
+    <th>Phone</th>
+    <th>Number of lifts</th>
+    <th>Capacity</th>
+    <th>Break even</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @stores.each do |store| %>
+  <tr>
+    <td><%= store.name %></td>
+    <td><%= store.number %></td>
+    <td><%= store.manager_id %></td>
+    <td><%= store.street_address %></td>
+    <td><%= store.city %></td>
+    <td><%= store.state_id %></td>
+    <td><%= store.county_id %></td>
+    <td><%= store.region_id %></td>
+    <td><%= store.zip %></td>
+    <td><%= store.phone %></td>
+    <td><%= store.number_of_lifts %></td>
+    <td><%= store.capacity %></td>
+    <td><%= store.break_even %></td>
+    <td><%= link_to 'Show', store %></td>
+    <td><%= link_to 'Edit', edit_store_path(store) %></td>
+    <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Store', new_store_path %>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @automatic_data_link_info.vehicle_id %>
+</p>
+
+<p>
+  <b>Serial number:</b>
+  <%= @automatic_data_link_info.serial_number %>
+</p>
+
+<p>
+  <b>Idate:</b>
+  <%= @automatic_data_link_info.idate %>
+</p>
+
+<p>
+  <b>Data:</b>
+  <%= @automatic_data_link_info.data %>
+</p>
+
+
+<%= link_to 'Edit', edit_automatic_data_link_info_path(@automatic_data_link_info) %> |
+<%= link_to 'Back', automatic_data_link_infos_path %>

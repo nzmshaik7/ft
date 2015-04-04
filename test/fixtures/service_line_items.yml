@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  service_visit_id: 1
+  service_description_id: 1
+  service_description_text: MyString
+  labor_hours_retail: 9.99
+  labor_rate_retail: 9.99
+  labor_hours_actual: 9.99
+  labor_rate_actual: 9.99
+  technician1_id: 1
+  technician2_id: 1
+  technician3_id: 1
+  is_scheduled: false
+
+two:
+  service_visit_id: 1
+  service_description_id: 1
+  service_description_text: MyString
+  labor_hours_retail: 9.99
+  labor_rate_retail: 9.99
+  labor_hours_actual: 9.99
+  labor_rate_actual: 9.99
+  technician1_id: 1
+  technician2_id: 1
+  technician3_id: 1
+  is_scheduled: false

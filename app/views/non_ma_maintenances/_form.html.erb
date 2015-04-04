@@ -1,0 +1,33 @@
+<%= form_for(@non_ma_maintenance) do |f| %>
+  <% if @non_ma_maintenance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@non_ma_maintenance.errors.count, "error") %> prohibited this non_ma_maintenance from being saved:</h2>
+
+      <ul>
+      <% @non_ma_maintenance.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :vehicle_id %><br />
+    <%= f.number_field :vehicle_id %>
+  </div>
+  <div class="field">
+    <%= f.label :mdate %><br />
+    <%= f.datetime_select :mdate %>
+  </div>
+  <div class="field">
+    <%= f.label :where %><br />
+    <%= f.text_field :where %>
+  </div>
+  <div class="field">
+    <%= f.label :document_image_id %><br />
+    <%= f.number_field :document_image_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

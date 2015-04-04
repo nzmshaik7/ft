@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  contract_id: 1
+  upgrade_type_id: 1
+  cost: 9.99
+
+two:
+  contract_id: 1
+  upgrade_type_id: 1
+  cost: 9.99

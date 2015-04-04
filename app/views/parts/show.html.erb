@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Part manufacturer:</b>
+  <%= @part.part_manufacturer_id %>
+</p>
+
+<p>
+  <b>Part name:</b>
+  <%= @part.part_name_id %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @part.description %>
+</p>
+
+<p>
+  <b>Part number:</b>
+  <%= @part.part_number %>
+</p>
+
+<p>
+  <b>Actual cost:</b>
+  <%= @part.actual_cost %>
+</p>
+
+<p>
+  <b>Retail price:</b>
+  <%= @part.retail_price %>
+</p>
+
+
+<%= link_to 'Edit', edit_part_path(@part) %> |
+<%= link_to 'Back', parts_path %>

@@ -1,0 +1,43 @@
+<h1>Listing service_line_items</h1>
+
+<table>
+  <tr>
+    <th>Service visit</th>
+    <th>Service description</th>
+    <th>Service description text</th>
+    <th>Labor hours retail</th>
+    <th>Labor rate retail</th>
+    <th>Labor hours actual</th>
+    <th>Labor rate actual</th>
+    <th>Technician1</th>
+    <th>Technician2</th>
+    <th>Technician3</th>
+    <th>Is scheduled</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @service_line_items.each do |service_line_item| %>
+  <tr>
+    <td><%= service_line_item.service_visit_id %></td>
+    <td><%= service_line_item.service_description_id %></td>
+    <td><%= service_line_item.service_description_text %></td>
+    <td><%= service_line_item.labor_hours_retail %></td>
+    <td><%= service_line_item.labor_rate_retail %></td>
+    <td><%= service_line_item.labor_hours_actual %></td>
+    <td><%= service_line_item.labor_rate_actual %></td>
+    <td><%= service_line_item.technician1_id %></td>
+    <td><%= service_line_item.technician2_id %></td>
+    <td><%= service_line_item.technician3_id %></td>
+    <td><%= service_line_item.is_scheduled %></td>
+    <td><%= link_to 'Show', service_line_item %></td>
+    <td><%= link_to 'Edit', edit_service_line_item_path(service_line_item) %></td>
+    <td><%= link_to 'Destroy', service_line_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Service line item', new_service_line_item_path %>

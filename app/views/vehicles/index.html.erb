@@ -1,0 +1,89 @@
+<h1>Listing vehicles</h1>
+
+<table>
+  <tr>
+    <th>Vin</th>
+    <th>Vin decoded</th>
+    <th>License plate</th>
+    <th>License plate state</th>
+    <th>Customer</th>
+    <th>Make</th>
+    <th>Model</th>
+    <th>Submodel</th>
+    <th>Date of manufacture</th>
+    <th>Country of manufacture</th>
+    <th>Msrp</th>
+    <th>Kbb on qual</th>
+    <th>Current kbb</th>
+    <th>Consumer reports url</th>
+    <th>Engine cyl</th>
+    <th>Engine displacement</th>
+    <th>Wheel drive</th>
+    <th>Color</th>
+    <th>Doors</th>
+    <th>Convertible</th>
+    <th>Comments</th>
+    <th>Service schedule</th>
+    <th>Insurance company</th>
+    <th>Insurance policy number</th>
+    <th>Insurance image</th>
+    <th>Carfax url</th>
+    <th>Carfax copy at qual</th>
+    <th>Door plate image</th>
+    <th>Mileage</th>
+    <th>Mpg30after initial</th>
+    <th>Photos image</th>
+    <th>Qualification</th>
+    <th>Bg compliant</th>
+    <th>Contract</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @vehicles.each do |vehicle| %>
+  <tr>
+    <td><%= vehicle.vin %></td>
+    <td><%= vehicle.vin_decoded %></td>
+    <td><%= vehicle.license_plate %></td>
+    <td><%= vehicle.license_plate_state_id %></td>
+    <td><%= vehicle.customer_id %></td>
+    <td><%= vehicle.make_id %></td>
+    <td><%= vehicle.model_id %></td>
+    <td><%= vehicle.submodel_id %></td>
+    <td><%= vehicle.date_of_manufacture %></td>
+    <td><%= vehicle.country_of_manufacture_id %></td>
+    <td><%= vehicle.msrp %></td>
+    <td><%= vehicle.kbb_on_qual %></td>
+    <td><%= vehicle.current_kbb %></td>
+    <td><%= vehicle.consumer_reports_url %></td>
+    <td><%= vehicle.engine_cyl %></td>
+    <td><%= vehicle.engine_displacement_id %></td>
+    <td><%= vehicle.wheel_drive_id %></td>
+    <td><%= vehicle.color_id %></td>
+    <td><%= vehicle.doors %></td>
+    <td><%= vehicle.convertible %></td>
+    <td><%= vehicle.comments %></td>
+    <td><%= vehicle.service_schedule_id %></td>
+    <td><%= vehicle.insurance_company_id %></td>
+    <td><%= vehicle.insurance_policy_number %></td>
+    <td><%= vehicle.insurance_image_id %></td>
+    <td><%= vehicle.carfax_url %></td>
+    <td><%= vehicle.carfax_copy_at_qual %></td>
+    <td><%= vehicle.door_plate_image_id %></td>
+    <td><%= vehicle.mileage %></td>
+    <td><%= vehicle.mpg30after_initial %></td>
+    <td><%= vehicle.photos_image_id %></td>
+    <td><%= vehicle.qualification_id %></td>
+    <td><%= vehicle.bg_compliant %></td>
+    <td><%= vehicle.contract_id %></td>
+    <td><%= link_to 'Show', vehicle %></td>
+    <td><%= link_to 'Edit', edit_vehicle_path(vehicle) %></td>
+    <td><%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Vehicle', new_vehicle_path %>

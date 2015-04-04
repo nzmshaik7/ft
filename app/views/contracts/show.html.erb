@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Begin date:</b>
+  <%= @contract.begin_date %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%= @contract.number %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @contract.status %>
+</p>
+
+<p>
+  <b>Image:</b>
+  <%= @contract.image_id %>
+</p>
+
+<p>
+  <b>Salesperson:</b>
+  <%= @contract.salesperson_id %>
+</p>
+
+<p>
+  <b>Level:</b>
+  <%= @contract.level %>
+</p>
+
+<p>
+  <b>Base cost:</b>
+  <%= @contract.base_cost %>
+</p>
+
+<p>
+  <b>Day of payment:</b>
+  <%= @contract.day_of_payment %>
+</p>
+
+<p>
+  <b>Discount:</b>
+  <%= @contract.discount %>
+</p>
+
+<p>
+  <b>Discount:</b>
+  <%= @contract.discount %>
+</p>
+
+
+<%= link_to 'Edit', edit_contract_path(@contract) %> |
+<%= link_to 'Back', contracts_path %>

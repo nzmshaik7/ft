@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Date time:</b>
+  <%= @scheduled_appointment.date_time %>
+</p>
+
+<p>
+  <b>Actual date time:</b>
+  <%= @scheduled_appointment.actual_date_time %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @scheduled_appointment.status %>
+</p>
+
+<p>
+  <b>Purpose:</b>
+  <%= @scheduled_appointment.purpose %>
+</p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @scheduled_appointment.vehicle_id %>
+</p>
+
+<p>
+  <b>Store:</b>
+  <%= @scheduled_appointment.store_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_scheduled_appointment_path(@scheduled_appointment) %> |
+<%= link_to 'Back', scheduled_appointments_path %>

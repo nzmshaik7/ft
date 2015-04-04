@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vehicle_id: 1
+  mileage: 9.99
+  mdate: 2015-04-04 08:54:34
+
+two:
+  vehicle_id: 1
+  mileage: 9.99
+  mdate: 2015-04-04 08:54:34

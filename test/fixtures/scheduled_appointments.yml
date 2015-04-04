@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date_time: 2015-04-04 08:55:03
+  actual_date_time: 2015-04-04 08:55:03
+  status: 1
+  purpose: 1
+  vehicle_id: 1
+  store_id: 1
+
+two:
+  date_time: 2015-04-04 08:55:03
+  actual_date_time: 2015-04-04 08:55:03
+  status: 1
+  purpose: 1
+  vehicle_id: 1
+  store_id: 1

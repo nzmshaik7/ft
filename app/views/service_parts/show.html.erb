@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Service line item:</b>
+  <%= @service_part.service_line_item_id %>
+</p>
+
+<p>
+  <b>Part:</b>
+  <%= @service_part.part_id %>
+</p>
+
+<p>
+  <b>Part retail price:</b>
+  <%= @service_part.part_retail_price %>
+</p>
+
+<p>
+  <b>Part actual price:</b>
+  <%= @service_part.part_actual_price %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_part_path(@service_part) %> |
+<%= link_to 'Back', service_parts_path %>

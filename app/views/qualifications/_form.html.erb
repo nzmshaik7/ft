@@ -1,0 +1,49 @@
+<%= form_for(@qualification) do |f| %>
+  <% if @qualification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@qualification.errors.count, "error") %> prohibited this qualification from being saved:</h2>
+
+      <ul>
+      <% @qualification.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :qdate %><br />
+    <%= f.datetime_select :qdate %>
+  </div>
+  <div class="field">
+    <%= f.label :leakdown %><br />
+    <%= f.number_field :leakdown %>
+  </div>
+  <div class="field">
+    <%= f.label :qual_report_images_id %><br />
+    <%= f.number_field :qual_report_images_id %>
+  </div>
+  <div class="field">
+    <%= f.label :alignment_report_images_id %><br />
+    <%= f.number_field :alignment_report_images_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sixgas_report_images_id %><br />
+    <%= f.number_field :sixgas_report_images_id %>
+  </div>
+  <div class="field">
+    <%= f.label :spectrum_report_images_id %><br />
+    <%= f.number_field :spectrum_report_images_id %>
+  </div>
+  <div class="field">
+    <%= f.label :cylinder_compression_spec %><br />
+    <%= f.number_field :cylinder_compression_spec %>
+  </div>
+  <div class="field">
+    <%= f.label :service_visit_id %><br />
+    <%= f.number_field :service_visit_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

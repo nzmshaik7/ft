@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Customer:</b>
+  <%= @finance_agreement.customer_id %>
+</p>
+
+<p>
+  <b>Missed payment fee:</b>
+  <%= @finance_agreement.missed_payment_fee %>
+</p>
+
+<p>
+  <b>Total principal:</b>
+  <%= @finance_agreement.total_principal %>
+</p>
+
+<p>
+  <b>Finance fee:</b>
+  <%= @finance_agreement.finance_fee %>
+</p>
+
+<p>
+  <b>Monthly payment amount:</b>
+  <%= @finance_agreement.monthly_payment_amount %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @finance_agreement.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @finance_agreement.end_date %>
+</p>
+
+<p>
+  <b>Title image:</b>
+  <%= @finance_agreement.title_image_id %>
+</p>
+
+<p>
+  <b>Agreement image:</b>
+  <%= @finance_agreement.agreement_image_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_finance_agreement_path(@finance_agreement) %> |
+<%= link_to 'Back', finance_agreements_path %>

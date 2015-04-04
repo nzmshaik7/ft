@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  service_schedule_id: 1
+  sdate: 2015-04-04 08:54:55
+  mileage: 1
+
+two:
+  service_schedule_id: 1
+  sdate: 2015-04-04 08:54:55
+  mileage: 1

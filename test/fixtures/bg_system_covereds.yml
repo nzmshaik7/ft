@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vehicle_id: 1
+  system_id: 1
+  coverage: 1
+
+two:
+  vehicle_id: 1
+  system_id: 1
+  coverage: 1

@@ -1,0 +1,23 @@
+<h1>Listing service_schedules</h1>
+
+<table>
+  <tr>
+    <th>Image</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @service_schedules.each do |service_schedule| %>
+  <tr>
+    <td><%= service_schedule.image_id %></td>
+    <td><%= link_to 'Show', service_schedule %></td>
+    <td><%= link_to 'Edit', edit_service_schedule_path(service_schedule) %></td>
+    <td><%= link_to 'Destroy', service_schedule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Service schedule', new_service_schedule_path %>

@@ -1,0 +1,37 @@
+<h1>Listing service_visits</h1>
+
+<table>
+  <tr>
+    <th>Mileage</th>
+    <th>Sdate</th>
+    <th>Description</th>
+    <th>Store</th>
+    <th>Vehicle</th>
+    <th>Invoice</th>
+    <th>Salesperson</th>
+    <th>Comments</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @service_visits.each do |service_visit| %>
+  <tr>
+    <td><%= service_visit.mileage %></td>
+    <td><%= service_visit.sdate %></td>
+    <td><%= service_visit.description %></td>
+    <td><%= service_visit.store_id %></td>
+    <td><%= service_visit.vehicle_id %></td>
+    <td><%= service_visit.invoice_id %></td>
+    <td><%= service_visit.salesperson_id %></td>
+    <td><%= service_visit.comments %></td>
+    <td><%= link_to 'Show', service_visit %></td>
+    <td><%= link_to 'Edit', edit_service_visit_path(service_visit) %></td>
+    <td><%= link_to 'Destroy', service_visit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Service visit', new_service_visit_path %>

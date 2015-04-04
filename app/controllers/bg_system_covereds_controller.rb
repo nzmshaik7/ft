@@ -1,0 +1,83 @@
+class BgSystemCoveredsController < ApplicationController
+    # GET /bg_system_covereds
+    # GET /bg_system_covereds.json
+    def index
+        @bg_system_covereds = BgSystemCovered.all
+
+        respond_to do |format|
+            format.html # index.html.erb
+            format.json { render json: @bg_system_covereds }
+        end
+    end
+
+    # GET /bg_system_covereds/1
+    # GET /bg_system_covereds/1.json
+    def show
+        @bg_system_covered = BgSystemCovered.find(params[:id])
+
+        respond_to do |format|
+            format.html # show.html.erb
+            format.json { render json: @bg_system_covered }
+        end
+    end
+
+    # GET /bg_system_covereds/new
+    # GET /bg_system_covereds/new.json
+    def new
+        @bg_system_covered = BgSystemCovered.new
+
+        respond_to do |format|
+            format.html # new.html.erb
+            format.json { render json: @bg_system_covered }
+        end
+    end
+
+    # GET /bg_system_covereds/1/edit
+    def edit
+        @bg_system_covered = BgSystemCovered.find(params[:id])
+    end
+
+    # POST /bg_system_covereds
+    # POST /bg_system_covereds.json
+    def create
+        @bg_system_covered = BgSystemCovered.new(params[:bg_system_covered])
+
+        respond_to do |format|
+            if @bg_system_covered.save
+                format.html { redirect_to @bg_system_covered, notice: 'Bg system covered was successfully created.' }
+                format.json { render json: @bg_system_covered, status: :created, location: @bg_system_covered }
+            else
+                format.html { render action: "new" }
+                format.json { render json: @bg_system_covered.errors, status: :unprocessable_entity }
+            end
+        end
+    end
+
+    # PUT /bg_system_covereds/1
+    # PUT /bg_system_covereds/1.json
+    def update
+        @bg_system_covered = BgSystemCovered.find(params[:id])
+
+        respond_to do |format|
+            if @bg_system_covered.update_attributes(params[:bg_system_covered])
+                format.html { redirect_to @bg_system_covered, notice: 'Bg system covered was successfully updated.' }
+                format.json { head :no_content }
+            else
+                format.html { render action: "edit" }
+                format.json { render json: @bg_system_covered.errors, status: :unprocessable_entity }
+            end
+        end
+    end
+
+    # DELETE /bg_system_covereds/1
+    # DELETE /bg_system_covereds/1.json
+    def destroy
+        @bg_system_covered = BgSystemCovered.find(params[:id])
+        @bg_system_covered.destroy
+
+        respond_to do |format|
+            format.html { redirect_to bg_system_covereds_url }
+            format.json { head :no_content }
+        end
+    end
+end

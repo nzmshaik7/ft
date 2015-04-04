@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  mileage: 1
+  sdate: 2015-04-04 08:55:07
+  description: MyString
+  store_id: 1
+  vehicle_id: 1
+  invoice_id: 1
+  salesperson_id: 1
+  comments: MyText
+
+two:
+  mileage: 1
+  sdate: 2015-04-04 08:55:07
+  description: MyString
+  store_id: 1
+  vehicle_id: 1
+  invoice_id: 1
+  salesperson_id: 1
+  comments: MyText

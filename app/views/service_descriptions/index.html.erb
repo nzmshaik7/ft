@@ -1,0 +1,29 @@
+<h1>Listing service_descriptions</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Service category</th>
+    <th>Labor rate retail</th>
+    <th>Labor hours retail</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @service_descriptions.each do |service_description| %>
+  <tr>
+    <td><%= service_description.name %></td>
+    <td><%= service_description.service_category_id %></td>
+    <td><%= service_description.labor_rate_retail %></td>
+    <td><%= service_description.labor_hours_retail %></td>
+    <td><%= link_to 'Show', service_description %></td>
+    <td><%= link_to 'Edit', edit_service_description_path(service_description) %></td>
+    <td><%= link_to 'Destroy', service_description, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Service description', new_service_description_path %>

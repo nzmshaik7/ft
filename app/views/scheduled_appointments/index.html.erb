@@ -1,0 +1,33 @@
+<h1>Listing scheduled_appointments</h1>
+
+<table>
+  <tr>
+    <th>Date time</th>
+    <th>Actual date time</th>
+    <th>Status</th>
+    <th>Purpose</th>
+    <th>Vehicle</th>
+    <th>Store</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @scheduled_appointments.each do |scheduled_appointment| %>
+  <tr>
+    <td><%= scheduled_appointment.date_time %></td>
+    <td><%= scheduled_appointment.actual_date_time %></td>
+    <td><%= scheduled_appointment.status %></td>
+    <td><%= scheduled_appointment.purpose %></td>
+    <td><%= scheduled_appointment.vehicle_id %></td>
+    <td><%= scheduled_appointment.store_id %></td>
+    <td><%= link_to 'Show', scheduled_appointment %></td>
+    <td><%= link_to 'Edit', edit_scheduled_appointment_path(scheduled_appointment) %></td>
+    <td><%= link_to 'Destroy', scheduled_appointment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scheduled appointment', new_scheduled_appointment_path %>

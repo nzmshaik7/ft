@@ -1,0 +1,27 @@
+<h1>Listing breakdowns</h1>
+
+<table>
+  <tr>
+    <th>Vehicle</th>
+    <th>Bdate</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @breakdowns.each do |breakdown| %>
+  <tr>
+    <td><%= breakdown.vehicle_id %></td>
+    <td><%= breakdown.bdate %></td>
+    <td><%= breakdown.description %></td>
+    <td><%= link_to 'Show', breakdown %></td>
+    <td><%= link_to 'Edit', edit_breakdown_path(breakdown) %></td>
+    <td><%= link_to 'Destroy', breakdown, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Breakdown', new_breakdown_path %>

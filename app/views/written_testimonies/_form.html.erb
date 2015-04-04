@@ -1,0 +1,21 @@
+<%= form_for(@written_testimony) do |f| %>
+  <% if @written_testimony.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@written_testimony.errors.count, "error") %> prohibited this written_testimony from being saved:</h2>
+
+      <ul>
+      <% @written_testimony.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_text %><br />
+    <%= f.text_area :user_text %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

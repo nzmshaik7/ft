@@ -1,0 +1,23 @@
+<h1>Listing line_item_purposes</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @line_item_purposes.each do |line_item_purpose| %>
+  <tr>
+    <td><%= line_item_purpose.name %></td>
+    <td><%= link_to 'Show', line_item_purpose %></td>
+    <td><%= link_to 'Edit', edit_line_item_purpose_path(line_item_purpose) %></td>
+    <td><%= link_to 'Destroy', line_item_purpose, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Line item purpose', new_line_item_purpose_path %>

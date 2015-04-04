@@ -1,0 +1,27 @@
+<h1>Listing bg_system_covereds</h1>
+
+<table>
+  <tr>
+    <th>Vehicle</th>
+    <th>System</th>
+    <th>Coverage</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bg_system_covereds.each do |bg_system_covered| %>
+  <tr>
+    <td><%= bg_system_covered.vehicle_id %></td>
+    <td><%= bg_system_covered.system_id %></td>
+    <td><%= bg_system_covered.coverage %></td>
+    <td><%= link_to 'Show', bg_system_covered %></td>
+    <td><%= link_to 'Edit', edit_bg_system_covered_path(bg_system_covered) %></td>
+    <td><%= link_to 'Destroy', bg_system_covered, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bg system covered', new_bg_system_covered_path %>

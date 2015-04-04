@@ -1,0 +1,23 @@
+<h1>Listing written_testimonies</h1>
+
+<table>
+  <tr>
+    <th>User text</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @written_testimonies.each do |written_testimony| %>
+  <tr>
+    <td><%= written_testimony.user_text %></td>
+    <td><%= link_to 'Show', written_testimony %></td>
+    <td><%= link_to 'Edit', edit_written_testimony_path(written_testimony) %></td>
+    <td><%= link_to 'Destroy', written_testimony, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Written testimony', new_written_testimony_path %>

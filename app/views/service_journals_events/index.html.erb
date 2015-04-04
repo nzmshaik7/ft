@@ -1,0 +1,23 @@
+<h1>Listing service_journals_events</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @service_journals_events.each do |service_journals_event| %>
+  <tr>
+    <td><%= service_journals_event.name %></td>
+    <td><%= link_to 'Show', service_journals_event %></td>
+    <td><%= link_to 'Edit', edit_service_journals_event_path(service_journals_event) %></td>
+    <td><%= link_to 'Destroy', service_journals_event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Service journals event', new_service_journals_event_path %>

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @ts_band_recall.vehicle_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @ts_band_recall.name %>
+</p>
+
+<p>
+  <b>Date completed:</b>
+  <%= @ts_band_recall.date_completed %>
+</p>
+
+
+<%= link_to 'Edit', edit_ts_band_recall_path(@ts_band_recall) %> |
+<%= link_to 'Back', ts_band_recalls_path %>

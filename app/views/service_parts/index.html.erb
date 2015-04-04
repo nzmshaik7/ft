@@ -1,0 +1,29 @@
+<h1>Listing service_parts</h1>
+
+<table>
+  <tr>
+    <th>Service line item</th>
+    <th>Part</th>
+    <th>Part retail price</th>
+    <th>Part actual price</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @service_parts.each do |service_part| %>
+  <tr>
+    <td><%= service_part.service_line_item_id %></td>
+    <td><%= service_part.part_id %></td>
+    <td><%= service_part.part_retail_price %></td>
+    <td><%= service_part.part_actual_price %></td>
+    <td><%= link_to 'Show', service_part %></td>
+    <td><%= link_to 'Edit', edit_service_part_path(service_part) %></td>
+    <td><%= link_to 'Destroy', service_part, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Service part', new_service_part_path %>

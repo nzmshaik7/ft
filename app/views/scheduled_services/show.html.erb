@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Service schedule:</b>
+  <%= @scheduled_service.service_schedule_id %>
+</p>
+
+<p>
+  <b>Sdate:</b>
+  <%= @scheduled_service.sdate %>
+</p>
+
+<p>
+  <b>Mileage:</b>
+  <%= @scheduled_service.mileage %>
+</p>
+
+
+<%= link_to 'Edit', edit_scheduled_service_path(@scheduled_service) %> |
+<%= link_to 'Back', scheduled_services_path %>

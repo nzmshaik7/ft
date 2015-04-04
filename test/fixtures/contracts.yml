@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  begin_date: 2015-04-04 08:51:22
+  number: MyString
+  status: 1
+  image_id: 1
+  salesperson_id: 1
+  level: 1
+  base_cost: 9.99
+  day_of_payment: 1
+  discount: 9.99
+  discount: 1
+
+two:
+  begin_date: 2015-04-04 08:51:22
+  number: MyString
+  status: 1
+  image_id: 1
+  salesperson_id: 1
+  level: 1
+  base_cost: 9.99
+  day_of_payment: 1
+  discount: 9.99
+  discount: 1

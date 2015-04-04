@@ -1,0 +1,61 @@
+<%= form_for(@service_line_item) do |f| %>
+  <% if @service_line_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@service_line_item.errors.count, "error") %> prohibited this service_line_item from being saved:</h2>
+
+      <ul>
+      <% @service_line_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :service_visit_id %><br />
+    <%= f.number_field :service_visit_id %>
+  </div>
+  <div class="field">
+    <%= f.label :service_description_id %><br />
+    <%= f.number_field :service_description_id %>
+  </div>
+  <div class="field">
+    <%= f.label :service_description_text %><br />
+    <%= f.text_field :service_description_text %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_hours_retail %><br />
+    <%= f.text_field :labor_hours_retail %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_rate_retail %><br />
+    <%= f.text_field :labor_rate_retail %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_hours_actual %><br />
+    <%= f.text_field :labor_hours_actual %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_rate_actual %><br />
+    <%= f.text_field :labor_rate_actual %>
+  </div>
+  <div class="field">
+    <%= f.label :technician1_id %><br />
+    <%= f.number_field :technician1_id %>
+  </div>
+  <div class="field">
+    <%= f.label :technician2_id %><br />
+    <%= f.number_field :technician2_id %>
+  </div>
+  <div class="field">
+    <%= f.label :technician3_id %><br />
+    <%= f.number_field :technician3_id %>
+  </div>
+  <div class="field">
+    <%= f.label :is_scheduled %><br />
+    <%= f.check_box :is_scheduled %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

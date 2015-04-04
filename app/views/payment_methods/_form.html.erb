@@ -1,0 +1,49 @@
+<%= form_for(@payment_method) do |f| %>
+  <% if @payment_method.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payment_method.errors.count, "error") %> prohibited this payment_method from being saved:</h2>
+
+      <ul>
+      <% @payment_method.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :customer_id %><br />
+    <%= f.number_field :customer_id %>
+  </div>
+  <div class="field">
+    <%= f.label :paytype %><br />
+    <%= f.number_field :paytype %>
+  </div>
+  <div class="field">
+    <%= f.label :priority %><br />
+    <%= f.number_field :priority %>
+  </div>
+  <div class="field">
+    <%= f.label :account_number_id %><br />
+    <%= f.number_field :account_number_id %>
+  </div>
+  <div class="field">
+    <%= f.label :routing_number %><br />
+    <%= f.text_field :routing_number %>
+  </div>
+  <div class="field">
+    <%= f.label :expiration_month %><br />
+    <%= f.number_field :expiration_month %>
+  </div>
+  <div class="field">
+    <%= f.label :expiration_year %><br />
+    <%= f.number_field :expiration_year %>
+  </div>
+  <div class="field">
+    <%= f.label :image_id %><br />
+    <%= f.number_field :image_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

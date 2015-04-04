@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @submodel.name %>
+</p>
+
+<p>
+  <b>Make:</b>
+  <%= @submodel.make_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_submodel_path(@submodel) %> |
+<%= link_to 'Back', submodels_path %>

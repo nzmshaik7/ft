@@ -1,0 +1,37 @@
+<h1>Listing payment_methods</h1>
+
+<table>
+  <tr>
+    <th>Customer</th>
+    <th>Paytype</th>
+    <th>Priority</th>
+    <th>Account number</th>
+    <th>Routing number</th>
+    <th>Expiration month</th>
+    <th>Expiration year</th>
+    <th>Image</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @payment_methods.each do |payment_method| %>
+  <tr>
+    <td><%= payment_method.customer_id %></td>
+    <td><%= payment_method.paytype %></td>
+    <td><%= payment_method.priority %></td>
+    <td><%= payment_method.account_number_id %></td>
+    <td><%= payment_method.routing_number %></td>
+    <td><%= payment_method.expiration_month %></td>
+    <td><%= payment_method.expiration_year %></td>
+    <td><%= payment_method.image_id %></td>
+    <td><%= link_to 'Show', payment_method %></td>
+    <td><%= link_to 'Edit', edit_payment_method_path(payment_method) %></td>
+    <td><%= link_to 'Destroy', payment_method, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Payment method', new_payment_method_path %>

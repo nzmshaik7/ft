@@ -1,0 +1,37 @@
+<h1>Listing qualifications</h1>
+
+<table>
+  <tr>
+    <th>Qdate</th>
+    <th>Leakdown</th>
+    <th>Qual report images</th>
+    <th>Alignment report images</th>
+    <th>Sixgas report images</th>
+    <th>Spectrum report images</th>
+    <th>Cylinder compression spec</th>
+    <th>Service visit</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @qualifications.each do |qualification| %>
+  <tr>
+    <td><%= qualification.qdate %></td>
+    <td><%= qualification.leakdown %></td>
+    <td><%= qualification.qual_report_images_id %></td>
+    <td><%= qualification.alignment_report_images_id %></td>
+    <td><%= qualification.sixgas_report_images_id %></td>
+    <td><%= qualification.spectrum_report_images_id %></td>
+    <td><%= qualification.cylinder_compression_spec %></td>
+    <td><%= qualification.service_visit_id %></td>
+    <td><%= link_to 'Show', qualification %></td>
+    <td><%= link_to 'Edit', edit_qualification_path(qualification) %></td>
+    <td><%= link_to 'Destroy', qualification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Qualification', new_qualification_path %>

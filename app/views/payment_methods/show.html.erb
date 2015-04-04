@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Customer:</b>
+  <%= @payment_method.customer_id %>
+</p>
+
+<p>
+  <b>Paytype:</b>
+  <%= @payment_method.paytype %>
+</p>
+
+<p>
+  <b>Priority:</b>
+  <%= @payment_method.priority %>
+</p>
+
+<p>
+  <b>Account number:</b>
+  <%= @payment_method.account_number_id %>
+</p>
+
+<p>
+  <b>Routing number:</b>
+  <%= @payment_method.routing_number %>
+</p>
+
+<p>
+  <b>Expiration month:</b>
+  <%= @payment_method.expiration_month %>
+</p>
+
+<p>
+  <b>Expiration year:</b>
+  <%= @payment_method.expiration_year %>
+</p>
+
+<p>
+  <b>Image:</b>
+  <%= @payment_method.image_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_payment_method_path(@payment_method) %> |
+<%= link_to 'Back', payment_methods_path %>

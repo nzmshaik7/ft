@@ -1,0 +1,29 @@
+<h1>Listing automatic_data_link_infos</h1>
+
+<table>
+  <tr>
+    <th>Vehicle</th>
+    <th>Serial number</th>
+    <th>Idate</th>
+    <th>Data</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @automatic_data_link_infos.each do |automatic_data_link_info| %>
+  <tr>
+    <td><%= automatic_data_link_info.vehicle_id %></td>
+    <td><%= automatic_data_link_info.serial_number %></td>
+    <td><%= automatic_data_link_info.idate %></td>
+    <td><%= automatic_data_link_info.data %></td>
+    <td><%= link_to 'Show', automatic_data_link_info %></td>
+    <td><%= link_to 'Edit', edit_automatic_data_link_info_path(automatic_data_link_info) %></td>
+    <td><%= link_to 'Destroy', automatic_data_link_info, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Automatic data link info', new_automatic_data_link_info_path %>

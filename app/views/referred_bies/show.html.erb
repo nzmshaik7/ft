@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Description:</b>
+  <%= @referred_by.description %>
+</p>
+
+<p>
+  <b>Is other:</b>
+  <%= @referred_by.is_other %>
+</p>
+
+
+<%= link_to 'Edit', edit_referred_by_path(@referred_by) %> |
+<%= link_to 'Back', referred_bies_path %>

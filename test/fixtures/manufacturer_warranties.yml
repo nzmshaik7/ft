@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vehicle_id: 1
+  months: 1
+  miles: 1
+  wtype: 1
+  image: 1
+  comment: MyString
+
+two:
+  vehicle_id: 1
+  months: 1
+  miles: 1
+  wtype: 1
+  image: 1
+  comment: MyString

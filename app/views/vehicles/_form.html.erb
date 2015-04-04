@@ -1,0 +1,153 @@
+<%= form_for(@vehicle) do |f| %>
+  <% if @vehicle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@vehicle.errors.count, "error") %> prohibited this vehicle from being saved:</h2>
+
+      <ul>
+      <% @vehicle.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :vin %><br />
+    <%= f.text_field :vin %>
+  </div>
+  <div class="field">
+    <%= f.label :vin_decoded %><br />
+    <%= f.text_field :vin_decoded %>
+  </div>
+  <div class="field">
+    <%= f.label :license_plate %><br />
+    <%= f.text_field :license_plate %>
+  </div>
+  <div class="field">
+    <%= f.label :license_plate_state_id %><br />
+    <%= f.number_field :license_plate_state_id %>
+  </div>
+  <div class="field">
+    <%= f.label :customer_id %><br />
+    <%= f.number_field :customer_id %>
+  </div>
+  <div class="field">
+    <%= f.label :make_id %><br />
+    <%= f.number_field :make_id %>
+  </div>
+  <div class="field">
+    <%= f.label :model_id %><br />
+    <%= f.number_field :model_id %>
+  </div>
+  <div class="field">
+    <%= f.label :submodel_id %><br />
+    <%= f.number_field :submodel_id %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_manufacture %><br />
+    <%= f.datetime_select :date_of_manufacture %>
+  </div>
+  <div class="field">
+    <%= f.label :country_of_manufacture_id %><br />
+    <%= f.number_field :country_of_manufacture_id %>
+  </div>
+  <div class="field">
+    <%= f.label :msrp %><br />
+    <%= f.text_field :msrp %>
+  </div>
+  <div class="field">
+    <%= f.label :kbb_on_qual %><br />
+    <%= f.text_field :kbb_on_qual %>
+  </div>
+  <div class="field">
+    <%= f.label :current_kbb %><br />
+    <%= f.text_field :current_kbb %>
+  </div>
+  <div class="field">
+    <%= f.label :consumer_reports_url %><br />
+    <%= f.text_field :consumer_reports_url %>
+  </div>
+  <div class="field">
+    <%= f.label :engine_cyl %><br />
+    <%= f.number_field :engine_cyl %>
+  </div>
+  <div class="field">
+    <%= f.label :engine_displacement_id %><br />
+    <%= f.number_field :engine_displacement_id %>
+  </div>
+  <div class="field">
+    <%= f.label :wheel_drive_id %><br />
+    <%= f.number_field :wheel_drive_id %>
+  </div>
+  <div class="field">
+    <%= f.label :color_id %><br />
+    <%= f.number_field :color_id %>
+  </div>
+  <div class="field">
+    <%= f.label :doors %><br />
+    <%= f.number_field :doors %>
+  </div>
+  <div class="field">
+    <%= f.label :convertible %><br />
+    <%= f.check_box :convertible %>
+  </div>
+  <div class="field">
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments %>
+  </div>
+  <div class="field">
+    <%= f.label :service_schedule_id %><br />
+    <%= f.number_field :service_schedule_id %>
+  </div>
+  <div class="field">
+    <%= f.label :insurance_company_id %><br />
+    <%= f.number_field :insurance_company_id %>
+  </div>
+  <div class="field">
+    <%= f.label :insurance_policy_number %><br />
+    <%= f.text_field :insurance_policy_number %>
+  </div>
+  <div class="field">
+    <%= f.label :insurance_image_id %><br />
+    <%= f.number_field :insurance_image_id %>
+  </div>
+  <div class="field">
+    <%= f.label :carfax_url %><br />
+    <%= f.text_field :carfax_url %>
+  </div>
+  <div class="field">
+    <%= f.label :carfax_copy_at_qual %><br />
+    <%= f.text_field :carfax_copy_at_qual %>
+  </div>
+  <div class="field">
+    <%= f.label :door_plate_image_id %><br />
+    <%= f.number_field :door_plate_image_id %>
+  </div>
+  <div class="field">
+    <%= f.label :mileage %><br />
+    <%= f.number_field :mileage %>
+  </div>
+  <div class="field">
+    <%= f.label :mpg30after_initial %><br />
+    <%= f.text_field :mpg30after_initial %>
+  </div>
+  <div class="field">
+    <%= f.label :photos_image_id %><br />
+    <%= f.number_field :photos_image_id %>
+  </div>
+  <div class="field">
+    <%= f.label :qualification_id %><br />
+    <%= f.number_field :qualification_id %>
+  </div>
+  <div class="field">
+    <%= f.label :bg_compliant %><br />
+    <%= f.check_box :bg_compliant %>
+  </div>
+  <div class="field">
+    <%= f.label :contract_id %><br />
+    <%= f.number_field :contract_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

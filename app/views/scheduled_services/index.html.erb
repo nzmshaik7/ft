@@ -1,0 +1,27 @@
+<h1>Listing scheduled_services</h1>
+
+<table>
+  <tr>
+    <th>Service schedule</th>
+    <th>Sdate</th>
+    <th>Mileage</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @scheduled_services.each do |scheduled_service| %>
+  <tr>
+    <td><%= scheduled_service.service_schedule_id %></td>
+    <td><%= scheduled_service.sdate %></td>
+    <td><%= scheduled_service.mileage %></td>
+    <td><%= link_to 'Show', scheduled_service %></td>
+    <td><%= link_to 'Edit', edit_scheduled_service_path(scheduled_service) %></td>
+    <td><%= link_to 'Destroy', scheduled_service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scheduled service', new_scheduled_service_path %>

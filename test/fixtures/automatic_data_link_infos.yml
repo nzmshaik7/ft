@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vehicle_id: 1
+  serial_number: MyString
+  idate: 2015-04-04 08:52:47
+  data: MyText
+
+two:
+  vehicle_id: 1
+  serial_number: MyString
+  idate: 2015-04-04 08:52:47
+  data: MyText

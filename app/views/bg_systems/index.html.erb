@@ -1,0 +1,23 @@
+<h1>Listing bg_systems</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bg_systems.each do |bg_system| %>
+  <tr>
+    <td><%= bg_system.name %></td>
+    <td><%= link_to 'Show', bg_system %></td>
+    <td><%= link_to 'Edit', edit_bg_system_path(bg_system) %></td>
+    <td><%= link_to 'Destroy', bg_system, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bg system', new_bg_system_path %>

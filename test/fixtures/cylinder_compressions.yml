@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  qualification_id: 1
+  cyl_num: 1
+  psi: 1
+
+two:
+  qualification_id: 1
+  cyl_num: 1
+  psi: 1

@@ -1,0 +1,29 @@
+<%= form_for(@cylinder_compression) do |f| %>
+  <% if @cylinder_compression.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cylinder_compression.errors.count, "error") %> prohibited this cylinder_compression from being saved:</h2>
+
+      <ul>
+      <% @cylinder_compression.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :qualification_id %><br />
+    <%= f.number_field :qualification_id %>
+  </div>
+  <div class="field">
+    <%= f.label :cyl_num %><br />
+    <%= f.number_field :cyl_num %>
+  </div>
+  <div class="field">
+    <%= f.label :psi %><br />
+    <%= f.number_field :psi %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,29 @@
+<h1>Listing non_ma_maintenances</h1>
+
+<table>
+  <tr>
+    <th>Vehicle</th>
+    <th>Mdate</th>
+    <th>Where</th>
+    <th>Document image</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @non_ma_maintenances.each do |non_ma_maintenance| %>
+  <tr>
+    <td><%= non_ma_maintenance.vehicle_id %></td>
+    <td><%= non_ma_maintenance.mdate %></td>
+    <td><%= non_ma_maintenance.where %></td>
+    <td><%= non_ma_maintenance.document_image_id %></td>
+    <td><%= link_to 'Show', non_ma_maintenance %></td>
+    <td><%= link_to 'Edit', edit_non_ma_maintenance_path(non_ma_maintenance) %></td>
+    <td><%= link_to 'Destroy', non_ma_maintenance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Non ma maintenance', new_non_ma_maintenance_path %>

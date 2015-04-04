@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  qdate: 2015-04-04 08:54:21
+  leakdown: 1
+  qual_report_images_id: 1
+  alignment_report_images_id: 1
+  sixgas_report_images_id: 1
+  spectrum_report_images_id: 1
+  cylinder_compression_spec: 1
+  service_visit_id: 1
+
+two:
+  qdate: 2015-04-04 08:54:21
+  leakdown: 1
+  qual_report_images_id: 1
+  alignment_report_images_id: 1
+  sixgas_report_images_id: 1
+  spectrum_report_images_id: 1
+  cylinder_compression_spec: 1
+  service_visit_id: 1

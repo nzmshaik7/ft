@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Qdate:</b>
+  <%= @qualification.qdate %>
+</p>
+
+<p>
+  <b>Leakdown:</b>
+  <%= @qualification.leakdown %>
+</p>
+
+<p>
+  <b>Qual report images:</b>
+  <%= @qualification.qual_report_images_id %>
+</p>
+
+<p>
+  <b>Alignment report images:</b>
+  <%= @qualification.alignment_report_images_id %>
+</p>
+
+<p>
+  <b>Sixgas report images:</b>
+  <%= @qualification.sixgas_report_images_id %>
+</p>
+
+<p>
+  <b>Spectrum report images:</b>
+  <%= @qualification.spectrum_report_images_id %>
+</p>
+
+<p>
+  <b>Cylinder compression spec:</b>
+  <%= @qualification.cylinder_compression_spec %>
+</p>
+
+<p>
+  <b>Service visit:</b>
+  <%= @qualification.service_visit_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_qualification_path(@qualification) %> |
+<%= link_to 'Back', qualifications_path %>

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @gas_mileage.vehicle_id %>
+</p>
+
+<p>
+  <b>Mileage:</b>
+  <%= @gas_mileage.mileage %>
+</p>
+
+<p>
+  <b>Mdate:</b>
+  <%= @gas_mileage.mdate %>
+</p>
+
+
+<%= link_to 'Edit', edit_gas_mileage_path(@gas_mileage) %> |
+<%= link_to 'Back', gas_mileages_path %>

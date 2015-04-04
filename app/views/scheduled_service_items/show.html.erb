@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Scheduled service:</b>
+  <%= @scheduled_service_item.scheduled_service_id %>
+</p>
+
+<p>
+  <b>Service description:</b>
+  <%= @scheduled_service_item.service_description_id %>
+</p>
+
+<p>
+  <b>Other:</b>
+  <%= @scheduled_service_item.other %>
+</p>
+
+
+<%= link_to 'Edit', edit_scheduled_service_item_path(@scheduled_service_item) %> |
+<%= link_to 'Back', scheduled_service_items_path %>

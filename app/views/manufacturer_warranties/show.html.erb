@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @manufacturer_warranty.vehicle_id %>
+</p>
+
+<p>
+  <b>Months:</b>
+  <%= @manufacturer_warranty.months %>
+</p>
+
+<p>
+  <b>Miles:</b>
+  <%= @manufacturer_warranty.miles %>
+</p>
+
+<p>
+  <b>Wtype:</b>
+  <%= @manufacturer_warranty.wtype %>
+</p>
+
+<p>
+  <b>Image:</b>
+  <%= @manufacturer_warranty.image %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @manufacturer_warranty.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_manufacturer_warranty_path(@manufacturer_warranty) %> |
+<%= link_to 'Back', manufacturer_warranties_path %>

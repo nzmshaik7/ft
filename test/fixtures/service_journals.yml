@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  service_visit_id: 1
+  event_id: 1
+  date_time: 2015-04-04 08:55:11
+
+two:
+  service_visit_id: 1
+  event_id: 1
+  date_time: 2015-04-04 08:55:11

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  part_manufacturer_id: 1
+  part_name_id: 1
+  description: MyString
+  part_number: MyString
+  actual_cost: 9.99
+  retail_price: 9.99
+
+two:
+  part_manufacturer_id: 1
+  part_name_id: 1
+  description: MyString
+  part_number: MyString
+  actual_cost: 9.99
+  retail_price: 9.99

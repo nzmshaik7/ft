@@ -1,0 +1,73 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vin: MyString
+  vin_decoded: MyString
+  license_plate: MyString
+  license_plate_state_id: 1
+  customer_id: 1
+  make_id: 1
+  model_id: 1
+  submodel_id: 1
+  date_of_manufacture: 2015-04-04 08:52:37
+  country_of_manufacture_id: 1
+  msrp: 9.99
+  kbb_on_qual: 9.99
+  current_kbb: 9.99
+  consumer_reports_url: MyString
+  engine_cyl: 1
+  engine_displacement_id: 1
+  wheel_drive_id: 1
+  color_id: 1
+  doors: 1
+  convertible: false
+  comments: MyText
+  service_schedule_id: 1
+  insurance_company_id: 1
+  insurance_policy_number: MyString
+  insurance_image_id: 1
+  carfax_url: MyString
+  carfax_copy_at_qual: MyString
+  door_plate_image_id: 1
+  mileage: 1
+  mpg30after_initial: 9.99
+  photos_image_id: 1
+  qualification_id: 1
+  bg_compliant: false
+  contract_id: 1
+
+two:
+  vin: MyString
+  vin_decoded: MyString
+  license_plate: MyString
+  license_plate_state_id: 1
+  customer_id: 1
+  make_id: 1
+  model_id: 1
+  submodel_id: 1
+  date_of_manufacture: 2015-04-04 08:52:37
+  country_of_manufacture_id: 1
+  msrp: 9.99
+  kbb_on_qual: 9.99
+  current_kbb: 9.99
+  consumer_reports_url: MyString
+  engine_cyl: 1
+  engine_displacement_id: 1
+  wheel_drive_id: 1
+  color_id: 1
+  doors: 1
+  convertible: false
+  comments: MyText
+  service_schedule_id: 1
+  insurance_company_id: 1
+  insurance_policy_number: MyString
+  insurance_image_id: 1
+  carfax_url: MyString
+  carfax_copy_at_qual: MyString
+  door_plate_image_id: 1
+  mileage: 1
+  mpg30after_initial: 9.99
+  photos_image_id: 1
+  qualification_id: 1
+  bg_compliant: false
+  contract_id: 1

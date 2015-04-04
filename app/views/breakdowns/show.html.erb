@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @breakdown.vehicle_id %>
+</p>
+
+<p>
+  <b>Bdate:</b>
+  <%= @breakdown.bdate %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @breakdown.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_breakdown_path(@breakdown) %> |
+<%= link_to 'Back', breakdowns_path %>

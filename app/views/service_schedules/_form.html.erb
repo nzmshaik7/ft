@@ -1,0 +1,21 @@
+<%= form_for(@service_schedule) do |f| %>
+  <% if @service_schedule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@service_schedule.errors.count, "error") %> prohibited this service_schedule from being saved:</h2>
+
+      <ul>
+      <% @service_schedule.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :image_id %><br />
+    <%= f.number_field :image_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

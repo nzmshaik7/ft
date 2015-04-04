@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Service visit:</b>
+  <%= @service_line_item.service_visit_id %>
+</p>
+
+<p>
+  <b>Service description:</b>
+  <%= @service_line_item.service_description_id %>
+</p>
+
+<p>
+  <b>Service description text:</b>
+  <%= @service_line_item.service_description_text %>
+</p>
+
+<p>
+  <b>Labor hours retail:</b>
+  <%= @service_line_item.labor_hours_retail %>
+</p>
+
+<p>
+  <b>Labor rate retail:</b>
+  <%= @service_line_item.labor_rate_retail %>
+</p>
+
+<p>
+  <b>Labor hours actual:</b>
+  <%= @service_line_item.labor_hours_actual %>
+</p>
+
+<p>
+  <b>Labor rate actual:</b>
+  <%= @service_line_item.labor_rate_actual %>
+</p>
+
+<p>
+  <b>Technician1:</b>
+  <%= @service_line_item.technician1_id %>
+</p>
+
+<p>
+  <b>Technician2:</b>
+  <%= @service_line_item.technician2_id %>
+</p>
+
+<p>
+  <b>Technician3:</b>
+  <%= @service_line_item.technician3_id %>
+</p>
+
+<p>
+  <b>Is scheduled:</b>
+  <%= @service_line_item.is_scheduled %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_line_item_path(@service_line_item) %> |
+<%= link_to 'Back', service_line_items_path %>

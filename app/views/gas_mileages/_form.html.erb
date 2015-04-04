@@ -1,0 +1,29 @@
+<%= form_for(@gas_mileage) do |f| %>
+  <% if @gas_mileage.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gas_mileage.errors.count, "error") %> prohibited this gas_mileage from being saved:</h2>
+
+      <ul>
+      <% @gas_mileage.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :vehicle_id %><br />
+    <%= f.number_field :vehicle_id %>
+  </div>
+  <div class="field">
+    <%= f.label :mileage %><br />
+    <%= f.text_field :mileage %>
+  </div>
+  <div class="field">
+    <%= f.label :mdate %><br />
+    <%= f.datetime_select :mdate %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

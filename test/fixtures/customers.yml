@@ -1,0 +1,73 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cid: MyString
+  user_id: 1
+  street_addr1: MyString
+  street_addr2: MyString
+  city: MyString
+  state_id: 1
+  zip: MyString
+  home_phone: MyString
+  can_text_home_phone: false
+  work_phone: MyString
+  can_text_work_phone: false
+  mobile_phone: MyString
+  can_text_mobile_phone: false
+  other_phone: MyString
+  can_text_other_phone: false
+  joined_date: 2015-04-04 08:45:17
+  is_aaa_member: false
+  is_web_registered: false
+  spouse_name: MyString
+  spouse_id: 1
+  signup_store_id: 1
+  referredBy_id: 1
+  referredBy_customer_id: 1
+  referredBy_other_text: MyString
+  ssn: MyString
+  driver_lic_num: MyString
+  driver_lic_state_id: 1
+  driver_lic_image_id: 1
+  date_of_birth: 2015-04-04 08:45:17
+  gender: 1
+  video_testimony_url: MyString
+  written_testimony_id: 1
+  referral_credits_earned: 1
+  referral_credits_used: 1
+
+two:
+  cid: MyString
+  user_id: 1
+  street_addr1: MyString
+  street_addr2: MyString
+  city: MyString
+  state_id: 1
+  zip: MyString
+  home_phone: MyString
+  can_text_home_phone: false
+  work_phone: MyString
+  can_text_work_phone: false
+  mobile_phone: MyString
+  can_text_mobile_phone: false
+  other_phone: MyString
+  can_text_other_phone: false
+  joined_date: 2015-04-04 08:45:17
+  is_aaa_member: false
+  is_web_registered: false
+  spouse_name: MyString
+  spouse_id: 1
+  signup_store_id: 1
+  referredBy_id: 1
+  referredBy_customer_id: 1
+  referredBy_other_text: MyString
+  ssn: MyString
+  driver_lic_num: MyString
+  driver_lic_state_id: 1
+  driver_lic_image_id: 1
+  date_of_birth: 2015-04-04 08:45:17
+  gender: 1
+  video_testimony_url: MyString
+  written_testimony_id: 1
+  referral_credits_earned: 1
+  referral_credits_used: 1

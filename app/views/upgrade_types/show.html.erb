@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @upgrade_type.name %>
+</p>
+
+<p>
+  <b>Cost:</b>
+  <%= @upgrade_type.cost %>
+</p>
+
+
+<%= link_to 'Edit', edit_upgrade_type_path(@upgrade_type) %> |
+<%= link_to 'Back', upgrade_types_path %>

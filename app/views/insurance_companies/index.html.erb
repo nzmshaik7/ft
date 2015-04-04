@@ -1,0 +1,23 @@
+<h1>Listing insurance_companies</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @insurance_companies.each do |insurance_company| %>
+  <tr>
+    <td><%= insurance_company.name %></td>
+    <td><%= link_to 'Show', insurance_company %></td>
+    <td><%= link_to 'Edit', edit_insurance_company_path(insurance_company) %></td>
+    <td><%= link_to 'Destroy', insurance_company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Insurance company', new_insurance_company_path %>

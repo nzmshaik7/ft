@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vehicle_id: 1
+  cdate: 2015-04-04 08:54:17
+  code: MyString
+
+two:
+  vehicle_id: 1
+  cdate: 2015-04-04 08:54:17
+  code: MyString

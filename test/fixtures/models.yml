@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  make_id: 1
+  first_year_made: 1
+  last_year_made: 1
+
+two:
+  name: MyString
+  make_id: 1
+  first_year_made: 1
+  last_year_made: 1

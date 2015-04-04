@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @non_ma_maintenance.vehicle_id %>
+</p>
+
+<p>
+  <b>Mdate:</b>
+  <%= @non_ma_maintenance.mdate %>
+</p>
+
+<p>
+  <b>Where:</b>
+  <%= @non_ma_maintenance.where %>
+</p>
+
+<p>
+  <b>Document image:</b>
+  <%= @non_ma_maintenance.document_image_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_non_ma_maintenance_path(@non_ma_maintenance) %> |
+<%= link_to 'Back', non_ma_maintenances_path %>

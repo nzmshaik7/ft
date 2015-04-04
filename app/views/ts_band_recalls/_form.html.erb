@@ -1,0 +1,29 @@
+<%= form_for(@ts_band_recall) do |f| %>
+  <% if @ts_band_recall.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ts_band_recall.errors.count, "error") %> prohibited this ts_band_recall from being saved:</h2>
+
+      <ul>
+      <% @ts_band_recall.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :vehicle_id %><br />
+    <%= f.number_field :vehicle_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :date_completed %><br />
+    <%= f.datetime_select :date_completed %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

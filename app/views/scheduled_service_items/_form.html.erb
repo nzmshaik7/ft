@@ -1,0 +1,29 @@
+<%= form_for(@scheduled_service_item) do |f| %>
+  <% if @scheduled_service_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@scheduled_service_item.errors.count, "error") %> prohibited this scheduled_service_item from being saved:</h2>
+
+      <ul>
+      <% @scheduled_service_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :scheduled_service_id %><br />
+    <%= f.number_field :scheduled_service_id %>
+  </div>
+  <div class="field">
+    <%= f.label :service_description_id %><br />
+    <%= f.number_field :service_description_id %>
+  </div>
+  <div class="field">
+    <%= f.label :other %><br />
+    <%= f.text_field :other %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Mileage:</b>
+  <%= @service_visit.mileage %>
+</p>
+
+<p>
+  <b>Sdate:</b>
+  <%= @service_visit.sdate %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @service_visit.description %>
+</p>
+
+<p>
+  <b>Store:</b>
+  <%= @service_visit.store_id %>
+</p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @service_visit.vehicle_id %>
+</p>
+
+<p>
+  <b>Invoice:</b>
+  <%= @service_visit.invoice_id %>
+</p>
+
+<p>
+  <b>Salesperson:</b>
+  <%= @service_visit.salesperson_id %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @service_visit.comments %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_visit_path(@service_visit) %> |
+<%= link_to 'Back', service_visits_path %>

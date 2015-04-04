@@ -1,0 +1,27 @@
+<h1>Listing upgrades</h1>
+
+<table>
+  <tr>
+    <th>Contract</th>
+    <th>Upgrade type</th>
+    <th>Cost</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @upgrades.each do |upgrade| %>
+  <tr>
+    <td><%= upgrade.contract_id %></td>
+    <td><%= upgrade.upgrade_type_id %></td>
+    <td><%= upgrade.cost %></td>
+    <td><%= link_to 'Show', upgrade %></td>
+    <td><%= link_to 'Edit', edit_upgrade_path(upgrade) %></td>
+    <td><%= link_to 'Destroy', upgrade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Upgrade', new_upgrade_path %>

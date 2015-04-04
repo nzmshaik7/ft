@@ -1,0 +1,33 @@
+<%= form_for(@automatic_data_link_info) do |f| %>
+  <% if @automatic_data_link_info.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@automatic_data_link_info.errors.count, "error") %> prohibited this automatic_data_link_info from being saved:</h2>
+
+      <ul>
+      <% @automatic_data_link_info.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :vehicle_id %><br />
+    <%= f.number_field :vehicle_id %>
+  </div>
+  <div class="field">
+    <%= f.label :serial_number %><br />
+    <%= f.text_field :serial_number %>
+  </div>
+  <div class="field">
+    <%= f.label :idate %><br />
+    <%= f.datetime_select :idate %>
+  </div>
+  <div class="field">
+    <%= f.label :data %><br />
+    <%= f.text_area :data %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

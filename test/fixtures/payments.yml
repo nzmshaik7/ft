@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date_time: 2015-04-04 08:56:03
+  invoice_id: 1
+  contract_id: 1
+  finance_agreement_id: 1
+  customer_id: 1
+  amount: 9.99
+  payment_method_id: 1
+  status: 1
+  merchant_services_status: MyString
+  comment: MyString
+
+two:
+  date_time: 2015-04-04 08:56:03
+  invoice_id: 1
+  contract_id: 1
+  finance_agreement_id: 1
+  customer_id: 1
+  amount: 9.99
+  payment_method_id: 1
+  status: 1
+  merchant_services_status: MyString
+  comment: MyString

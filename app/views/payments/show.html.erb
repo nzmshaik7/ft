@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Date time:</b>
+  <%= @payment.date_time %>
+</p>
+
+<p>
+  <b>Invoice:</b>
+  <%= @payment.invoice_id %>
+</p>
+
+<p>
+  <b>Contract:</b>
+  <%= @payment.contract_id %>
+</p>
+
+<p>
+  <b>Finance agreement:</b>
+  <%= @payment.finance_agreement_id %>
+</p>
+
+<p>
+  <b>Customer:</b>
+  <%= @payment.customer_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @payment.amount %>
+</p>
+
+<p>
+  <b>Payment method:</b>
+  <%= @payment.payment_method_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @payment.status %>
+</p>
+
+<p>
+  <b>Merchant services status:</b>
+  <%= @payment.merchant_services_status %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @payment.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>

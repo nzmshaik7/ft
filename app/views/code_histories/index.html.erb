@@ -1,0 +1,27 @@
+<h1>Listing code_histories</h1>
+
+<table>
+  <tr>
+    <th>Vehicle</th>
+    <th>Cdate</th>
+    <th>Code</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @code_histories.each do |code_history| %>
+  <tr>
+    <td><%= code_history.vehicle_id %></td>
+    <td><%= code_history.cdate %></td>
+    <td><%= code_history.code %></td>
+    <td><%= link_to 'Show', code_history %></td>
+    <td><%= link_to 'Edit', edit_code_history_path(code_history) %></td>
+    <td><%= link_to 'Destroy', code_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Code history', new_code_history_path %>

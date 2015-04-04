@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @service_description.name %>
+</p>
+
+<p>
+  <b>Service category:</b>
+  <%= @service_description.service_category_id %>
+</p>
+
+<p>
+  <b>Labor rate retail:</b>
+  <%= @service_description.labor_rate_retail %>
+</p>
+
+<p>
+  <b>Labor hours retail:</b>
+  <%= @service_description.labor_hours_retail %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_description_path(@service_description) %> |
+<%= link_to 'Back', service_descriptions_path %>

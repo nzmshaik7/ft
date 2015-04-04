@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @bg_system_covered.vehicle_id %>
+</p>
+
+<p>
+  <b>System:</b>
+  <%= @bg_system_covered.system_id %>
+</p>
+
+<p>
+  <b>Coverage:</b>
+  <%= @bg_system_covered.coverage %>
+</p>
+
+
+<%= link_to 'Edit', edit_bg_system_covered_path(@bg_system_covered) %> |
+<%= link_to 'Back', bg_system_covereds_path %>

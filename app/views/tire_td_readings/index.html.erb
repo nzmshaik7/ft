@@ -1,0 +1,27 @@
+<h1>Listing tire_td_readings</h1>
+
+<table>
+  <tr>
+    <th>Vehicle</th>
+    <th>Tdate</th>
+    <th>Depth32nds</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tire_td_readings.each do |tire_td_reading| %>
+  <tr>
+    <td><%= tire_td_reading.vehicle_id %></td>
+    <td><%= tire_td_reading.tdate %></td>
+    <td><%= tire_td_reading.depth32nds %></td>
+    <td><%= link_to 'Show', tire_td_reading %></td>
+    <td><%= link_to 'Edit', edit_tire_td_reading_path(tire_td_reading) %></td>
+    <td><%= link_to 'Destroy', tire_td_reading, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tire td reading', new_tire_td_reading_path %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  invoice_number: MyString
+  date_time: 2015-04-04 08:56:10
+  customer_id: 1
+  status: 1
+
+two:
+  invoice_number: MyString
+  date_time: 2015-04-04 08:56:10
+  customer_id: 1
+  status: 1

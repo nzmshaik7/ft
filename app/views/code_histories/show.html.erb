@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Vehicle:</b>
+  <%= @code_history.vehicle_id %>
+</p>
+
+<p>
+  <b>Cdate:</b>
+  <%= @code_history.cdate %>
+</p>
+
+<p>
+  <b>Code:</b>
+  <%= @code_history.code %>
+</p>
+
+
+<%= link_to 'Edit', edit_code_history_path(@code_history) %> |
+<%= link_to 'Back', code_histories_path %>

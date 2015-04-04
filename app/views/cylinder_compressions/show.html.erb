@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Qualification:</b>
+  <%= @cylinder_compression.qualification_id %>
+</p>
+
+<p>
+  <b>Cyl num:</b>
+  <%= @cylinder_compression.cyl_num %>
+</p>
+
+<p>
+  <b>Psi:</b>
+  <%= @cylinder_compression.psi %>
+</p>
+
+
+<%= link_to 'Edit', edit_cylinder_compression_path(@cylinder_compression) %> |
+<%= link_to 'Back', cylinder_compressions_path %>
