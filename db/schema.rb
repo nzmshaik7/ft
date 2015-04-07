@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150404125657) do
+ActiveRecord::Schema.define(:version => 20150405033401) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -277,7 +277,6 @@ ActiveRecord::Schema.define(:version => 20150404125657) do
 
   create_table "payment_methods", :force => true do |t|
     t.integer  "customer_id"
-    t.integer  "paytype"
     t.integer  "priority"
     t.integer  "account_number_id"
     t.string   "routing_number"
@@ -286,6 +285,13 @@ ActiveRecord::Schema.define(:version => 20150404125657) do
     t.integer  "image_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "payment_type_id"
+  end
+
+  create_table "payment_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "payments", :force => true do |t|

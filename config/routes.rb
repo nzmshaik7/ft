@@ -1,5 +1,7 @@
 Ft::Application.routes.draw do
 
+  resources :payment_types
+
   get "top/db"
 
   resources :insurance_companies

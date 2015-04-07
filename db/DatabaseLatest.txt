@@ -1,22 +1,3 @@
-OBSOLETE
-
-This was used initially, but changes have been made.
-See db/DatabaseLatest.txt
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #!/bin/bash
 
 # DATABASE SCHEMA
@@ -159,7 +140,7 @@ RAILS ${gen[*]}
 
 gen=( generate scaffold Vehicle
     vin:string
-    vin_decoded:string
+    vin_decoded:string              # Cache of download
     license_plate:string
     license_plate_state_id:integer
     customer_id:integer             # Many to one
@@ -206,7 +187,7 @@ gen=( generate scaffold Vehicle
     # List of BGSystemsCovered
     # List of Breakdowns
     # List of AutomaticDataLinkInfos
-    # List of TSBandRecalls
+    # List of TsBandRecalls
     # List of Manufacturer Warranty id
 RAILS ${gen[*]}
 
@@ -223,7 +204,7 @@ RAILS ${gen[*]}
 gen=( generate scaffold TSBandRecall
     vehicle_id:integer
     name:string
-    date_completed:datetime
+    date_completed:datetime   # Null means not done yet.
     )
 RAILS ${gen[*]}
 
@@ -522,7 +503,7 @@ RAILS ${gen[*]}
 
 gen=( generate scaffold PaymentMethod
     customer_id:integer
-    paytype:integer             # Visa, Discover, ACH, etc.
+    payment_type_id:integer     # Visa, Discover, ACH, etc.
     priority:integer            # Order the customer would like to try payment.
     account_number_id:integer   # This is an ID because the actual account 
                                 # number is over on a separate system.
@@ -532,6 +513,9 @@ gen=( generate scaffold PaymentMethod
     image_id:integer            # (front and back), separate system.
     )
 RAILS ${gen[*]}
+
+
+rails generate scaffold PaymentType name:string
 
 
 gen=( generate scaffold Invoice
