@@ -1,5 +1,7 @@
 Ft::Application.routes.draw do
 
+  resources :manufacturer_warranty_types
+
   resources :payment_types
 
   get "top/db"

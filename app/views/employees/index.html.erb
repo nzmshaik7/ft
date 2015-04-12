@@ -1,14 +1,12 @@
 <h1>Listing employees</h1>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>First name</th>
     <th>Last name</th>
     <th>Ssn</th>
     <th>Store</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="2"><i>Actions</i></th>
   </tr>
 
 <% @employees.each do |employee| %>
@@ -16,8 +14,13 @@
     <td><%= employee.first_name %></td>
     <td><%= employee.last_name %></td>
     <td><%= employee.ssn %></td>
-    <td><%= employee.store_id %></td>
-    <td><%= link_to 'Show', employee %></td>
+    <td>
+      <% if employee.store %>
+        <%= employee.store.number %>
+      <% else %>
+        <i>None</i>
+      <% end %>
+    </td>
     <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
     <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -27,3 +30,4 @@
 <br />
 
 <%= link_to 'New Employee', new_employee_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

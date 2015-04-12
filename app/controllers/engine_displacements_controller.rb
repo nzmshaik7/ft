@@ -47,7 +47,7 @@ class EngineDisplacementsController < ApplicationController
 
         respond_to do |format|
             if @engine_displacement.save
-                format.html { redirect_to enginedisplacements_url,
+                format.html { redirect_to engine_displacements_url,
                               notice: 'EngineDisplacement was successfully created.' }
                 format.json { render json: @engine_displacement, status: :created, location: @engine_displacement }
             else
@@ -64,7 +64,7 @@ class EngineDisplacementsController < ApplicationController
 
         respond_to do |format|
             if @engine_displacement.update_attributes(params[:engine_displacement])
-                format.html { redirect_to enginedisplacements_url,
+                format.html { redirect_to engine_displacements_url,
                               notice: 'EngineDisplacement was successfully updated.' }
                 format.json { head :no_content }
             else

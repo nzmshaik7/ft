@@ -12,8 +12,9 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :vehicle_id %><br />
-    <%= f.number_field :vehicle_id %>
+    <%= f.label :vehicle_id, 'Vehicle' %><br />
+    <%= select("breakdown", "vehicle_id", @vehicleCollect,
+                                                {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
     <%= f.label :bdate %><br />

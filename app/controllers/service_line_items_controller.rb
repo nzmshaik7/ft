@@ -47,7 +47,7 @@ class ServiceLineItemsController < ApplicationController
 
         respond_to do |format|
             if @service_line_item.save
-                format.html { redirect_to servicelineitems_url,
+                format.html { redirect_to service_line_items_url,
                               notice: 'ServiceLineItem was successfully created.' }
                 format.json { render json: @service_line_item, status: :created, location: @service_line_item }
             else
@@ -64,7 +64,7 @@ class ServiceLineItemsController < ApplicationController
 
         respond_to do |format|
             if @service_line_item.update_attributes(params[:service_line_item])
-                format.html { redirect_to servicelineitems_url,
+                format.html { redirect_to service_line_items_url,
                               notice: 'ServiceLineItem was successfully updated.' }
                 format.json { head :no_content }
             else

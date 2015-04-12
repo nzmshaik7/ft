@@ -47,7 +47,7 @@ class UpgradeTypesController < ApplicationController
 
         respond_to do |format|
             if @upgrade_type.save
-                format.html { redirect_to upgradetypes_url,
+                format.html { redirect_to upgrade_types_url,
                               notice: 'UpgradeType was successfully created.' }
                 format.json { render json: @upgrade_type, status: :created, location: @upgrade_type }
             else
@@ -64,7 +64,7 @@ class UpgradeTypesController < ApplicationController
 
         respond_to do |format|
             if @upgrade_type.update_attributes(params[:upgrade_type])
-                format.html { redirect_to upgradetypes_url,
+                format.html { redirect_to upgrade_types_url,
                               notice: 'UpgradeType was successfully updated.' }
                 format.json { head :no_content }
             else

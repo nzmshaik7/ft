@@ -2,8 +2,9 @@
 
 <table>
   <tr>
+    <th>Number</th>
     <th>Filename</th>
-    <th>Image</th>
+    <th>Next Image</th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,6 +12,7 @@
 
 <% @images.each do |image| %>
   <tr>
+    <td><%= image.id %></td>
     <td><%= image.filename %></td>
     <td><%= image.image_id %></td>
     <td><%= link_to 'Show', image %></td>
@@ -23,3 +25,4 @@
 <br />
 
 <%= link_to 'New Image', new_image_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

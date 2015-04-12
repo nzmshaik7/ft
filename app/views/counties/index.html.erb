@@ -6,14 +6,12 @@
     <th>State</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @counties.each do |county| %>
   <tr>
     <td><%= county.name %></td>
-    <td><%= county.state_id %></td>
-    <td><%= link_to 'Show', county %></td>
+    <td><%= county.state.name %></td>
     <td><%= link_to 'Edit', edit_county_path(county) %></td>
     <td><%= link_to 'Destroy', county, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -23,3 +21,4 @@
 <br />
 
 <%= link_to 'New County', new_county_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

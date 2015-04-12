@@ -3,7 +3,7 @@
 <table>
   <tr>
     <th>Customer</th>
-    <th>Paytype</th>
+    <th>Payment Type</th>
     <th>Priority</th>
     <th>Account number</th>
     <th>Routing number</th>
@@ -18,7 +18,7 @@
 <% @payment_methods.each do |payment_method| %>
   <tr>
     <td><%= payment_method.customer_id %></td>
-    <td><%= payment_method.paytype %></td>
+    <td><%= payment_method.payment_type.name %></td>
     <td><%= payment_method.priority %></td>
     <td><%= payment_method.account_number_id %></td>
     <td><%= payment_method.routing_number %></td>
@@ -35,3 +35,4 @@
 <br />
 
 <%= link_to 'New Payment method', new_payment_method_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

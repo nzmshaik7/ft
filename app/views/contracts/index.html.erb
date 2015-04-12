@@ -1,7 +1,7 @@
-<h1>Listing contracts</h1>
+<h2>Listing contracts</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Begin date</th>
     <th>Number</th>
     <th>Status</th>
@@ -11,24 +11,29 @@
     <th>Base cost</th>
     <th>Day of payment</th>
     <th>Discount</th>
-    <th>Discount</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Discount%</th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @contracts.each do |contract| %>
   <tr>
     <td><%= contract.begin_date %></td>
     <td><%= contract.number %></td>
-    <td><%= contract.status %></td>
+    <td><%= contract.statusText %></td>
     <td><%= contract.image_id %></td>
-    <td><%= contract.salesperson_id %></td>
+    <td>
+      <% if contract.salesperson %>
+        <%= contract.salesperson.employee.first_name %>
+        <%= contract.salesperson.employee.last_name %>
+      <% else %>
+        <i>None</i>
+      <% end %>
+    </td>
     <td><%= contract.level %></td>
-    <td><%= contract.base_cost %></td>
+    <td><%= number_to_currency(contract.base_cost) %></td>
     <td><%= contract.day_of_payment %></td>
-    <td><%= contract.discount %></td>
-    <td><%= contract.discount %></td>
+    <td>$<%= contract.discount %></td>
+    <td><%= contract.discount_percent %>%</td>
     <td><%= link_to 'Show', contract %></td>
     <td><%= link_to 'Edit', edit_contract_path(contract) %></td>
     <td><%= link_to 'Destroy', contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -39,3 +44,4 @@
 <br />
 
 <%= link_to 'New Contract', new_contract_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

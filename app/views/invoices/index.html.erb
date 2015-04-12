@@ -1,22 +1,20 @@
 <h1>Listing invoices</h1>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Invoice number</th>
-    <th>Date time</th>
+    <th>Date</th>
     <th>Customer</th>
     <th>Status</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @invoices.each do |invoice| %>
   <tr>
     <td><%= invoice.invoice_number %></td>
-    <td><%= invoice.date_time %></td>
-    <td><%= invoice.customer_id %></td>
-    <td><%= invoice.status %></td>
+    <td><%= invoice.date_time.strftime("%H:%M %b %d, %Y") %></td>
+    <td><%= customerName2(invoice.customer) %></td>
+    <td><%= invoice.statusText %></td>
     <td><%= link_to 'Show', invoice %></td>
     <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
     <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -27,3 +25,4 @@
 <br />
 
 <%= link_to 'New Invoice', new_invoice_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

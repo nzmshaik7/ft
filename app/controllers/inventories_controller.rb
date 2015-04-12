@@ -2,6 +2,17 @@ class InventoriesController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @stores = Store.all
+        @storeCollect = @stores.collect { |p|
+            [ p.number + '/' + p.name, p.id ] 
+        }
+        @parts = Part.all
+        @partCollect = @parts.collect { |p|
+            [ p.name.name + '/' + p.part_number, p.id ] 
+        }
+    end
+
     # GET /inventories
     # GET /inventories.json
     def index
@@ -17,6 +28,7 @@ class InventoriesController < ApplicationController
     # GET /inventories/1.json
     def show
         @inventory = Inventory.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +40,7 @@ class InventoriesController < ApplicationController
     # GET /inventories/new.json
     def new
         @inventory = Inventory.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +51,7 @@ class InventoriesController < ApplicationController
     # GET /inventories/1/edit
     def edit
         @inventory = Inventory.find(params[:id])
+        prepFormVariables
     end
 
     # POST /inventories
@@ -51,6 +65,7 @@ class InventoriesController < ApplicationController
                               notice: 'Inventory was successfully created.' }
                 format.json { render json: @inventory, status: :created, location: @inventory }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @inventory.errors, status: :unprocessable_entity }
             end
@@ -68,6 +83,7 @@ class InventoriesController < ApplicationController
                               notice: 'Inventory was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @inventory.errors, status: :unprocessable_entity }
             end

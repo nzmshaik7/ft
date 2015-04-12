@@ -12,16 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name, 'Store Name' %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :number %><br />
+    <%= f.label :number, 'Store Number' %><br />
     <%= f.text_field :number %>
   </div>
   <div class="field">
-    <%= f.label :manager_id %><br />
-    <%= f.number_field :manager_id %>
+    <%= f.label :manager_id, 'Manager' %><br />
+    <%= select("store", "manager_id", @employeeCollect,
+                                               {prompt: 'Select Employee'}) %>
   </div>
   <div class="field">
     <%= f.label :street_address %><br />
@@ -32,16 +33,18 @@
     <%= f.text_field :city %>
   </div>
   <div class="field">
-    <%= f.label :state_id %><br />
-    <%= f.number_field :state_id %>
+    <%= f.label :state_id, 'State' %><br />
+    <%= select("store", "state_id", @stateCollect, {prompt: 'Select State'}) %>
   </div>
   <div class="field">
-    <%= f.label :county_id %><br />
-    <%= f.number_field :county_id %>
+    <%= f.label :county_id, 'County' %><br />
+    <%= select("store", "county_id", @countyCollect,
+                                                  {prompt: 'Select County'}) %>
   </div>
   <div class="field">
-    <%= f.label :region_id %><br />
-    <%= f.number_field :region_id %>
+    <%= f.label :region_id, 'Region' %><br />
+    <%= select("store", "region_id", @regionCollect,
+                                                  {prompt: 'Select Region'}) %>
   </div>
   <div class="field">
     <%= f.label :zip %><br />
@@ -56,11 +59,11 @@
     <%= f.number_field :number_of_lifts %>
   </div>
   <div class="field">
-    <%= f.label :capacity %><br />
+    <%= f.label :capacity, 'Capacity (number of contracts)' %><br />
     <%= f.number_field :capacity %>
   </div>
   <div class="field">
-    <%= f.label :break_even %><br />
+    <%= f.label :break_even, 'Break-even (number of contracts)' %><br />
     <%= f.number_field :break_even %>
   </div>
   <div class="actions">

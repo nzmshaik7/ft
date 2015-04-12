@@ -47,7 +47,7 @@ class ServiceDescriptionsController < ApplicationController
 
         respond_to do |format|
             if @service_description.save
-                format.html { redirect_to servicedescriptions_url,
+                format.html { redirect_to service_descriptions_url,
                               notice: 'ServiceDescription was successfully created.' }
                 format.json { render json: @service_description, status: :created, location: @service_description }
             else
@@ -64,7 +64,7 @@ class ServiceDescriptionsController < ApplicationController
 
         respond_to do |format|
             if @service_description.update_attributes(params[:service_description])
-                format.html { redirect_to servicedescriptions_url,
+                format.html { redirect_to service_descriptions_url,
                               notice: 'ServiceDescription was successfully updated.' }
                 format.json { head :no_content }
             else

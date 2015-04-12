@@ -2,9 +2,17 @@ class AutomaticDataLinkInfosController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @vehicles = Vehicle.all
+        @vehicleCollect = @vehicles.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /automatic_data_link_infos
     # GET /automatic_data_link_infos.json
     def index
+        prepFormVariables
         @automatic_data_link_infos = AutomaticDataLinkInfo.all
 
         respond_to do |format|
@@ -16,6 +24,7 @@ class AutomaticDataLinkInfosController < ApplicationController
     # GET /automatic_data_link_infos/1
     # GET /automatic_data_link_infos/1.json
     def show
+        prepFormVariables
         @automatic_data_link_info = AutomaticDataLinkInfo.find(params[:id])
 
         respond_to do |format|
@@ -27,6 +36,7 @@ class AutomaticDataLinkInfosController < ApplicationController
     # GET /automatic_data_link_infos/new
     # GET /automatic_data_link_infos/new.json
     def new
+        prepFormVariables
         @automatic_data_link_info = AutomaticDataLinkInfo.new
 
         respond_to do |format|
@@ -37,6 +47,7 @@ class AutomaticDataLinkInfosController < ApplicationController
 
     # GET /automatic_data_link_infos/1/edit
     def edit
+        prepFormVariables
         @automatic_data_link_info = AutomaticDataLinkInfo.find(params[:id])
     end
 
@@ -47,10 +58,11 @@ class AutomaticDataLinkInfosController < ApplicationController
 
         respond_to do |format|
             if @automatic_data_link_info.save
-                format.html { redirect_to automaticdatalinkinfos_url,
+                format.html { redirect_to automatic_data_link_infos_url,
                               notice: 'AutomaticDataLinkInfo was successfully created.' }
                 format.json { render json: @automatic_data_link_info, status: :created, location: @automatic_data_link_info }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @automatic_data_link_info.errors, status: :unprocessable_entity }
             end
@@ -64,10 +76,11 @@ class AutomaticDataLinkInfosController < ApplicationController
 
         respond_to do |format|
             if @automatic_data_link_info.update_attributes(params[:automatic_data_link_info])
-                format.html { redirect_to automaticdatalinkinfos_url,
+                format.html { redirect_to automatic_data_link_infos_url,
                               notice: 'AutomaticDataLinkInfo was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @automatic_data_link_info.errors, status: :unprocessable_entity }
             end

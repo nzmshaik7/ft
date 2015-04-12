@@ -12,12 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :vehicle_id %><br />
-    <%= f.number_field :vehicle_id %>
+    <%= f.label :vehicle_id, 'Vehicle' %><br />
+    <%= select("code_history", "vehicle_id", @vehicleCollect,
+                                                {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
     <%= f.label :cdate %><br />
-    <%= f.datetime_select :cdate %>
+    <%= f.date_select :cdate %>
   </div>
   <div class="field">
     <%= f.label :code %><br />

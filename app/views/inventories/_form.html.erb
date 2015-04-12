@@ -13,11 +13,13 @@
 
   <div class="field">
     <%= f.label :store_id %><br />
-    <%= f.number_field :store_id %>
+    <%= select("inventory", "store_id", @storeCollect,
+                                                  {prompt: 'Select Store'}) %>
   </div>
   <div class="field">
     <%= f.label :part_id %><br />
-    <%= f.number_field :part_id %>
+    <%= select("inventory", "part_id", @partCollect,
+                                                  {prompt: 'Select Part'}) %>
   </div>
   <div class="field">
     <%= f.label :count %><br />

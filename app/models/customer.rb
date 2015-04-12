@@ -11,11 +11,13 @@ class Customer < ActiveRecord::Base
                     :spouse_id, :spouse_name, :ssn, :state_id,
                     :street_addr1, :street_addr2, :user_id,
                     :video_testimony_url, :work_phone,
-                    :written_testimony_id, :zip
+                    :written_testimony_id, :zip,
+                    :first_name, :middle_name, :last_name
+
     belongs_to :user
     belongs_to :state
-    belongs_to :spouse
-    belongs_to :signup_store
+    belongs_to :spouse, class_name: :Customer
+    belongs_to :signup_store, class_name: :Store
     belongs_to :referredBy
     belongs_to :referredBy_customer, class_name: :Customer
     belongs_to :driver_lic_state, class_name: :State
@@ -26,4 +28,33 @@ class Customer < ActiveRecord::Base
     has_many   :payments
     has_many   :payment_methods
     has_many   :finance_agreements
+
+    GENDER_MALE = 61
+    GENDER_FEMALE = 62
+    GENDER_OTHER = 63
+
+    def genderText
+        return 'male'   if gender == GENDER_MALE
+        return 'female' if gender == GENDER_FEMALE
+        return 'other'  if gender == GENDER_OTHER
+        return 'unknown'
+    end
+
+    def homeTextFlag
+        return 'T' if can_text_home_phone  
+        return ''
+    end
+    def mobileTextFlag
+        return 'T' if can_text_mobile_phone  
+        return ''
+    end
+    def workTextFlag
+        return 'T' if can_text_work_phone  
+        return ''
+    end
+    def otherTextFlag
+        return 'T' if can_text_other_phone  
+        return ''
+    end
+
 end

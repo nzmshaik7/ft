@@ -16,8 +16,8 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :state_id %><br />
-    <%= f.number_field :state_id %>
+    <%= f.label :state_id, 'State' %><br />
+    <%= select("county", "state_id", @stateCollect, {prompt: 'Select State'}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

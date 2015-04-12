@@ -47,7 +47,7 @@ class ServicePartsController < ApplicationController
 
         respond_to do |format|
             if @service_part.save
-                format.html { redirect_to serviceparts_url,
+                format.html { redirect_to service_parts_url,
                               notice: 'ServicePart was successfully created.' }
                 format.json { render json: @service_part, status: :created, location: @service_part }
             else
@@ -64,7 +64,7 @@ class ServicePartsController < ApplicationController
 
         respond_to do |format|
             if @service_part.update_attributes(params[:service_part])
-                format.html { redirect_to serviceparts_url,
+                format.html { redirect_to service_parts_url,
                               notice: 'ServicePart was successfully updated.' }
                 format.json { head :no_content }
             else

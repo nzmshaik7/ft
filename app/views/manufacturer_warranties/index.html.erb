@@ -1,24 +1,24 @@
 <h1>Listing manufacturer_warranties</h1>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Vehicle</th>
     <th>Months</th>
     <th>Miles</th>
     <th>Wtype</th>
     <th>Image</th>
     <th>Comment</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
+
+  MOSTLY DONE, READY FOR _form.
 
 <% @manufacturer_warranties.each do |manufacturer_warranty| %>
   <tr>
-    <td><%= manufacturer_warranty.vehicle_id %></td>
+    <td><%= manufacturer_warranty.vehicle.ymmpText %></td>
     <td><%= manufacturer_warranty.months %></td>
     <td><%= manufacturer_warranty.miles %></td>
-    <td><%= manufacturer_warranty.wtype %></td>
+    <td><%= manufacturer_warranty.manufacturer_warranty_type.name %></td>
     <td><%= manufacturer_warranty.image %></td>
     <td><%= manufacturer_warranty.comment %></td>
     <td><%= link_to 'Show', manufacturer_warranty %></td>
@@ -31,3 +31,4 @@
 <br />
 
 <%= link_to 'New Manufacturer warranty', new_manufacturer_warranty_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

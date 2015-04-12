@@ -13,7 +13,10 @@
 
 <% @automatic_data_link_infos.each do |automatic_data_link_info| %>
   <tr>
-    <td><%= automatic_data_link_info.vehicle_id %></td>
+    <td>
+      <%= automatic_data_link_info.vehicle_id %>:
+      <%= automatic_data_link_info.vehicle.ymmText %>
+    </td>
     <td><%= automatic_data_link_info.serial_number %></td>
     <td><%= automatic_data_link_info.idate %></td>
     <td><%= automatic_data_link_info.data %></td>
@@ -27,3 +30,4 @@
 <br />
 
 <%= link_to 'New Automatic data link info', new_automatic_data_link_info_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

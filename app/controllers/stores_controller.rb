@@ -2,10 +2,30 @@ class StoresController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @states = State.all
+        @stateCollect = @states.collect { |p|
+            [ p.name, p.id ] 
+        }
+        @employees = Employee.all
+        @employeeCollect = @employees.collect { |p|
+            [ p.first_name + ' ' + p.last_name, p.id ] 
+        }
+        @counties = County.all
+        @countyCollect = @counties.collect { |p|
+            [ p.name, p.id ] 
+        }
+        @regions = Region.all
+        @regionCollect = @regions.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /stores
     # GET /stores.json
     def index
         @stores = Store.all
+        prepFormVariables
 
         respond_to do |format|
             format.html # index.html.erb
@@ -17,6 +37,7 @@ class StoresController < ApplicationController
     # GET /stores/1.json
     def show
         @store = Store.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +49,7 @@ class StoresController < ApplicationController
     # GET /stores/new.json
     def new
         @store = Store.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +60,7 @@ class StoresController < ApplicationController
     # GET /stores/1/edit
     def edit
         @store = Store.find(params[:id])
+        prepFormVariables
     end
 
     # POST /stores
@@ -51,6 +74,7 @@ class StoresController < ApplicationController
                               notice: 'Store was successfully created.' }
                 format.json { render json: @store, status: :created, location: @store }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @store.errors, status: :unprocessable_entity }
             end
@@ -68,6 +92,7 @@ class StoresController < ApplicationController
                               notice: 'Store was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @store.errors, status: :unprocessable_entity }
             end

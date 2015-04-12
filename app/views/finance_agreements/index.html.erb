@@ -1,7 +1,7 @@
 <h1>Listing finance_agreements</h1>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Customer</th>
     <th>Missed payment fee</th>
     <th>Total principal</th>
@@ -18,7 +18,7 @@
 
 <% @finance_agreements.each do |finance_agreement| %>
   <tr>
-    <td><%= finance_agreement.customer_id %></td>
+    <td><%= customerName2(finance_agreement.customer) %></td>
     <td><%= finance_agreement.missed_payment_fee %></td>
     <td><%= finance_agreement.total_principal %></td>
     <td><%= finance_agreement.finance_fee %></td>
@@ -37,3 +37,4 @@
 <br />
 
 <%= link_to 'New Finance agreement', new_finance_agreement_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

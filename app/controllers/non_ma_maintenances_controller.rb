@@ -47,7 +47,7 @@ class NonMaMaintenancesController < ApplicationController
 
         respond_to do |format|
             if @non_ma_maintenance.save
-                format.html { redirect_to nonmamaintenances_url,
+                format.html { redirect_to non_ma_maintenances_url,
                               notice: 'NonMaMaintenance was successfully created.' }
                 format.json { render json: @non_ma_maintenance, status: :created, location: @non_ma_maintenance }
             else
@@ -64,7 +64,7 @@ class NonMaMaintenancesController < ApplicationController
 
         respond_to do |format|
             if @non_ma_maintenance.update_attributes(params[:non_ma_maintenance])
-                format.html { redirect_to nonmamaintenances_url,
+                format.html { redirect_to non_ma_maintenances_url,
                               notice: 'NonMaMaintenance was successfully updated.' }
                 format.json { head :no_content }
             else

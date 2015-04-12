@@ -21,11 +21,14 @@
   </div>
   <div class="field">
     <%= f.label :customer_id %><br />
-    <%= f.number_field :customer_id %>
+    <%= select("invoice", "customer_id", @customerCollect,
+                                          {prompt: 'Select Customer'}) %>
   </div>
   <div class="field">
     <%= f.label :status %><br />
-    <%= f.number_field :status %>
+    <select id="invoice_status" name="invoice[status]">
+      <%= options_for_select(@statusOptions, @selStatus) %>
+    </select>
   </div>
   <div class="actions">
     <%= f.submit %>

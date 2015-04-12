@@ -1,21 +1,18 @@
 <h1>Listing gas_mileages</h1>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Vehicle</th>
     <th>Mileage</th>
     <th>Mdate</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="2"><i>Actions</i></th>
   </tr>
 
 <% @gas_mileages.each do |gas_mileage| %>
   <tr>
-    <td><%= gas_mileage.vehicle_id %></td>
+    <td><%= gas_mileage.vehicle_id %>:<%= gas_mileage.vehicle.ymmText %></td>
     <td><%= gas_mileage.mileage %></td>
-    <td><%= gas_mileage.mdate %></td>
-    <td><%= link_to 'Show', gas_mileage %></td>
+    <td><%= gas_mileage.mdate.strftime("%b %d, %Y") %></td>
     <td><%= link_to 'Edit', edit_gas_mileage_path(gas_mileage) %></td>
     <td><%= link_to 'Destroy', gas_mileage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -25,3 +22,4 @@
 <br />
 
 <%= link_to 'New Gas mileage', new_gas_mileage_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

@@ -2,10 +2,38 @@ class ContractsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables(contract)
+
+        # @vehicles will be used later.
+        @vehicles = Vehicle.all
+        @vehicleCollect = @vehicles.collect { |p|
+            [ p.name, p.id ] 
+        }
+
+        @salespersons = Salesperson.all
+        @salespersonCollect = @salespersons.collect { |p|
+            [ p.employee.first_name + ' ' + p.employee.first_name, p.id ] 
+        }
+
+        @selStatus = 0
+        if contract
+            @selStatus = 2  if contract.status == 51
+            @selStatus = 3  if contract.status == 52
+            @selStatus = 4  if contract.status == 53
+        end
+        @statusOptions = [
+            [ "Select",      0  ],
+            [ "Current",     51 ],
+            [ "Lapsed",      52 ],
+            [ "Cancelled",   53 ],
+        ]
+    end
+
     # GET /contracts
     # GET /contracts.json
     def index
         @contracts = Contract.all
+        prepFormVariables(@contract)
 
         respond_to do |format|
             format.html # index.html.erb
@@ -17,6 +45,7 @@ class ContractsController < ApplicationController
     # GET /contracts/1.json
     def show
         @contract = Contract.find(params[:id])
+        prepFormVariables(@contract)
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +57,7 @@ class ContractsController < ApplicationController
     # GET /contracts/new.json
     def new
         @contract = Contract.new
+        prepFormVariables(@contract)
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +68,7 @@ class ContractsController < ApplicationController
     # GET /contracts/1/edit
     def edit
         @contract = Contract.find(params[:id])
+        prepFormVariables(@contract)
     end
 
     # POST /contracts
@@ -51,6 +82,7 @@ class ContractsController < ApplicationController
                               notice: 'Contract was successfully created.' }
                 format.json { render json: @contract, status: :created, location: @contract }
             else
+                prepFormVariables(@contract)
                 format.html { render action: "new" }
                 format.json { render json: @contract.errors, status: :unprocessable_entity }
             end
@@ -68,6 +100,7 @@ class ContractsController < ApplicationController
                               notice: 'Contract was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables(@contract)
                 format.html { render action: "edit" }
                 format.json { render json: @contract.errors, status: :unprocessable_entity }
             end

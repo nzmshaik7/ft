@@ -2,6 +2,13 @@ class EmployeesController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @stores = Store.all
+        @storeCollect = @stores.collect { |p|
+            [ p.number + '/' + p.name, p.id ] 
+        }
+    end
+
     # GET /employees
     # GET /employees.json
     def index
@@ -17,6 +24,7 @@ class EmployeesController < ApplicationController
     # GET /employees/1.json
     def show
         @employee = Employee.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +36,7 @@ class EmployeesController < ApplicationController
     # GET /employees/new.json
     def new
         @employee = Employee.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +47,7 @@ class EmployeesController < ApplicationController
     # GET /employees/1/edit
     def edit
         @employee = Employee.find(params[:id])
+        prepFormVariables
     end
 
     # POST /employees
@@ -51,6 +61,7 @@ class EmployeesController < ApplicationController
                               notice: 'Employee was successfully created.' }
                 format.json { render json: @employee, status: :created, location: @employee }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @employee.errors, status: :unprocessable_entity }
             end
@@ -68,6 +79,7 @@ class EmployeesController < ApplicationController
                               notice: 'Employee was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @employee.errors, status: :unprocessable_entity }
             end

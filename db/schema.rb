@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150405033401) do
+ActiveRecord::Schema.define(:version => 20150412024704) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -65,11 +65,12 @@ ActiveRecord::Schema.define(:version => 20150405033401) do
     t.integer  "image_id"
     t.integer  "salesperson_id"
     t.integer  "level"
-    t.decimal  "base_cost",      :precision => 8,  :scale => 2
+    t.decimal  "base_cost",        :precision => 8,  :scale => 2
     t.integer  "day_of_payment"
-    t.decimal  "discount",       :precision => 10, :scale => 0
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.decimal  "discount",         :precision => 10, :scale => 0
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.integer  "discount_percent"
   end
 
   create_table "counties", :force => true do |t|
@@ -123,6 +124,9 @@ ActiveRecord::Schema.define(:version => 20150405033401) do
     t.integer  "referral_credits_used"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
   end
 
   create_table "cylinder_compressions", :force => true do |t|
@@ -227,9 +231,15 @@ ActiveRecord::Schema.define(:version => 20150405033401) do
     t.integer  "vehicle_id"
     t.integer  "months"
     t.integer  "miles"
-    t.integer  "wtype"
     t.integer  "image"
     t.string   "comment"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "manufacturer_warranty_type_id"
+  end
+
+  create_table "manufacturer_warranty_types", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

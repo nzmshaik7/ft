@@ -1,0 +1,7 @@
+To add a new scaffold:
+
+Run generate with --no-assets --no-helper flags
+2to4 controller and model
+Run script/fixNewCtrlr.py
+db:migrate
+Add to top/db.html.erb

@@ -47,7 +47,7 @@ class PaymentMethodsController < ApplicationController
 
         respond_to do |format|
             if @payment_method.save
-                format.html { redirect_to paymentmethods_url,
+                format.html { redirect_to payment_methods_url,
                               notice: 'PaymentMethod was successfully created.' }
                 format.json { render json: @payment_method, status: :created, location: @payment_method }
             else
@@ -64,7 +64,7 @@ class PaymentMethodsController < ApplicationController
 
         respond_to do |format|
             if @payment_method.update_attributes(params[:payment_method])
-                format.html { redirect_to paymentmethods_url,
+                format.html { redirect_to payment_methods_url,
                               notice: 'PaymentMethod was successfully updated.' }
                 format.json { head :no_content }
             else

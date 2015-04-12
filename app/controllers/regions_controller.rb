@@ -2,10 +2,18 @@ class RegionsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @states = State.all
+        @stateCollect = @states.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /regions
     # GET /regions.json
     def index
         @regions = Region.all
+        prepFormVariables
 
         respond_to do |format|
             format.html # index.html.erb
@@ -17,6 +25,7 @@ class RegionsController < ApplicationController
     # GET /regions/1.json
     def show
         @region = Region.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +37,7 @@ class RegionsController < ApplicationController
     # GET /regions/new.json
     def new
         @region = Region.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +48,7 @@ class RegionsController < ApplicationController
     # GET /regions/1/edit
     def edit
         @region = Region.find(params[:id])
+        prepFormVariables
     end
 
     # POST /regions
@@ -51,6 +62,7 @@ class RegionsController < ApplicationController
                               notice: 'Region was successfully created.' }
                 format.json { render json: @region, status: :created, location: @region }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @region.errors, status: :unprocessable_entity }
             end
@@ -68,6 +80,7 @@ class RegionsController < ApplicationController
                               notice: 'Region was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @region.errors, status: :unprocessable_entity }
             end

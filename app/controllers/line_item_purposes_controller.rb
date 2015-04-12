@@ -47,7 +47,7 @@ class LineItemPurposesController < ApplicationController
 
         respond_to do |format|
             if @line_item_purpose.save
-                format.html { redirect_to lineitempurposes_url,
+                format.html { redirect_to line_item_purposes_url,
                               notice: 'LineItemPurpose was successfully created.' }
                 format.json { render json: @line_item_purpose, status: :created, location: @line_item_purpose }
             else
@@ -64,7 +64,7 @@ class LineItemPurposesController < ApplicationController
 
         respond_to do |format|
             if @line_item_purpose.update_attributes(params[:line_item_purpose])
-                format.html { redirect_to lineitempurposes_url,
+                format.html { redirect_to line_item_purposes_url,
                               notice: 'LineItemPurpose was successfully updated.' }
                 format.json { head :no_content }
             else

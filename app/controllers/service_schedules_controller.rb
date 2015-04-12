@@ -47,7 +47,7 @@ class ServiceSchedulesController < ApplicationController
 
         respond_to do |format|
             if @service_schedule.save
-                format.html { redirect_to serviceschedules_url,
+                format.html { redirect_to service_schedules_url,
                               notice: 'ServiceSchedule was successfully created.' }
                 format.json { render json: @service_schedule, status: :created, location: @service_schedule }
             else
@@ -64,7 +64,7 @@ class ServiceSchedulesController < ApplicationController
 
         respond_to do |format|
             if @service_schedule.update_attributes(params[:service_schedule])
-                format.html { redirect_to serviceschedules_url,
+                format.html { redirect_to service_schedules_url,
                               notice: 'ServiceSchedule was successfully updated.' }
                 format.json { head :no_content }
             else

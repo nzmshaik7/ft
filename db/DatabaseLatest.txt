@@ -15,6 +15,9 @@ function RAILS() {
 gen=( generate scaffold Customer 
     cid:string
     user_id:integer                 # User has first/last names and email
+    first_name:string               # Customer might not be a User.  These
+    middle_name:string              # can be copied and may differ.
+    last_name:string
     street_addr1:string
     street_addr2:string
     city:string
@@ -94,7 +97,7 @@ gen=( generate scaffold Contract
     base_cost:decimal{8.2}
     day_of_payment:integer    # Day of month automatic payment is made
     discount:decimal{8.2}     # (amount)
-    discount:integer          # (percentage)
+    discount_percent:integer  # (percentage)
     )
     # Other tables that point to my Primary Key
     # List of Upgrades
@@ -221,9 +224,15 @@ gen=( generate scaffold ManufacturerWarranty
     vehicle_id:integer
     months:integer
     miles:integer
-    wtype:integer     # (bumpber/bumper, powertrain, etc)
-    image:integer     # from_customer_or_dealer
+    manufacturer_warranty_type_id:integer   # (bumpber/bumper, powertrain, etc)
+    image:integer                           # From customer or dealer
     comment:string
+    )
+RAILS ${gen[*]}
+
+
+gen=( generate scaffold ManufacturerWarrantyType
+    name:string
     )
 RAILS ${gen[*]}
 

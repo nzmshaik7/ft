@@ -39,4 +39,14 @@ module ApplicationHelper
         end
     end
 
+    def boolText(b)
+        if b.nil?
+            return 'No'
+        end
+        if not b
+            return 'No'
+        end
+        return 'Yes'
+    end
+
 end

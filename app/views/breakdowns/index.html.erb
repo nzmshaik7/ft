@@ -12,8 +12,11 @@
 
 <% @breakdowns.each do |breakdown| %>
   <tr>
-    <td><%= breakdown.vehicle_id %></td>
-    <td><%= breakdown.bdate %></td>
+    <td>
+      <%= breakdown.vehicle_id %>:
+      <%= breakdown.vehicle.ymmText %>
+    </td>
+    <td><%= breakdown.bdate.strftime("%b %d, %Y") %></td>
     <td><%= breakdown.description %></td>
     <td><%= link_to 'Show', breakdown %></td>
     <td><%= link_to 'Edit', edit_breakdown_path(breakdown) %></td>
@@ -25,3 +28,4 @@
 <br />
 
 <%= link_to 'New Breakdown', new_breakdown_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

@@ -47,7 +47,7 @@ class InsuranceCompaniesController < ApplicationController
 
         respond_to do |format|
             if @insurance_company.save
-                format.html { redirect_to insurancecompanies_url,
+                format.html { redirect_to insurance_companies_url,
                               notice: 'InsuranceCompany was successfully created.' }
                 format.json { render json: @insurance_company, status: :created, location: @insurance_company }
             else
@@ -64,7 +64,7 @@ class InsuranceCompaniesController < ApplicationController
 
         respond_to do |format|
             if @insurance_company.update_attributes(params[:insurance_company])
-                format.html { redirect_to insurancecompanies_url,
+                format.html { redirect_to insurance_companies_url,
                               notice: 'InsuranceCompany was successfully updated.' }
                 format.json { head :no_content }
             else

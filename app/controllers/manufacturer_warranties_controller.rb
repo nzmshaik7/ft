@@ -2,6 +2,13 @@ class ManufacturerWarrantiesController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @manufacturer_warranty_types = ManufacturerWarrantyType.all
+        @warrantyTypeCollect = @manufacturer_warranty_types.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /manufacturer_warranties
     # GET /manufacturer_warranties.json
     def index
@@ -47,7 +54,7 @@ class ManufacturerWarrantiesController < ApplicationController
 
         respond_to do |format|
             if @manufacturer_warranty.save
-                format.html { redirect_to manufacturerwarranties_url,
+                format.html { redirect_to manufacturer_warranties_url,
                               notice: 'ManufacturerWarranty was successfully created.' }
                 format.json { render json: @manufacturer_warranty, status: :created, location: @manufacturer_warranty }
             else
@@ -64,7 +71,7 @@ class ManufacturerWarrantiesController < ApplicationController
 
         respond_to do |format|
             if @manufacturer_warranty.update_attributes(params[:manufacturer_warranty])
-                format.html { redirect_to manufacturerwarranties_url,
+                format.html { redirect_to manufacturer_warranties_url,
                               notice: 'ManufacturerWarranty was successfully updated.' }
                 format.json { head :no_content }
             else

@@ -47,7 +47,7 @@ class ServiceVisitsController < ApplicationController
 
         respond_to do |format|
             if @service_visit.save
-                format.html { redirect_to servicevisits_url,
+                format.html { redirect_to service_visits_url,
                               notice: 'ServiceVisit was successfully created.' }
                 format.json { render json: @service_visit, status: :created, location: @service_visit }
             else
@@ -64,7 +64,7 @@ class ServiceVisitsController < ApplicationController
 
         respond_to do |format|
             if @service_visit.update_attributes(params[:service_visit])
-                format.html { redirect_to servicevisits_url,
+                format.html { redirect_to service_visits_url,
                               notice: 'ServiceVisit was successfully updated.' }
                 format.json { head :no_content }
             else

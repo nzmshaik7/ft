@@ -2,10 +2,18 @@ class BreakdownsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @vehicles = Vehicle.all
+        @vehicleCollect = @vehicles.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /breakdowns
     # GET /breakdowns.json
     def index
         @breakdowns = Breakdown.all
+        prepFormVariables
 
         respond_to do |format|
             format.html # index.html.erb
@@ -17,6 +25,7 @@ class BreakdownsController < ApplicationController
     # GET /breakdowns/1.json
     def show
         @breakdown = Breakdown.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +37,7 @@ class BreakdownsController < ApplicationController
     # GET /breakdowns/new.json
     def new
         @breakdown = Breakdown.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +48,7 @@ class BreakdownsController < ApplicationController
     # GET /breakdowns/1/edit
     def edit
         @breakdown = Breakdown.find(params[:id])
+        prepFormVariables
     end
 
     # POST /breakdowns
@@ -51,6 +62,7 @@ class BreakdownsController < ApplicationController
                               notice: 'Breakdown was successfully created.' }
                 format.json { render json: @breakdown, status: :created, location: @breakdown }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @breakdown.errors, status: :unprocessable_entity }
             end
@@ -68,6 +80,7 @@ class BreakdownsController < ApplicationController
                               notice: 'Breakdown was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @breakdown.errors, status: :unprocessable_entity }
             end

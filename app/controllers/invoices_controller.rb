@@ -2,6 +2,29 @@ class InvoicesController < ApplicationController
 
     before_filter :only_allow_admins
 
+    include CustomersHelper
+
+    def prepFormVariables(invoice=nil)
+        @customers = Customer.all
+        @customerCollect = @customers.collect { |p|
+            [ customerName2(p), p.id ] 
+        }
+
+        @selStatus = 0
+        if invoice
+            if invoice.status == Invoice::STATUS_PAID or
+               invoice.status == Invoice::STATUS_UNPAID 
+                @selStatus = invoice.status
+            end
+        end
+        # logger.info("=== status is #{@selStatus}")
+        @statusOptions = [
+            [ "Select",   0  ],
+            [ "Paid",     Invoice::STATUS_PAID ],
+            [ "Unpaid",   Invoice::STATUS_UNPAID ],
+        ]
+    end
+
     # GET /invoices
     # GET /invoices.json
     def index
@@ -17,6 +40,7 @@ class InvoicesController < ApplicationController
     # GET /invoices/1.json
     def show
         @invoice = Invoice.find(params[:id])
+        prepFormVariables(@invoice)
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +52,7 @@ class InvoicesController < ApplicationController
     # GET /invoices/new.json
     def new
         @invoice = Invoice.new
+        prepFormVariables(@invoice)
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +63,7 @@ class InvoicesController < ApplicationController
     # GET /invoices/1/edit
     def edit
         @invoice = Invoice.find(params[:id])
+        prepFormVariables(@invoice)
     end
 
     # POST /invoices
@@ -51,6 +77,7 @@ class InvoicesController < ApplicationController
                               notice: 'Invoice was successfully created.' }
                 format.json { render json: @invoice, status: :created, location: @invoice }
             else
+                prepFormVariables(@invoice)
                 format.html { render action: "new" }
                 format.json { render json: @invoice.errors, status: :unprocessable_entity }
             end
@@ -68,6 +95,7 @@ class InvoicesController < ApplicationController
                               notice: 'Invoice was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables(@invoice)
                 format.html { render action: "edit" }
                 format.json { render json: @invoice.errors, status: :unprocessable_entity }
             end

@@ -47,7 +47,7 @@ class ReferredBiesController < ApplicationController
 
         respond_to do |format|
             if @referred_by.save
-                format.html { redirect_to referredbies_url,
+                format.html { redirect_to referred_bies_url,
                               notice: 'ReferredBy was successfully created.' }
                 format.json { render json: @referred_by, status: :created, location: @referred_by }
             else
@@ -64,7 +64,7 @@ class ReferredBiesController < ApplicationController
 
         respond_to do |format|
             if @referred_by.update_attributes(params[:referred_by])
-                format.html { redirect_to referredbies_url,
+                format.html { redirect_to referred_bies_url,
                               notice: 'ReferredBy was successfully updated.' }
                 format.json { head :no_content }
             else

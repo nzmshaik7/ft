@@ -1,93 +1,66 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Cid:</b>
+  <b>Customer ID:</b>
   <%= @customer.cid %>
 </p>
 
 <p>
-  <b>User:</b>
+  <b>User number, Name:</b>
   <%= @customer.user_id %>
+  <%= customerName2(@customer) %>
 </p>
 
 <p>
   <b>Street addr1:</b>
-  <%= @customer.street_addr1 %>
-</p>
-
-<p>
-  <b>Street addr2:</b>
+  <%= @customer.street_addr1 %> <br>
   <%= @customer.street_addr2 %>
 </p>
 
 <p>
-  <b>City:</b>
-  <%= @customer.city %>
-</p>
-
-<p>
-  <b>State:</b>
-  <%= @customer.state_id %>
-</p>
-
-<p>
-  <b>Zip:</b>
+  <b>City State Zip:</b>
+  <%= @customer.city %>,
+  <%= @customer.state.name %>
   <%= @customer.zip %>
 </p>
 
 <p>
   <b>Home phone:</b>
   <%= @customer.home_phone %>
-</p>
-
-<p>
-  <b>Can text home phone:</b>
-  <%= @customer.can_text_home_phone %>
-</p>
-
-<p>
+  <% if @customer.can_text_home_phone %>
+    (Textable)
+  <% end %>
+  <br>
   <b>Work phone:</b>
   <%= @customer.work_phone %>
-</p>
-
-<p>
-  <b>Can text work phone:</b>
-  <%= @customer.can_text_work_phone %>
-</p>
-
-<p>
+  <% if @customer.can_text_work_phone %>
+    (Textable)
+  <% end %>
+  <br>
   <b>Mobile phone:</b>
   <%= @customer.mobile_phone %>
-</p>
-
-<p>
-  <b>Can text mobile phone:</b>
-  <%= @customer.can_text_mobile_phone %>
-</p>
-
-<p>
+  <% if @customer.can_text_mobile_phone %>
+    (Textable)
+  <% end %>
+  <br>
   <b>Other phone:</b>
   <%= @customer.other_phone %>
-</p>
-
-<p>
-  <b>Can text other phone:</b>
-  <%= @customer.can_text_other_phone %>
+  <% if @customer.can_text_other_phone %>
+    (Textable)
+  <% end %>
 </p>
 
 <p>
   <b>Joined date:</b>
-  <%= @customer.joined_date %>
+  <%= @customer.joined_date.strftime("%b %d, %Y") %>
 </p>
 
 <p>
-  <b>Is aaa member:</b>
-  <%= @customer.is_aaa_member %>
-</p>
-
-<p>
+  <b>Is AAA member:</b>
+  <%= boolText(@customer.is_aaa_member) %>
+  <br>
   <b>Is web registered:</b>
-  <%= @customer.is_web_registered %>
+  <%= boolText(@customer.is_web_registered) %>
 </p>
 
 <p>
@@ -95,30 +68,38 @@
   <%= @customer.spouse_name %>
 </p>
 
-<p>
-  <b>Spouse:</b>
-  <%= @customer.spouse_id %>
-</p>
+<% if @customer.spouse_id %>
+  <p>
+    <b>Spouse Customer:</b>
+    <%= customerName2(@customer.spouse) %>
+  </p>
+<% end %>
 
 <p>
   <b>Signup store:</b>
-  <%= @customer.signup_store_id %>
+  <%= @customer.signup_store.number %> /
+  <%= @customer.signup_store.name %>
 </p>
 
 <p>
-  <b>Referredby:</b>
-  <%= @customer.referredBy_id %>
+  <b>Referred by:</b>
+  <% if @customer.referredBy_id %>
+    <%= @customer.referredBy.description %>
+  <% else %>
+    <i>None</i>
+  <% end %>
+  <% if @customer.referredBy_other_text %>
+    <br>
+    <%= @customer.referredBy_other_text %>
+  <% end %>
 </p>
 
-<p>
-  <b>Referredby customer:</b>
-  <%= @customer.referredBy_customer_id %>
-</p>
-
-<p>
-  <b>Referredby other text:</b>
-  <%= @customer.referredBy_other_text %>
-</p>
+<% if @customer.referredBy_customer_id %>
+  <p>
+    <b>Referred by customer:</b>
+    <%= customerName2(@customer.referredBy_customer) %>
+  </p>
+<% end %>
 
 <p>
   <b>Ssn:</b>
@@ -128,26 +109,22 @@
 <p>
   <b>Driver lic num:</b>
   <%= @customer.driver_lic_num %>
-</p>
-
-<p>
+  <br>
   <b>Driver lic state:</b>
-  <%= @customer.driver_lic_state_id %>
-</p>
-
-<p>
+  <%= @customer.driver_lic_state.name %>
+  <br>
   <b>Driver lic image:</b>
   <%= @customer.driver_lic_image_id %>
 </p>
 
 <p>
   <b>Date of birth:</b>
-  <%= @customer.date_of_birth %>
+  <%= @customer.date_of_birth.strftime("%b %d, %Y") %>
 </p>
 
 <p>
   <b>Gender:</b>
-  <%= @customer.gender %>
+  <%= @customer.genderText %>
 </p>
 
 <p>
@@ -156,7 +133,7 @@
 </p>
 
 <p>
-  <b>Written testimony:</b>
+  <b>Written testimony number:</b>
   <%= @customer.written_testimony_id %>
 </p>
 

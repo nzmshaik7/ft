@@ -2,10 +2,22 @@ class BgSystemCoveredsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @vehicles = Vehicle.all
+        @vehicleCollect = @vehicles.collect { |p|
+            [ p.name, p.id ] 
+        }
+        @bgSystems = BgSystem.all
+        @bgSystemCollect = @bgSystems.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /bg_system_covereds
     # GET /bg_system_covereds.json
     def index
         @bg_system_covereds = BgSystemCovered.all
+        prepFormVariables
 
         respond_to do |format|
             format.html # index.html.erb
@@ -17,6 +29,7 @@ class BgSystemCoveredsController < ApplicationController
     # GET /bg_system_covereds/1.json
     def show
         @bg_system_covered = BgSystemCovered.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +41,7 @@ class BgSystemCoveredsController < ApplicationController
     # GET /bg_system_covereds/new.json
     def new
         @bg_system_covered = BgSystemCovered.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +52,7 @@ class BgSystemCoveredsController < ApplicationController
     # GET /bg_system_covereds/1/edit
     def edit
         @bg_system_covered = BgSystemCovered.find(params[:id])
+        prepFormVariables
     end
 
     # POST /bg_system_covereds
@@ -47,10 +62,11 @@ class BgSystemCoveredsController < ApplicationController
 
         respond_to do |format|
             if @bg_system_covered.save
-                format.html { redirect_to bgsystemcovereds_url,
+                format.html { redirect_to bg_system_covereds_url,
                               notice: 'BgSystemCovered was successfully created.' }
                 format.json { render json: @bg_system_covered, status: :created, location: @bg_system_covered }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @bg_system_covered.errors, status: :unprocessable_entity }
             end
@@ -64,10 +80,11 @@ class BgSystemCoveredsController < ApplicationController
 
         respond_to do |format|
             if @bg_system_covered.update_attributes(params[:bg_system_covered])
-                format.html { redirect_to bgsystemcovereds_url,
+                format.html { redirect_to bg_system_covereds_url,
                               notice: 'BgSystemCovered was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @bg_system_covered.errors, status: :unprocessable_entity }
             end

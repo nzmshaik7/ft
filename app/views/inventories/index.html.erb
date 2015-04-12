@@ -1,19 +1,17 @@
 <h1>Listing inventories</h1>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Store</th>
     <th>Part</th>
     <th>Count</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @inventories.each do |inventory| %>
   <tr>
-    <td><%= inventory.store_id %></td>
-    <td><%= inventory.part_id %></td>
+    <td><%= inventory.store.number %>/<%= inventory.store.name %></td>
+    <td><%= inventory.part.number %>/<%= inventory.part.name.name %></td>
     <td><%= inventory.count %></td>
     <td><%= link_to 'Show', inventory %></td>
     <td><%= link_to 'Edit', edit_inventory_path(inventory) %></td>
@@ -25,3 +23,4 @@
 <br />
 
 <%= link_to 'New Inventory', new_inventory_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

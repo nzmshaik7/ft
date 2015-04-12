@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :begin_date %><br />
-    <%= f.datetime_select :begin_date %>
+    <%= f.date_select :begin_date %>
   </div>
   <div class="field">
     <%= f.label :number %><br />
@@ -21,15 +21,18 @@
   </div>
   <div class="field">
     <%= f.label :status %><br />
-    <%= f.number_field :status %>
+    <select id="contract_status" name="contract[status]">
+    <%= options_for_select(@statusOptions, @selStatus) %>
+    </select>
   </div>
   <div class="field">
     <%= f.label :image_id %><br />
     <%= f.number_field :image_id %>
   </div>
   <div class="field">
-    <%= f.label :salesperson_id %><br />
-    <%= f.number_field :salesperson_id %>
+    <%= f.label :salesperson_id, 'Salesperson' %><br />
+    <%= select("contract", "salesperson_id", @salespersonCollect,
+                                            {prompt: 'Select Salesperson'}) %>
   </div>
   <div class="field">
     <%= f.label :level %><br />
@@ -40,16 +43,16 @@
     <%= f.text_field :base_cost %>
   </div>
   <div class="field">
-    <%= f.label :day_of_payment %><br />
+    <%= f.label :day_of_payment, 'Day of month when payment is made' %><br />
     <%= f.number_field :day_of_payment %>
   </div>
   <div class="field">
-    <%= f.label :discount %><br />
-    <%= f.text_field :discount %>
+    <%= f.label :discount, 'Discount in dollars and cents' %><br />
+    $<%= f.number_field :discount %>
   </div>
   <div class="field">
-    <%= f.label :discount %><br />
-    <%= f.number_field :discount %>
+    <%= f.label :discount_percent %><br />
+    <%= f.number_field :discount_percent %>%
   </div>
   <div class="actions">
     <%= f.submit %>

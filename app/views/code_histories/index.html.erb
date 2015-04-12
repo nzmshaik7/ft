@@ -12,7 +12,10 @@
 
 <% @code_histories.each do |code_history| %>
   <tr>
-    <td><%= code_history.vehicle_id %></td>
+    <td>
+      <%= code_history.vehicle_id %>:
+      <%= code_history.vehicle.ymmText %>
+    </td>
     <td><%= code_history.cdate %></td>
     <td><%= code_history.code %></td>
     <td><%= link_to 'Show', code_history %></td>
@@ -25,3 +28,4 @@
 <br />
 
 <%= link_to 'New Code history', new_code_history_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

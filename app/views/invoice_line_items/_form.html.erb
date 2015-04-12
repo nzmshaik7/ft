@@ -13,15 +13,17 @@
 
   <div class="field">
     <%= f.label :amount %><br />
-    <%= f.text_field :amount %>
+    $<%= f.text_field :amount %>
   </div>
   <div class="field">
     <%= f.label :invoice_id %><br />
-    <%= f.number_field :invoice_id %>
+    <%= select("invoice_line_item", "invoice_id", @invoiceCollect,
+                                                  {prompt: 'Select Invoice'}) %>
   </div>
   <div class="field">
     <%= f.label :line_item_purpose_id %><br />
-    <%= f.number_field :line_item_purpose_id %>
+    <%= select("invoice_line_item", "line_item_purpose_id", @purposeCollect,
+                                                  {prompt: 'Select Purpose'}) %>
   </div>
   <div class="field">
     <%= f.label :description %><br />
@@ -29,11 +31,13 @@
   </div>
   <div class="field">
     <%= f.label :service_visit_id %><br />
-    <%= f.number_field :service_visit_id %>
+    <%= select("invoice_line_item", "service_visit_id", @serviceVisitCollect,
+                                          {prompt: 'Select Service Visit'}) %>
   </div>
   <div class="field">
     <%= f.label :vehicle_id %><br />
-    <%= f.number_field :vehicle_id %>
+    <%= select("invoice_line_item", "vehicle_id", @vehicleCollect,
+                                          {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

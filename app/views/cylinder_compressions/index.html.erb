@@ -6,8 +6,6 @@
     <th>Cyl num</th>
     <th>Psi</th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @cylinder_compressions.each do |cylinder_compression| %>
@@ -15,13 +13,12 @@
     <td><%= cylinder_compression.qualification_id %></td>
     <td><%= cylinder_compression.cyl_num %></td>
     <td><%= cylinder_compression.psi %></td>
-    <td><%= link_to 'Show', cylinder_compression %></td>
     <td><%= link_to 'Edit', edit_cylinder_compression_path(cylinder_compression) %></td>
-    <td><%= link_to 'Destroy', cylinder_compression, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Cylinder compression', new_cylinder_compression_path %>
+Do not use.  This is loaded by Qualifications.
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

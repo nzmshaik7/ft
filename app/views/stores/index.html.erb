@@ -1,7 +1,7 @@
-<h1>Listing stores</h1>
+<h2>Listing stores</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Name</th>
     <th>Number</th>
     <th>Manager</th>
@@ -12,30 +12,28 @@
     <th>Region</th>
     <th>Zip</th>
     <th>Phone</th>
-    <th>Number of lifts</th>
+    <th>Lifts</th>
     <th>Capacity</th>
     <th>Break even</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @stores.each do |store| %>
   <tr>
     <td><%= store.name %></td>
     <td><%= store.number %></td>
-    <td><%= store.manager_id %></td>
+    <td><%= store.manager.first_name %> <%= store.manager.last_name %></td>
     <td><%= store.street_address %></td>
     <td><%= store.city %></td>
-    <td><%= store.state_id %></td>
-    <td><%= store.county_id %></td>
-    <td><%= store.region_id %></td>
+    <td><%= store.state.name %></td>
+    <td><%= store.county.name %></td>
+    <td><%= store.region.name %></td>
     <td><%= store.zip %></td>
     <td><%= store.phone %></td>
     <td><%= store.number_of_lifts %></td>
     <td><%= store.capacity %></td>
     <td><%= store.break_even %></td>
-    <td><%= link_to 'Show', store %></td>
+    <td><strike><%= link_to 'Show', store %></strike></td>
     <td><%= link_to 'Edit', edit_store_path(store) %></td>
     <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -45,3 +43,4 @@
 <br />
 
 <%= link_to 'New Store', new_store_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

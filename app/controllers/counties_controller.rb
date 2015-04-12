@@ -2,10 +2,18 @@ class CountiesController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @states = State.all
+        @stateCollect = @states.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /counties
     # GET /counties.json
     def index
         @counties = County.all
+        prepFormVariables
 
         respond_to do |format|
             format.html # index.html.erb
@@ -17,6 +25,7 @@ class CountiesController < ApplicationController
     # GET /counties/1.json
     def show
         @county = County.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +37,7 @@ class CountiesController < ApplicationController
     # GET /counties/new.json
     def new
         @county = County.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +48,7 @@ class CountiesController < ApplicationController
     # GET /counties/1/edit
     def edit
         @county = County.find(params[:id])
+        prepFormVariables
     end
 
     # POST /counties
@@ -51,6 +62,7 @@ class CountiesController < ApplicationController
                               notice: 'County was successfully created.' }
                 format.json { render json: @county, status: :created, location: @county }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @county.errors, status: :unprocessable_entity }
             end
@@ -68,6 +80,7 @@ class CountiesController < ApplicationController
                               notice: 'County was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @county.errors, status: :unprocessable_entity }
             end

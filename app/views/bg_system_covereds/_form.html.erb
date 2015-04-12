@@ -12,16 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :vehicle_id %><br />
-    <%= f.number_field :vehicle_id %>
+    <%= f.label :vehicle_id, 'Vehicle' %><br />
+    <%= select("bg_system_covered", "vehicle_id", @vehicleCollect,
+                                                {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
-    <%= f.label :system_id %><br />
-    <%= f.number_field :system_id %>
+    <%= f.label :system_id, 'System Covered' %><br />
+    <%= select("bg_system_covered", "system_id", @bgSystemCollect,
+                                                {prompt: 'Select System'}) %>
   </div>
   <div class="field">
-    <%= f.label :coverage %><br />
-    <%= f.number_field :coverage %>
+    <%= f.label :coverage, 'Coverage in dollars' %><br />
+    $<%= f.number_field :coverage %>
   </div>
   <div class="actions">
     <%= f.submit %>

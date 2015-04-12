@@ -5,13 +5,11 @@
     <th>Name</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @engine_displacements.each do |engine_displacement| %>
   <tr>
     <td><%= engine_displacement.name %></td>
-    <td><%= link_to 'Show', engine_displacement %></td>
     <td><%= link_to 'Edit', edit_engine_displacement_path(engine_displacement) %></td>
     <td><%= link_to 'Destroy', engine_displacement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -21,3 +19,4 @@
 <br />
 
 <%= link_to 'New Engine displacement', new_engine_displacement_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

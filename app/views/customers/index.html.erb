@@ -1,80 +1,36 @@
-<h1>Listing customers</h1>
+<h2>Listing customers</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Cid</th>
-    <th>User</th>
-    <th>Street addr1</th>
-    <th>Street addr2</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Zip</th>
+    <th>Name</th>
     <th>Home phone</th>
-    <th>Can text home phone</th>
     <th>Work phone</th>
-    <th>Can text work phone</th>
     <th>Mobile phone</th>
-    <th>Can text mobile phone</th>
     <th>Other phone</th>
-    <th>Can text other phone</th>
     <th>Joined date</th>
-    <th>Is aaa member</th>
-    <th>Is web registered</th>
-    <th>Spouse name</th>
-    <th>Spouse</th>
+    <th>AAA</th>
+    <th>Web</th>
     <th>Signup store</th>
-    <th>Referredby</th>
-    <th>Referredby customer</th>
-    <th>Referredby other text</th>
-    <th>Ssn</th>
-    <th>Driver lic num</th>
-    <th>Driver lic state</th>
-    <th>Driver lic image</th>
     <th>Date of birth</th>
-    <th>Gender</th>
-    <th>Video testimony url</th>
-    <th>Written testimony</th>
     <th>Referral credits earned</th>
     <th>Referral credits used</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @customers.each do |customer| %>
   <tr>
     <td><%= customer.cid %></td>
-    <td><%= customer.user_id %></td>
-    <td><%= customer.street_addr1 %></td>
-    <td><%= customer.street_addr2 %></td>
-    <td><%= customer.city %></td>
-    <td><%= customer.state_id %></td>
-    <td><%= customer.zip %></td>
-    <td><%= customer.home_phone %></td>
-    <td><%= customer.can_text_home_phone %></td>
-    <td><%= customer.work_phone %></td>
-    <td><%= customer.can_text_work_phone %></td>
-    <td><%= customer.mobile_phone %></td>
-    <td><%= customer.can_text_mobile_phone %></td>
-    <td><%= customer.other_phone %></td>
-    <td><%= customer.can_text_other_phone %></td>
-    <td><%= customer.joined_date %></td>
-    <td><%= customer.is_aaa_member %></td>
-    <td><%= customer.is_web_registered %></td>
-    <td><%= customer.spouse_name %></td>
-    <td><%= customer.spouse_id %></td>
-    <td><%= customer.signup_store_id %></td>
-    <td><%= customer.referredBy_id %></td>
-    <td><%= customer.referredBy_customer_id %></td>
-    <td><%= customer.referredBy_other_text %></td>
-    <td><%= customer.ssn %></td>
-    <td><%= customer.driver_lic_num %></td>
-    <td><%= customer.driver_lic_state_id %></td>
-    <td><%= customer.driver_lic_image_id %></td>
-    <td><%= customer.date_of_birth %></td>
-    <td><%= customer.gender %></td>
-    <td><%= customer.video_testimony_url %></td>
-    <td><%= customer.written_testimony_id %></td>
+    <td><%= customerName2(customer) %></td>
+    <td><%= customer.home_phone %> <%= customer.homeTextFlag %></td>
+    <td><%= customer.work_phone %> <%= customer.workTextFlag %></td>
+    <td><%= customer.mobile_phone %> <%= customer.mobileTextFlag %></td>
+    <td><%= customer.other_phone %> <%= customer.otherTextFlag %></td>
+    <td><%= customer.joined_date.strftime("%b %d, %Y") %></td>
+    <td><%= boolText(customer.is_aaa_member) %></td>
+    <td><%= boolText(customer.is_web_registered) %></td>
+    <td><%= customer.signup_store.number %></td>
+    <td><%= customer.date_of_birth.strftime("%b %d, %Y") %></td>
     <td><%= customer.referral_credits_earned %></td>
     <td><%= customer.referral_credits_used %></td>
     <td><%= link_to 'Show', customer %></td>
@@ -87,3 +43,4 @@
 <br />
 
 <%= link_to 'New Customer', new_customer_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

@@ -41,4 +41,19 @@ class Vehicle < ActiveRecord::Base
     has_many :ts_band_recalls
     has_many :manufacturer_warranties
 
+    # Return string that describes year, make, and model, and optional submod.
+    def ymmText
+        ans = date_of_manufacture.strftime("%Y")
+        ans += ' ' + make.name 
+        ans += ' ' + model.name
+        if submodel
+            ans += ' ' + submodel.name
+        end
+        return ans
+    end
+
+    def ymmpText
+        return ymmText + ' ' + license_plate
+    end
+
 end

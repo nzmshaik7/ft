@@ -6,14 +6,12 @@
     <th>State</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @regions.each do |region| %>
   <tr>
     <td><%= region.name %></td>
-    <td><%= region.state_id %></td>
-    <td><%= link_to 'Show', region %></td>
+    <td><%= region.state.name %></td>
     <td><%= link_to 'Edit', edit_region_path(region) %></td>
     <td><%= link_to 'Destroy', region, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -23,3 +21,4 @@
 <br />
 
 <%= link_to 'New Region', new_region_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>
