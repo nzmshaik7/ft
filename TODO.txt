@@ -1,0 +1,1 @@
+check grouped_collection_select(:city, :country_id, @continents, :countries, :name, :id, :name)

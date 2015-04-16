@@ -17,7 +17,8 @@
   </div>
   <div class="field">
     <%= f.label :make_id %><br />
-    <%= f.number_field :make_id %>
+    <%= select("model", "make_id", 
+                    @makeCollect, {prompt: 'Select Make'}) %>
   </div>
   <div class="field">
     <%= f.label :first_year_made %><br />

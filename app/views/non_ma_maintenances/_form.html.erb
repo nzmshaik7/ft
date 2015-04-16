@@ -13,7 +13,8 @@
 
   <div class="field">
     <%= f.label :vehicle_id %><br />
-    <%= f.number_field :vehicle_id %>
+    <%= select("non_ma_maintenance", "vehicle_id", @vehicleCollect,
+                                          {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
     <%= f.label :mdate, 'Date of maintenance' %><br />

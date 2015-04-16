@@ -2,6 +2,50 @@ class ScheduledAppointmentsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables(scheduled_appointment=nil)
+
+        @vehicles = Vehicle.all
+        @vehicleCollect = @vehicles.collect { |p|
+            [ p.ymmpText, p.id ] 
+        }
+        @stores = Store.all
+        @storeCollect = @stores.collect { |p|
+            [ p.number + '/' + p.name, p.id ] 
+        }
+
+        @selStatus = 0
+        if scheduled_appointment
+            if [ ScheduledAppointment::STATUS_COMPLETED,
+                 ScheduledAppointment::STATUS_PENDING,
+                 ScheduledAppointment::STATUS_CANCELLED,
+                 ScheduledAppointment::STATUS_MISSED,
+                ].include?(scheduled_appointment.status)
+                @selStatus = scheduled_appointment.status
+            end
+        end
+        @statusOptions = [
+            [ "Select",      0  ],
+            [ "Completed",   ScheduledAppointment::STATUS_COMPLETED ],
+            [ "Pending",     ScheduledAppointment::STATUS_PENDING ],
+            [ "Missed",      ScheduledAppointment::STATUS_MISSED ],
+            [ "Cancelled",   ScheduledAppointment::STATUS_CANCELLED ],
+        ]
+
+        @purpStatus = 0
+        if scheduled_appointment
+            if [ ScheduledAppointment::PURPOSE_SERVICE,
+                 ScheduledAppointment::PURPOSE_REPAIR,
+                ].include?(scheduled_appointment.purpose)
+                @purpStatus = scheduled_appointment.purpose
+            end
+        end
+        @purposeOptions = [
+            [ "Select",      0  ],
+            [ "Service",   ScheduledAppointment::PURPOSE_SERVICE ],
+            [ "Repair",    ScheduledAppointment::PURPOSE_REPAIR ],
+        ]
+    end
+
     # GET /scheduled_appointments
     # GET /scheduled_appointments.json
     def index
@@ -17,6 +61,7 @@ class ScheduledAppointmentsController < ApplicationController
     # GET /scheduled_appointments/1.json
     def show
         @scheduled_appointment = ScheduledAppointment.find(params[:id])
+        prepFormVariables(@scheduled_appointment)
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +73,7 @@ class ScheduledAppointmentsController < ApplicationController
     # GET /scheduled_appointments/new.json
     def new
         @scheduled_appointment = ScheduledAppointment.new
+        prepFormVariables(@scheduled_appointment)
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +84,7 @@ class ScheduledAppointmentsController < ApplicationController
     # GET /scheduled_appointments/1/edit
     def edit
         @scheduled_appointment = ScheduledAppointment.find(params[:id])
+        prepFormVariables(@scheduled_appointment)
     end
 
     # POST /scheduled_appointments
@@ -51,6 +98,7 @@ class ScheduledAppointmentsController < ApplicationController
                               notice: 'ScheduledAppointment was successfully created.' }
                 format.json { render json: @scheduled_appointment, status: :created, location: @scheduled_appointment }
             else
+                prepFormVariables(@scheduled_appointment)
                 format.html { render action: "new" }
                 format.json { render json: @scheduled_appointment.errors, status: :unprocessable_entity }
             end
@@ -68,6 +116,7 @@ class ScheduledAppointmentsController < ApplicationController
                               notice: 'ScheduledAppointment was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables(@scheduled_appointment)
                 format.html { render action: "edit" }
                 format.json { render json: @scheduled_appointment.errors, status: :unprocessable_entity }
             end

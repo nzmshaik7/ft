@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="field">
+    Qualification ID: 
+    <%= @qualification.id %> (Enter this on vehicle page)
+  </div>
+  <div class="field">
     <%= f.label :qdate %><br />
     <%= f.datetime_select :qdate %>
   </div>
@@ -41,7 +45,8 @@
   </div>
   <div class="field">
     <%= f.label :service_visit_id %><br />
-    <%= f.number_field :service_visit_id %>
+    <%= select("qualification", "service_visit_id", 
+                    @serviceVisitCollect, {prompt: 'Select Service Visit'}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

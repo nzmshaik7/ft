@@ -2,6 +2,13 @@ class NonMaMaintenancesController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @vehicles = Vehicle.all
+        @vehicleCollect = @vehicles.collect { |p|
+            [ p.ymmText + ' ' + p.license_plate, p.id ]
+        }
+    end
+
     # GET /non_ma_maintenances
     # GET /non_ma_maintenances.json
     def index
@@ -17,6 +24,7 @@ class NonMaMaintenancesController < ApplicationController
     # GET /non_ma_maintenances/1.json
     def show
         @non_ma_maintenance = NonMaMaintenance.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +36,7 @@ class NonMaMaintenancesController < ApplicationController
     # GET /non_ma_maintenances/new.json
     def new
         @non_ma_maintenance = NonMaMaintenance.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +47,7 @@ class NonMaMaintenancesController < ApplicationController
     # GET /non_ma_maintenances/1/edit
     def edit
         @non_ma_maintenance = NonMaMaintenance.find(params[:id])
+        prepFormVariables
     end
 
     # POST /non_ma_maintenances
@@ -51,6 +61,7 @@ class NonMaMaintenancesController < ApplicationController
                               notice: 'NonMaMaintenance was successfully created.' }
                 format.json { render json: @non_ma_maintenance, status: :created, location: @non_ma_maintenance }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @non_ma_maintenance.errors, status: :unprocessable_entity }
             end
@@ -68,6 +79,7 @@ class NonMaMaintenancesController < ApplicationController
                               notice: 'NonMaMaintenance was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @non_ma_maintenance.errors, status: :unprocessable_entity }
             end

@@ -13,7 +13,8 @@
 
   <div class="field">
     <%= f.label :vehicle_id %><br />
-    <%= f.number_field :vehicle_id %>
+    <%= select("manufacturer_warranty", "vehicle_id", @vehicleCollect,
+                                          {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
     <%= f.label :months %><br />
@@ -24,8 +25,9 @@
     <%= f.number_field :miles %>
   </div>
   <div class="field">
-    <%= f.label :wtype %><br />
-    <%= f.number_field :wtype %>
+    <%= f.label :manufacturer_warranty_type_id, 'Warranty Type' %><br />
+    <%= select("manufacturer_warranty", "manufacturer_warranty_type_id", 
+                    @warrantyTypeCollect, {prompt: 'Select Warranty Type'}) %>
   </div>
   <div class="field">
     <%= f.label :image %><br />

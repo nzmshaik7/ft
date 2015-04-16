@@ -2,10 +2,24 @@ class PaymentMethodsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    include CustomersHelper
+
+    def prepFormVariables
+        @customers = Customer.all
+        @customerCollect = @customers.collect { |p|
+            [ customerName2(p), p.id ] 
+        }
+        @paymentTypes = PaymentType.all
+        @paymentTypeCollect = @paymentTypes.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /payment_methods
     # GET /payment_methods.json
     def index
         @payment_methods = PaymentMethod.all
+        prepFormVariables
 
         respond_to do |format|
             format.html # index.html.erb
@@ -17,6 +31,7 @@ class PaymentMethodsController < ApplicationController
     # GET /payment_methods/1.json
     def show
         @payment_method = PaymentMethod.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +43,7 @@ class PaymentMethodsController < ApplicationController
     # GET /payment_methods/new.json
     def new
         @payment_method = PaymentMethod.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +54,7 @@ class PaymentMethodsController < ApplicationController
     # GET /payment_methods/1/edit
     def edit
         @payment_method = PaymentMethod.find(params[:id])
+        prepFormVariables
     end
 
     # POST /payment_methods
@@ -51,6 +68,7 @@ class PaymentMethodsController < ApplicationController
                               notice: 'PaymentMethod was successfully created.' }
                 format.json { render json: @payment_method, status: :created, location: @payment_method }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @payment_method.errors, status: :unprocessable_entity }
             end
@@ -68,6 +86,7 @@ class PaymentMethodsController < ApplicationController
                               notice: 'PaymentMethod was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @payment_method.errors, status: :unprocessable_entity }
             end

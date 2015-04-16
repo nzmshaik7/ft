@@ -7,4 +7,8 @@ class ServiceVisit < ActiveRecord::Base
     belongs_to :store
     has_many :service_line_items
     has_many :service_journals
+
+    def visitText
+        return sdate.strftime("%b %d, %Y/") + mileage + " mi"
+    end
 end

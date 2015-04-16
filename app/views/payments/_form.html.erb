@@ -12,36 +12,43 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :date_time %><br />
+    <%= f.label :date_time, 'Date and time of payment' %><br />
     <%= f.datetime_select :date_time %>
   </div>
   <div class="field">
-    <%= f.label :invoice_id %><br />
-    <%= f.number_field :invoice_id %>
+    <%= f.label :invoice_id, 'Invoice (if paying invoice)' %><br />
+    <%= select("payment", "invoice_id", @invoiceCollect,
+                                                  {prompt: 'Select Invoice'}) %>
   </div>
   <div class="field">
-    <%= f.label :contract_id %><br />
-    <%= f.number_field :contract_id %>
+    <%= f.label :contract_id, 'Contract (if paying monthly fee)' %><br />
+    <%= select("payment", "contract_id", @contractCollect,
+                                              {prompt: 'Select Contract'}) %>
   </div>
   <div class="field">
-    <%= f.label :finance_agreement_id %><br />
+    <%= f.label :finance_agreement_id,
+                      'Finance Agreement number (if finance payment)' %><br />
     <%= f.number_field :finance_agreement_id %>
   </div>
   <div class="field">
-    <%= f.label :customer_id %><br />
-    <%= f.number_field :customer_id %>
+    <%= f.label :customer_id, 'Customer making payment' %><br />
+    <%= select("payment", "customer_id", @customerCollect,
+                                          {prompt: 'Select Customer'}) %>
   </div>
   <div class="field">
     <%= f.label :amount %><br />
-    <%= f.text_field :amount %>
+    $<%= f.text_field :amount %>
   </div>
   <div class="field">
     <%= f.label :payment_method_id %><br />
-    <%= f.number_field :payment_method_id %>
+    <%= select("payment", "payment_method_id", @paymentMethodCollect,
+                              {prompt: "Select Customer's Payment Method"}) %>
   </div>
   <div class="field">
     <%= f.label :status %><br />
-    <%= f.number_field :status %>
+    <select id="payment_status" name="payment[status]">
+      <%= options_for_select(@statusOptions, @selStatus) %>
+    </select>
   </div>
   <div class="field">
     <%= f.label :merchant_services_status %><br />

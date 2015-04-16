@@ -6,10 +6,14 @@ class Contract < ActiveRecord::Base
     belongs_to :salesperson
     has_many :upgrades
 
+    STATUS_CURRENT =   51
+    STATUS_LAPSED =    52
+    STATUS_CANCELLED = 53
+
     def statusText
-        return "Current"      if status == 51
-        return "Lapsed"       if status == 52
-        return "Cancelled"    if status == 53
+        return "Current"      if status == STATUS_CURRENT
+        return "Lapsed"       if status == STATUS_LAPSED 
+        return "Cancelled"    if status == STATUS_CANCELLED 
         return "Unknown"
     end
 end

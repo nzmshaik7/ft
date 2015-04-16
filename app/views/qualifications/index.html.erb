@@ -1,7 +1,7 @@
-<h1>Listing qualifications</h1>
+<h2>Listing qualifications</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Qdate</th>
     <th>Leakdown</th>
     <th>Qual report images</th>
@@ -10,21 +10,19 @@
     <th>Spectrum report images</th>
     <th>Cylinder compression spec</th>
     <th>Service visit</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @qualifications.each do |qualification| %>
   <tr>
-    <td><%= qualification.qdate %></td>
+    <td><%= qualification.qdate.strftime("%b %d, %Y") %></td>
     <td><%= qualification.leakdown %></td>
     <td><%= qualification.qual_report_images_id %></td>
     <td><%= qualification.alignment_report_images_id %></td>
     <td><%= qualification.sixgas_report_images_id %></td>
     <td><%= qualification.spectrum_report_images_id %></td>
     <td><%= qualification.cylinder_compression_spec %></td>
-    <td><%= qualification.service_visit_id %></td>
+    <td><%= qualification.service.visitText %></td>
     <td><%= link_to 'Show', qualification %></td>
     <td><%= link_to 'Edit', edit_qualification_path(qualification) %></td>
     <td><%= link_to 'Destroy', qualification, method: :delete, data: { confirm: 'Are you sure?' } %></td>

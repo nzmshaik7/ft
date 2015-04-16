@@ -510,6 +510,7 @@ gen=( generate scaffold Payment
 RAILS ${gen[*]}
 
 
+# This is for one particular customer - may have several methods of payment.
 gen=( generate scaffold PaymentMethod
     customer_id:integer
     payment_type_id:integer     # Visa, Discover, ACH, etc.

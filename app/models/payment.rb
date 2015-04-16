@@ -14,9 +14,9 @@ class Payment < ActiveRecord::Base
     STATUS_PENDING = 33
 
     def statusText
-        return "Approved"  if wtype == 31
-        return "Denied"    if wtype == 32
-        return "Pending"   if wtype == 33
+        return "Approved"  if status == 31
+        return "Denied"    if status == 32
+        return "Pending"   if status == 33
         return "Unknown"
     end
 

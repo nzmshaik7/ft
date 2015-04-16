@@ -1,6 +1,7 @@
 class CustomersController < ApplicationController
 
     before_filter :only_allow_admins
+    include CustomersHelper
 
     def prepFormVariables(customer=nil)
         @states = State.all

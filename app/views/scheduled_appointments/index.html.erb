@@ -1,26 +1,26 @@
-<h1>Listing scheduled_appointments</h1>
+<h2>Listing scheduled appointments</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Date time</th>
     <th>Actual date time</th>
     <th>Status</th>
     <th>Purpose</th>
     <th>Vehicle</th>
     <th>Store</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @scheduled_appointments.each do |scheduled_appointment| %>
   <tr>
-    <td><%= scheduled_appointment.date_time %></td>
-    <td><%= scheduled_appointment.actual_date_time %></td>
-    <td><%= scheduled_appointment.status %></td>
-    <td><%= scheduled_appointment.purpose %></td>
-    <td><%= scheduled_appointment.vehicle_id %></td>
-    <td><%= scheduled_appointment.store_id %></td>
+    <td><%= scheduled_appointment.date_time.strftime("%H:%M %b %d, %Y") %></td>
+    <td>
+      <%= scheduled_appointment.actual_date_time.strftime("%H:%M %b %d, %Y") %>
+    </td>
+    <td><%= scheduled_appointment.statusText %></td>
+    <td><%= scheduled_appointment.purposeText %></td>
+    <td><%= scheduled_appointment.vehicle.ymmpText %></td>
+    <td><%= scheduled_appointment.store.number %></td>
     <td><%= link_to 'Show', scheduled_appointment %></td>
     <td><%= link_to 'Edit', edit_scheduled_appointment_path(scheduled_appointment) %></td>
     <td><%= link_to 'Destroy', scheduled_appointment, method: :delete, data: { confirm: 'Are you sure?' } %></td>

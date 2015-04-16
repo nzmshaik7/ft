@@ -2,6 +2,17 @@ class PartsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @part_manufacturers = PartManufacturer.all
+        @part_manufacturerCollect = @part_manufacturers.collect { |p|
+            [ p.name, p.id ]
+        }
+        @part_names = PartName.all
+        @part_nameCollect = @part_names.collect { |p|
+            [ p.name, p.id ]
+        }
+    end
+
     # GET /parts
     # GET /parts.json
     def index
@@ -17,6 +28,7 @@ class PartsController < ApplicationController
     # GET /parts/1.json
     def show
         @part = Part.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +40,7 @@ class PartsController < ApplicationController
     # GET /parts/new.json
     def new
         @part = Part.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +51,7 @@ class PartsController < ApplicationController
     # GET /parts/1/edit
     def edit
         @part = Part.find(params[:id])
+        prepFormVariables
     end
 
     # POST /parts
@@ -51,6 +65,7 @@ class PartsController < ApplicationController
                               notice: 'Part was successfully created.' }
                 format.json { render json: @part, status: :created, location: @part }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @part.errors, status: :unprocessable_entity }
             end
@@ -68,6 +83,7 @@ class PartsController < ApplicationController
                               notice: 'Part was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @part.errors, status: :unprocessable_entity }
             end

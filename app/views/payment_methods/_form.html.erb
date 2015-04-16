@@ -13,18 +13,20 @@
 
   <div class="field">
     <%= f.label :customer_id %><br />
-    <%= f.number_field :customer_id %>
+    <%= select("payment_method", "customer_id", @customerCollect,
+                                          {prompt: 'Select Customer'}) %>
   </div>
   <div class="field">
     <%= f.label :paytype %><br />
-    <%= f.number_field :payment_type_id %>
+    <%= select("payment_method", "payment_type_id", @paymentTypeCollect,
+                                          {prompt: 'Select Payment Type'}) %>
   </div>
   <div class="field">
-    <%= f.label :priority %><br />
+    <%= f.label :priority, 'Preference order (1 first)' %><br />
     <%= f.number_field :priority %>
   </div>
   <div class="field">
-    <%= f.label :account_number_id %><br />
+    <%= f.label :account_number_id, 'Reference on Payment server' %><br />
     <%= f.number_field :account_number_id %>
   </div>
   <div class="field">

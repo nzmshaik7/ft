@@ -32,7 +32,7 @@
     <td><%= contract.level %></td>
     <td><%= number_to_currency(contract.base_cost) %></td>
     <td><%= contract.day_of_payment %></td>
-    <td>$<%= contract.discount %></td>
+    <td><%= number_to_currency(contract.discount) %></td>
     <td><%= contract.discount_percent %>%</td>
     <td><%= link_to 'Show', contract %></td>
     <td><%= link_to 'Edit', edit_contract_path(contract) %></td>

@@ -21,19 +21,27 @@
   </div>
   <div class="field">
     <%= f.label :status %><br />
-    <%= f.number_field :status %>
+    <select id="scheduled_appointment_status" 
+            name="scheduled_appointment[status]">
+      <%= options_for_select(@statusOptions, @selStatus) %>
+    </select>
   </div>
   <div class="field">
     <%= f.label :purpose %><br />
-    <%= f.number_field :purpose %>
+    <select id="scheduled_appointment_purpose" 
+            name="scheduled_appointment[purpose]">
+      <%= options_for_select(@purposeOptions, @purpStatus) %>
+    </select>
   </div>
   <div class="field">
     <%= f.label :vehicle_id %><br />
-    <%= f.number_field :vehicle_id %>
+    <%= select("scheduled_appointment", "vehicle_id", @vehicleCollect,
+                                          {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
     <%= f.label :store_id %><br />
-    <%= f.number_field :store_id %>
+    <%= select("scheduled_appointment", "store_id", @storeCollect,
+                                              {prompt: 'Select Store'}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

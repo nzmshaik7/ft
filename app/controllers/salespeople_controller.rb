@@ -2,6 +2,13 @@ class SalespeopleController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @employees = Employee.all
+        @employeeCollect = @employees.collect { |p|
+            [ p.first_name + ' ' + p.last_name, p.id ] 
+        }
+    end
+
     # GET /salespeople
     # GET /salespeople.json
     def index
@@ -17,6 +24,7 @@ class SalespeopleController < ApplicationController
     # GET /salespeople/1.json
     def show
         @salesperson = Salesperson.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +36,7 @@ class SalespeopleController < ApplicationController
     # GET /salespeople/new.json
     def new
         @salesperson = Salesperson.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +47,7 @@ class SalespeopleController < ApplicationController
     # GET /salespeople/1/edit
     def edit
         @salesperson = Salesperson.find(params[:id])
+        prepFormVariables
     end
 
     # POST /salespeople
@@ -51,6 +61,7 @@ class SalespeopleController < ApplicationController
                               notice: 'Salesperson was successfully created.' }
                 format.json { render json: @salesperson, status: :created, location: @salesperson }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @salesperson.errors, status: :unprocessable_entity }
             end
@@ -68,6 +79,7 @@ class SalespeopleController < ApplicationController
                               notice: 'Salesperson was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @salesperson.errors, status: :unprocessable_entity }
             end

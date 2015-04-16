@@ -12,14 +12,15 @@ class ContractsController < ApplicationController
 
         @salespersons = Salesperson.all
         @salespersonCollect = @salespersons.collect { |p|
-            [ p.employee.first_name + ' ' + p.employee.first_name, p.id ] 
+            [ p.employee.first_name + ' ' + p.employee.last_name, p.id ] 
         }
 
         @selStatus = 0
         if contract
-            @selStatus = 2  if contract.status == 51
-            @selStatus = 3  if contract.status == 52
-            @selStatus = 4  if contract.status == 53
+            if [Contract::STATUS_CURRENT, Contract::STATUS_LAPSED, 
+                Contract::STATUS_CANCELLED].include?(contract.status)
+                @selStatus = contract.status
+            end
         end
         @statusOptions = [
             [ "Select",      0  ],
@@ -75,6 +76,8 @@ class ContractsController < ApplicationController
     # POST /contracts.json
     def create
         @contract = Contract.new(params[:contract])
+        @contract.discount = 0.0  if @contract.discount.nil?
+        @contract.discount_percent = 0  if @contract.discount_percent.nil?
 
         respond_to do |format|
             if @contract.save

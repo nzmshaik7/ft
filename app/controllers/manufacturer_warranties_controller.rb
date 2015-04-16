@@ -7,6 +7,11 @@ class ManufacturerWarrantiesController < ApplicationController
         @warrantyTypeCollect = @manufacturer_warranty_types.collect { |p|
             [ p.name, p.id ] 
         }
+
+        @vehicles = Vehicle.all
+        @vehicleCollect = @vehicles.collect { |p|
+            [ p.ymmText + ' ' + p.license_plate, p.id ]
+        }
     end
 
     # GET /manufacturer_warranties
@@ -24,6 +29,7 @@ class ManufacturerWarrantiesController < ApplicationController
     # GET /manufacturer_warranties/1.json
     def show
         @manufacturer_warranty = ManufacturerWarranty.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -35,6 +41,7 @@ class ManufacturerWarrantiesController < ApplicationController
     # GET /manufacturer_warranties/new.json
     def new
         @manufacturer_warranty = ManufacturerWarranty.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -45,6 +52,7 @@ class ManufacturerWarrantiesController < ApplicationController
     # GET /manufacturer_warranties/1/edit
     def edit
         @manufacturer_warranty = ManufacturerWarranty.find(params[:id])
+        prepFormVariables
     end
 
     # POST /manufacturer_warranties
@@ -58,6 +66,7 @@ class ManufacturerWarrantiesController < ApplicationController
                               notice: 'ManufacturerWarranty was successfully created.' }
                 format.json { render json: @manufacturer_warranty, status: :created, location: @manufacturer_warranty }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @manufacturer_warranty.errors, status: :unprocessable_entity }
             end
@@ -75,6 +84,7 @@ class ManufacturerWarrantiesController < ApplicationController
                               notice: 'ManufacturerWarranty was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @manufacturer_warranty.errors, status: :unprocessable_entity }
             end

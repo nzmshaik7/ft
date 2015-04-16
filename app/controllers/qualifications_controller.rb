@@ -2,6 +2,13 @@ class QualificationsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @serviceVisits = ServiceVisit.all
+        @serviceVisitCollect = @serviceVisits.collect { |p|
+            [ p.visitText, p.id ] 
+        }
+    end
+
     # GET /qualifications
     # GET /qualifications.json
     def index
@@ -17,6 +24,7 @@ class QualificationsController < ApplicationController
     # GET /qualifications/1.json
     def show
         @qualification = Qualification.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +36,7 @@ class QualificationsController < ApplicationController
     # GET /qualifications/new.json
     def new
         @qualification = Qualification.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +47,7 @@ class QualificationsController < ApplicationController
     # GET /qualifications/1/edit
     def edit
         @qualification = Qualification.find(params[:id])
+        prepFormVariables
     end
 
     # POST /qualifications
@@ -51,6 +61,7 @@ class QualificationsController < ApplicationController
                               notice: 'Qualification was successfully created.' }
                 format.json { render json: @qualification, status: :created, location: @qualification }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @qualification.errors, status: :unprocessable_entity }
             end
@@ -68,6 +79,7 @@ class QualificationsController < ApplicationController
                               notice: 'Qualification was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @qualification.errors, status: :unprocessable_entity }
             end

@@ -13,16 +13,16 @@ class ScheduledAppointment < ActiveRecord::Base
     PURPOSE_REPAIR = 49
 
     def statusText
-        return "Completed"    if status == 41
-        return "Pending"      if status == 42
-        return "Cancelled"    if status == 43
-        return "Missed"       if status == 44
+        return "Completed"    if status == STATUS_COMPLETED
+        return "Pending"      if status == STATUS_COMPLETED
+        return "Cancelled"    if status == STATUS_CANCELLED
+        return "Missed"       if status == STATUS_MISSED
         return "Unknown"
     end
 
     def purposeText
-        return "Service"      if status == 48
-        return "Repair"       if status == 49
+        return "Service"      if status == PURPOSE_SERVICE
+        return "Repair"       if status == PURPOSE_REPAIR
         return "Unknown"
     end
 

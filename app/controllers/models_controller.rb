@@ -2,6 +2,13 @@ class ModelsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @makes = Make.all
+        @makeCollect = @makes.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /models
     # GET /models.json
     def index
@@ -17,6 +24,7 @@ class ModelsController < ApplicationController
     # GET /models/1.json
     def show
         @model = Model.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +36,7 @@ class ModelsController < ApplicationController
     # GET /models/new.json
     def new
         @model = Model.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +47,7 @@ class ModelsController < ApplicationController
     # GET /models/1/edit
     def edit
         @model = Model.find(params[:id])
+        prepFormVariables
     end
 
     # POST /models
@@ -51,6 +61,7 @@ class ModelsController < ApplicationController
                               notice: 'Model was successfully created.' }
                 format.json { render json: @model, status: :created, location: @model }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @model.errors, status: :unprocessable_entity }
             end
@@ -68,6 +79,7 @@ class ModelsController < ApplicationController
                               notice: 'Model was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @model.errors, status: :unprocessable_entity }
             end

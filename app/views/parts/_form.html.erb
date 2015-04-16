@@ -13,11 +13,13 @@
 
   <div class="field">
     <%= f.label :part_manufacturer_id %><br />
-    <%= f.number_field :part_manufacturer_id %>
+    <%= select("part", "part_manufacturer_id", 
+                @part_manufacturerCollect, {prompt: 'Select Manufacturer'}) %>
   </div>
   <div class="field">
     <%= f.label :part_name_id %><br />
-    <%= f.number_field :part_name_id %>
+    <%= select("part", "part_name_id", 
+                @part_nameCollect, {prompt: 'Select Generic Part Name'}) %>
   </div>
   <div class="field">
     <%= f.label :description %><br />

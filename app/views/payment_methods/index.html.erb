@@ -1,7 +1,7 @@
-<h1>Listing payment_methods</h1>
+<h2>Listing payment_methods</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Customer</th>
     <th>Payment Type</th>
     <th>Priority</th>
@@ -10,14 +10,12 @@
     <th>Expiration month</th>
     <th>Expiration year</th>
     <th>Image</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @payment_methods.each do |payment_method| %>
   <tr>
-    <td><%= payment_method.customer_id %></td>
+    <td><%= customerName2(payment_method.customer) %></td>
     <td><%= payment_method.payment_type.name %></td>
     <td><%= payment_method.priority %></td>
     <td><%= payment_method.account_number_id %></td>
