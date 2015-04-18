@@ -17,7 +17,8 @@
   </div>
   <div class="field">
     <%= f.label :service_category_id %><br />
-    <%= f.number_field :service_category_id %>
+    <%= select("service_description", "service_category_id", 
+                @serviceCategoryCollect, {prompt: 'Select Service Category'}) %>
   </div>
   <div class="field">
     <%= f.label :labor_rate_retail %><br />

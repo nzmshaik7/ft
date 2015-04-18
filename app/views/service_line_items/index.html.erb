@@ -1,7 +1,7 @@
-<h1>Listing service_line_items</h1>
+<h2>Listing service_line_items</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Service visit</th>
     <th>Service description</th>
     <th>Service description text</th>
@@ -12,25 +12,31 @@
     <th>Technician1</th>
     <th>Technician2</th>
     <th>Technician3</th>
-    <th>Is scheduled</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Scheduled?</th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @service_line_items.each do |service_line_item| %>
   <tr>
-    <td><%= service_line_item.service_visit_id %></td>
-    <td><%= service_line_item.service_description_id %></td>
+    <td><%= service_line_item.service_visit.visitText %></td>
+    <td><%= service_line_item.service_description.name %></td>
     <td><%= service_line_item.service_description_text %></td>
-    <td><%= service_line_item.labor_hours_retail %></td>
-    <td><%= service_line_item.labor_rate_retail %></td>
-    <td><%= service_line_item.labor_hours_actual %></td>
-    <td><%= service_line_item.labor_rate_actual %></td>
-    <td><%= service_line_item.technician1_id %></td>
-    <td><%= service_line_item.technician2_id %></td>
-    <td><%= service_line_item.technician3_id %></td>
-    <td><%= service_line_item.is_scheduled %></td>
+    <td><%= number_with_precision(service_line_item.labor_hours_retail,
+                                  precision: 2) %></td>
+    <td><%= number_to_currency(service_line_item.labor_rate_retail) %></td>
+    <td><%= number_with_precision(service_line_item.labor_hours_actual,
+                                  precision: 2) %></td>
+    <td><%= number_to_currency(service_line_item.labor_rate_actual) %></td>
+    <td>
+      <%= service_line_item.technician1.employee.nameText %>
+    </td>
+    <td>
+      <%= service_line_item.technician2.employee.nameText %>
+    </td>
+    <td>
+      <%= service_line_item.technician3.employee.nameText %>
+    </td>
+    <td><%= boolText(service_line_item.is_scheduled) %></td>
     <td><%= link_to 'Show', service_line_item %></td>
     <td><%= link_to 'Edit', edit_service_line_item_path(service_line_item) %></td>
     <td><%= link_to 'Destroy', service_line_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

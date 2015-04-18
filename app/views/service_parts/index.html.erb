@@ -1,22 +1,29 @@
-<h1>Listing service_parts</h1>
+<h2>Listing service_parts</h2>
 
-<table>
-  <tr>
+<P>
+A particular part that was used for one service line item.  The prices
+are copied from the Part because the Part prices may change later.
+These are the parts used for Service Line Items.
+</P>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Service line item</th>
     <th>Part</th>
     <th>Part retail price</th>
     <th>Part actual price</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @service_parts.each do |service_part| %>
   <tr>
-    <td><%= service_part.service_line_item_id %></td>
-    <td><%= service_part.part_id %></td>
-    <td><%= service_part.part_retail_price %></td>
-    <td><%= service_part.part_actual_price %></td>
+    <td>
+      ID <%= service_part.service_line_item_id %>:
+      <%= service_part.service_line_item.descText %>
+    </td>
+    <td><%= service_part.part.name %></td>
+    <td><%= number_to_currency(service_part.part_retail_price) %></td>
+    <td><%= number_to_currency(service_part.part_actual_price) %></td>
     <td><%= link_to 'Show', service_part %></td>
     <td><%= link_to 'Edit', edit_service_part_path(service_part) %></td>
     <td><%= link_to 'Destroy', service_part, method: :delete, data: { confirm: 'Are you sure?' } %></td>

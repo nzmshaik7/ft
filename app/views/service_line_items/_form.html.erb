@@ -13,14 +13,17 @@
 
   <div class="field">
     <%= f.label :service_visit_id %><br />
-    <%= f.number_field :service_visit_id %>
+    <%= select("service_line_item", "service_visit_id", 
+                    @serviceVisitCollect, {prompt: 'Select Service Visit'}) %>
   </div>
   <div class="field">
     <%= f.label :service_description_id %><br />
-    <%= f.number_field :service_description_id %>
+    <%= select("service_line_item", "service_description_id", 
+                                @serviceDescriptionCollect,
+                                {prompt: 'Select Service Description'}) %>
   </div>
   <div class="field">
-    <%= f.label :service_description_text %><br />
+    <%= f.label :service_description_text %> (optional)<br />
     <%= f.text_field :service_description_text %>
   </div>
   <div class="field">
@@ -41,15 +44,18 @@
   </div>
   <div class="field">
     <%= f.label :technician1_id %><br />
-    <%= f.number_field :technician1_id %>
+    <%= select("service_line_item", "technician1_id", 
+                    @technicianCollect, {prompt: 'Select Technician'}) %>
   </div>
   <div class="field">
-    <%= f.label :technician2_id %><br />
-    <%= f.number_field :technician2_id %>
+    <%= f.label :technician2_id %> (if any)<br />
+    <%= select("service_line_item", "technician2_id", 
+                    @technicianCollect, {prompt: 'Select Technician'}) %>
   </div>
   <div class="field">
-    <%= f.label :technician3_id %><br />
-    <%= f.number_field :technician3_id %>
+    <%= f.label :technician3_id %> (if any)<br />
+    <%= select("service_line_item", "technician3_id", 
+                    @technicianCollect, {prompt: 'Select Technician'}) %>
   </div>
   <div class="field">
     <%= f.label :is_scheduled %><br />

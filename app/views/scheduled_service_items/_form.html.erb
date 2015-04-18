@@ -13,11 +13,13 @@
 
   <div class="field">
     <%= f.label :scheduled_service_id %><br />
-    <%= f.number_field :scheduled_service_id %>
+    <%= select("scheduled_service_item", "scheduled_service_id", 
+            @scheduledServiceCollect, {prompt: 'Select Scheduled Service'}) %>
   </div>
   <div class="field">
     <%= f.label :service_description_id %><br />
-    <%= f.number_field :service_description_id %>
+    <%= select("scheduled_service_item", "service_description_id", 
+        @serviceDescriptionCollect, {prompt: 'Select Service Description'}) %>
   </div>
   <div class="field">
     <%= f.label :other %><br />

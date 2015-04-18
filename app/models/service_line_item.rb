@@ -10,4 +10,13 @@ class ServiceLineItem < ActiveRecord::Base
     belongs_to :technician2_id, class_name: :Technician
     belongs_to :technician3_id, class_name: :Technician
     has_many :service_parts
+    
+    def descText
+        if service_description_id
+            return service_description.name
+        else
+            return service_description_text
+        end
+    end
+
 end

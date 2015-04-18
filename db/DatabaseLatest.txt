@@ -394,6 +394,9 @@ gen=( generate scaffold ServiceJournalsEvent
 RAILS ${gen[*]}
 
 
+# Retail price is copied here from Description if available.
+# FIXME: this might be wrong - maybe should track labor for each tech.
+#
 gen=( generate scaffold ServiceLineItem
     service_visit_id:integer
     service_description_id:integer

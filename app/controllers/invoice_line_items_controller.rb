@@ -15,7 +15,7 @@ class InvoiceLineItemsController < ApplicationController
 
         @serviceVisits = ServiceVisit.all
         @serviceVisitCollect = @serviceVisits.collect { |p|
-            [ p.id + ': ' + p.sdate.strftime("%b %d, %Y") + ' (' + 
+            [ p.id.to_s + ': ' + p.sdate.strftime("%b %d, %Y") + ' (' + 
               p.mileage + ' miles)', p.id ]
         }
 

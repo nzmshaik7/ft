@@ -2,6 +2,21 @@ class ServiceLineItemsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @serviceVisits = ServiceVisit.all
+        @serviceVisitCollect = @serviceVisits.collect { |p|
+            [ p.visitText, p.id ] 
+        }
+        @technicians = Technician.all
+        @technicianCollect = @technicians.collect { |p|
+            [ p.employee.first_name + ' ' + p.employee.last_name, p.id ] 
+        }
+        @serviceDescriptions = ServiceDescription.all
+        @serviceDescriptionCollect = @serviceDescriptions.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /service_line_items
     # GET /service_line_items.json
     def index
@@ -17,6 +32,7 @@ class ServiceLineItemsController < ApplicationController
     # GET /service_line_items/1.json
     def show
         @service_line_item = ServiceLineItem.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +44,7 @@ class ServiceLineItemsController < ApplicationController
     # GET /service_line_items/new.json
     def new
         @service_line_item = ServiceLineItem.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +55,7 @@ class ServiceLineItemsController < ApplicationController
     # GET /service_line_items/1/edit
     def edit
         @service_line_item = ServiceLineItem.find(params[:id])
+        prepFormVariables
     end
 
     # POST /service_line_items
@@ -51,6 +69,7 @@ class ServiceLineItemsController < ApplicationController
                               notice: 'ServiceLineItem was successfully created.' }
                 format.json { render json: @service_line_item, status: :created, location: @service_line_item }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @service_line_item.errors, status: :unprocessable_entity }
             end
@@ -68,6 +87,7 @@ class ServiceLineItemsController < ApplicationController
                               notice: 'ServiceLineItem was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @service_line_item.errors, status: :unprocessable_entity }
             end

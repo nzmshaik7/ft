@@ -10,10 +10,7 @@
 
 <% @salespeople.each do |salesperson| %>
   <tr>
-    <td>
-      <%= salesperson.employee.first_name %> 
-      <%= salesperson.employee.last_name %>
-    </td>
+    <td><%= salesperson.employee.nameText %></td>
     <td><%= link_to 'Show', salesperson %></td>
     <td><%= link_to 'Edit', edit_salesperson_path(salesperson) %></td>
     <td><%= link_to 'Destroy', salesperson, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,7 +1,7 @@
-<h1>Listing service_visits</h1>
+<h2>Listing service_visits</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Mileage</th>
     <th>Sdate</th>
     <th>Description</th>
@@ -10,20 +10,18 @@
     <th>Invoice</th>
     <th>Salesperson</th>
     <th>Comments</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @service_visits.each do |service_visit| %>
   <tr>
     <td><%= service_visit.mileage %></td>
-    <td><%= service_visit.sdate %></td>
+    <td><%= service_visit.sdate.strftime("%b %d, %Y") %></td>
     <td><%= service_visit.description %></td>
-    <td><%= service_visit.store_id %></td>
-    <td><%= service_visit.vehicle_id %></td>
-    <td><%= service_visit.invoice_id %></td>
-    <td><%= service_visit.salesperson_id %></td>
+    <td><%= service_visit.store.number %></td>
+    <td><%= service_visit.vehicle.ymmpText %></td>
+    <td><%= service_visit.invoice.invoice_number %></td>
+    <td><%= service_visit.salesperson.employee.nameText %></td>
     <td><%= service_visit.comments %></td>
     <td><%= link_to 'Show', service_visit %></td>
     <td><%= link_to 'Edit', edit_service_visit_path(service_visit) %></td>

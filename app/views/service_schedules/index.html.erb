@@ -1,15 +1,20 @@
-<h1>Listing service_schedules</h1>
+<h2>Listing service_schedules</h2>
 
-<table>
-  <tr>
+<P>
+A vehicle points to one of these, and a collection of ScheduledServices
+point back here.
+</P>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>ID</th>
     <th>Image</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @service_schedules.each do |service_schedule| %>
   <tr>
+    <td><%= service_schedule.id %></td>
     <td><%= service_schedule.image_id %></td>
     <td><%= link_to 'Show', service_schedule %></td>
     <td><%= link_to 'Edit', edit_service_schedule_path(service_schedule) %></td>

@@ -2,6 +2,17 @@ class ServiceJournalsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @serviceVisits = ServiceVisit.all
+        @serviceVisitCollect = @serviceVisits.collect { |p|
+            [ p.visitText, p.id ] 
+        }
+        @serviceJournalsEvents = ServiceJournalsEvent.all
+        @serviceJournalsEventCollect = @serviceJournalsEvents.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /service_journals
     # GET /service_journals.json
     def index
@@ -17,6 +28,7 @@ class ServiceJournalsController < ApplicationController
     # GET /service_journals/1.json
     def show
         @service_journal = ServiceJournal.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +40,7 @@ class ServiceJournalsController < ApplicationController
     # GET /service_journals/new.json
     def new
         @service_journal = ServiceJournal.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +51,7 @@ class ServiceJournalsController < ApplicationController
     # GET /service_journals/1/edit
     def edit
         @service_journal = ServiceJournal.find(params[:id])
+        prepFormVariables
     end
 
     # POST /service_journals
@@ -51,6 +65,7 @@ class ServiceJournalsController < ApplicationController
                               notice: 'ServiceJournal was successfully created.' }
                 format.json { render json: @service_journal, status: :created, location: @service_journal }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @service_journal.errors, status: :unprocessable_entity }
             end
@@ -68,6 +83,7 @@ class ServiceJournalsController < ApplicationController
                               notice: 'ServiceJournal was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @service_journal.errors, status: :unprocessable_entity }
             end

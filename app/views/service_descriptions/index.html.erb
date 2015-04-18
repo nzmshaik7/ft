@@ -1,22 +1,21 @@
-<h1>Listing service_descriptions</h1>
+<h2>Listing service_descriptions</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Name</th>
     <th>Service category</th>
     <th>Labor rate retail</th>
     <th>Labor hours retail</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @service_descriptions.each do |service_description| %>
   <tr>
     <td><%= service_description.name %></td>
-    <td><%= service_description.service_category_id %></td>
-    <td><%= service_description.labor_rate_retail %></td>
-    <td><%= service_description.labor_hours_retail %></td>
+    <td><%= service_description.service_category.name %></td>
+    <td><%= number_to_currency(service_description.labor_rate_retail) %></td>
+    <td><%= number_with_precision(service_description.labor_hours_retail,
+                                  precision: 2) %></td>
     <td><%= link_to 'Show', service_description %></td>
     <td><%= link_to 'Edit', edit_service_description_path(service_description) %></td>
     <td><%= link_to 'Destroy', service_description, method: :delete, data: { confirm: 'Are you sure?' } %></td>

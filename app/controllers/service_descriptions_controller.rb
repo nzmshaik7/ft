@@ -2,6 +2,13 @@ class ServiceDescriptionsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @serviceCategories = ServiceCategory.all
+        @serviceCategoryCollect = @serviceCategories.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /service_descriptions
     # GET /service_descriptions.json
     def index
@@ -17,6 +24,7 @@ class ServiceDescriptionsController < ApplicationController
     # GET /service_descriptions/1.json
     def show
         @service_description = ServiceDescription.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +36,7 @@ class ServiceDescriptionsController < ApplicationController
     # GET /service_descriptions/new.json
     def new
         @service_description = ServiceDescription.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +47,7 @@ class ServiceDescriptionsController < ApplicationController
     # GET /service_descriptions/1/edit
     def edit
         @service_description = ServiceDescription.find(params[:id])
+        prepFormVariables
     end
 
     # POST /service_descriptions
@@ -51,6 +61,7 @@ class ServiceDescriptionsController < ApplicationController
                               notice: 'ServiceDescription was successfully created.' }
                 format.json { render json: @service_description, status: :created, location: @service_description }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @service_description.errors, status: :unprocessable_entity }
             end
@@ -68,6 +79,7 @@ class ServiceDescriptionsController < ApplicationController
                               notice: 'ServiceDescription was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @service_description.errors, status: :unprocessable_entity }
             end

@@ -23,8 +23,7 @@
     <td><%= contract.image_id %></td>
     <td>
       <% if contract.salesperson %>
-        <%= contract.salesperson.employee.first_name %>
-        <%= contract.salesperson.employee.last_name %>
+        <%= contract.salesperson.employee.nameText %>
       <% else %>
         <i>None</i>
       <% end %>

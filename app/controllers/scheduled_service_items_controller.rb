@@ -2,6 +2,17 @@ class ScheduledServiceItemsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @scheduledServices = ScheduledService.all
+        @scheduledServiceCollect = @scheduledServices.collect { |p|
+            [ p.id.to_s + ': ' + p.serviceText, p.id ] 
+        }
+        @serviceDescriptions = ServiceDescription.all
+        @serviceDescriptionCollect = @serviceDescriptions.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /scheduled_service_items
     # GET /scheduled_service_items.json
     def index
@@ -17,6 +28,7 @@ class ScheduledServiceItemsController < ApplicationController
     # GET /scheduled_service_items/1.json
     def show
         @scheduled_service_item = ScheduledServiceItem.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +40,7 @@ class ScheduledServiceItemsController < ApplicationController
     # GET /scheduled_service_items/new.json
     def new
         @scheduled_service_item = ScheduledServiceItem.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +51,7 @@ class ScheduledServiceItemsController < ApplicationController
     # GET /scheduled_service_items/1/edit
     def edit
         @scheduled_service_item = ScheduledServiceItem.find(params[:id])
+        prepFormVariables
     end
 
     # POST /scheduled_service_items
@@ -51,6 +65,7 @@ class ScheduledServiceItemsController < ApplicationController
                               notice: 'ScheduledServiceItem was successfully created.' }
                 format.json { render json: @scheduled_service_item, status: :created, location: @scheduled_service_item }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @scheduled_service_item.errors, status: :unprocessable_entity }
             end
@@ -68,6 +83,7 @@ class ScheduledServiceItemsController < ApplicationController
                               notice: 'ScheduledServiceItem was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @scheduled_service_item.errors, status: :unprocessable_entity }
             end
