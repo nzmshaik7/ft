@@ -1,20 +1,18 @@
-<h1>Listing technicians</h1>
+<h2>Listing technicians</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Employee</th>
     <th>Level</th>
     <th>Hourly rate</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @technicians.each do |technician| %>
   <tr>
-    <td><%= technician.employee_id %></td>
+    <td><%= technician.employee.nameText %></td>
     <td><%= technician.level %></td>
-    <td><%= technician.hourly_rate %></td>
+    <td><%= number_to_currency(technician.hourly_rate) %></td>
     <td><%= link_to 'Show', technician %></td>
     <td><%= link_to 'Edit', edit_technician_path(technician) %></td>
     <td><%= link_to 'Destroy', technician, method: :delete, data: { confirm: 'Are you sure?' } %></td>

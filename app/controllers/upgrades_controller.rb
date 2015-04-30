@@ -2,6 +2,17 @@ class UpgradesController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @upgradeTypes = UpgradeType.all
+        @upgradeTypeCollect = @upgradeTypes.collect { |p|
+            [ p.name, p.id ] 
+        }
+        @contracts = Contract.all
+        @contractCollect = @contracts.collect { |p|
+            [ p.number, p.id ] 
+        }
+    end
+
     # GET /upgrades
     # GET /upgrades.json
     def index
@@ -17,6 +28,7 @@ class UpgradesController < ApplicationController
     # GET /upgrades/1.json
     def show
         @upgrade = Upgrade.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +40,7 @@ class UpgradesController < ApplicationController
     # GET /upgrades/new.json
     def new
         @upgrade = Upgrade.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +51,7 @@ class UpgradesController < ApplicationController
     # GET /upgrades/1/edit
     def edit
         @upgrade = Upgrade.find(params[:id])
+        prepFormVariables
     end
 
     # POST /upgrades
@@ -51,6 +65,7 @@ class UpgradesController < ApplicationController
                               notice: 'Upgrade was successfully created.' }
                 format.json { render json: @upgrade, status: :created, location: @upgrade }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @upgrade.errors, status: :unprocessable_entity }
             end
@@ -68,6 +83,7 @@ class UpgradesController < ApplicationController
                               notice: 'Upgrade was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @upgrade.errors, status: :unprocessable_entity }
             end

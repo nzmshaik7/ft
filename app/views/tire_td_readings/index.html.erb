@@ -1,19 +1,17 @@
-<h1>Listing tire_td_readings</h1>
+<h2>Listing tire_td_readings</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Vehicle</th>
     <th>Tdate</th>
     <th>Depth32nds</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @tire_td_readings.each do |tire_td_reading| %>
   <tr>
-    <td><%= tire_td_reading.vehicle_id %></td>
-    <td><%= tire_td_reading.tdate %></td>
+    <td><%= tire_td_reading.vehicle.ymmpText %></td>
+    <td><%= tire_td_reading.tdate.strftime("%b %d, %Y") %></td>
     <td><%= tire_td_reading.depth32nds %></td>
     <td><%= link_to 'Show', tire_td_reading %></td>
     <td><%= link_to 'Edit', edit_tire_td_reading_path(tire_td_reading) %></td>

@@ -5,7 +5,7 @@ class BgSystemCoveredsController < ApplicationController
     def prepFormVariables
         @vehicles = Vehicle.all
         @vehicleCollect = @vehicles.collect { |p|
-            [ p.name, p.id ] 
+            [ p.ymmpText, p.id ] 
         }
         @bgSystems = BgSystem.all
         @bgSystemCollect = @bgSystems.collect { |p|

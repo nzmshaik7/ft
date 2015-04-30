@@ -17,7 +17,7 @@
 
 <% @contracts.each do |contract| %>
   <tr>
-    <td><%= contract.begin_date %></td>
+    <td><%= contract.begin_date.strftime("%b %d, %Y") %></td>
     <td><%= contract.number %></td>
     <td><%= contract.statusText %></td>
     <td><%= contract.image_id %></td>

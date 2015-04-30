@@ -7,12 +7,12 @@ class ContractsController < ApplicationController
         # @vehicles will be used later.
         @vehicles = Vehicle.all
         @vehicleCollect = @vehicles.collect { |p|
-            [ p.name, p.id ] 
+            [ p.ymmpText, p.id ] 
         }
 
         @salespersons = Salesperson.all
         @salespersonCollect = @salespersons.collect { |p|
-            [ p.employee.first_name + ' ' + p.employee.last_name, p.id ] 
+            [ p.employee.nameText, p.id ] 
         }
 
         @selStatus = 0

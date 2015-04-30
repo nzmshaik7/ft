@@ -16,8 +16,8 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :make_id %><br />
-    <%= f.number_field :make_id %>
+    <%= select("submodel", "make_id", 
+                    @makeCollect, {prompt: 'Select Make'}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -1,16 +1,14 @@
-<h1>Listing written_testimonies</h1>
+<h2>Listing written_testimonies</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>User text</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @written_testimonies.each do |written_testimony| %>
   <tr>
-    <td><%= written_testimony.user_text %></td>
+    <td>ID <%= written_testimony.id %> </td>
     <td><%= link_to 'Show', written_testimony %></td>
     <td><%= link_to 'Edit', edit_written_testimony_path(written_testimony) %></td>
     <td><%= link_to 'Destroy', written_testimony, method: :delete, data: { confirm: 'Are you sure?' } %></td>

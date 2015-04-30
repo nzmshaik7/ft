@@ -5,7 +5,7 @@ class NonMaMaintenancesController < ApplicationController
     def prepFormVariables
         @vehicles = Vehicle.all
         @vehicleCollect = @vehicles.collect { |p|
-            [ p.ymmText + ' ' + p.license_plate, p.id ]
+            [ p.ymmpText, p.id ]
         }
     end
 

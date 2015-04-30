@@ -1,44 +1,34 @@
-<h1>Listing vehicles</h1>
+<h2>Listing vehicles</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Vin</th>
     <th>Vin decoded</th>
     <th>License plate</th>
-    <th>License plate state</th>
+    <th>Plate state</th>
     <th>Customer</th>
     <th>Make</th>
     <th>Model</th>
     <th>Submodel</th>
-    <th>Date of manufacture</th>
-    <th>Country of manufacture</th>
-    <th>Msrp</th>
-    <th>Kbb on qual</th>
-    <th>Current kbb</th>
-    <th>Consumer reports url</th>
+    <th>Manuf. Date</th>
+    <th>Made in</th>
+    <th>MSRP</th>
+    <th>KBB on qual</th>
+    <th>Current KBB</th>
+    <th>Consumer reports</th>
     <th>Engine cyl</th>
     <th>Engine displacement</th>
     <th>Wheel drive</th>
     <th>Color</th>
     <th>Doors</th>
     <th>Convertible</th>
-    <th>Comments</th>
-    <th>Service schedule</th>
-    <th>Insurance company</th>
-    <th>Insurance policy number</th>
-    <th>Insurance image</th>
-    <th>Carfax url</th>
-    <th>Carfax copy at qual</th>
-    <th>Door plate image</th>
+    <th>Service schedule ID</th>
     <th>Mileage</th>
     <th>Mpg30after initial</th>
-    <th>Photos image</th>
     <th>Qualification</th>
     <th>Bg compliant</th>
     <th>Contract</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @vehicles.each do |vehicle| %>
@@ -46,36 +36,42 @@
     <td><%= vehicle.vin %></td>
     <td><%= vehicle.vin_decoded %></td>
     <td><%= vehicle.license_plate %></td>
-    <td><%= vehicle.license_plate_state_id %></td>
-    <td><%= vehicle.customer_id %></td>
-    <td><%= vehicle.make_id %></td>
-    <td><%= vehicle.model_id %></td>
-    <td><%= vehicle.submodel_id %></td>
-    <td><%= vehicle.date_of_manufacture %></td>
-    <td><%= vehicle.country_of_manufacture_id %></td>
-    <td><%= vehicle.msrp %></td>
-    <td><%= vehicle.kbb_on_qual %></td>
-    <td><%= vehicle.current_kbb %></td>
+    <td>
+      <% if vehicle.license_plate_state %>
+        <%= vehicle.license_plate_state.name %>
+      <% else %>
+        <i>Unknown<i>
+      <% end %>
+    </td>
+    <td>
+      <%= vehicle.customer.first_name %> <%= vehicle.customer.last_name %>
+    </td>
+    <td><%= vehicle.make.name %></td>
+    <td><%= vehicle.model.name %></td>
+    <td>
+      <% if vehicle.submodel %>
+        <%= vehicle.submodel.name %>
+      <% else %>
+        <i>N/A</i>
+      <% end %>
+    </td>
+    <td><%= vehicle.date_of_manufacture.strftime("%b %d, %Y") %></td>
+    <td><%= vehicle.country_of_manufacture.name %></td>
+    <td>$<%= number_with_precision(vehicle.msrp, precision: 0) %></td>
+    <td>$<%= number_with_precision(vehicle.kbb_on_qual, precision: 0) %></td>
+    <td>$<%= number_with_precision(vehicle.current_kbb, precision: 0) %></td>
     <td><%= vehicle.consumer_reports_url %></td>
     <td><%= vehicle.engine_cyl %></td>
-    <td><%= vehicle.engine_displacement_id %></td>
-    <td><%= vehicle.wheel_drive_id %></td>
-    <td><%= vehicle.color_id %></td>
+    <td><%= vehicle.engine_displacement.name %></td>
+    <td><%= vehicle.wheel_drive.name %></td>
+    <td><%= vehicle.color.name %></td>
     <td><%= vehicle.doors %></td>
-    <td><%= vehicle.convertible %></td>
-    <td><%= vehicle.comments %></td>
+    <td><%= boolText(vehicle.convertible) %></td>
     <td><%= vehicle.service_schedule_id %></td>
-    <td><%= vehicle.insurance_company_id %></td>
-    <td><%= vehicle.insurance_policy_number %></td>
-    <td><%= vehicle.insurance_image_id %></td>
-    <td><%= vehicle.carfax_url %></td>
-    <td><%= vehicle.carfax_copy_at_qual %></td>
-    <td><%= vehicle.door_plate_image_id %></td>
     <td><%= vehicle.mileage %></td>
     <td><%= vehicle.mpg30after_initial %></td>
-    <td><%= vehicle.photos_image_id %></td>
     <td><%= vehicle.qualification_id %></td>
-    <td><%= vehicle.bg_compliant %></td>
+    <td><%= boolText(vehicle.bg_compliant) %></td>
     <td><%= vehicle.contract_id %></td>
     <td><%= link_to 'Show', vehicle %></td>
     <td><%= link_to 'Edit', edit_vehicle_path(vehicle) %></td>

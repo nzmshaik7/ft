@@ -43,16 +43,16 @@ class WheelDrivesController < ApplicationController
     # POST /wheel_drives
     # POST /wheel_drives.json
     def create
-        @wheel_drife = WheelDrive.new(params[:wheel_drife])
+        @wheel_drive = WheelDrive.new(params[:wheel_drive])
 
         respond_to do |format|
-            if @wheel_drife.save
+            if @wheel_drive.save
                 format.html { redirect_to wheel_drives_url,
                               notice: 'WheelDrive was successfully created.' }
-                format.json { render json: @wheel_drife, status: :created, location: @wheel_drife }
+                format.json { render json: @wheel_drive, status: :created, location: @wheel_drive }
             else
                 format.html { render action: "new" }
-                format.json { render json: @wheel_drife.errors, status: :unprocessable_entity }
+                format.json { render json: @wheel_drive.errors, status: :unprocessable_entity }
             end
         end
     end
@@ -60,16 +60,16 @@ class WheelDrivesController < ApplicationController
     # PUT /wheel_drives/1
     # PUT /wheel_drives/1.json
     def update
-        @wheel_drife = WheelDrive.find(params[:id])
+        @wheel_drive = WheelDrive.find(params[:id])
 
         respond_to do |format|
-            if @wheel_drife.update_attributes(params[:wheel_drife])
+            if @wheel_drive.update_attributes(params[:wheel_drive])
                 format.html { redirect_to wheel_drives_url,
                               notice: 'WheelDrive was successfully updated.' }
                 format.json { head :no_content }
             else
                 format.html { render action: "edit" }
-                format.json { render json: @wheel_drife.errors, status: :unprocessable_entity }
+                format.json { render json: @wheel_drive.errors, status: :unprocessable_entity }
             end
         end
     end
@@ -77,8 +77,8 @@ class WheelDrivesController < ApplicationController
     # DELETE /wheel_drives/1
     # DELETE /wheel_drives/1.json
     def destroy
-        @wheel_drife = WheelDrive.find(params[:id])
-        @wheel_drife.destroy
+        @wheel_drive = WheelDrive.find(params[:id])
+        @wheel_drive.destroy
 
         respond_to do |format|
             format.html { redirect_to wheel_drives_url }

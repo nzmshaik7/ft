@@ -1,13 +1,11 @@
-<h1>Listing code_histories</h1>
+<h2>Listing code_histories</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Vehicle</th>
     <th>Cdate</th>
     <th>Code</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @code_histories.each do |code_history| %>
@@ -16,7 +14,7 @@
       <%= code_history.vehicle_id %>:
       <%= code_history.vehicle.ymmText %>
     </td>
-    <td><%= code_history.cdate %></td>
+    <td><%= code_history.cdate.strftime("%b %d, %Y") %></td>
     <td><%= code_history.code %></td>
     <td><%= link_to 'Show', code_history %></td>
     <td><%= link_to 'Edit', edit_code_history_path(code_history) %></td>

@@ -13,7 +13,8 @@
 
   <div class="field">
     <%= f.label :employee_id %><br />
-    <%= f.number_field :employee_id %>
+    <%= select("technician", "employee_id", @employeeCollect,
+                                               {prompt: 'Select Employee'}) %>
   </div>
   <div class="field">
     <%= f.label :level %><br />
@@ -21,7 +22,7 @@
   </div>
   <div class="field">
     <%= f.label :hourly_rate %><br />
-    <%= f.text_field :hourly_rate %>
+    $<%= f.text_field :hourly_rate %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -40,11 +40,15 @@
     <%= f.label :county_id, 'County' %><br />
     <%= select("store", "county_id", @countyCollect,
                                                   {prompt: 'Select County'}) %>
+    &nbsp; <a href="/counties/new">
+    Add a new county<a>
   </div>
   <div class="field">
     <%= f.label :region_id, 'Region' %><br />
     <%= select("store", "region_id", @regionCollect,
                                                   {prompt: 'Select Region'}) %>
+    &nbsp; <a href="/regions/new">
+    Add a new region</a>
   </div>
   <div class="field">
     <%= f.label :zip %><br />

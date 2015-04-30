@@ -5,7 +5,7 @@ class SalespeopleController < ApplicationController
     def prepFormVariables
         @employees = Employee.all
         @employeeCollect = @employees.collect { |p|
-            [ p.first_name + ' ' + p.last_name, p.id ] 
+            [ p.nameText, p.id ] 
         }
     end
 

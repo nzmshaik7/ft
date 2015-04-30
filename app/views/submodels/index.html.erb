@@ -1,18 +1,16 @@
-<h1>Listing submodels</h1>
+<h2>Listing submodels</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Name</th>
     <th>Make</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @submodels.each do |submodel| %>
   <tr>
     <td><%= submodel.name %></td>
-    <td><%= submodel.make_id %></td>
+    <td><%= submodel.make.name %></td>
     <td><%= link_to 'Show', submodel %></td>
     <td><%= link_to 'Edit', edit_submodel_path(submodel) %></td>
     <td><%= link_to 'Destroy', submodel, method: :delete, data: { confirm: 'Are you sure?' } %></td>

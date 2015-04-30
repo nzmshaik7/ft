@@ -25,23 +25,26 @@
   </div>
   <div class="field">
     <%= f.label :license_plate_state_id %><br />
-    <%= f.number_field :license_plate_state_id %>
+    <%= select("vehicle", "license_plate_state_id", @stateCollect,
+                                                   {prompt: 'Select State'}) %>
   </div>
   <div class="field">
     <%= f.label :customer_id %><br />
-    <%= f.number_field :customer_id %>
+    <%= select("vehicle", "customer_id", @customerCollect,
+                                          {prompt: 'Select Customer'}) %>
   </div>
   <div class="field">
     <%= f.label :make_id %><br />
-    <%= f.number_field :make_id %>
+    <%= select("vehicle", "make_id", @makeCollect, {prompt: 'Select Make'}) %>
   </div>
   <div class="field">
     <%= f.label :model_id %><br />
-    <%= f.number_field :model_id %>
+    <%= select("vehicle", "model_id", @modelCollect, {prompt: 'Select Model'}) %>
   </div>
   <div class="field">
     <%= f.label :submodel_id %><br />
-    <%= f.number_field :submodel_id %>
+    <%= select("vehicle", "submodel_id", @submodelCollect,
+                                              {prompt: 'Select Submodel'}) %>
   </div>
   <div class="field">
     <%= f.label :date_of_manufacture %><br />
@@ -49,19 +52,20 @@
   </div>
   <div class="field">
     <%= f.label :country_of_manufacture_id %><br />
-    <%= f.number_field :country_of_manufacture_id %>
+    <%= select("vehicle", "country_of_manufacture_id", @countryCollect,
+					      {prompt: 'Select Country'}) %>
   </div>
   <div class="field">
     <%= f.label :msrp %><br />
-    <%= f.text_field :msrp %>
+    $<%= f.text_field :msrp %>
   </div>
   <div class="field">
     <%= f.label :kbb_on_qual %><br />
-    <%= f.text_field :kbb_on_qual %>
+    $<%= f.text_field :kbb_on_qual %>
   </div>
   <div class="field">
     <%= f.label :current_kbb %><br />
-    <%= f.text_field :current_kbb %>
+    $<%= f.text_field :current_kbb %>
   </div>
   <div class="field">
     <%= f.label :consumer_reports_url %><br />
@@ -73,15 +77,18 @@
   </div>
   <div class="field">
     <%= f.label :engine_displacement_id %><br />
-    <%= f.number_field :engine_displacement_id %>
+    <%= select("vehicle", "engine_displacement_id", @engineDisplacementCollect,
+					  {prompt: 'Select Displacement'}) %>
   </div>
   <div class="field">
     <%= f.label :wheel_drive_id %><br />
-    <%= f.number_field :wheel_drive_id %>
+    <%= select("vehicle", "wheel_drive_id", @wheelDriveCollect,
+					  {prompt: 'Select Drive'}) %>
   </div>
   <div class="field">
     <%= f.label :color_id %><br />
-    <%= f.number_field :color_id %>
+    <%= select("vehicle", "color_id", @colorCollect,
+					      {prompt: 'Select Color'}) %>
   </div>
   <div class="field">
     <%= f.label :doors %><br />
@@ -98,10 +105,12 @@
   <div class="field">
     <%= f.label :service_schedule_id %><br />
     <%= f.number_field :service_schedule_id %>
+    &nbsp; (ID from service schedule table)
   </div>
   <div class="field">
     <%= f.label :insurance_company_id %><br />
-    <%= f.number_field :insurance_company_id %>
+    <%= select("vehicle", "insurance_company_id", @insuranceCompanyCollect,
+					  {prompt: 'Select Insurance'}) %>
   </div>
   <div class="field">
     <%= f.label :insurance_policy_number %><br />
@@ -129,7 +138,7 @@
   </div>
   <div class="field">
     <%= f.label :mpg30after_initial %><br />
-    <%= f.text_field :mpg30after_initial %>
+    <%= f.text_field :mpg30after_initial %> MPG
   </div>
   <div class="field">
     <%= f.label :photos_image_id %><br />
@@ -137,7 +146,7 @@
   </div>
   <div class="field">
     <%= f.label :qualification_id %><br />
-    <%= f.number_field :qualification_id %>
+    <%= f.number_field :qualification_id %> (ID from qualification table)
   </div>
   <div class="field">
     <%= f.label :bg_compliant %><br />
@@ -145,7 +154,8 @@
   </div>
   <div class="field">
     <%= f.label :contract_id %><br />
-    <%= f.number_field :contract_id %>
+    <%= select("vehicle", "contract_id", @contractCollect,
+					  {prompt: 'Select Contract'}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

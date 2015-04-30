@@ -9,7 +9,7 @@ class ServiceLineItemsController < ApplicationController
         }
         @technicians = Technician.all
         @technicianCollect = @technicians.collect { |p|
-            [ p.employee.first_name + ' ' + p.employee.last_name, p.id ] 
+            [ p.employee.nameText, p.id ] 
         }
         @serviceDescriptions = ServiceDescription.all
         @serviceDescriptionCollect = @serviceDescriptions.collect { |p|

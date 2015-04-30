@@ -2,6 +2,13 @@ class SubmodelsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @makes = Make.all
+        @makeCollect = @makes.collect { |p|
+            [ p.name, p.id ] 
+        }
+    end
+
     # GET /submodels
     # GET /submodels.json
     def index
@@ -17,6 +24,7 @@ class SubmodelsController < ApplicationController
     # GET /submodels/1.json
     def show
         @submodel = Submodel.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +36,7 @@ class SubmodelsController < ApplicationController
     # GET /submodels/new.json
     def new
         @submodel = Submodel.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +47,7 @@ class SubmodelsController < ApplicationController
     # GET /submodels/1/edit
     def edit
         @submodel = Submodel.find(params[:id])
+        prepFormVariables
     end
 
     # POST /submodels
@@ -51,6 +61,7 @@ class SubmodelsController < ApplicationController
                               notice: 'Submodel was successfully created.' }
                 format.json { render json: @submodel, status: :created, location: @submodel }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @submodel.errors, status: :unprocessable_entity }
             end
@@ -68,6 +79,7 @@ class SubmodelsController < ApplicationController
                               notice: 'Submodel was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @submodel.errors, status: :unprocessable_entity }
             end

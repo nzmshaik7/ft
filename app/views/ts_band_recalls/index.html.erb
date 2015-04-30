@@ -1,20 +1,24 @@
-<h1>Listing ts_band_recalls</h1>
+<h2>Listing TSB and recalls</h2>
 
-<table>
-  <tr>
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
     <th>Vehicle</th>
     <th>Name</th>
     <th>Date completed</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"><i>Actions</i></th>
   </tr>
 
 <% @ts_band_recalls.each do |ts_band_recall| %>
   <tr>
-    <td><%= ts_band_recall.vehicle_id %></td>
+    <td><%= ts_band_recall.vehicle.ymmpText %></td>
     <td><%= ts_band_recall.name %></td>
-    <td><%= ts_band_recall.date_completed %></td>
+    <td>
+      <% if ts_band_recall.date_completed %>
+        <%= ts_band_recall.date_completed.strftime("%b %d, %Y") %>
+      <% else %>
+        <i>Not done</i>
+      <% end %>
+    </td>
     <td><%= link_to 'Show', ts_band_recall %></td>
     <td><%= link_to 'Edit', edit_ts_band_recall_path(ts_band_recall) %></td>
     <td><%= link_to 'Destroy', ts_band_recall, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -24,5 +28,5 @@
 
 <br />
 
-<%= link_to 'New Ts band recall', new_ts_band_recall_path %>
+<%= link_to 'New TSB and recall', new_ts_band_recall_path %>
 &nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

@@ -2,6 +2,13 @@ class TechniciansController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @employees = Employee.all
+        @employeeCollect = @employees.collect { |p|
+            [ p.nameText, p.id ] 
+        }
+    end
+
     # GET /technicians
     # GET /technicians.json
     def index
@@ -17,6 +24,7 @@ class TechniciansController < ApplicationController
     # GET /technicians/1.json
     def show
         @technician = Technician.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +36,7 @@ class TechniciansController < ApplicationController
     # GET /technicians/new.json
     def new
         @technician = Technician.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +47,7 @@ class TechniciansController < ApplicationController
     # GET /technicians/1/edit
     def edit
         @technician = Technician.find(params[:id])
+        prepFormVariables
     end
 
     # POST /technicians
@@ -51,6 +61,7 @@ class TechniciansController < ApplicationController
                               notice: 'Technician was successfully created.' }
                 format.json { render json: @technician, status: :created, location: @technician }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @technician.errors, status: :unprocessable_entity }
             end
@@ -68,6 +79,7 @@ class TechniciansController < ApplicationController
                               notice: 'Technician was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @technician.errors, status: :unprocessable_entity }
             end

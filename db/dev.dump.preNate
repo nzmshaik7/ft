@@ -1,0 +1,1796 @@
+-- MySQL dump 10.13  Distrib 5.5.42, for Linux (x86_64)
+--
+-- Host: localhost    Database: ft_development
+-- ------------------------------------------------------
+-- Server version	5.5.42
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `automatic_data_link_infos`
+--
+
+DROP TABLE IF EXISTS `automatic_data_link_infos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `automatic_data_link_infos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `serial_number` varchar(255) DEFAULT NULL,
+  `idate` datetime DEFAULT NULL,
+  `data` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `automatic_data_link_infos`
+--
+
+LOCK TABLES `automatic_data_link_infos` WRITE;
+/*!40000 ALTER TABLE `automatic_data_link_infos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `automatic_data_link_infos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bg_system_covereds`
+--
+
+DROP TABLE IF EXISTS `bg_system_covereds`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bg_system_covereds` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `system_id` int(11) DEFAULT NULL,
+  `coverage` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bg_system_covereds`
+--
+
+LOCK TABLES `bg_system_covereds` WRITE;
+/*!40000 ALTER TABLE `bg_system_covereds` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bg_system_covereds` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bg_systems`
+--
+
+DROP TABLE IF EXISTS `bg_systems`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bg_systems` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bg_systems`
+--
+
+LOCK TABLES `bg_systems` WRITE;
+/*!40000 ALTER TABLE `bg_systems` DISABLE KEYS */;
+INSERT INTO `bg_systems` VALUES (1,'fuel','2015-04-07 14:57:34','2015-04-07 14:57:34'),(3,'engine','2015-04-07 14:59:15','2015-04-07 14:59:15'),(4,'transmission','2015-04-07 14:59:22','2015-04-07 14:59:22'),(5,'drive line','2015-04-07 14:59:28','2015-04-07 14:59:28'),(6,'cooling','2015-04-07 14:59:37','2015-04-07 14:59:37'),(7,'power steering','2015-04-07 14:59:41','2015-04-07 14:59:41'),(8,'brakes','2015-04-07 14:59:47','2015-04-07 14:59:47');
+/*!40000 ALTER TABLE `bg_systems` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `breakdowns`
+--
+
+DROP TABLE IF EXISTS `breakdowns`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `breakdowns` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `bdate` datetime DEFAULT NULL,
+  `description` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `breakdowns`
+--
+
+LOCK TABLES `breakdowns` WRITE;
+/*!40000 ALTER TABLE `breakdowns` DISABLE KEYS */;
+/*!40000 ALTER TABLE `breakdowns` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `code_histories`
+--
+
+DROP TABLE IF EXISTS `code_histories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `code_histories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `cdate` datetime DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `code_histories`
+--
+
+LOCK TABLES `code_histories` WRITE;
+/*!40000 ALTER TABLE `code_histories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `code_histories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `colors`
+--
+
+DROP TABLE IF EXISTS `colors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `colors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `colors`
+--
+
+LOCK TABLES `colors` WRITE;
+/*!40000 ALTER TABLE `colors` DISABLE KEYS */;
+INSERT INTO `colors` VALUES (1,'white','2015-04-07 15:00:05','2015-04-07 15:00:05'),(2,'black','2015-04-07 15:00:10','2015-04-07 15:00:10'),(3,'silver (light gray)','2015-04-07 15:00:26','2015-04-07 15:00:26'),(4,'dark gray','2015-04-07 15:00:33','2015-04-07 15:00:33'),(5,'tan','2015-04-07 15:00:38','2015-04-07 15:00:38'),(6,'brown','2015-04-07 15:00:49','2015-04-07 15:00:49'),(7,'pink','2015-04-07 15:00:53','2015-04-07 15:00:53'),(8,'red','2015-04-07 15:00:57','2015-04-07 15:00:57'),(9,'dark red','2015-04-07 15:01:01','2015-04-07 15:01:01'),(10,'yellow','2015-04-07 15:01:06','2015-04-07 15:01:15'),(11,'orange','2015-04-07 15:01:21','2015-04-07 15:01:21'),(12,'light green','2015-04-07 15:01:35','2015-04-07 15:01:35'),(13,'green','2015-04-07 15:01:39','2015-04-07 15:01:39'),(14,'light blue','2015-04-07 15:01:45','2015-04-07 15:01:45'),(15,'blue','2015-04-07 15:01:48','2015-04-07 15:01:48'),(16,'dark blue','2015-04-07 15:01:53','2015-04-07 15:01:53');
+/*!40000 ALTER TABLE `colors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contracts`
+--
+
+DROP TABLE IF EXISTS `contracts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contracts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `begin_date` datetime DEFAULT NULL,
+  `number` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `image_id` int(11) DEFAULT NULL,
+  `salesperson_id` int(11) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `base_cost` decimal(8,2) DEFAULT NULL,
+  `day_of_payment` int(11) DEFAULT NULL,
+  `discount` decimal(10,0) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `discount_percent` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contracts`
+--
+
+LOCK TABLES `contracts` WRITE;
+/*!40000 ALTER TABLE `contracts` DISABLE KEYS */;
+INSERT INTO `contracts` VALUES (2,'2015-04-16 00:00:00','111',51,NULL,1,2,49.99,12,0,'2015-04-16 21:21:09','2015-04-16 21:21:09',0);
+/*!40000 ALTER TABLE `contracts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `counties`
+--
+
+DROP TABLE IF EXISTS `counties`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `counties` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `state_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `counties`
+--
+
+LOCK TABLES `counties` WRITE;
+/*!40000 ALTER TABLE `counties` DISABLE KEYS */;
+INSERT INTO `counties` VALUES (1,'Palm Beach',10,'2015-04-07 15:39:51','2015-04-07 15:39:58'),(2,'Martin',10,'2015-04-07 15:43:48','2015-04-07 15:43:48'),(3,'Broward',10,'2015-04-07 15:43:57','2015-04-07 15:43:57'),(4,'Miami Dade',10,'2015-04-07 15:44:08','2015-04-07 15:44:08'),(5,'Collier',10,'2015-04-18 22:32:15','2015-04-18 22:32:15');
+/*!40000 ALTER TABLE `counties` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `countries`
+--
+
+DROP TABLE IF EXISTS `countries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `countries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `abbrev` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `countries`
+--
+
+LOCK TABLES `countries` WRITE;
+/*!40000 ALTER TABLE `countries` DISABLE KEYS */;
+INSERT INTO `countries` VALUES (1,'United States','USA','2015-04-07 15:44:38','2015-04-07 15:44:38'),(2,'United Kingdom','UK','2015-04-07 15:44:46','2015-04-07 15:44:46'),(3,'Germany','G','2015-04-07 15:44:58','2015-04-07 15:44:58'),(4,'Japan','J','2015-04-07 15:45:07','2015-04-07 15:45:07'),(5,'Sweden','S','2015-04-07 15:45:14','2015-04-07 15:45:14'),(6,'Italy','I','2015-04-07 15:45:25','2015-04-07 15:45:25'),(7,'South Korea','SK','2015-04-07 15:45:36','2015-04-07 15:45:36');
+/*!40000 ALTER TABLE `countries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cid` varchar(255) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `street_addr1` varchar(255) DEFAULT NULL,
+  `street_addr2` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state_id` int(11) DEFAULT NULL,
+  `zip` varchar(255) DEFAULT NULL,
+  `home_phone` varchar(255) DEFAULT NULL,
+  `can_text_home_phone` tinyint(1) DEFAULT NULL,
+  `work_phone` varchar(255) DEFAULT NULL,
+  `can_text_work_phone` tinyint(1) DEFAULT NULL,
+  `mobile_phone` varchar(255) DEFAULT NULL,
+  `can_text_mobile_phone` tinyint(1) DEFAULT NULL,
+  `other_phone` varchar(255) DEFAULT NULL,
+  `can_text_other_phone` tinyint(1) DEFAULT NULL,
+  `joined_date` datetime DEFAULT NULL,
+  `is_aaa_member` tinyint(1) DEFAULT NULL,
+  `is_web_registered` tinyint(1) DEFAULT NULL,
+  `spouse_name` varchar(255) DEFAULT NULL,
+  `spouse_id` int(11) DEFAULT NULL,
+  `signup_store_id` int(11) DEFAULT NULL,
+  `referredBy_id` int(11) DEFAULT NULL,
+  `referredBy_customer_id` int(11) DEFAULT NULL,
+  `referredBy_other_text` varchar(255) DEFAULT NULL,
+  `ssn` varchar(255) DEFAULT NULL,
+  `driver_lic_num` varchar(255) DEFAULT NULL,
+  `driver_lic_state_id` int(11) DEFAULT NULL,
+  `driver_lic_image_id` int(11) DEFAULT NULL,
+  `date_of_birth` datetime DEFAULT NULL,
+  `gender` int(11) DEFAULT NULL,
+  `video_testimony_url` varchar(255) DEFAULT NULL,
+  `written_testimony_id` int(11) DEFAULT NULL,
+  `referral_credits_earned` int(11) DEFAULT NULL,
+  `referral_credits_used` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `middle_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customers`
+--
+
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'10',NULL,'5334 Allis Rd','','West Palm Beach',10,'33413','561-202-4145',0,'',0,'',0,'',0,'2015-01-02 00:01:00',0,0,'',NULL,1,5,NULL,'','','',10,NULL,'2015-04-11 19:44:00',0,'',NULL,NULL,NULL,'2015-04-11 19:46:52','2015-04-11 19:57:25','Valera','','Osmani');
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cylinder_compressions`
+--
+
+DROP TABLE IF EXISTS `cylinder_compressions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cylinder_compressions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `qualification_id` int(11) DEFAULT NULL,
+  `cyl_num` int(11) DEFAULT NULL,
+  `psi` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cylinder_compressions`
+--
+
+LOCK TABLES `cylinder_compressions` WRITE;
+/*!40000 ALTER TABLE `cylinder_compressions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cylinder_compressions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employees`
+--
+
+DROP TABLE IF EXISTS `employees`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `employees` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `ssn` varchar(255) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employees`
+--
+
+LOCK TABLES `employees` WRITE;
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES (1,'Nathan','Reardon','111-11-1111',1,'2015-04-07 15:51:10','2015-04-11 20:08:00'),(2,'John','Doe','123-12-1234',1,'2015-04-21 22:04:46','2015-04-21 22:04:46');
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `engine_displacements`
+--
+
+DROP TABLE IF EXISTS `engine_displacements`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `engine_displacements` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `engine_displacements`
+--
+
+LOCK TABLES `engine_displacements` WRITE;
+/*!40000 ALTER TABLE `engine_displacements` DISABLE KEYS */;
+INSERT INTO `engine_displacements` VALUES (1,'2.0L','2015-04-11 20:08:26','2015-04-11 20:08:26'),(2,'2.5L','2015-04-11 20:08:31','2015-04-11 20:08:31'),(3,'3.0L','2015-04-11 20:08:38','2015-04-11 20:08:38'),(4,'4.0L','2015-04-11 20:08:44','2015-04-11 20:08:44'),(5,'5.0L','2015-04-11 20:08:49','2015-04-11 20:08:49'),(6,'5.5L','2015-04-11 20:08:53','2015-04-11 20:08:53'),(7,'6.0L','2015-04-11 20:08:58','2015-04-11 20:08:58');
+/*!40000 ALTER TABLE `engine_displacements` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `finance_agreements`
+--
+
+DROP TABLE IF EXISTS `finance_agreements`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `finance_agreements` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) DEFAULT NULL,
+  `missed_payment_fee` decimal(8,2) DEFAULT NULL,
+  `total_principal` decimal(8,2) DEFAULT NULL,
+  `finance_fee` decimal(8,2) DEFAULT NULL,
+  `monthly_payment_amount` decimal(8,2) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `title_image_id` int(11) DEFAULT NULL,
+  `agreement_image_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `finance_agreements`
+--
+
+LOCK TABLES `finance_agreements` WRITE;
+/*!40000 ALTER TABLE `finance_agreements` DISABLE KEYS */;
+/*!40000 ALTER TABLE `finance_agreements` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gas_mileages`
+--
+
+DROP TABLE IF EXISTS `gas_mileages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gas_mileages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `mileage` decimal(8,2) DEFAULT NULL,
+  `mdate` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gas_mileages`
+--
+
+LOCK TABLES `gas_mileages` WRITE;
+/*!40000 ALTER TABLE `gas_mileages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gas_mileages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `images`
+--
+
+DROP TABLE IF EXISTS `images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(255) DEFAULT NULL,
+  `image_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `images`
+--
+
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `insurance_companies`
+--
+
+DROP TABLE IF EXISTS `insurance_companies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `insurance_companies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `insurance_companies`
+--
+
+LOCK TABLES `insurance_companies` WRITE;
+/*!40000 ALTER TABLE `insurance_companies` DISABLE KEYS */;
+INSERT INTO `insurance_companies` VALUES (1,'State Farm','2015-04-11 20:22:15','2015-04-11 20:22:15'),(2,'Geico','2015-04-11 20:22:20','2015-04-11 20:22:20'),(3,'Met Life','2015-04-11 20:22:24','2015-04-11 20:22:24'),(4,'Progressive','2015-04-11 20:22:30','2015-04-11 20:22:30');
+/*!40000 ALTER TABLE `insurance_companies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `inventories`
+--
+
+DROP TABLE IF EXISTS `inventories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `inventories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `store_id` int(11) DEFAULT NULL,
+  `part_id` int(11) DEFAULT NULL,
+  `count` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inventories`
+--
+
+LOCK TABLES `inventories` WRITE;
+/*!40000 ALTER TABLE `inventories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `inventories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `invoice_line_items`
+--
+
+DROP TABLE IF EXISTS `invoice_line_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `invoice_line_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `amount` decimal(8,2) DEFAULT NULL,
+  `invoice_id` int(11) DEFAULT NULL,
+  `line_item_purpose_id` int(11) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `service_visit_id` int(11) DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invoice_line_items`
+--
+
+LOCK TABLES `invoice_line_items` WRITE;
+/*!40000 ALTER TABLE `invoice_line_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `invoice_line_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `invoices`
+--
+
+DROP TABLE IF EXISTS `invoices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `invoices` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_number` varchar(255) DEFAULT NULL,
+  `date_time` datetime DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invoices`
+--
+
+LOCK TABLES `invoices` WRITE;
+/*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
+INSERT INTO `invoices` VALUES (1,'3','2013-02-11 12:00:00',1,71,'2015-04-11 21:08:59','2015-04-12 02:14:45');
+/*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `line_item_purposes`
+--
+
+DROP TABLE IF EXISTS `line_item_purposes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `line_item_purposes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `line_item_purposes`
+--
+
+LOCK TABLES `line_item_purposes` WRITE;
+/*!40000 ALTER TABLE `line_item_purposes` DISABLE KEYS */;
+INSERT INTO `line_item_purposes` VALUES (1,'Service','2015-04-12 02:31:55','2015-04-12 02:31:55'),(2,'Repair','2015-04-12 02:32:01','2015-04-12 02:32:01'),(3,'Membership Dues','2015-04-12 02:32:08','2015-04-12 02:32:08'),(4,'Other','2015-04-12 02:32:13','2015-04-12 02:32:13');
+/*!40000 ALTER TABLE `line_item_purposes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `makes`
+--
+
+DROP TABLE IF EXISTS `makes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `makes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `makes`
+--
+
+LOCK TABLES `makes` WRITE;
+/*!40000 ALTER TABLE `makes` DISABLE KEYS */;
+INSERT INTO `makes` VALUES (1,'Acura','2015-04-12 02:36:19','2015-04-12 02:36:19'),(2,'Audi','2015-04-12 02:36:19','2015-04-12 02:36:19'),(3,'Bentley','2015-04-12 02:36:19','2015-04-12 02:36:19'),(4,'BMW','2015-04-12 02:36:19','2015-04-12 02:36:19'),(5,'Buick','2015-04-12 02:36:19','2015-04-12 02:36:19'),(6,'Cadillac','2015-04-12 02:36:19','2015-04-12 02:36:19'),(7,'Chevrolet','2015-04-12 02:36:19','2015-04-12 02:36:19'),(8,'Chrysler','2015-04-12 02:36:19','2015-04-12 02:36:19'),(9,'Dodge','2015-04-12 02:36:19','2015-04-12 02:36:19'),(10,'Fiat','2015-04-12 02:36:19','2015-04-12 02:36:19'),(11,'Ford','2015-04-12 02:36:19','2015-04-12 02:36:19'),(12,'GMC','2015-04-12 02:36:19','2015-04-12 02:36:19'),(13,'Honda','2015-04-12 02:36:19','2015-04-12 02:36:19'),(14,'Hyundai','2015-04-12 02:36:19','2015-04-12 02:36:19'),(15,'Infiniti','2015-04-12 02:36:19','2015-04-12 02:36:19'),(16,'Jaguar','2015-04-12 02:36:19','2015-04-12 02:36:19'),(17,'Jeep','2015-04-12 02:36:19','2015-04-12 02:36:19'),(18,'Kia','2015-04-12 02:36:19','2015-04-12 02:36:19'),(19,'Land Rover','2015-04-12 02:36:19','2015-04-12 02:36:19'),(20,'Lexus','2015-04-12 02:36:19','2015-04-12 02:36:19'),(21,'Lincoln','2015-04-12 02:36:19','2015-04-12 02:36:19'),(22,'Mazda','2015-04-12 02:36:19','2015-04-12 02:36:19'),(23,'Mercedes-Benz','2015-04-12 02:36:19','2015-04-12 02:36:19'),(24,'Mini','2015-04-12 02:36:19','2015-04-12 02:36:19'),(25,'Mitsubishi','2015-04-12 02:36:19','2015-04-12 02:36:19'),(26,'Nissan','2015-04-12 02:36:19','2015-04-12 02:36:19'),(27,'Porsche','2015-04-12 02:36:19','2015-04-12 02:36:19'),(28,'Ram','2015-04-12 02:36:19','2015-04-12 02:36:19'),(29,'Scion','2015-04-12 02:36:19','2015-04-12 02:36:19'),(30,'Smart','2015-04-12 02:36:19','2015-04-12 02:36:19'),(31,'Subaru','2015-04-12 02:36:19','2015-04-12 02:36:19'),(32,'Tesla','2015-04-12 02:36:19','2015-04-12 02:36:19'),(33,'Toyota','2015-04-12 02:36:19','2015-04-12 02:36:19'),(34,'Volkswagen','2015-04-12 02:36:19','2015-04-12 02:36:19'),(35,'Volvo','2015-04-12 02:36:19','2015-04-12 02:36:19');
+/*!40000 ALTER TABLE `makes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `manufacturer_warranties`
+--
+
+DROP TABLE IF EXISTS `manufacturer_warranties`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `manufacturer_warranties` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `months` int(11) DEFAULT NULL,
+  `miles` int(11) DEFAULT NULL,
+  `image` int(11) DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `manufacturer_warranty_type_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `manufacturer_warranties`
+--
+
+LOCK TABLES `manufacturer_warranties` WRITE;
+/*!40000 ALTER TABLE `manufacturer_warranties` DISABLE KEYS */;
+/*!40000 ALTER TABLE `manufacturer_warranties` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `manufacturer_warranty_types`
+--
+
+DROP TABLE IF EXISTS `manufacturer_warranty_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `manufacturer_warranty_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `manufacturer_warranty_types`
+--
+
+LOCK TABLES `manufacturer_warranty_types` WRITE;
+/*!40000 ALTER TABLE `manufacturer_warranty_types` DISABLE KEYS */;
+INSERT INTO `manufacturer_warranty_types` VALUES (1,'Bumper-to-bumper','2015-04-12 03:16:58','2015-04-12 03:16:58'),(2,'Powertrain','2015-04-12 03:17:05','2015-04-12 03:17:05'),(3,'Transmission','2015-04-12 03:17:13','2015-04-12 03:17:13'),(4,'Other','2015-04-12 03:17:20','2015-04-12 03:17:20');
+/*!40000 ALTER TABLE `manufacturer_warranty_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `models`
+--
+
+DROP TABLE IF EXISTS `models`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `models` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `make_id` int(11) DEFAULT NULL,
+  `first_year_made` int(11) DEFAULT NULL,
+  `last_year_made` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `models`
+--
+
+LOCK TABLES `models` WRITE;
+/*!40000 ALTER TABLE `models` DISABLE KEYS */;
+INSERT INTO `models` VALUES (1,'Silverado',7,1999,2015,'2015-04-15 03:00:25','2015-04-15 03:00:25'),(2,'Cruze',7,2008,2015,'2015-04-15 03:01:30','2015-04-15 03:01:30');
+/*!40000 ALTER TABLE `models` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `non_ma_maintenances`
+--
+
+DROP TABLE IF EXISTS `non_ma_maintenances`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `non_ma_maintenances` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `mdate` datetime DEFAULT NULL,
+  `where` varchar(255) DEFAULT NULL,
+  `document_image_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `non_ma_maintenances`
+--
+
+LOCK TABLES `non_ma_maintenances` WRITE;
+/*!40000 ALTER TABLE `non_ma_maintenances` DISABLE KEYS */;
+/*!40000 ALTER TABLE `non_ma_maintenances` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `part_manufacturers`
+--
+
+DROP TABLE IF EXISTS `part_manufacturers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `part_manufacturers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `part_manufacturers`
+--
+
+LOCK TABLES `part_manufacturers` WRITE;
+/*!40000 ALTER TABLE `part_manufacturers` DISABLE KEYS */;
+INSERT INTO `part_manufacturers` VALUES (1,'Bendix','2015-04-15 03:07:17','2015-04-15 03:07:17'),(2,'Mopar','2015-04-15 03:08:33','2015-04-15 03:08:33'),(3,'Motorcraft','2015-04-15 03:08:41','2015-04-15 03:08:41'),(4,'Fram','2015-04-15 03:15:55','2015-04-15 03:15:55');
+/*!40000 ALTER TABLE `part_manufacturers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `part_names`
+--
+
+DROP TABLE IF EXISTS `part_names`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `part_names` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `part_names`
+--
+
+LOCK TABLES `part_names` WRITE;
+/*!40000 ALTER TABLE `part_names` DISABLE KEYS */;
+INSERT INTO `part_names` VALUES (1,'Alternator','2015-04-15 03:07:33','2015-04-15 03:07:33'),(2,'Radiator','2015-04-15 03:07:41','2015-04-15 03:07:41'),(3,'Oil Filter','2015-04-15 03:16:10','2015-04-15 03:16:10'),(4,'Wiper Blade','2015-04-18 03:14:57','2015-04-18 03:14:57');
+/*!40000 ALTER TABLE `part_names` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `parts`
+--
+
+DROP TABLE IF EXISTS `parts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `parts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `part_manufacturer_id` int(11) DEFAULT NULL,
+  `part_name_id` int(11) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `part_number` varchar(255) DEFAULT NULL,
+  `actual_cost` decimal(8,2) DEFAULT NULL,
+  `retail_price` decimal(8,2) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `parts`
+--
+
+LOCK TABLES `parts` WRITE;
+/*!40000 ALTER TABLE `parts` DISABLE KEYS */;
+INSERT INTO `parts` VALUES (1,4,3,'','OF1234',2.00,3.00,'2015-04-15 03:16:44','2015-04-15 03:16:44'),(2,1,4,'','W1234',3.33,6.00,'2015-04-18 03:15:23','2015-04-18 03:15:23');
+/*!40000 ALTER TABLE `parts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payment_methods`
+--
+
+DROP TABLE IF EXISTS `payment_methods`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `payment_methods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
+  `account_number_id` int(11) DEFAULT NULL,
+  `routing_number` varchar(255) DEFAULT NULL,
+  `expiration_month` int(11) DEFAULT NULL,
+  `expiration_year` int(11) DEFAULT NULL,
+  `image_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `payment_type_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment_methods`
+--
+
+LOCK TABLES `payment_methods` WRITE;
+/*!40000 ALTER TABLE `payment_methods` DISABLE KEYS */;
+INSERT INTO `payment_methods` VALUES (1,1,1,1234,'',11,2015,NULL,'2015-04-16 03:08:09','2015-04-16 03:08:09',1);
+/*!40000 ALTER TABLE `payment_methods` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payment_types`
+--
+
+DROP TABLE IF EXISTS `payment_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `payment_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment_types`
+--
+
+LOCK TABLES `payment_types` WRITE;
+/*!40000 ALTER TABLE `payment_types` DISABLE KEYS */;
+INSERT INTO `payment_types` VALUES (1,'Visa','2015-04-16 03:07:12','2015-04-16 03:07:12'),(2,'MasterCard','2015-04-16 03:07:19','2015-04-16 03:07:19'),(3,'American Express','2015-04-16 03:07:27','2015-04-16 03:07:27'),(4,'Discover','2015-04-16 03:07:34','2015-04-16 03:07:34'),(5,'ACH/Bank Transfer','2015-04-16 03:07:42','2015-04-16 03:07:42');
+/*!40000 ALTER TABLE `payment_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payments`
+--
+
+DROP TABLE IF EXISTS `payments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `payments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_time` datetime DEFAULT NULL,
+  `invoice_id` int(11) DEFAULT NULL,
+  `contract_id` int(11) DEFAULT NULL,
+  `finance_agreement_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `amount` decimal(8,2) DEFAULT NULL,
+  `payment_method_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `merchant_services_status` varchar(255) DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payments`
+--
+
+LOCK TABLES `payments` WRITE;
+/*!40000 ALTER TABLE `payments` DISABLE KEYS */;
+INSERT INTO `payments` VALUES (1,'2015-04-16 03:32:00',1,NULL,NULL,1,22.25,1,31,'r_approved','','2015-04-16 03:33:39','2015-04-16 03:33:39');
+/*!40000 ALTER TABLE `payments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `qualifications`
+--
+
+DROP TABLE IF EXISTS `qualifications`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qualifications` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `qdate` datetime DEFAULT NULL,
+  `leakdown` int(11) DEFAULT NULL,
+  `qual_report_images_id` int(11) DEFAULT NULL,
+  `alignment_report_images_id` int(11) DEFAULT NULL,
+  `sixgas_report_images_id` int(11) DEFAULT NULL,
+  `spectrum_report_images_id` int(11) DEFAULT NULL,
+  `cylinder_compression_spec` int(11) DEFAULT NULL,
+  `service_visit_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qualifications`
+--
+
+LOCK TABLES `qualifications` WRITE;
+/*!40000 ALTER TABLE `qualifications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qualifications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `referred_bies`
+--
+
+DROP TABLE IF EXISTS `referred_bies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `referred_bies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `is_other` tinyint(1) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `referred_bies`
+--
+
+LOCK TABLES `referred_bies` WRITE;
+/*!40000 ALTER TABLE `referred_bies` DISABLE KEYS */;
+INSERT INTO `referred_bies` VALUES (1,'Radio ad',0,'2015-04-11 18:34:10','2015-04-11 18:34:10'),(2,'Person/word of mouth',0,'2015-04-11 18:34:31','2015-04-11 18:34:31'),(3,'Internet',0,'2015-04-11 18:34:48','2015-04-11 18:34:48'),(4,'Print ad',0,'2015-04-11 18:34:57','2015-04-11 18:34:57'),(5,'Other',1,'2015-04-11 18:35:03','2015-04-11 18:35:03');
+/*!40000 ALTER TABLE `referred_bies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `regions`
+--
+
+DROP TABLE IF EXISTS `regions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `regions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `state_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `regions`
+--
+
+LOCK TABLES `regions` WRITE;
+/*!40000 ALTER TABLE `regions` DISABLE KEYS */;
+INSERT INTO `regions` VALUES (1,'Southeast',10,'2015-04-07 15:50:19','2015-04-07 15:50:19');
+/*!40000 ALTER TABLE `regions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `salespeople`
+--
+
+DROP TABLE IF EXISTS `salespeople`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `salespeople` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `salespeople`
+--
+
+LOCK TABLES `salespeople` WRITE;
+/*!40000 ALTER TABLE `salespeople` DISABLE KEYS */;
+INSERT INTO `salespeople` VALUES (1,1,'2015-04-16 20:56:36','2015-04-16 20:56:36');
+/*!40000 ALTER TABLE `salespeople` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `scheduled_appointments`
+--
+
+DROP TABLE IF EXISTS `scheduled_appointments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `scheduled_appointments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_time` datetime DEFAULT NULL,
+  `actual_date_time` datetime DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `purpose` int(11) DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `scheduled_appointments`
+--
+
+LOCK TABLES `scheduled_appointments` WRITE;
+/*!40000 ALTER TABLE `scheduled_appointments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `scheduled_appointments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `scheduled_service_items`
+--
+
+DROP TABLE IF EXISTS `scheduled_service_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `scheduled_service_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `scheduled_service_id` int(11) DEFAULT NULL,
+  `service_description_id` int(11) DEFAULT NULL,
+  `other` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `scheduled_service_items`
+--
+
+LOCK TABLES `scheduled_service_items` WRITE;
+/*!40000 ALTER TABLE `scheduled_service_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `scheduled_service_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `scheduled_services`
+--
+
+DROP TABLE IF EXISTS `scheduled_services`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `scheduled_services` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_schedule_id` int(11) DEFAULT NULL,
+  `sdate` datetime DEFAULT NULL,
+  `mileage` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `scheduled_services`
+--
+
+LOCK TABLES `scheduled_services` WRITE;
+/*!40000 ALTER TABLE `scheduled_services` DISABLE KEYS */;
+INSERT INTO `scheduled_services` VALUES (1,1,'2015-05-01 02:34:00',33400,'2015-04-17 02:35:13','2015-04-17 02:35:13');
+/*!40000 ALTER TABLE `scheduled_services` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `schema_migrations`
+--
+
+DROP TABLE IF EXISTS `schema_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schema_migrations` (
+  `version` varchar(255) NOT NULL,
+  UNIQUE KEY `unique_schema_migrations` (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schema_migrations`
+--
+
+LOCK TABLES `schema_migrations` WRITE;
+/*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
+INSERT INTO `schema_migrations` VALUES ('20150212054258'),('20150305221636'),('20150305222710'),('20150404124517'),('20150404125040'),('20150404125109'),('20150404125122'),('20150404125140'),('20150404125204'),('20150404125217'),('20150404125227'),('20150404125237'),('20150404125247'),('20150404125254'),('20150404125356'),('20150404125402'),('20150404125406'),('20150404125410'),('20150404125413'),('20150404125417'),('20150404125421'),('20150404125429'),('20150404125434'),('20150404125439'),('20150404125443'),('20150404125447'),('20150404125450'),('20150404125455'),('20150404125459'),('20150404125503'),('20150404125507'),('20150404125511'),('20150404125515'),('20150404125519'),('20150404125523'),('20150404125527'),('20150404125531'),('20150404125535'),('20150404125539'),('20150404125543'),('20150404125547'),('20150404125551'),('20150404125555'),('20150404125559'),('20150404125603'),('20150404125606'),('20150404125610'),('20150404125614'),('20150404125618'),('20150404125622'),('20150404125626'),('20150404125630'),('20150404125633'),('20150404125637'),('20150404125641'),('20150404125645'),('20150404125649'),('20150404125653'),('20150404125657'),('20150405032240'),('20150405033204'),('20150405033401'),('20150407184310'),('20150411194142'),('20150411194257'),('20150411194303'),('20150412024237'),('20150412024420'),('20150412024704');
+/*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service_categories`
+--
+
+DROP TABLE IF EXISTS `service_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service_categories`
+--
+
+LOCK TABLES `service_categories` WRITE;
+/*!40000 ALTER TABLE `service_categories` DISABLE KEYS */;
+INSERT INTO `service_categories` VALUES (1,'Lube/Oil','2015-04-16 21:45:34','2015-04-16 21:45:34'),(2,'Wheels','2015-04-16 21:45:41','2015-04-16 21:45:41'),(3,'Engine','2015-04-16 21:45:47','2015-04-16 21:45:47'),(4,'Drive Train (non-engine)','2015-04-16 21:46:07','2015-04-16 21:46:07'),(5,'Electrical','2015-04-16 21:46:17','2015-04-16 21:46:17'),(6,'Other','2015-04-16 21:47:09','2015-04-16 21:47:09');
+/*!40000 ALTER TABLE `service_categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service_descriptions`
+--
+
+DROP TABLE IF EXISTS `service_descriptions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service_descriptions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `service_category_id` int(11) DEFAULT NULL,
+  `labor_rate_retail` decimal(8,2) DEFAULT NULL,
+  `labor_hours_retail` decimal(8,2) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service_descriptions`
+--
+
+LOCK TABLES `service_descriptions` WRITE;
+/*!40000 ALTER TABLE `service_descriptions` DISABLE KEYS */;
+INSERT INTO `service_descriptions` VALUES (1,'Oil change',1,18.00,1.50,'2015-04-16 21:48:01','2015-04-16 21:48:01'),(2,'Front end alignment',2,17.00,1.15,'2015-04-16 21:51:57','2015-04-16 21:51:57'),(3,'Tuneup',3,22.55,3.00,'2015-04-16 21:52:29','2015-04-16 21:52:29');
+/*!40000 ALTER TABLE `service_descriptions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service_journals`
+--
+
+DROP TABLE IF EXISTS `service_journals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service_journals` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_visit_id` int(11) DEFAULT NULL,
+  `event_id` int(11) DEFAULT NULL,
+  `date_time` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service_journals`
+--
+
+LOCK TABLES `service_journals` WRITE;
+/*!40000 ALTER TABLE `service_journals` DISABLE KEYS */;
+/*!40000 ALTER TABLE `service_journals` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service_journals_events`
+--
+
+DROP TABLE IF EXISTS `service_journals_events`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service_journals_events` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service_journals_events`
+--
+
+LOCK TABLES `service_journals_events` WRITE;
+/*!40000 ALTER TABLE `service_journals_events` DISABLE KEYS */;
+INSERT INTO `service_journals_events` VALUES (1,'Customer turns over keys','2015-04-17 02:44:01','2015-04-17 02:44:01'),(2,'Vehicle enters shop','2015-04-17 02:44:10','2015-04-17 02:44:10'),(3,'Vehicle on lift','2015-04-17 02:44:19','2015-04-17 02:44:19'),(4,'Vehicle off lift','2015-04-17 02:44:26','2015-04-17 02:44:26'),(5,'Vehicle leaves shop','2015-04-17 02:44:34','2015-04-17 02:44:34');
+/*!40000 ALTER TABLE `service_journals_events` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service_line_items`
+--
+
+DROP TABLE IF EXISTS `service_line_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service_line_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_visit_id` int(11) DEFAULT NULL,
+  `service_description_id` int(11) DEFAULT NULL,
+  `service_description_text` varchar(255) DEFAULT NULL,
+  `labor_hours_retail` decimal(8,2) DEFAULT NULL,
+  `labor_rate_retail` decimal(8,2) DEFAULT NULL,
+  `labor_hours_actual` decimal(8,2) DEFAULT NULL,
+  `labor_rate_actual` decimal(8,2) DEFAULT NULL,
+  `technician1_id` int(11) DEFAULT NULL,
+  `technician2_id` int(11) DEFAULT NULL,
+  `technician3_id` int(11) DEFAULT NULL,
+  `is_scheduled` tinyint(1) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service_line_items`
+--
+
+LOCK TABLES `service_line_items` WRITE;
+/*!40000 ALTER TABLE `service_line_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `service_line_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service_parts`
+--
+
+DROP TABLE IF EXISTS `service_parts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service_parts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_line_item_id` int(11) DEFAULT NULL,
+  `part_id` int(11) DEFAULT NULL,
+  `part_retail_price` decimal(8,2) DEFAULT NULL,
+  `part_actual_price` decimal(8,2) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service_parts`
+--
+
+LOCK TABLES `service_parts` WRITE;
+/*!40000 ALTER TABLE `service_parts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `service_parts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service_schedules`
+--
+
+DROP TABLE IF EXISTS `service_schedules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service_schedules` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service_schedules`
+--
+
+LOCK TABLES `service_schedules` WRITE;
+/*!40000 ALTER TABLE `service_schedules` DISABLE KEYS */;
+INSERT INTO `service_schedules` VALUES (1,NULL,'2015-04-17 02:34:45','2015-04-17 02:34:45');
+/*!40000 ALTER TABLE `service_schedules` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service_visits`
+--
+
+DROP TABLE IF EXISTS `service_visits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service_visits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mileage` int(11) DEFAULT NULL,
+  `sdate` datetime DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `invoice_id` int(11) DEFAULT NULL,
+  `salesperson_id` int(11) DEFAULT NULL,
+  `comments` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service_visits`
+--
+
+LOCK TABLES `service_visits` WRITE;
+/*!40000 ALTER TABLE `service_visits` DISABLE KEYS */;
+/*!40000 ALTER TABLE `service_visits` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `states`
+--
+
+DROP TABLE IF EXISTS `states`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `states` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `abbrev` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `states`
+--
+
+LOCK TABLES `states` WRITE;
+/*!40000 ALTER TABLE `states` DISABLE KEYS */;
+INSERT INTO `states` VALUES (1,'Alabama ','AL','2015-04-04 20:30:51','2015-04-04 20:30:51'),(2,'Alaska ','AK','2015-04-04 20:30:51','2015-04-04 20:30:51'),(3,'Arizona ','AZ','2015-04-04 20:30:51','2015-04-04 20:30:51'),(4,'Arkansas ','AR','2015-04-04 20:30:51','2015-04-04 20:30:51'),(5,'California ','CA','2015-04-04 20:30:51','2015-04-04 20:30:51'),(6,'Colorado ','CO','2015-04-04 20:30:51','2015-04-04 20:30:51'),(7,'Connecticut ','CT','2015-04-04 20:30:51','2015-04-04 20:30:51'),(8,'Delaware ','DE','2015-04-04 20:30:51','2015-04-04 20:30:51'),(9,'District of Columbia ','DC','2015-04-04 20:30:51','2015-04-04 20:30:51'),(10,'Florida ','FL','2015-04-04 20:30:51','2015-04-04 20:30:51'),(11,'Georgia ','GA','2015-04-04 20:30:51','2015-04-04 20:30:51'),(12,'Hawaii ','HI','2015-04-04 20:30:51','2015-04-04 20:30:51'),(13,'Idaho ','ID','2015-04-04 20:30:51','2015-04-04 20:30:51'),(14,'Illinois ','IL','2015-04-04 20:30:51','2015-04-04 20:30:51'),(15,'Indiana ','IN','2015-04-04 20:30:51','2015-04-04 20:30:51'),(16,'Iowa ','IA','2015-04-04 20:30:51','2015-04-04 20:30:51'),(17,'Kansas ','KS','2015-04-04 20:30:51','2015-04-04 20:30:51'),(18,'Kentucky ','KY','2015-04-04 20:30:51','2015-04-04 20:30:51'),(19,'Louisiana ','LA','2015-04-04 20:30:51','2015-04-04 20:30:51'),(20,'Maine ','ME','2015-04-04 20:30:51','2015-04-04 20:30:51'),(21,'Maryland ','MD','2015-04-04 20:30:51','2015-04-04 20:30:51'),(22,'Massachusetts ','MA','2015-04-04 20:30:51','2015-04-04 20:30:51'),(23,'Michigan ','MI','2015-04-04 20:30:51','2015-04-04 20:30:51'),(24,'Minnesota ','MN','2015-04-04 20:30:51','2015-04-04 20:30:51'),(25,'Mississippi ','MS','2015-04-04 20:30:51','2015-04-04 20:30:51'),(26,'Missouri ','MO','2015-04-04 20:30:51','2015-04-04 20:30:51'),(27,'Montana ','MT','2015-04-04 20:30:51','2015-04-04 20:30:51'),(28,'Nebraska ','NE','2015-04-04 20:30:51','2015-04-04 20:30:51'),(29,'Nevada ','NV','2015-04-04 20:30:51','2015-04-04 20:30:51'),(30,'New Hampshire ','NH','2015-04-04 20:30:51','2015-04-04 20:30:51'),(31,'New Jersey ','NJ','2015-04-04 20:30:51','2015-04-04 20:30:51'),(32,'New Mexico ','NM','2015-04-04 20:30:51','2015-04-04 20:30:51'),(33,'New York ','NY','2015-04-04 20:30:51','2015-04-04 20:30:51'),(34,'North Carolina ','NC','2015-04-04 20:30:51','2015-04-04 20:30:51'),(35,'North Dakota ','ND','2015-04-04 20:30:51','2015-04-04 20:30:51'),(36,'Ohio ','OH','2015-04-04 20:30:51','2015-04-04 20:30:51'),(37,'Oklahoma ','OK','2015-04-04 20:30:51','2015-04-04 20:30:51'),(38,'Oregon ','OR','2015-04-04 20:30:51','2015-04-04 20:30:51'),(39,'Pennsylvania ','PA','2015-04-04 20:30:51','2015-04-04 20:30:51'),(40,'Rhode Island ','RI','2015-04-04 20:30:51','2015-04-04 20:30:51'),(41,'South Carolina ','SC','2015-04-04 20:30:51','2015-04-04 20:30:51'),(42,'South Dakota ','SD','2015-04-04 20:30:51','2015-04-04 20:30:51'),(43,'Tennessee ','TN','2015-04-04 20:30:51','2015-04-04 20:30:51'),(44,'Texas ','TX','2015-04-04 20:30:51','2015-04-04 20:30:51'),(45,'Utah ','UT','2015-04-04 20:30:51','2015-04-04 20:30:51'),(46,'Vermont ','VT','2015-04-04 20:30:51','2015-04-04 20:30:51'),(47,'Virginia ','VA','2015-04-04 20:30:51','2015-04-04 20:30:51'),(48,'Washington ','WA','2015-04-04 20:30:51','2015-04-04 20:30:51'),(49,'West Virginia ','WV','2015-04-04 20:30:51','2015-04-04 20:30:51'),(50,'Wisconsin ','WI','2015-04-04 20:30:51','2015-04-04 20:30:51'),(51,'Wyoming ','WY','2015-04-04 20:30:51','2015-04-04 20:30:51');
+/*!40000 ALTER TABLE `states` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `stores`
+--
+
+DROP TABLE IF EXISTS `stores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `number` varchar(255) DEFAULT NULL,
+  `manager_id` int(11) DEFAULT NULL,
+  `street_address` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state_id` int(11) DEFAULT NULL,
+  `county_id` int(11) DEFAULT NULL,
+  `region_id` int(11) DEFAULT NULL,
+  `zip` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `number_of_lifts` int(11) DEFAULT NULL,
+  `capacity` int(11) DEFAULT NULL,
+  `break_even` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stores`
+--
+
+LOCK TABLES `stores` WRITE;
+/*!40000 ALTER TABLE `stores` DISABLE KEYS */;
+INSERT INTO `stores` VALUES (1,'WPB Dixie','FL0001',1,'1917 N Dixie Highway','West Palm Beach',10,1,1,'33401','1 561 444 3373',4,2000,500,'2015-04-07 17:40:47','2015-04-07 17:40:47');
+/*!40000 ALTER TABLE `stores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `submodels`
+--
+
+DROP TABLE IF EXISTS `submodels`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `submodels` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `make_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `submodels`
+--
+
+LOCK TABLES `submodels` WRITE;
+/*!40000 ALTER TABLE `submodels` DISABLE KEYS */;
+INSERT INTO `submodels` VALUES (1,'Matrix',33,'2015-04-21 21:55:04','2015-04-21 21:55:04');
+/*!40000 ALTER TABLE `submodels` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `technicians`
+--
+
+DROP TABLE IF EXISTS `technicians`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `technicians` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `hourly_rate` decimal(8,2) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `technicians`
+--
+
+LOCK TABLES `technicians` WRITE;
+/*!40000 ALTER TABLE `technicians` DISABLE KEYS */;
+INSERT INTO `technicians` VALUES (1,2,3,15.25,'2015-04-21 22:05:28','2015-04-21 22:05:28');
+/*!40000 ALTER TABLE `technicians` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tire_td_readings`
+--
+
+DROP TABLE IF EXISTS `tire_td_readings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tire_td_readings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `tdate` datetime DEFAULT NULL,
+  `depth32nds` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tire_td_readings`
+--
+
+LOCK TABLES `tire_td_readings` WRITE;
+/*!40000 ALTER TABLE `tire_td_readings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tire_td_readings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ts_band_recalls`
+--
+
+DROP TABLE IF EXISTS `ts_band_recalls`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ts_band_recalls` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `date_completed` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ts_band_recalls`
+--
+
+LOCK TABLES `ts_band_recalls` WRITE;
+/*!40000 ALTER TABLE `ts_band_recalls` DISABLE KEYS */;
+INSERT INTO `ts_band_recalls` VALUES (1,1,'Master Cylinder',NULL,'2015-04-22 02:58:42','2015-04-22 03:12:21');
+/*!40000 ALTER TABLE `ts_band_recalls` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `upgrade_types`
+--
+
+DROP TABLE IF EXISTS `upgrade_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `upgrade_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `cost` decimal(8,2) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `upgrade_types`
+--
+
+LOCK TABLES `upgrade_types` WRITE;
+/*!40000 ALTER TABLE `upgrade_types` DISABLE KEYS */;
+INSERT INTO `upgrade_types` VALUES (1,'Detailing',5.00,'2015-04-21 22:49:13','2015-04-21 22:49:13');
+/*!40000 ALTER TABLE `upgrade_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `upgrades`
+--
+
+DROP TABLE IF EXISTS `upgrades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `upgrades` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `contract_id` int(11) DEFAULT NULL,
+  `upgrade_type_id` int(11) DEFAULT NULL,
+  `cost` decimal(8,2) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `upgrades`
+--
+
+LOCK TABLES `upgrades` WRITE;
+/*!40000 ALTER TABLE `upgrades` DISABLE KEYS */;
+INSERT INTO `upgrades` VALUES (1,2,1,5.00,'2015-04-21 23:03:49','2015-04-21 23:03:49');
+/*!40000 ALTER TABLE `upgrades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role` int(11) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `encrypted_password` varchar(255) NOT NULL DEFAULT '',
+  `reset_password_token` varchar(255) DEFAULT NULL,
+  `reset_password_sent_at` datetime DEFAULT NULL,
+  `remember_created_at` datetime DEFAULT NULL,
+  `sign_in_count` int(11) DEFAULT '0',
+  `current_sign_in_at` datetime DEFAULT NULL,
+  `last_sign_in_at` datetime DEFAULT NULL,
+  `current_sign_in_ip` varchar(255) DEFAULT NULL,
+  `last_sign_in_ip` varchar(255) DEFAULT NULL,
+  `confirmation_token` varchar(255) DEFAULT NULL,
+  `confirmed_at` datetime DEFAULT NULL,
+  `confirmation_sent_at` datetime DEFAULT NULL,
+  `unconfirmed_email` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_users_on_email` (`email`),
+  UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`),
+  UNIQUE KEY `index_users_on_confirmation_token` (`confirmation_token`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,11,'Don','Law','2015-03-27 19:43:55','2015-04-22 00:48:10','don@salientsoftware.net','$2a$10$xqF67YfFUmsv7hCMdUklyer.yb3bG6bzy5CzSEy8952HBRb/2LB/.',NULL,NULL,NULL,6,'2015-04-22 00:48:10','2015-04-21 21:19:56','70.166.141.35','70.166.141.35',NULL,'2015-03-27 19:45:02','2015-03-27 19:43:55',NULL),(2,13,'Joe','Investor','2015-03-27 19:56:32','2015-04-18 02:31:51','jinv7@mailinator.com','$2a$10$/BUJ9Y9Vke4UbwzQCKyVieoiqHPV.feaGWrzE3gTgDXc1g1Vs4GO.',NULL,NULL,NULL,1,'2015-03-27 19:56:52','2015-03-27 19:56:52','50.154.163.235','50.154.163.235',NULL,'2015-03-27 19:56:52','2015-03-27 19:56:32',NULL),(4,11,'Nathan','Reardon','2015-03-27 20:11:56','2015-03-27 22:40:45','nathan@membershipauto.com','$2a$10$2EiIPiwGgg4TwwpIjomGnO75pAt8EkwYq2jzs9.KHWyemCyTjU8mO',NULL,NULL,NULL,2,'2015-03-27 22:40:45','2015-03-27 20:12:09','73.205.132.48','70.209.27.251',NULL,'2015-03-27 20:12:09','2015-03-27 20:11:56',NULL);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vehicles`
+--
+
+DROP TABLE IF EXISTS `vehicles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vehicles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vin` varchar(255) DEFAULT NULL,
+  `vin_decoded` varchar(255) DEFAULT NULL,
+  `license_plate` varchar(255) DEFAULT NULL,
+  `license_plate_state_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `make_id` int(11) DEFAULT NULL,
+  `model_id` int(11) DEFAULT NULL,
+  `submodel_id` int(11) DEFAULT NULL,
+  `date_of_manufacture` datetime DEFAULT NULL,
+  `country_of_manufacture_id` int(11) DEFAULT NULL,
+  `msrp` decimal(8,2) DEFAULT NULL,
+  `kbb_on_qual` decimal(8,2) DEFAULT NULL,
+  `current_kbb` decimal(8,2) DEFAULT NULL,
+  `consumer_reports_url` varchar(255) DEFAULT NULL,
+  `engine_cyl` int(11) DEFAULT NULL,
+  `engine_displacement_id` int(11) DEFAULT NULL,
+  `wheel_drive_id` int(11) DEFAULT NULL,
+  `color_id` int(11) DEFAULT NULL,
+  `doors` int(11) DEFAULT NULL,
+  `convertible` tinyint(1) DEFAULT NULL,
+  `comments` text,
+  `service_schedule_id` int(11) DEFAULT NULL,
+  `insurance_company_id` int(11) DEFAULT NULL,
+  `insurance_policy_number` varchar(255) DEFAULT NULL,
+  `insurance_image_id` int(11) DEFAULT NULL,
+  `carfax_url` varchar(255) DEFAULT NULL,
+  `carfax_copy_at_qual` varchar(255) DEFAULT NULL,
+  `door_plate_image_id` int(11) DEFAULT NULL,
+  `mileage` int(11) DEFAULT NULL,
+  `mpg30after_initial` decimal(8,2) DEFAULT NULL,
+  `photos_image_id` int(11) DEFAULT NULL,
+  `qualification_id` int(11) DEFAULT NULL,
+  `bg_compliant` tinyint(1) DEFAULT NULL,
+  `contract_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vehicles`
+--
+
+LOCK TABLES `vehicles` WRITE;
+/*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
+INSERT INTO `vehicles` VALUES (1,'v1234567890','','ABC 123',10,1,7,1,NULL,'2012-04-22 00:00:00',1,27001.00,21012.00,20500.00,'',6,5,6,1,2,0,'',NULL,1,'SF1234567890',NULL,'','',NULL,23456,16.00,NULL,NULL,0,2,'2015-04-22 02:30:27','2015-04-22 03:10:57');
+/*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `wheel_drives`
+--
+
+DROP TABLE IF EXISTS `wheel_drives`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wheel_drives` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wheel_drives`
+--
+
+LOCK TABLES `wheel_drives` WRITE;
+/*!40000 ALTER TABLE `wheel_drives` DISABLE KEYS */;
+INSERT INTO `wheel_drives` VALUES (3,'4WD','2015-04-21 23:15:08','2015-04-21 23:15:08'),(4,'FWD','2015-04-21 23:15:22','2015-04-21 23:15:52'),(5,'AWD','2015-04-21 23:15:38','2015-04-21 23:15:38'),(6,'RWD','2015-04-21 23:16:09','2015-04-21 23:16:09');
+/*!40000 ALTER TABLE `wheel_drives` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `written_testimonies`
+--
+
+DROP TABLE IF EXISTS `written_testimonies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `written_testimonies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_text` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `written_testimonies`
+--
+
+LOCK TABLES `written_testimonies` WRITE;
+/*!40000 ALTER TABLE `written_testimonies` DISABLE KEYS */;
+INSERT INTO `written_testimonies` VALUES (1,'This program is the best thing since sliced bread!','2015-04-21 23:43:36','2015-04-21 23:43:36');
+/*!40000 ALTER TABLE `written_testimonies` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-04-22  3:14:21

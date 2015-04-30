@@ -2,6 +2,13 @@ class TireTdReadingsController < ApplicationController
 
     before_filter :only_allow_admins
 
+    def prepFormVariables
+        @vehicles = Vehicle.all
+        @vehicleCollect = @vehicles.collect { |p|
+            [ p.ymmpText, p.id ] 
+        }
+    end
+
     # GET /tire_td_readings
     # GET /tire_td_readings.json
     def index
@@ -17,6 +24,7 @@ class TireTdReadingsController < ApplicationController
     # GET /tire_td_readings/1.json
     def show
         @tire_td_reading = TireTdReading.find(params[:id])
+        prepFormVariables
 
         respond_to do |format|
             format.html # show.html.erb
@@ -28,6 +36,7 @@ class TireTdReadingsController < ApplicationController
     # GET /tire_td_readings/new.json
     def new
         @tire_td_reading = TireTdReading.new
+        prepFormVariables
 
         respond_to do |format|
             format.html # new.html.erb
@@ -38,6 +47,7 @@ class TireTdReadingsController < ApplicationController
     # GET /tire_td_readings/1/edit
     def edit
         @tire_td_reading = TireTdReading.find(params[:id])
+        prepFormVariables
     end
 
     # POST /tire_td_readings
@@ -51,6 +61,7 @@ class TireTdReadingsController < ApplicationController
                               notice: 'TireTdReading was successfully created.' }
                 format.json { render json: @tire_td_reading, status: :created, location: @tire_td_reading }
             else
+                prepFormVariables
                 format.html { render action: "new" }
                 format.json { render json: @tire_td_reading.errors, status: :unprocessable_entity }
             end
@@ -68,6 +79,7 @@ class TireTdReadingsController < ApplicationController
                               notice: 'TireTdReading was successfully updated.' }
                 format.json { head :no_content }
             else
+                prepFormVariables
                 format.html { render action: "edit" }
                 format.json { render json: @tire_td_reading.errors, status: :unprocessable_entity }
             end

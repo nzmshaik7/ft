@@ -13,15 +13,24 @@
 
   <div class="field">
     <%= f.label :vehicle_id %><br />
-    <%= f.number_field :vehicle_id %>
+    <%= select("ts_band_recall", "vehicle_id", @vehicleCollect,
+                                                {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <% if @ts_band_recall.date_completed %>
+      <% dc_checked = 'checked="checked"' %>
+    <% else %>
+      <% dc_checked = '' %>
+    <% end %>
     <%= f.label :date_completed %><br />
-    <%= f.date_select :date_completed %>
+    Check if completed: 
+    <input id="tsb_recall_completed" name="tsb_recall_completed" 
+           <%= dc_checked %> type="checkbox" value="1" /> 
+    <%= f.date_select :date_completed %> (if completed)
   </div>
   <div class="actions">
     <%= f.submit %>

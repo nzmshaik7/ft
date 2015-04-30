@@ -25,19 +25,23 @@
   </div>
   <div class="field">
     <%= f.label :store_id %><br />
-    <%= f.number_field :store_id %>
+    <%= select("service_visit", "store_id", @storeCollect,
+                                                  {prompt: 'Select Store'}) %>
   </div>
   <div class="field">
     <%= f.label :vehicle_id %><br />
-    <%= f.number_field :vehicle_id %>
+    <%= select("service_visit", "vehicle_id", @vehicleCollect,
+                                                {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
     <%= f.label :invoice_id %><br />
-    <%= f.number_field :invoice_id %>
+    <%= select("service_visit", "invoice_id", @invoiceCollect,
+                                                {prompt: 'Select Invoice'}) %>
   </div>
   <div class="field">
     <%= f.label :salesperson_id, 'Salesperson' %><br />
-    <%= f.number_field :salesperson_id %>
+    <%= select("service_visit", "salesperson_id", @salespersonCollect,
+					    {prompt: 'Select Salesperson'}) %>
   </div>
   <div class="field">
     <%= f.label :comments %><br />
