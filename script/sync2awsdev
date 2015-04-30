@@ -13,4 +13,17 @@ fi
 rsync -az . rails@$IP:/home/rails/ft
 ssh rails@$IP ft/script/awsdevpatch
 
-echo "Don't forget rake db:migrate"
+dol='$'
+cat << EOF1
+
+To copy database:
+Make sure db/dumpsome.sh has all the tables you want.
+read pw
+export pw
+./dumpsome.sh > dumpAprXX.sql
+scp dumpApr18.sql rails@membershipauto.com:ft/db
+On aws:  mysql -u dlaw -p${dol}pw ft_development < db/dumpAprXX.sql
+
+Don't forget rake db:migrate
+
+EOF1
