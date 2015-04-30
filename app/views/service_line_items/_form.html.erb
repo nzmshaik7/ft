@@ -44,19 +44,17 @@
   </div>
   <div class="field">
     <%= f.label :technician1_id %><br />
-    <%= select("service_line_item", "technician1_id", 
-                    @technicianCollect, {prompt: 'Select Technician'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :technician2_id %> (if any)<br />
-    <%= select("service_line_item", "technician2_id", 
-                    @technicianCollect, {prompt: 'Select Technician'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :technician3_id %> (if any)<br />
-    <%= select("service_line_item", "technician3_id", 
-                    @technicianCollect, {prompt: 'Select Technician'}) %>
-  </div>
+    <select id="technician1" name="technician1">
+      <%= options_for_select(@technicianOptions, @selTech1) %>
+    </select> <br />
+    <%= f.label :technician2_id %><br />
+    <select id="technician2" name="technician2">
+      <%= options_for_select(@technicianOptions, @selTech2) %>
+    </select> <br />
+    <%= f.label :technician3_id %><br />
+    <select id="technician3" name="technician3">
+      <%= options_for_select(@technicianOptions, @selTech3) %>
+    </select> <br />
   <div class="field">
     <%= f.label :is_scheduled %><br />
     <%= f.check_box :is_scheduled %>

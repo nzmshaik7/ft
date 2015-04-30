@@ -28,13 +28,19 @@
                                   precision: 2) %></td>
     <td><%= number_to_currency(service_line_item.labor_rate_actual) %></td>
     <td>
-      <%= service_line_item.technician1.employee.nameText %>
+      <% if service_line_item.technician1 %>
+        <%= service_line_item.technician1.employee.nameText %>
+      <% end %>
     </td>
     <td>
-      <%= service_line_item.technician2.employee.nameText %>
+      <% if service_line_item.technician2 %>
+        <%= service_line_item.technician2.employee.nameText %>
+      <% end %>
     </td>
     <td>
-      <%= service_line_item.technician3.employee.nameText %>
+      <% if service_line_item.technician3 %>
+        <%= service_line_item.technician3.employee.nameText %>
+      <% end %>
     </td>
     <td><%= boolText(service_line_item.is_scheduled) %></td>
     <td><%= link_to 'Show', service_line_item %></td>

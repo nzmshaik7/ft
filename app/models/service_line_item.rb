@@ -6,9 +6,9 @@ class ServiceLineItem < ActiveRecord::Base
                     :technician3_id
     belongs_to :service_visit
     belongs_to :service_description
-    belongs_to :technician1_id, class_name: :Technician
-    belongs_to :technician2_id, class_name: :Technician
-    belongs_to :technician3_id, class_name: :Technician
+    belongs_to :technician1, class_name: :Technician
+    belongs_to :technician2, class_name: :Technician
+    belongs_to :technician3, class_name: :Technician
     has_many :service_parts
     
     def descText

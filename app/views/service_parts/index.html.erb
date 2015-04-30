@@ -21,7 +21,7 @@ These are the parts used for Service Line Items.
       ID <%= service_part.service_line_item_id %>:
       <%= service_part.service_line_item.descText %>
     </td>
-    <td><%= service_part.part.name %></td>
+    <td><%= service_part.part.part_name.name %></td>
     <td><%= number_to_currency(service_part.part_retail_price) %></td>
     <td><%= number_to_currency(service_part.part_actual_price) %></td>
     <td><%= link_to 'Show', service_part %></td>

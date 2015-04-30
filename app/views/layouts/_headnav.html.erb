@@ -39,6 +39,10 @@
         &nbsp; <B>|</B> &nbsp;
 	<a href="/mockup/internal_veh">Analytics (Mockup)</a>
       <% end %>
+      <% if cu.role == User::ROLE_ADMIN %>
+        &nbsp; <B>|</B> &nbsp;
+	<a href="/top/analytics">Analytics (Prototype)</a>
+      <% end %>
 
     <% end %>
     &nbsp; <B>|</B> &nbsp; <a href="/logout">Sign Out</a>

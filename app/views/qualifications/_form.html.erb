@@ -12,11 +12,13 @@
   <% end %>
 
   <div class="field">
-    Qualification ID: 
-    <%= @qualification.id %> (Enter this on vehicle page)
+    <% if @qualification.id %>
+      Qualification ID: 
+      <%= @qualification.id %> (Enter this on vehicle page)
+    <% end %>
   </div>
   <div class="field">
-    <%= f.label :qdate %><br />
+    <%= f.label :qdate, 'Qualification Date' %><br />
     <%= f.datetime_select :qdate %>
   </div>
   <div class="field">
@@ -47,6 +49,24 @@
     <%= f.label :service_visit_id %><br />
     <%= select("qualification", "service_visit_id", 
                     @serviceVisitCollect, {prompt: 'Select Service Visit'}) %>
+  </div>
+  <div class="field">
+    Cylinder Compressions
+    <table border="1">
+      <tr bgcolor="#F0FFF0">
+        <th>Cyl</th>
+        <th>PSI</th>
+      </tr>
+      <% for cc in 1..@last_compression %>
+        <tr>
+          <td><%= cc %></td>
+          <td>
+            <input id="qual_cyl_<%= cc %>" name="qual_cyl_<%= cc %>" 
+                   type="number" value="<%= @compressions[cc] %>" />
+          </td>
+        </tr>
+      <% end %>
+    </table>
   </div>
   <div class="actions">
     <%= f.submit %>

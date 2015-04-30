@@ -2,7 +2,7 @@ class ServiceLineItemsController < ApplicationController
 
     before_filter :only_allow_admins
 
-    def prepFormVariables
+    def prepFormVariables(sli)
         @serviceVisits = ServiceVisit.all
         @serviceVisitCollect = @serviceVisits.collect { |p|
             [ p.visitText, p.id ] 
@@ -15,6 +15,24 @@ class ServiceLineItemsController < ApplicationController
         @serviceDescriptionCollect = @serviceDescriptions.collect { |p|
             [ p.name, p.id ] 
         }
+
+        # Had to do this to fix Technician/string error.
+        @selTech1 = 0
+        @selTech2 = 0
+        @selTech3 = 0
+        if sli
+            @selTech1 = sli.technician1_id  if sli.technician1_id
+            @selTech2 = sli.technician2_id  if sli.technician2_id
+            @selTech3 = sli.technician3_id  if sli.technician3_id
+        end
+        @technicianOptions = [
+            [ "Select",   0  ],
+        ]
+        for tc in @technicians
+            @technicianOptions.push([ tc.employee.nameText, tc.id ])
+        end
+
+        @technicianOptions.push([ "Unknown",  0 ])
     end
 
     # GET /service_line_items
@@ -32,7 +50,7 @@ class ServiceLineItemsController < ApplicationController
     # GET /service_line_items/1.json
     def show
         @service_line_item = ServiceLineItem.find(params[:id])
-        prepFormVariables
+        prepFormVariables(@service_line_item)
 
         respond_to do |format|
             format.html # show.html.erb
@@ -44,7 +62,7 @@ class ServiceLineItemsController < ApplicationController
     # GET /service_line_items/new.json
     def new
         @service_line_item = ServiceLineItem.new
-        prepFormVariables
+        prepFormVariables(@service_line_item)
 
         respond_to do |format|
             format.html # new.html.erb
@@ -55,13 +73,31 @@ class ServiceLineItemsController < ApplicationController
     # GET /service_line_items/1/edit
     def edit
         @service_line_item = ServiceLineItem.find(params[:id])
-        prepFormVariables
+        prepFormVariables(@service_line_item)
     end
+
+
+    # Manually put in the techician IDs from the form. (update_attributes
+    # stumbles.)
+    #
+    def setTechnicians(sli)
+        if params[:technician1]
+            sli.technician1_id = params[:technician1].to_i
+        end
+        if params[:technician2]
+            sli.technician2_id = params[:technician2].to_i
+        end
+        if params[:technician3]
+            sli.technician3_id = params[:technician3].to_i
+        end
+    end
+
 
     # POST /service_line_items
     # POST /service_line_items.json
     def create
         @service_line_item = ServiceLineItem.new(params[:service_line_item])
+        setTechnicians(@service_line_item)
 
         respond_to do |format|
             if @service_line_item.save
@@ -69,7 +105,7 @@ class ServiceLineItemsController < ApplicationController
                               notice: 'ServiceLineItem was successfully created.' }
                 format.json { render json: @service_line_item, status: :created, location: @service_line_item }
             else
-                prepFormVariables
+                prepFormVariables(@service_line_item)
                 format.html { render action: "new" }
                 format.json { render json: @service_line_item.errors, status: :unprocessable_entity }
             end
@@ -80,6 +116,7 @@ class ServiceLineItemsController < ApplicationController
     # PUT /service_line_items/1.json
     def update
         @service_line_item = ServiceLineItem.find(params[:id])
+        setTechnicians(@service_line_item)
 
         respond_to do |format|
             if @service_line_item.update_attributes(params[:service_line_item])
@@ -87,7 +124,7 @@ class ServiceLineItemsController < ApplicationController
                               notice: 'ServiceLineItem was successfully updated.' }
                 format.json { head :no_content }
             else
-                prepFormVariables
+                prepFormVariables(@service_line_item)
                 format.html { render action: "edit" }
                 format.json { render json: @service_line_item.errors, status: :unprocessable_entity }
             end

@@ -2,11 +2,29 @@ class QualificationsController < ApplicationController
 
     before_filter :only_allow_admins
 
-    def prepFormVariables
+    def prepFormVariables(qual)
         @serviceVisits = ServiceVisit.all
         @serviceVisitCollect = @serviceVisits.collect { |p|
             [ p.visitText, p.id ] 
         }
+        @compressions = Array.new
+        @last_compression = 10
+        for c in 1..@last_compression
+            @compressions[c] = nil
+        end
+        if qual
+            for x in 1..12
+                for cc in qual.cylinder_compressions
+                    if cc.cyl_num == x
+                        @compressions[x] = cc.psi
+                        if @last_compression < x
+                            @last_compression = x
+                        end
+                        break
+                    end
+                end
+            end
+        end
     end
 
     # GET /qualifications
@@ -24,7 +42,7 @@ class QualificationsController < ApplicationController
     # GET /qualifications/1.json
     def show
         @qualification = Qualification.find(params[:id])
-        prepFormVariables
+        prepFormVariables(@qualification)
 
         respond_to do |format|
             format.html # show.html.erb
@@ -36,7 +54,7 @@ class QualificationsController < ApplicationController
     # GET /qualifications/new.json
     def new
         @qualification = Qualification.new
-        prepFormVariables
+        prepFormVariables(@qualification)
 
         respond_to do |format|
             format.html # new.html.erb
@@ -47,21 +65,59 @@ class QualificationsController < ApplicationController
     # GET /qualifications/1/edit
     def edit
         @qualification = Qualification.find(params[:id])
-        prepFormVariables
+        prepFormVariables(@qualification)
+    end
+
+    # Run through what we have and what is on the form.  Resolve
+    # any discrepancies.
+    #
+    def saveCompressions(qual)
+        for cn in 1..12
+            keyid = "qual_cyl_#{ cn }"
+            if params.has_key?(keyid)
+                if params[keyid].to_i > 0
+                    # At this point we have a valid PSI for a cyl from
+                    # the form.  See if we can find it in the DB.
+                    found = false
+                    for cc in qual.cylinder_compressions
+                        if cc.cyl_num == cn
+                            found = true
+                            if cc.psi != params[keyid].to_i
+                                cc.psi = params[keyid].to_i
+                                cc.save
+                            end
+                        end
+                    end
+                    if not found
+                        newcc = CylinderCompression.new
+                        newcc.qualification_id = qual.id
+                        newcc.cyl_num = cn
+                        newcc.psi = params[keyid].to_i
+                        newcc.save
+                    end
+                end
+            end
+        end
     end
 
     # POST /qualifications
     # POST /qualifications.json
     def create
         @qualification = Qualification.new(params[:qualification])
+        if @qualification.save
+            saveCompressions(@qualification)
+            ok = true
+        else
+            ok = false
+        end
 
         respond_to do |format|
-            if @qualification.save
+            if ok
                 format.html { redirect_to qualifications_url,
                               notice: 'Qualification was successfully created.' }
                 format.json { render json: @qualification, status: :created, location: @qualification }
             else
-                prepFormVariables
+                prepFormVariables(@qualification)
                 format.html { render action: "new" }
                 format.json { render json: @qualification.errors, status: :unprocessable_entity }
             end
@@ -72,6 +128,7 @@ class QualificationsController < ApplicationController
     # PUT /qualifications/1.json
     def update
         @qualification = Qualification.find(params[:id])
+        saveCompressions(@qualification)
 
         respond_to do |format|
             if @qualification.update_attributes(params[:qualification])
@@ -79,7 +136,7 @@ class QualificationsController < ApplicationController
                               notice: 'Qualification was successfully updated.' }
                 format.json { head :no_content }
             else
-                prepFormVariables
+                prepFormVariables(@qualification)
                 format.html { render action: "edit" }
                 format.json { render json: @qualification.errors, status: :unprocessable_entity }
             end
@@ -90,6 +147,9 @@ class QualificationsController < ApplicationController
     # DELETE /qualifications/1.json
     def destroy
         @qualification = Qualification.find(params[:id])
+        for cc in @qualification.cylinder_compressions
+            cc.destroy
+        end
         @qualification.destroy
 
         respond_to do |format|

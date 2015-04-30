@@ -9,6 +9,6 @@ class ServiceVisit < ActiveRecord::Base
     has_many :service_journals
 
     def visitText
-        return sdate.strftime("%b %d, %Y/") + mileage + " mi"
+        return sdate.strftime("%b %d, %Y/") + mileage.to_s + " mi"
     end
 end
