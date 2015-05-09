@@ -24,6 +24,11 @@ class WrittenTestimoniesController < ApplicationController
         end
     end
 
+    # Comes from analytics page
+    def showana
+        @written_testimony = WrittenTestimony.find(params[:id])
+    end
+
     # GET /written_testimonies/new
     # GET /written_testimonies/new.json
     def new

@@ -20,3 +20,7 @@ rails generate migration \
 
 rails generate scaffold ManufacturerWarrantyType name:string \
                                                    --no-assets --no-helper
+
+rails generate migration delete_is_scheduled_from_ServiceLineItem \
+                         is_scheduled:boolean
+rails generate migration add_stype_to_ServiceLineItem stype:integer

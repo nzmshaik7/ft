@@ -140,7 +140,7 @@
   </div>
   <div class="field">
     <%= f.label :date_of_birth %>:
-    <%= f.date_select :date_of_birth %>
+    <%= f.date_select :date_of_birth, :start_year => 1910, :end_year => 2005 %>
   </div>
   <div class="field">
     <%= f.label :gender %>:

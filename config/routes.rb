@@ -5,6 +5,7 @@ Ft::Application.routes.draw do
   resources :payment_types
 
   get "top/db"
+  get "top/analytics"
 
   resources :insurance_companies
 
@@ -100,10 +101,13 @@ Ft::Application.routes.draw do
 
   resources :automatic_data_link_infos
 
+  get "vehicles/search_int1"
+  post "vehicles/match"
   resources :vehicles
 
   resources :images
 
+  get "written_testimonies/showana/:id" => 'written_testimonies#showana'
   resources :written_testimonies
 
   resources :upgrade_types
@@ -155,6 +159,7 @@ Ft::Application.routes.draw do
   get "mockup/writtenTestm"
   get "mockup/bgPaper"
 
+  get "analytics/int1/:id" => 'analytics#int1'
 
   get "static/home"
   get "static/signed_up"

@@ -1,0 +1,72 @@
+<form accept-charset="UTF-8" action="/vehicles/match" 
+      class="search_vehicles" id="search_vehicles" method="post">
+
+  <input name="authenticity_token" type="hidden" 
+                                    value="<%= form_authenticity_token %>" />
+  <input name="target_cm" type="hidden" value="<%= target_cm %>" />
+
+  <table border="0">
+    <tr>
+      <td>Year</td>
+      <td>
+        <select id="vehicle_year" 
+                name="vehicle[year]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@yearsCollect) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Make</td>
+      <td>
+        <select id="vehicle_make" 
+                name="vehicle[make]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@makeCollect) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Model</td>
+      <td>
+        <select id="vehicle_model" 
+                name="vehicle[model]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@modelCollect) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>License plate</td>
+      <td>
+        <input id="vehicle_license_plate" name="vehicle[license_plate]" />
+      </td>
+    </tr>
+    <tr>
+      <td>License plate state</td>
+      <td>
+        <select id="vehicle_license_plate_state" 
+                name="vehicle[license_plate_state]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@stateCollect) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Minimum Mileage</td>
+      <td>
+        <input id="vehicle_minimum_mileage" name="vehicle[minimum_mileage]" />
+      </td>
+    </tr>
+    <tr>
+      <td>Maximum Mileage</td>
+      <td>
+        <input id="vehicle_maximum_mileage" name="vehicle[maximum_mileage]" />
+      </td>
+    </tr>
+  </table>
+
+  <div class="actions">
+    <input name="go" type="submit" value="Search" />
+  </div>
+</form>

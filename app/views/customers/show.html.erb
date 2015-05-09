@@ -83,18 +83,10 @@
 
 <p>
   <b>Referred by:</b>
-  <% if @customer.referredBy_id %>
-    <%= @customer.referredBy.description %>
-  <% else %>
-    <i>None</i>
-  <% end %>
-  <% if @customer.referredBy_other_text %>
-    <br>
-    <%= @customer.referredBy_other_text %>
-  <% end %>
+  <%= referredBy(@customer) %>
 </p>
 
-<% if @customer.referredBy_customer_id %>
+<% if @customer.referredBy_customer_id and not @customer.referredBy.isNone %>
   <p>
     <b>Referred by customer:</b>
     <%= customerName2(@customer.referredBy_customer) %>

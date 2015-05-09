@@ -1,0 +1,75 @@
+<h2>Matching vehicles</h2>
+
+<% if @vehicles.length == 0 %>
+  <P><i>No matching vehicles found.</i></P>
+<% end %>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Vin</th>
+    <th>License plate</th>
+    <th>Plate state</th>
+    <th>Customer</th>
+    <th>Make</th>
+    <th>Model</th>
+    <th>Submodel</th>
+    <th>Manuf. Date</th>
+    <th>Color</th>
+    <th>Doors</th>
+    <th>Mileage</th>
+    <th>Contract</th>
+    <th><i>View</i></th>
+  </tr>
+
+<% @vehicles.each do |vehicle| %>
+  <tr>
+    <td>
+      <% if @target_cm %>
+        <a href="/<%= @target_cm %>/<%= vehicle.id %>"> <%= vehicle.vin %> </a>
+      <% else %>
+        <%= vehicle.vin %>
+      <% end %>
+    </td>
+    <td><%= vehicle.license_plate %></td>
+    <td>
+      <% if vehicle.license_plate_state %>
+        <%= vehicle.license_plate_state.name %>
+      <% else %>
+        <i>Unknown<i>
+      <% end %>
+    </td>
+    <td>
+      <a href="/customers/<%= vehicle.customer.id %>/edit">
+        <%= vehicle.customer.first_name %> <%= vehicle.customer.last_name %>
+      </a>
+    </td>
+    <td><%= vehicle.make.name %></td>
+    <td><%= vehicle.model.name %></td>
+    <td>
+      <% if vehicle.submodel %>
+        <%= vehicle.submodel.name %>
+      <% else %>
+        <i>N/A</i>
+      <% end %>
+    </td>
+    <td><%= vehicle.date_of_manufacture.strftime("%b %d, %Y") %></td>
+    <td><%= vehicle.color.name %></td>
+    <td><%= vehicle.doors %></td>
+    <td><%= vehicle.mileage %></td>
+    <td>
+      <a href="/contracts/<%= vehicle.contract_id %>/edit">
+        <%= vehicle.contract_id %>
+      </a>
+    </td>
+    <td>
+      <% if @target_cm %>
+        <a href="/<%= @target_cm %>/<%= vehicle.id %>">View</a>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<a href="/vehicles/search_int1">New Search</a>

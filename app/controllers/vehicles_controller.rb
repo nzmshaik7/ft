@@ -54,6 +54,16 @@ class VehiclesController < ApplicationController
         }
     end
 
+    
+    def prepSearchVariables
+        @yearsCollect = Array.new
+        thisYear = Time.now.year
+        for yr in thisYear - 15 .. thisYear + 1
+            @yearsCollect.push([ yr, yr ])
+        end
+    end
+
+
     # GET /vehicles
     # GET /vehicles.json
     def index
@@ -159,4 +169,84 @@ class VehiclesController < ApplicationController
             format.json { head :no_content }
         end
     end
+
+
+    def search_int1
+        prepFormVariables
+        prepSearchVariables
+    end
+
+
+    # Get search criteria from form and find all matching vehicles.
+    # View will render a list of hyperlinks that will point to the
+    # given controller and method page for that vehicle.
+    #
+    def match
+        @target_cm = params[:target_cm]
+        if @target_cm and @target_cm[0] == '/'  # Whack leading slash
+            @target_cm = @target_cm[1..-1] 
+        end
+
+        whereHash = Hash.new
+        whereClause = ''
+        andop = ''
+        veh = params[:vehicle]
+
+        if veh[:year]
+            yr = veh[:year].to_i
+            if yr > 1990 and yr < 2215
+                whereHash[:start_date] = "#{yr}-01-01 00:00:01"
+                whereHash[:end_date] =   "#{yr}-12-31 23:59:59"
+                whereClause += andop + 
+                                   " date_of_manufacture >= :start_date AND "
+                whereClause += "date_of_manufacture <= :end_date"
+                andop = ' AND'
+            end
+        end
+
+        if veh[:make] and veh[:make].to_i > 0
+            whereHash[:make_id] = veh[:make]
+            whereClause += andop + " make_id = :make_id"
+            andop = ' AND'
+        end
+
+        if veh[:model] and veh[:model].to_i > 0
+            whereHash[:model_id] = veh[:model]
+            whereClause += andop + " model_id = :model_id"
+            andop = ' AND'
+        end
+
+        if veh[:license_plate] and veh[:license_plate].length > 0
+            whereHash[:license_plate] = "%#{ veh[:license_plate] }%"
+            whereClause += andop + " license_plate like :license_plate"
+            andop = ' AND'
+        end
+
+        if veh[:license_plate_state] and veh[:license_plate_state].to_i > 0
+            whereHash[:plate_id] = veh[:license_plate_state]
+            whereClause += andop + " license_plate_state_id = :plate_id"
+            andop = ' AND'
+        end
+
+        if veh[:minimum_mileage] and veh[:minimum_mileage].length > 0
+            whereHash[:minmile] = veh[:minimum_mileage]
+            whereClause += andop + " mileage >= :minmile"
+            andop = ' AND'
+        end
+        if veh[:maximum_mileage] and veh[:maximum_mileage].length > 0
+            whereHash[:maxmile] = veh[:maximum_mileage]
+            whereClause += andop + " mileage <= :maxmile"
+            andop = ' AND'
+        end
+
+        logger.info("==== whereHash: #{whereHash.inspect}")
+        logger.info("==== whereClause: #{whereClause}")
+
+        if whereClause == ''
+            @vehicles = Vehicle.all
+        else
+            @vehicles = Vehicle.where(whereClause, whereHash)
+        end
+    end
+
 end
