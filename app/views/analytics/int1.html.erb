@@ -295,7 +295,17 @@
   </div>
   <div class="carbox">
     <div class="boxhdr">
-      <B>Vehicle - <font color="#008000">Profitable by 50.2%</font></B>
+      <B>Vehicle - 
+      <% if @profitPercent >= 0.0 %>
+        <font color="#008000">
+          Profitable by <%= sprintf("%.1f", @profitPercent) %>%
+        </font>
+      <% else %>
+        <font color="#800000">
+          Loss by <%= sprintf("%.1f", -@profitPercent) %>%
+        </font>
+      <% end %>
+      </B>
     </div>
     <div class="carbox2">
       <table border="1">
@@ -464,29 +474,29 @@
 	</tr>
 	<tr>
 	  <td>1</td>
-	  <td><font color="#a00000">125</font></td>
-	  <td align="right"><font color="#a00000">13.8%</font></td>
+	  <td><font color="#800000">125</font></td>
+	  <td align="right"><font color="#800000">13.8%</font></td>
 	</tr>
 	<tr>
 	  <td>2</td><td>135</td>
-	  <td align="right"><font color="#00a000">6.9%</font></td>
+	  <td align="right"><font color="#008000">6.9%</font></td>
 	</tr>
 	<tr>
 	  <td>3</td><td>130</td>
-	  <td align="right"><font color="#a00000">10.3%</font></td>
+	  <td align="right"><font color="#800000">10.3%</font></td>
 	</tr>
 	<tr>
 	  <td>4</font></td>
-	  <td><font color="#00a000">145</font></td>
-	  <td align="right"><font color="#00a000">0.0%</font></td>
+	  <td><font color="#008000">145</font></td>
+	  <td align="right"><font color="#008000">0.0%</font></td>
 	</tr>
 	<tr>
 	  <td>5</td><td>142</td>
-	  <td align="right"><font color="#00a000">2.1%</font></td>
+	  <td align="right"><font color="#008000">2.1%</font></td>
 	</tr>
 	<tr>
 	  <td>6</td><td>139</td>
-	  <td align="right"><font color="#00a000">4.1%</font></td>
+	  <td align="right"><font color="#008000">4.1%</font></td>
 	</tr>
 	<tr bgcolor="#e0e0e0">
 	  <th colspan="3"><font color="#006040">
@@ -1040,55 +1050,78 @@
       <table border="1">
 	<tr>
 	  <td>Qualification Sale</td>
-	  <td><font color="#00a000">$1000.00</font></td>
+	  <td align="right"><font color="#008000">
+            <%= number_to_currency(@qualRetail) %>
+          </font></td>
 	</tr>
 	<tr>
 	  <td>Qualification Labor Cost</td>
-	  <td><font color="#a00000">$250.00</td>
+	  <td align="right"><font color="#800000">
+            <%= number_to_currency(@qualLaborActual) %>
+          </font></td>
 	</tr>
 	<tr>
 	  <td>Qualification Parts Cost</td>
-	  <td><font color="#a00000">$150.00</td>
+	  <td align="right"><font color="#800000">
+            <%= number_to_currency(@qualPartsActual) %>
+          </font></td>
 	</tr>
 	<tr>
 	  <td>Gross Profit on Qual</td>
-	  <td>&nbsp;$600.00</td>
+	  <td align="right">
+            <% gpoq = @qualRetail - (@qualLaborActual + @qualPartsActual) %>
+            <%= number_to_currency(gpoq) %>
+          </td>
 	</tr>
 	<tr>
 	  <td colspan="2">&nbsp;</td>
 	</tr>
 	<tr>
 	  <td>Membership Income</td>
-	  <td><font color="#00a000">$449.91</td>
+	  <td align="right"><font color="#008000">
+            <%= number_to_currency(@membIncome) %>
+          </font></td>
 	</tr>
 	<tr>
 	  <td>Membership Labor Cost</td>
-	  <td><font color="#a00000">$151.50</td>
+	  <td align="right"><font color="#800000">
+            <%= number_to_currency(@membLaborActual) %>
+          </font></td>
 	</tr>
 	<tr>
 	  <td>Membership Parts Cost</td>
-	  <td><font color="#a00000">$132.72</td>
+	  <td align="right"><font color="#800000">
+            <%= number_to_currency(@membPartsActual) %>
+          </font></td>
 	</tr>
 	<tr>
 	  <td>Membership Total Expense</td>
-	  <td><font color="#a00000">$284.22</td>
+	  <td align="right"><font color="#800000">
+            <%= number_to_currency(@membLaborActual + @membPartsActual) %>
+          </font></td>
 	</tr>
 	<tr>
 	  <td colspan="2">&nbsp;</td>
 	</tr>
 	<tr>
 	  <td>Vehicle Gross Income</td>
-	  <td>&nbsp;$1449.91</td>
+	  <td align="right">
+            <%= number_to_currency(@totalIncome) %>
+          </td>
 	</tr>
 	<tr>
 	  <td><font color="#008000"><B>NET PROFIT</B></font></td>
-	  <td><font color="#008000"><B>&nbsp;$765.69</B></font></td>
+	  <td align="right"><font color="#008000"><B>
+            <%= number_to_currency(@profit) %>
+          </B></font></td>
 	</tr>
       </table>
       <B>Total Vehicle Profitability</B><br>
+      <B><I><font color="#800080">Pie chart TBS</font></I></B>
       <img src="images/piePl.png"><br>
       &nbsp;<br>
       <B>Vehicle Profitability Trend</B><br>
+      <B><I><font color="#800080">Trend chart TBS</font></I></B>
       <img src="images/profitability.png"><br>
       </center>
     </div>

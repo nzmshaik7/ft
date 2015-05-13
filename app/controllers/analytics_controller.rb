@@ -99,7 +99,59 @@ class AnalyticsController < ApplicationController
         @membIncome = 0.0
         @membLaborActual = 0.0
         @membPartsActual = 0.0
+        @otherIncome = 0.0
+        @otherLaborActual = 0.0
+        @otherPartsActual = 0.0
         for svisit in veh.service_visits
+            for sli in svisit.service_line_items
+                if sli.stype == ServiceLineItem::S_QUALIFICATION
+                    @qualRetail += 
+                                 sli.labor_hours_retail * sli.labor_rate_retail
+                    @qualLaborActual += 
+                                 sli.labor_hours_actual * sli.labor_rate_actual
+                    for sp in sli.service_parts
+                        @qualPartsActual += sp.part_actual_price
+                        @qualRetail += sp.part_retail_price
+                    end
+                elsif sli.stype == ServiceLineItem::S_MEMB_SERVICE
+                    @membLaborActual += 
+                                 sli.labor_hours_actual * sli.labor_rate_actual
+                    for sp in sli.service_parts
+                        @membPartsActual += sp.part_actual_price
+                    end
+                elsif sli.stype == ServiceLineItem::S_MEMB_REPAIR
+                    @membLaborActual += 
+                                 sli.labor_hours_actual * sli.labor_rate_actual
+                    for sp in sli.service_parts
+                        @membPartsActual += sp.part_actual_price
+                    end
+                else
+                    @otherIncome += 
+                                 sli.labor_hours_retail * sli.labor_rate_retail
+                    @otherLaborActual += 
+                                 sli.labor_hours_actual * sli.labor_rate_actual
+                    for sp in sli.service_parts
+                        @otherPartsActual += sp.part_actual_price
+                        @otherIncome += sp.part_retail_price
+                    end
+                end
+            end
+        end
+
+        for payment in Payment.where("contract_id = ?", veh.contract_id)
+            if payment.status == Payment::STATUS_APPOVED
+                @membIncome += payment.amount
+            end
+        end
+
+        @totalIncome = @qualRetail + @membIncome
+        @totalCost = @qualLaborActual + @qualPartsActual +
+                     @membLaborActual + @membPartsActual
+        @profit = @totalIncome - @totalCost
+        if @totalIncome == 0.0
+            @profitPercent = 0.0
+        else
+            @profitPercent = @profit * 100.0 / @totalIncome
         end
     end
 

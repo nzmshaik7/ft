@@ -56,7 +56,9 @@
       <%= options_for_select(@technicianOptions, @selTech3) %>
     </select> <br />
   <div class="field">
-    <%= f.label :stype, 'Service Type' %><br />
+    <%= f.label :stype, 'Service Type' %>
+    <font color="#800000">* Important - controls profit/loss</font>
+    <br />
     <select id="service_line_item_stype" name="service_line_item[stype]">
       <%= options_for_select(@stypeOptions, @selStype) %>
     </select> <br />

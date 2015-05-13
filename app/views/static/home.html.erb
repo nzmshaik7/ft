@@ -17,6 +17,7 @@
   <% if cu.role == User::ROLE_ADMIN %>
     <a href="/users">Manage Users</a><br>
     <a href="/top/db">Manage Database</a><br>
+    <a href="/top/creds">Credentials</a><br>
   <% end %>
   <% if cu.role == User::ROLE_ADMIN or cu.role == User::ROLE_MOCKER %>
     <a href="/mockup/internal_veh">View Mockup</a><br>
