@@ -90,7 +90,7 @@ RAILS ${gen[*]}
 gen=( generate scaffold Contract
     begin_date:datetime
     number:string             # Contract number on contract
-    status:integer            # (Current, Lapsed, Cancelled)
+    status:integer            # (Current, Lapsed=past 300K mi, Cancelled)
     image_id:integer
     salesperson_id:integer
     level:integer             # Level of car (Level 1, Level 2, etc.)
