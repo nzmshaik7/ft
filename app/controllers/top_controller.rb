@@ -8,4 +8,7 @@ class TopController < ApplicationController
     def analytics
         return  unless roleValid?([User::ROLE_ADMIN], 'analytics')
     end
+    def creds
+        return  unless roleValid?([User::ROLE_ADMIN], 'credentials')
+    end
 end

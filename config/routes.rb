@@ -6,6 +6,7 @@ Ft::Application.routes.draw do
 
   get "top/db"
   get "top/analytics"
+  get "top/creds"
 
   resources :insurance_companies
 
