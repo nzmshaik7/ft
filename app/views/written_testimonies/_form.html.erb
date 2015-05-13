@@ -11,11 +11,13 @@
     </div>
   <% end %>
 
+  <% if @written_testimony.id %>
+    <div class="field">
+      ID: <%= @written_testimony.id %>
+    </div>
+  <% end %>
   <div class="field">
-    ID: <%= @written_testimony.id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_text %><br />
+    <%= f.label :user_text %><font color="#800000">*</font><br />
     <%= f.text_area :user_text %>
   </div>
   <div class="actions">

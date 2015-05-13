@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :vehicle_id, 'Vehicle' %><br />
+    <%= f.label :vehicle_id, 'Vehicle' %><font color="#800000">*</font><br />
     <%= select("code_history", "vehicle_id", @vehicleCollect,
                                                 {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
-    <%= f.label :cdate %><br />
+    <%= f.label :cdate %><font color="#800000">*</font><br />
     <%= f.date_select :cdate %>
   </div>
   <div class="field">

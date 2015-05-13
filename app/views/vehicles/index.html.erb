@@ -56,7 +56,7 @@
       <% end %>
     </td>
     <td><%= vehicle.date_of_manufacture.strftime("%b %d, %Y") %></td>
-    <td><%= vehicle.country_of_manufacture.name %></td>
+    <td><%= countryOrUnk(vehicle) %></td>
     <td>$<%= number_with_precision(vehicle.msrp, precision: 0) %></td>
     <td>$<%= number_with_precision(vehicle.kbb_on_qual, precision: 0) %></td>
     <td>$<%= number_with_precision(vehicle.current_kbb, precision: 0) %></td>

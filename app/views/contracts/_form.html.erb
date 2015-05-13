@@ -12,15 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :begin_date %><br />
+    <%= f.label :begin_date %><font color="#800000">*</font><br />
     <%= f.date_select :begin_date %>
   </div>
   <div class="field">
-    <%= f.label :number %><br />
+    <%= f.label :number %><font color="#800000">*</font><br />
     <%= f.text_field :number %>
   </div>
   <div class="field">
-    <%= f.label :status %><br />
+    <%= f.label :status %><font color="#800000">*</font><br />
     <select id="contract_status" name="contract[status]">
       <%= options_for_select(@statusOptions, @selStatus) %>
     </select>
@@ -35,15 +35,16 @@
                                             {prompt: 'Select Salesperson'}) %>
   </div>
   <div class="field">
-    <%= f.label :level %><br />
+    <%= f.label :level %><font color="#800000">*</font><br />
     <%= f.number_field :level %>
   </div>
   <div class="field">
-    <%= f.label :base_cost %><br />
+    <%= f.label :base_cost %><font color="#800000">*</font><br />
     <%= f.text_field :base_cost %>
   </div>
   <div class="field">
-    <%= f.label :day_of_payment, 'Day of month when payment is made' %><br />
+    <%= f.label :day_of_payment, 'Day of month when payment is made' %>
+    <font color="#800000">*</font><br />
     <%= f.number_field :day_of_payment %>
   </div>
   <div class="field">

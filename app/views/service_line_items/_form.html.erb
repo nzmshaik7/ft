@@ -12,10 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :service_visit_id %><br />
+    <%= f.label :service_visit_id %><font color="#800000">*</font><br />
     <%= select("service_line_item", "service_visit_id", 
                     @serviceVisitCollect, {prompt: 'Select Service Visit'}) %>
   </div>
+  <blockquote>
+  One or both of the following are required:<font color="#800000">*</font>
   <div class="field">
     <%= f.label :service_description_id %><br />
     <%= select("service_line_item", "service_description_id", 
@@ -26,21 +28,22 @@
     <%= f.label :service_description_text %> (optional)<br />
     <%= f.text_field :service_description_text %>
   </div>
+  </blockquote>
   <div class="field">
-    <%= f.label :labor_hours_retail %><br />
-    <%= f.text_field :labor_hours_retail %>
+    <%= f.label :labor_hours_retail %><font color="#800000">*</font><br />
+    <%= f.number_field :labor_hours_retail %>
   </div>
   <div class="field">
-    <%= f.label :labor_rate_retail %><br />
-    <%= f.text_field :labor_rate_retail %>
+    <%= f.label :labor_rate_retail %><font color="#800000">*</font><br />
+    <%= f.number_field :labor_rate_retail %>
   </div>
   <div class="field">
-    <%= f.label :labor_hours_actual %><br />
-    <%= f.text_field :labor_hours_actual %>
+    <%= f.label :labor_hours_actual %><font color="#800000">*</font><br />
+    <%= f.number_field :labor_hours_actual %>
   </div>
   <div class="field">
-    <%= f.label :labor_rate_actual %><br />
-    <%= f.text_field :labor_rate_actual %>
+    <%= f.label :labor_rate_actual %><font color="#800000">*</font><br />
+    <%= f.number_field :labor_rate_actual %>
   </div>
   <div class="field">
     <%= f.label :technician1_id %><br />

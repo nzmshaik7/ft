@@ -15,7 +15,12 @@ ssh rails@$IP ft/script/awsdevpatch
 
 dol='$'
 cat << EOF1
+Edit script to see instructions to copy databse.
 
+Don't forget rake db:migrate
+
+EOF1
+true <<EOF2
 To copy database:
 Make sure db/dumpsome.sh has all the tables you want.
 read pw
@@ -24,6 +29,4 @@ export pw
 scp dumpApr18.sql rails@membershipauto.com:ft/db
 On aws:  mysql -u dlaw -p${dol}pw ft_development < db/dumpAprXX.sql
 
-Don't forget rake db:migrate
-
-EOF1
+EOF2

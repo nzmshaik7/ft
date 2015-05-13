@@ -12,17 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :contract_id %><br />
+    <%= f.label :contract_id %><font color="#800000">*</font><br />
     <%= select("upgrade", "contract_id", @contractCollect,
 					      {prompt: 'Select Contract'}) %>
   </div>
   <div class="field">
-    <%= f.label :upgrade_type_id %><br />
+    <%= f.label :upgrade_type_id %><font color="#800000">*</font><br />
     <%= select("upgrade", "upgrade_type_id", @upgradeTypeCollect,
 					  {prompt: 'Select Upgrade Type'}) %>
+    (from <a href="/upgrade_types">Upgrade types table</a>)
   </div>
   <div class="field">
-    <%= f.label :cost %><br />
+    <%= f.label :cost %><font color="#800000">*</font><br />
     $<%= f.text_field :cost %>
   </div>
   <div class="actions">

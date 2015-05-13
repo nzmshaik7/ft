@@ -4,7 +4,7 @@ class ScheduledService < ActiveRecord::Base
     has_many :scheduled_service_items
 
     def serviceText
-        return sdate.strftime("%b %d, %Y") + '/' + mileage + ' mi'
+        return sdate.strftime("%b %d, %Y") + '/' + mileage.to_s + ' mi'
     end
 
 end

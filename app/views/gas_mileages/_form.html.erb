@@ -12,15 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :vehicle_id %><br />
+    <%= f.label :vehicle_id %><font color="#800000">*</font><br />
     <%= f.number_field :vehicle_id %>
   </div>
   <div class="field">
-    <%= f.label :mileage %><br />
+    <%= f.label :mileage %><font color="#800000">*</font><br />
     <%= f.text_field :mileage %>
   </div>
   <div class="field">
-    <%= f.label :mdate, 'Measurement date' %><br />
+    <%= f.label :mdate, 'Measurement date' %><font color="#800000">*</font>
+    <br />
     <%= f.date_select :mdate %>
   </div>
   <div class="actions">

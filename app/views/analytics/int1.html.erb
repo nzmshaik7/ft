@@ -218,8 +218,14 @@
       </tr>
       <tr>
 	<td>DOB</td>
-	<td><%= vcust.date_of_birth.strftime("%b %d, %Y") %> <br />
-            (age <%= @custAge %>)</td>
+	<td>
+          <% if vcust.date_of_birth %>
+            <%= vcust.date_of_birth.strftime("%b %d, %Y") %> <br />
+              (age <%= @custAge %>)
+          <% else %>
+            <i>unknown</i>
+          <% end %>
+        </td>
       </tr>
       <tr>
 	<td>Gender</td>
@@ -374,7 +380,7 @@
 	</tr>
 	<tr>
 	  <td><B>Country of Manufacture</B></td>
-	  <td><%= @vehicle.country_of_manufacture.name %></td>
+	  <td><%= countryOrUnk(@vehicle) %></td>
 	</tr>
 	<tr>
 	  <td><B>MSRP</B></td>
@@ -1120,6 +1126,26 @@
             <%= number_to_currency(@membLaborActual + @membPartsActual) %>
           </font></td>
 	</tr>
+        <% if @notCoveredIncome != 0.0 %>
+          <tr>
+            <td>Membership Not Covered Income</td>
+            <td align="right"><font color="#008000">
+              <%= number_to_currency(@notCoveredIncome) %>
+            </font></td>
+          </tr>
+          <tr>
+            <td>Membership Not Covered Labor Cost</td>
+            <td align="right"><font color="#800000">
+              <%= number_to_currency(@notCoveredLaborActual) %>
+            </font></td>
+          </tr>
+          <tr>
+            <td>Membership Not Covered Parts Cost</td>
+            <td align="right"><font color="#800000">
+              <%= number_to_currency(@notCoveredPartsActual) %>
+            </font></td>
+          </tr>
+        <% end %>
 	<tr>
 	  <td colspan="2">&nbsp;</td>
 	</tr>

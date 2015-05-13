@@ -30,7 +30,13 @@
     <td><%= boolText(customer.is_aaa_member) %></td>
     <td><%= boolText(customer.is_web_registered) %></td>
     <td><%= customer.signup_store.number %></td>
-    <td><%= customer.date_of_birth.strftime("%b %d, %Y") %></td>
+    <td>
+      <% if customer.date_of_birth %>
+        <%= customer.date_of_birth.strftime("%b %d, %Y") %>
+      <% else %>
+        <i>unknown</i>
+      <% end %>
+    </td>
     <td><%= customer.referral_credits_earned %></td>
     <td><%= customer.referral_credits_used %></td>
     <td><%= link_to 'Show', customer %></td>

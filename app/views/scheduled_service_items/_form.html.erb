@@ -1,3 +1,8 @@
+<P>
+Items that need to be serviced during a particular ScheduledService
+for a particular vehicle.
+</P>
+
 <%= form_for(@scheduled_service_item) do |f| %>
   <% if @scheduled_service_item.errors.any? %>
     <div id="error_explanation">
@@ -12,7 +17,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :scheduled_service_id %><br />
+    <%= f.label :scheduled_service_id %><font color="#800000">*</font><br />
     <%= select("scheduled_service_item", "scheduled_service_id", 
             @scheduledServiceCollect, {prompt: 'Select Scheduled Service'}) %>
   </div>
@@ -22,7 +27,7 @@
         @serviceDescriptionCollect, {prompt: 'Select Service Description'}) %>
   </div>
   <div class="field">
-    <%= f.label :other %><br />
+    <%= f.label :other %> (if no description item is selected)<br />
     <%= f.text_field :other %>
   </div>
   <div class="actions">

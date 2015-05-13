@@ -18,7 +18,8 @@
     <% end %>
   </div>
   <div class="field">
-    <%= f.label :qdate, 'Qualification Date' %><br />
+    <%= f.label :qdate, 'Qualification Date' %><font color="#800000">*</font>
+    <br />
     <%= f.datetime_select :qdate %>
   </div>
   <div class="field">
@@ -46,7 +47,7 @@
     <%= f.number_field :cylinder_compression_spec %>
   </div>
   <div class="field">
-    <%= f.label :service_visit_id %><br />
+    <%= f.label :service_visit_id %><font color="#800000">*</font><br />
     <%= select("qualification", "service_visit_id", 
                     @serviceVisitCollect, {prompt: 'Select Service Visit'}) %>
   </div>

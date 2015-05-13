@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :cid, 'Customer ID' %>:
-    <%= f.text_field :cid %>
+    <%= f.label :cid, 'Customer ID' %>:<font color="#800000">*</font>
+    <%= f.text_field :cid %> (can be anything)
   </div>
   <div class="field">
     <%= f.label :user_id, 'Registered User (optional)' %>:
@@ -22,7 +22,7 @@
 
   </div>
   <div class="field">
-    <%= f.label :first_name, 'First name' %>:
+    <%= f.label :first_name, 'First name' %>:<font color="#800000">*</font>
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
@@ -30,7 +30,7 @@
     <%= f.text_field :middle_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name, 'Last name' %>:
+    <%= f.label :last_name, 'Last name' %>:<font color="#800000">*</font>
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
@@ -42,11 +42,11 @@
     <%= f.text_field :street_addr2 %>
   </div>
   <div class="field">
-    <%= f.label :city %>:
+    <%= f.label :city %>:<font color="#800000">*</font>
     <%= f.text_field :city %>
   </div>
   <div class="field">
-    <%= f.label :state_id, 'State' %>:
+    <%= f.label :state_id, 'State' %>:<font color="#800000">*</font>
     <%= select("customer", "state_id", @stateCollect,
                                                   {prompt: 'Select State'}) %>
   </div>
@@ -83,7 +83,7 @@
     <%= f.check_box :can_text_other_phone %>
   </div>
   <div class="field">
-    <%= f.label :joined_date %>:
+    <%= f.label :joined_date %>:<font color="#800000">*</font>
     <%= f.date_select :joined_date %>
   </div>
   <div class="field">
@@ -104,6 +104,7 @@
   </div>
   <div class="field">
     <%= f.label :signup_store_id, 'Signup Store' %>:
+    <font color="#800000">*</font>
     <%= select("customer", "signup_store_id", @storeCollect,
                                                   {prompt: 'Select Store'}) %>
   </div>
@@ -131,6 +132,7 @@
   </div>
   <div class="field">
     <%= f.label :driver_lic_state_id, 'Driver License State' %>:
+    <font color="#800000">*</font>
     <%= select("customer", "driver_lic_state_id", @stateCollect,
                                                   {prompt: 'Select State'}) %>
   </div>

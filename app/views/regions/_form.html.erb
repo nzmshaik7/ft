@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %><font color="#800000">*</font><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :state_id, 'State' %><br />
+    <%= f.label :state_id, 'State' %><font color="#800000">*</font><br />
     <%= select("region", "state_id", @stateCollect, {prompt: 'Select State'}) %>
   </div>
   <div class="actions">

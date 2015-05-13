@@ -1,3 +1,7 @@
+<P>
+<B>For dropdown in service line item</B>
+</P>
+
 <%= form_for(@service_description) do |f| %>
   <% if @service_description.errors.any? %>
     <div id="error_explanation">
@@ -12,20 +16,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %><font color="#800000">*</font><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :service_category_id %><br />
+    <%= f.label :service_category_id %><font color="#800000">*</font><br />
     <%= select("service_description", "service_category_id", 
                 @serviceCategoryCollect, {prompt: 'Select Service Category'}) %>
   </div>
   <div class="field">
-    <%= f.label :labor_rate_retail %><br />
+    <%= f.label :labor_rate_retail %><font color="#800000">*</font><br />
     <%= f.text_field :labor_rate_retail %>
   </div>
   <div class="field">
-    <%= f.label :labor_hours_retail %><br />
+    <%= f.label :labor_hours_retail %><font color="#800000">*</font><br />
     <%= f.text_field :labor_hours_retail %>
   </div>
   <div class="actions">

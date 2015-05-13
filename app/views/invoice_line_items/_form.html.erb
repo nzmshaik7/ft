@@ -12,16 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :amount %><br />
+    <%= f.label :amount %><font color="#800000">*</font><br />
     $<%= f.text_field :amount %>
   </div>
   <div class="field">
-    <%= f.label :invoice_id %><br />
+    <%= f.label :invoice_id %><font color="#800000">*</font><br />
     <%= select("invoice_line_item", "invoice_id", @invoiceCollect,
                                                   {prompt: 'Select Invoice'}) %>
   </div>
   <div class="field">
-    <%= f.label :line_item_purpose_id %><br />
+    <%= f.label :line_item_purpose_id %><font color="#800000">*</font><br />
     <%= select("invoice_line_item", "line_item_purpose_id", @purposeCollect,
                                                   {prompt: 'Select Purpose'}) %>
   </div>

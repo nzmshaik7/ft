@@ -12,9 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :date_time, 'Date and time of payment' %><br />
+    <%= f.label :date_time, 'Date and time of payment' %>
+    <font color="#800000">*</font><br />
     <%= f.datetime_select :date_time %>
   </div>
+  <blockquote>
+  One and only one of the following must be selected:
+  <font color="#800000">*</font><br />
   <div class="field">
     <%= f.label :invoice_id, 'Invoice (if paying invoice)' %><br />
     <%= select("payment", "invoice_id", @invoiceCollect,
@@ -30,22 +34,24 @@
                       'Finance Agreement number (if finance payment)' %><br />
     <%= f.number_field :finance_agreement_id %>
   </div>
+  </blockquote>
   <div class="field">
-    <%= f.label :customer_id, 'Customer making payment' %><br />
+    <%= f.label :customer_id, 'Customer making payment' %>
+    <font color="#800000">*</font><br />
     <%= select("payment", "customer_id", @customerCollect,
                                           {prompt: 'Select Customer'}) %>
   </div>
   <div class="field">
-    <%= f.label :amount %><br />
+    <%= f.label :amount %><font color="#800000">*</font><br />
     $<%= f.text_field :amount %>
   </div>
   <div class="field">
-    <%= f.label :payment_method_id %><br />
+    <%= f.label :payment_method_id %><font color="#800000">*</font><br />
     <%= select("payment", "payment_method_id", @paymentMethodCollect,
                               {prompt: "Select Customer's Payment Method"}) %>
   </div>
   <div class="field">
-    <%= f.label :status %><br />
+    <%= f.label :status %><font color="#800000">*</font><br />
     <select id="payment_status" name="payment[status]">
       <%= options_for_select(@statusOptions, @selStatus) %>
     </select>

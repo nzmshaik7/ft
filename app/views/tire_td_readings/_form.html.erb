@@ -12,16 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :vehicle_id %><br />
+    <%= f.label :vehicle_id %><font color="#800000">*</font><br />
     <%= select("tire_td_reading", "vehicle_id", @vehicleCollect,
                                                 {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
-    <%= f.label :tdate, 'Date of measurement' %><br />
+    <%= f.label :tdate, 'Date of measurement' %>
+    <font color="#800000">*</font><br />
     <%= f.date_select :tdate %>
   </div>
   <div class="field">
-    <%= f.label :depth32nds %><br />
+    <%= f.label :depth32nds %><font color="#800000">*</font><br />
     <%= f.number_field :depth32nds %>/32
   </div>
   <div class="actions">

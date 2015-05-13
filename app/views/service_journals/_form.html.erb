@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :service_visit_id %><br />
+    <%= f.label :service_visit_id %><font color="#800000">*</font><br />
     <%= select("service_journal", "service_visit_id", 
                     @serviceVisitCollect, {prompt: 'Select Service Visit'}) %>
   </div>
   <div class="field">
-    <%= f.label :event_id %><br />
+    <%= f.label :event_id %><font color="#800000">*</font><br />
     <%= select("service_journal", "event_id", 
                     @serviceJournalsEventCollect, {prompt: 'Select Event'}) %>
   </div>
   <div class="field">
-    <%= f.label :date_time %><br />
+    <%= f.label :date_time %><font color="#800000">*</font><br />
     <%= f.datetime_select :date_time %>
   </div>
   <div class="actions">

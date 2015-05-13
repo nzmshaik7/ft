@@ -111,7 +111,11 @@
 
 <p>
   <b>Date of birth:</b>
-  <%= @customer.date_of_birth.strftime("%b %d, %Y") %>
+  <% if customer.date_of_birth %>
+    <%= @customer.date_of_birth.strftime("%b %d, %Y") %>
+  <% else %>
+    <i>unknown</i>
+  <% end %>
 </p>
 
 <p>

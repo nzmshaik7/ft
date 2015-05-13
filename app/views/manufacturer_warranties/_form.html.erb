@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :vehicle_id %><br />
+    <%= f.label :vehicle_id %><font color="#800000">*</font><br />
     <%= select("manufacturer_warranty", "vehicle_id", @vehicleCollect,
                                           {prompt: 'Select Vehicle'}) %>
   </div>
@@ -25,7 +25,8 @@
     <%= f.number_field :miles %>
   </div>
   <div class="field">
-    <%= f.label :manufacturer_warranty_type_id, 'Warranty Type' %><br />
+    <%= f.label :manufacturer_warranty_type_id, 'Warranty Type' %>
+    <font color="#800000">*</font><br />
     <%= select("manufacturer_warranty", "manufacturer_warranty_type_id", 
                     @warrantyTypeCollect, {prompt: 'Select Warranty Type'}) %>
   </div>

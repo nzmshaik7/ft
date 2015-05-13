@@ -12,20 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :invoice_number %><br />
+    <%= f.label :invoice_number %><font color="#800000">*</font><br />
     <%= f.text_field :invoice_number %>
   </div>
   <div class="field">
-    <%= f.label :date_time %><br />
+    <%= f.label :date_time %><font color="#800000">*</font><br />
     <%= f.datetime_select :date_time %>
   </div>
   <div class="field">
-    <%= f.label :customer_id %><br />
+    <%= f.label :customer_id %><font color="#800000">*</font><br />
     <%= select("invoice", "customer_id", @customerCollect,
                                           {prompt: 'Select Customer'}) %>
   </div>
   <div class="field">
-    <%= f.label :status %><br />
+    <%= f.label :status %><font color="#800000">*</font><br />
     <select id="invoice_status" name="invoice[status]">
       <%= options_for_select(@statusOptions, @selStatus) %>
     </select>

@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name, 'Store Name' %><br />
+    <%= f.label :name, 'Store Name' %><font color="#800000">*</font><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :number, 'Store Number' %><br />
+    <%= f.label :number, 'Store Number' %><font color="#800000">*</font><br />
     <%= f.text_field :number %>
   </div>
   <div class="field">
@@ -41,7 +41,7 @@
     <%= select("store", "county_id", @countyCollect,
                                                   {prompt: 'Select County'}) %>
     &nbsp; <a href="/counties/new">
-    Add a new county<a>
+    Add a new county</a>
   </div>
   <div class="field">
     <%= f.label :region_id, 'Region' %><br />
@@ -59,15 +59,17 @@
     <%= f.text_field :phone %>
   </div>
   <div class="field">
-    <%= f.label :number_of_lifts %><br />
+    <%= f.label :number_of_lifts %><font color="#800000">*</font><br />
     <%= f.number_field :number_of_lifts %>
   </div>
   <div class="field">
-    <%= f.label :capacity, 'Capacity (number of contracts)' %><br />
+    <%= f.label :capacity, 'Capacity (number of contracts)' %>
+    <font color="#800000">*</font><br />
     <%= f.number_field :capacity %>
   </div>
   <div class="field">
-    <%= f.label :break_even, 'Break-even (number of contracts)' %><br />
+    <%= f.label :break_even, 'Break-even (number of contracts)' %>
+    <font color="#800000">*</font><br />
     <%= f.number_field :break_even %>
   </div>
   <div class="actions">

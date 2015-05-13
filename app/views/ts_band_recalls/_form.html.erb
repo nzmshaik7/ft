@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :vehicle_id %><br />
+    <%= f.label :vehicle_id %><font color="#800000">*</font><br />
     <%= select("ts_band_recall", "vehicle_id", @vehicleCollect,
                                                 {prompt: 'Select Vehicle'}) %>
   </div>

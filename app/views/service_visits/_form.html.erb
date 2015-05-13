@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :mileage %><br />
+    <%= f.label :mileage %><font color="#800000">*</font><br />
     <%= f.number_field :mileage %>
   </div>
   <div class="field">
-    <%= f.label :sdate %><br />
+    <%= f.label :sdate %><font color="#800000">*</font><br />
     <%= f.datetime_select :sdate %>
   </div>
   <div class="field">
@@ -24,12 +24,12 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :store_id %><br />
+    <%= f.label :store_id %><font color="#800000">*</font><br />
     <%= select("service_visit", "store_id", @storeCollect,
                                                   {prompt: 'Select Store'}) %>
   </div>
   <div class="field">
-    <%= f.label :vehicle_id %><br />
+    <%= f.label :vehicle_id %><font color="#800000">*</font><br />
     <%= select("service_visit", "vehicle_id", @vehicleCollect,
                                                 {prompt: 'Select Vehicle'}) %>
   </div>

@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :employee_id %><br />
+    <%= f.label :employee_id %><font color="#800000">*</font><br />
     <%= select("salesperson", "employee_id", @employeeCollect,
                                                {prompt: 'Select Employee'}) %>
   </div>

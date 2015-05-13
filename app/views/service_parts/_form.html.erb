@@ -16,21 +16,21 @@
   </P>
 
   <div class="field">
-    <%= f.label :service_line_item_id %><br />
+    <%= f.label :service_line_item_id %><font color="#800000">*</font><br />
     <%= select("service_part", "service_line_item_id", 
             @serviceLineItemCollect, {prompt: 'Select Service Line Item'}) %>
   </div>
   <div class="field">
-    <%= f.label :part_id %><br />
+    <%= f.label :part_id %><font color="#800000">*</font><br />
     <%= select("service_part", "part_id", 
             @partCollect, {prompt: 'Select Part'}) %>
   </div>
   <div class="field">
-    <%= f.label :part_retail_price %><br />
+    <%= f.label :part_retail_price %><font color="#800000">*</font><br />
     <%= f.text_field :part_retail_price %>
   </div>
   <div class="field">
-    <%= f.label :part_actual_price %><br />
+    <%= f.label :part_actual_price %><font color="#800000">*</font><br />
     <%= f.text_field :part_actual_price %>
   </div>
   <div class="actions">

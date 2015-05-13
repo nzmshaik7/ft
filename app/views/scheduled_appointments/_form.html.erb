@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :date_time %><br />
+    <%= f.label :date_time %><font color="#800000">*</font><br />
     <%= f.datetime_select :date_time %>
   </div>
   <div class="field">
@@ -20,26 +20,26 @@
     <%= f.datetime_select :actual_date_time %>
   </div>
   <div class="field">
-    <%= f.label :status %><br />
+    <%= f.label :status %><font color="#800000">*</font><br />
     <select id="scheduled_appointment_status" 
             name="scheduled_appointment[status]">
       <%= options_for_select(@statusOptions, @selStatus) %>
     </select>
   </div>
   <div class="field">
-    <%= f.label :purpose %><br />
+    <%= f.label :purpose %><font color="#800000">*</font><br />
     <select id="scheduled_appointment_purpose" 
             name="scheduled_appointment[purpose]">
       <%= options_for_select(@purposeOptions, @purpStatus) %>
     </select>
   </div>
   <div class="field">
-    <%= f.label :vehicle_id %><br />
+    <%= f.label :vehicle_id %><font color="#800000">*</font><br />
     <%= select("scheduled_appointment", "vehicle_id", @vehicleCollect,
                                           {prompt: 'Select Vehicle'}) %>
   </div>
   <div class="field">
-    <%= f.label :store_id %><br />
+    <%= f.label :store_id %><font color="#800000">*</font><br />
     <%= select("scheduled_appointment", "store_id", @storeCollect,
                                               {prompt: 'Select Store'}) %>
   </div>
