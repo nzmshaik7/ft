@@ -1,7 +1,6 @@
 
 <div class="navframe">
   <font color="#000080">
-    <img src="images/LogoJan120tr.png"> &nbsp;
     <B><I>FUTURETECH ANALYTICS</I></B>
     &nbsp; &nbsp; &nbsp; &nbsp;
     <a href="/top/analytics">Home</a> &nbsp; 
@@ -311,19 +310,26 @@
       <table border="1">
 	<tr>
 	  <td><B>Year | Make | Model | Sub</B></td>
-	  <td>2011 | Toyota | Matrix | ES</td>
+	  <td>
+            <%= @vehicle.date_of_manufacture.year %> | 
+            <%= @vehicle.make.name %> | 
+            <%= @vehicle.model.name %> | 
+            <% if @vehicle.submodel %>
+              <%= @vehicle.submodel.name %>
+            <% end %>
+          </td>
 	</tr>
 	<tr>
 	  <td><B>Carfax</B></td>
-	  <td><a href="http://www.carfax.com/phoenix/vehicle_history/SampleReport.cfx?reportName=consumerMobileWeb">View</a></td>
+	  <td><a href="http://www.carfax.com/phoenix/vehicle_history/SampleReport.cfx?reportName=consumerMobileWeb">TBS View</a></td>
 	</tr>
 	<tr>
 	  <td><B>VIN #</B></td>
-	  <td>1234-5678-4321-9876 </td>
+	  <td><%= @vehicle.vin %></td>
 	</tr>
 	<tr>
 	  <td><B>VIN Decoded</B></td>
-	  <td><a href="VinDecode.html">View</a></td>
+	  <td><a href="VinDecode.html">TBS View</a></td>
 	</tr>
 	<tr>
 	  <td><B>Door Plate</B></td>
@@ -331,41 +337,55 @@
 	    <a id="doorphot" class="show_hide_popover" 
 	       title="Door Plate" 
 	       data-placement='right' data-trigger="focus" 
-	       tabindex="0" href='#'>View</a>
+	       tabindex="0" href='#'>TBS View</a>
 	    <a id="xdoorphot" class='hide_popover' href='#'>Hide</a>
 	  </td>
 	</tr>
 	<tr>
 	  <td><B>Color</B></td>
-	  <td>Light blue</td>
+	  <td><%= @vehicle.color.name %></td>
 	</tr>
 	<tr>
 	  <td><B>Mileage</B></td>
-	  <td>53,488 </td>
+	  <td>
+            <%= number_with_delimiter(@vehicle.mileage, :delimiter => ',') %>
+          </td>
 	</tr>
 	<tr>
 	  <td><B>Miles to 300K limit</B></td>
-	  <td>246,512</td>
+	  <td>
+            <%= number_with_delimiter(300000 - @vehicle.mileage,
+                                      :delimiter => ',') %>
+          </td>
 	</tr>
 	<tr>
-	  <td><B>FL Lic Plate</B></td>
-	  <td>D12 E34</td>
+	  <td><B>
+          <% if @vehicle.license_plate_state %>
+            <%= @vehicle.license_plate_state.abbrev %>
+          <% end %>
+          Lic Plate</B></td>
+	  <td>
+	    <%= @vehicle.license_plate %>
+          </td>
 	</tr>
 	<tr>
 	  <td><B>Date of Manufacture</B></td>
-	  <td>May 15 2010</td>
+	  <td><%= @vehicle.date_of_manufacture.strftime("%b %d, %Y") %></td>
 	</tr>
 	<tr>
 	  <td><B>Country of Manufacture</B></td>
-	  <td>Japan</td>
+	  <td><%= @vehicle.country_of_manufacture.name %></td>
 	</tr>
 	<tr>
 	  <td><B>MSRP</B></td>
-	  <td>$22,500</td>
+	  <td><%= number_to_currency(@vehicle.msrp) %></td>
 	</tr>
 	<tr>
 	  <td><B>Manufacturer Warranty</B></td>
-	  <td>3 years/36,000</td>
+	  <td>
+            <% for mw in @vehicle.manufacturer_warranties %>
+            <% end %>
+          </td>
 	</tr>
 	<tr>
 	  <td><B>KBB value on qualification</B></td>
