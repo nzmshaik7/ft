@@ -2,6 +2,7 @@
 
 <table border="1" class="ft_dbtab">
   <tr bgcolor="#F0FFF0">
+    <th>ID</th>
     <th>Qdate</th>
     <th>Leakdown</th>
     <th>Qual report images</th>
@@ -15,6 +16,7 @@
 
 <% @qualifications.each do |qualification| %>
   <tr>
+    <td><%= qualification.id %></td>
     <td><%= qualification.qdate.strftime("%b %d, %Y") %></td>
     <td><%= qualification.leakdown %></td>
     <td><%= qualification.qual_report_images_id %></td>
