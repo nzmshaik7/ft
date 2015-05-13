@@ -408,7 +408,7 @@ gen=( generate scaffold ServiceLineItem
     technician1_id:integer     # ok if not a list?
     technician2_id:integer
     technician3_id:integer
-    is_scheduled:boolean
+    stype:integer
     )
     # Other tables that point to my Primary Key
     # List of ServiceParts

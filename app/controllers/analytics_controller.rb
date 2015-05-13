@@ -93,6 +93,14 @@ class AnalyticsController < ApplicationController
 
     
     def calcProfitLoss(veh)
+        @qualRetail = 0.0
+        @qualLaborActual = 0.0
+        @qualPartsActual = 0.0
+        @membIncome = 0.0
+        @membLaborActual = 0.0
+        @membPartsActual = 0.0
+        for svisit in veh.service_visits
+        end
     end
 
     

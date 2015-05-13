@@ -56,8 +56,10 @@
       <%= options_for_select(@technicianOptions, @selTech3) %>
     </select> <br />
   <div class="field">
-    <%= f.label :is_scheduled %><br />
-    <%= f.check_box :is_scheduled %>
+    <%= f.label :stype, 'Service Type' %><br />
+    <select id="service_line_item_stype" name="service_line_item[stype]">
+      <%= options_for_select(@stypeOptions, @selStype) %>
+    </select> <br />
   </div>
   <div class="actions">
     <%= f.submit %>

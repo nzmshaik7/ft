@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150412024704) do
+ActiveRecord::Schema.define(:version => 20150510031306) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -419,9 +419,9 @@ ActiveRecord::Schema.define(:version => 20150412024704) do
     t.integer  "technician1_id"
     t.integer  "technician2_id"
     t.integer  "technician3_id"
-    t.boolean  "is_scheduled"
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
+    t.integer  "stype"
   end
 
   create_table "service_parts", :force => true do |t|

@@ -12,7 +12,7 @@
     <th>Technician1</th>
     <th>Technician2</th>
     <th>Technician3</th>
-    <th>Scheduled?</th>
+    <th>Type</th>
     <th colspan="3"><i>Actions</i></th>
   </tr>
 
@@ -42,7 +42,7 @@
         <%= service_line_item.technician3.employee.nameText %>
       <% end %>
     </td>
-    <td><%= boolText(service_line_item.is_scheduled) %></td>
+    <td><%= stypeText(service_line_item.stype) %></td>
     <td><%= link_to 'Show', service_line_item %></td>
     <td><%= link_to 'Edit', edit_service_line_item_path(service_line_item) %></td>
     <td><%= link_to 'Destroy', service_line_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

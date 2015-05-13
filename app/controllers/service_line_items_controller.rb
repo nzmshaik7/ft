@@ -1,6 +1,7 @@
 class ServiceLineItemsController < ApplicationController
 
     before_filter :only_allow_admins
+    include ServiceLineItemsHelper
 
     def prepFormVariables(sli)
         @serviceVisits = ServiceVisit.all
@@ -30,6 +31,18 @@ class ServiceLineItemsController < ApplicationController
         ]
         for tc in @technicians
             @technicianOptions.push([ tc.employee.nameText, tc.id ])
+        end
+
+        @selStype = 0
+        if sli
+            if sli.stypeIsValid
+                @selStype = sli.stype
+            end
+        end
+        @stypeOptions = Array.new
+        @stypeOptions.push(['Select', 0])
+        for st in ServiceLineItem::S_QUALIFICATION .. ServiceLineItem::S_OTHER
+            @stypeOptions.push([stypeText(st), st])
         end
 
         @technicianOptions.push([ "Unknown",  0 ])
