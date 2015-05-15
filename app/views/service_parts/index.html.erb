@@ -19,7 +19,11 @@ These are the parts used for Service Line Items.
   <tr>
     <td>
       ID <%= service_part.service_line_item_id %>:
-      <%= service_part.service_line_item.descText %>
+      <% if service_part.service_line_item %>
+        <%= service_part.service_line_item.descText %>
+      <% else %>
+        <font color="#800000"><i>Fix this - missing service line item</i></font>
+      <% end %>
     </td>
     <td><%= service_part.part.part_name.name %></td>
     <td><%= number_to_currency(service_part.part_retail_price) %></td>

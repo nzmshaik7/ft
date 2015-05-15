@@ -225,7 +225,7 @@ gen=( generate scaffold ManufacturerWarranty
     months:integer
     miles:integer
     manufacturer_warranty_type_id:integer   # (bumpber/bumper, powertrain, etc)
-    image:integer                           # From customer or dealer
+    image_id:integer                        # From customer or dealer
     comment:string
     )
 RAILS ${gen[*]}

@@ -41,7 +41,13 @@
     </td>
     <td><%= customerName2(payment.customer) %></td>
     <td><%= number_to_currency(payment.amount) %></td>
-    <td><%= payment.payment_method.payment_type.name %></td>
+    <td>
+      <% if payment.payment_method %>
+        <%= payment.payment_method.payment_type.name %>
+      <% else %>
+        <font color="#800000"><i>Fix this - missing payment type</i></font>
+      <% end %>
+    </td>
     <td><%= payment.statusText %></td>
     <td><%= payment.merchant_services_status %></td>
     <td><%= payment.comment %></td>

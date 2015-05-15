@@ -24,3 +24,5 @@ rails generate scaffold ManufacturerWarrantyType name:string \
 rails generate migration delete_is_scheduled_from_ServiceLineItem \
                          is_scheduled:boolean
 rails generate migration add_stype_to_ServiceLineItem stype:integer
+
+rails generate migration rename_manufacturer_warranty_column
