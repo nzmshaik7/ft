@@ -360,8 +360,10 @@
 	<tr>
 	  <td><B>Miles to 300K limit</B></td>
 	  <td>
-            <%= number_with_delimiter(300000 - @vehicle.mileage,
-                                      :delimiter => ',') %>
+            <% if @vehicle.mileage %>
+              <%= number_with_delimiter(300000 - @vehicle.mileage,
+                                        :delimiter => ',') %>
+            <% end %>
           </td>
 	</tr>
 	<tr>
