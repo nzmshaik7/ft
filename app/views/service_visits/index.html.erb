@@ -24,7 +24,13 @@
     <td><%= service_visit.description %></td>
     <td><%= service_visit.store.number %></td>
     <td><%= service_visit.vehicle.ymmpText %></td>
-    <td><%= service_visit.invoice.invoice_number %></td>
+    <td>
+      <% if service_visit.invoice %>
+        <%= service_visit.invoice.invoice_number %>
+      <% else %>
+        <font color="#800000"><i>Service visit should have Invoice</i></font>
+      <% end %>
+    </td>
     <td><%= service_visit.salesperson.employee.nameText %></td>
     <td><%= service_visit.comments %></td>
     <td><%= link_to 'Show', service_visit %></td>
