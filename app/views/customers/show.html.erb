@@ -25,6 +25,11 @@
 </p>
 
 <p>
+  <b>email:</b>
+  <%= @customer.email %>
+</p>
+
+<p>
   <b>Home phone:</b>
   <%= @customer.home_phone %>
   <% if @customer.can_text_home_phone %>
@@ -111,7 +116,7 @@
 
 <p>
   <b>Date of birth:</b>
-  <% if customer.date_of_birth %>
+  <% if @customer.date_of_birth %>
     <%= @customer.date_of_birth.strftime("%b %d, %Y") %>
   <% else %>
     <i>unknown</i>

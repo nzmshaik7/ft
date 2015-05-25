@@ -26,3 +26,5 @@ rails generate migration delete_is_scheduled_from_ServiceLineItem \
 rails generate migration add_stype_to_ServiceLineItem stype:integer
 
 rails generate migration rename_manufacturer_warranty_column
+rails generate migration add_email_to_Customer email:string
+rails generate migration add_contact_method_to_Customer contact_method:integer

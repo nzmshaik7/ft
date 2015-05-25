@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150515030944) do
+ActiveRecord::Schema.define(:version => 20150523190606) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -127,6 +127,8 @@ ActiveRecord::Schema.define(:version => 20150515030944) do
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
+    t.string   "email"
+    t.integer  "contact_method"
   end
 
   create_table "cylinder_compressions", :force => true do |t|

@@ -55,6 +55,10 @@
     <%= f.text_field :zip %>
   </div>
   <div class="field">
+    <%= f.label :email %>:
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
     <%= f.label :home_phone %>:
     <%= f.text_field :home_phone %>
     &nbsp; &nbsp; 
@@ -81,6 +85,12 @@
     &nbsp; &nbsp; 
     <%= f.label :can_text_other_phone %>:
     <%= f.check_box :can_text_other_phone %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_method, 'Preferred contact method' %>:
+    <select id="customer_contact_method" name="customer[contact_method]">
+      <%= options_for_select(@contactMethodOptions, @selContactMethod) %>
+    </select>
   </div>
   <div class="field">
     <%= f.label :joined_date %>:<font color="#800000">*</font>

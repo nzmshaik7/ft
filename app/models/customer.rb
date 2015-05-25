@@ -12,7 +12,8 @@ class Customer < ActiveRecord::Base
                     :street_addr1, :street_addr2, :user_id,
                     :video_testimony_url, :work_phone,
                     :written_testimony_id, :zip,
-                    :first_name, :middle_name, :last_name
+                    :first_name, :middle_name, :last_name, :email, 
+                    :contact_method
 
     belongs_to :user
     belongs_to :state
@@ -33,10 +34,21 @@ class Customer < ActiveRecord::Base
     GENDER_FEMALE = 62
     GENDER_OTHER = 63
 
+    CONTACT_EMAIL = 91
+    CONTACT_TEXT = 92
+    CONTACT_CALL = 93
+
     def genderText
         return 'male'   if gender == GENDER_MALE
         return 'female' if gender == GENDER_FEMALE
         return 'other'  if gender == GENDER_OTHER
+        return 'unknown'
+    end
+
+    def contactText
+        return 'email'  if contact_method == CONTACT_EMAIL
+        return 'text'   if contact_method == CONTACT_TEXT
+        return 'call'   if contact_method == CONTACT_CALL
         return 'unknown'
     end
 

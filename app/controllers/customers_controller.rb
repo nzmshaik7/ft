@@ -33,7 +33,7 @@ class CustomersController < ApplicationController
         if customer
             if [Customer::GENDER_MALE, Customer::GENDER_FEMALE,
                 Customer::GENDER_OTHER].include?(customer.gender)
-                @selStatus = customer.gender
+                @selGender = customer.gender
             end
         end
         @genderOptions = [
@@ -42,6 +42,20 @@ class CustomersController < ApplicationController
             [ "Female",   Customer::GENDER_FEMALE ],
             [ "Other",    Customer::GENDER_OTHER ],
             [ "Unknown",  0 ],
+        ]
+
+        @selContactMethod = 0
+        if customer
+            if [Customer::CONTACT_EMAIL, Customer::CONTACT_TEXT,
+                Customer::CONTACT_CALL].include?(customer.contact_method)
+                @selContactMethod = customer.contact_method
+            end
+        end
+        @contactMethodOptions = [
+            [ "Select", 0  ],
+            [ "email",  Customer::CONTACT_EMAIL ],
+            [ "text",   Customer::CONTACT_TEXT  ],
+            [ "call",   Customer::CONTACT_CALL  ],
         ]
     end
 

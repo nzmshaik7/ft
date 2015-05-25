@@ -18,6 +18,7 @@ gen=( generate scaffold Customer
     first_name:string               # Customer might not be a User.  These
     middle_name:string              # can be copied and may differ.
     last_name:string
+    email:string
     street_addr1:string
     street_addr2:string
     city:string
@@ -31,6 +32,7 @@ gen=( generate scaffold Customer
     can_text_mobile_phone:boolean
     other_phone:string
     can_text_other_phone:boolean
+    contact_method:integer
     joined_date:datetime
     is_aaa_member:boolean
     is_web_registered:boolean
