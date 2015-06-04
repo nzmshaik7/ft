@@ -11,11 +11,16 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :service_visit_id %><font color="#800000">*</font><br />
-    <%= select("service_line_item", "service_visit_id", 
-                    @serviceVisitCollect, {prompt: 'Select Service Visit'}) %>
-  </div>
+  <% if defined?(given_visit) %>
+    <input name="service_line_item[service_visit_id]" type="hidden" 
+           value="<%= given_visit.id %>" />
+  <% else %>
+    <div class="field">
+      <%= f.label :service_visit_id %><font color="#800000">*</font><br />
+      <%= select("service_line_item", "service_visit_id", 
+                      @serviceVisitCollect, {prompt: 'Select Service Visit'}) %>
+    </div>
+  <% end %>
   <blockquote>
   One or both of the following are required:<font color="#800000">*</font>
   <div class="field">

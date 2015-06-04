@@ -53,12 +53,15 @@ Ft::Application.routes.draw do
   resources :parts
 
   resources :service_parts
+  get "service_parts/sp_for_sli/:id" => 'service_parts#sp_for_sli'
 
   resources :service_categories
 
   resources :service_descriptions
 
   resources :service_line_items
+  get "service_line_items/sli_for_visit/:id" => 
+                                             'service_line_items#sli_for_visit'
 
   resources :service_journals_events
 

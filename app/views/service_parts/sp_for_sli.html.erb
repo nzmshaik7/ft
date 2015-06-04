@@ -1,0 +1,12 @@
+<h2>New service_part for a Service Line Item</h2>
+
+<P> 
+<B>For service line item <%= @service_line_item.service_description.name %>
+on service visit 
+<%= @service_line_item.service_visit.sdate.strftime("%b %d, %Y") %>
+<%= @service_line_item.service_visit.vehicle.ymmpText %>, 
+<%= @service_line_item.service_visit.mileage %> miles: </B>
+</P> 
+
+<%= render :partial => 'form',
+           :locals => { :given_sli => @service_line_item } %>

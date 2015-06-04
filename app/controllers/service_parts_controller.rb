@@ -48,6 +48,14 @@ class ServicePartsController < ApplicationController
         end
     end
 
+    # GET /service_parts/sp_for_sli/:id"
+    # Create a new service part for a given service line item
+    #
+    def sp_for_sli
+        @service_line_item = ServiceLineItem.find(params[:id])
+        new
+    end
+
     # GET /service_parts/1/edit
     def edit
         @service_part = ServicePart.find(params[:id])

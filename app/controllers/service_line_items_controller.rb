@@ -83,6 +83,14 @@ class ServiceLineItemsController < ApplicationController
         end
     end
 
+    # GET /service_line_items/sli_for_visit/:id"
+    # Create a new service line item for a given service visit
+    #
+    def sli_for_visit
+        @service_visit = ServiceVisit.find(params[:id])
+        new
+    end
+
     # GET /service_line_items/1/edit
     def edit
         @service_line_item = ServiceLineItem.find(params[:id])

@@ -11,15 +11,21 @@
     </div>
   <% end %>
 
-  <P>
-    Select which part is being used on which service line item.
-  </P>
+  <% if defined?(given_sli) %>
+    <input name="service_part[service_line_item_id]" type="hidden" 
+               value="<%= given_sli.id %>" />
+  <% else %>
+    <P>
+      Select which part is being used on which service line item.
+    </P>
 
-  <div class="field">
-    <%= f.label :service_line_item_id %><font color="#800000">*</font><br />
-    <%= select("service_part", "service_line_item_id", 
-            @serviceLineItemCollect, {prompt: 'Select Service Line Item'}) %>
-  </div>
+    <div class="field">
+      <%= f.label :service_line_item_id %><font color="#800000">*</font><br />
+      <%= select("service_part", "service_line_item_id", 
+              @serviceLineItemCollect, {prompt: 'Select Service Line Item'}) %>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :part_id %><font color="#800000">*</font><br />
     <%= select("service_part", "part_id", 

@@ -1,0 +1,11 @@
+<h2>New service line item for Service Visit </h2>
+
+<P>
+<B>For service visit on <%= @service_visit.sdate.strftime("%b %d, %Y") %>
+for <%= @service_visit.vehicle.ymmpText %>, 
+<%= @service_visit.mileage %> miles: </B>
+</P>
+
+<%= render :partial => 'form',
+           :locals => { :given_visit => @service_visit } %>
+

@@ -1,14 +1,38 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Mileage:</b>
-  <%= @service_visit.mileage %>
-</p>
+<table border="1">
+  <tr>
+    <td>
+      <b>Mileage:</b>
+      <%= @service_visit.mileage %>
+    </td>
+    <td>
+      <b>Date:</b>
+      <%= @service_visit.sdate.strftime("%b %d, %Y, %H:%M") %>
+    </td>
+    <td>
+      <b>Store:</b>
+      <%= @service_visit.store.number %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>Vehicle:</b>
+      <%= @service_visit.vehicle.ymmpText  %>
+    </td>
+    <td>
+      <b>Salesperson:</b>
+      <%= @service_visit.salesperson_id %>
+    </td>
+    <td>
+      <b>Invoice:</b>
+      <% if @service_visit.invoice %>
+        <%= @service_visit.invoice.invoice_number %>
+      <% end %>
+    </td>
 
-<p>
-  <b>Sdate:</b>
-  <%= @service_visit.sdate %>
-</p>
+  </tr>
+</table>
 
 <p>
   <b>Description:</b>
@@ -16,28 +40,103 @@
 </p>
 
 <p>
-  <b>Store:</b>
-  <%= @service_visit.store_id %>
-</p>
-
-<p>
-  <b>Vehicle:</b>
-  <%= @service_visit.vehicle_id %>
-</p>
-
-<p>
-  <b>Invoice:</b>
-  <%= @service_visit.invoice_id %>
-</p>
-
-<p>
-  <b>Salesperson:</b>
-  <%= @service_visit.salesperson_id %>
-</p>
-
-<p>
   <b>Comments:</b>
   <%= @service_visit.comments %>
+</p>
+
+<p>
+  <b>Service Line Items:</b><br>
+  <table border="1" class="ft_dbtab">
+    <tr bgcolor="#F0FFF0">
+      <th>Description</th>
+      <th>Desc text</th>
+      <th>Labor hours<br> retail</th>
+      <th>Labor rate<br> retail</th>
+      <th>Labor hours<br> actual</th>
+      <th>Labor rate<br> actual</th>
+      <th>Technician1</th>
+      <th>Technician2</th>
+      <th>Technician3</th>
+      <th>Type</th>
+      <th><i>Action</i></th>
+    </tr>
+
+    <% for service_line_item in @service_visit.service_line_items %>
+      <tr>
+        <td><%= service_line_item.service_description.name %></td>
+        <td><%= service_line_item.service_description_text %></td>
+        <td><%= number_with_precision(service_line_item.labor_hours_retail,
+                                      precision: 2) %></td>
+        <td><%= number_to_currency(service_line_item.labor_rate_retail) %></td>
+        <td><%= number_with_precision(service_line_item.labor_hours_actual,
+                                      precision: 2) %></td>
+        <td><%= number_to_currency(service_line_item.labor_rate_actual) %></td>
+        <td>
+          <% if service_line_item.technician1 %>
+            <%= service_line_item.technician1.employee.nameText %>
+          <% end %>
+        </td>
+        <td>
+          <% if service_line_item.technician2 %>
+            <%= service_line_item.technician2.employee.nameText %>
+          <% end %>
+        </td>
+        <td>
+          <% if service_line_item.technician3 %>
+            <%= service_line_item.technician3.employee.nameText %>
+          <% end %>
+        </td>
+        <td><%= stypeText(service_line_item.stype) %></td>
+        <td>
+          <%= link_to 'Edit', edit_service_line_item_path(service_line_item) %>
+          &nbsp;
+          <a href="/service_parts/sp_for_sli/<%= service_line_item.id %>">
+            Add part
+          </a>
+        </td>
+      </tr>
+      <% if service_line_item.service_parts.length > 0 %>
+        <tr>
+          <td> &nbsp; </td>
+          <td colspan="10">
+
+            <table border="1" class="ft_dbtab">
+              <tr bgcolor="#F0FFF0">
+                <th>Part</th>
+                <th>Part retail price</th>
+                <th>Part actual price</th>
+                <th><i>Actions</i></th>
+              </tr>
+
+              <% service_line_item.service_parts.each do |service_part| %>
+                <tr>
+                  <td><%= service_part.part.part_name.name %></td>
+                  <td>
+                    <%= number_to_currency(service_part.part_retail_price) %>
+                  </td>
+                  <td>
+                    <%= number_to_currency(service_part.part_actual_price) %>
+                  </td>
+                  <td>
+                    <%= link_to 'Edit', edit_service_part_path(service_part) %>
+                    &nbsp;
+                    <%= link_to 'Delete', service_part, method: :delete,
+                        data: { confirm: 'Are you sure?' } %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</p>
+<p>
+<a href="/service_line_items/sli_for_visit/<%= @service_visit.id %>">
+  Add new Service Line Item
+</a>
 </p>
 
 
