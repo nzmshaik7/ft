@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150523190606) do
+ActiveRecord::Schema.define(:version => 20150604205200) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -330,8 +330,9 @@ ActiveRecord::Schema.define(:version => 20150523190606) do
     t.integer  "spectrum_report_images_id"
     t.integer  "cylinder_compression_spec"
     t.integer  "service_visit_id"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "cylinder_compression_tolerance"
   end
 
   create_table "referred_bies", :force => true do |t|

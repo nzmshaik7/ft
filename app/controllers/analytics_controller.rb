@@ -2,6 +2,7 @@ class AnalyticsController < ApplicationController
 
     before_filter :only_allow_admins
     include CustomersHelper
+    include QualificationsHelper
 
     def prepFormVariables(veh)
         now = Time.now
@@ -178,6 +179,75 @@ class AnalyticsController < ApplicationController
         @vehicle = Vehicle.find(params[:id])
         prepFormVariables(@vehicle)
         calcProfitLoss(@vehicle)
+        calcInternal1(@vehicle)
+    end
+
+    
+    # GET analytics/non_ma_maint/:id
+    def non_ma_maint
+        @vehicle = Vehicle.find(params[:id])
+    end
+    
+    
+    def calcInternal1(veh)
+
+        spd = 3600.0 * 24.0
+
+        # mileage
+        @latestMileageTime = nil
+        @latestMileage = nil
+        for gm in veh.gas_mileages
+            if @latestMileageTime.nil? or gm.mdate > @latestMileageTime
+                @latestMileageTime = gm.mdate
+                @latestMileage = gm.mileage
+            end
+        end
+
+        oldestMileageTime = nil
+        oldestMileage = nil
+        newestMileageTime = nil
+        newestMileage = nil
+        for s_visit in veh.service_visits
+            if oldestMileageTime.nil? or s_visit.sdate < oldestMileageTime
+                oldestMileageTime = s_visit.sdate
+                oldestMileage = s_visit.mileage
+            end
+            if newestMileageTime.nil? or s_visit.sdate > newestMileageTime
+                newestMileageTime = s_visit.sdate
+                newestMileage = s_visit.mileage
+            end
+        end
+        @avgMilesPerYear = nil
+        if oldestMileageTime
+            daySpan = (newestMileageTime.to_i - oldestMileageTime.to_i) / spd
+            if daySpan > 30.0
+                yearSpan = daySpan / 365.2425
+                @avgMilesPerYear = (newestMileage - oldestMileage) / yearSpan
+            end
+        end
+
+        # Referrals
+        @referredCust = Customer.where("referredBy_id = ?", veh.customer.id)
+
+        # Qual
+        if veh.qualification_id
+            @qualification = Qualification.find(veh.qualification_id)
+        else
+            @qualification = nil
+        end
+        prepCylinders(@qualification, 10)
+
+
+        # Misc
+        dom = @vehicle.date_of_manufacture
+        @contractExpires = Time.local(dom.year + 15, dom.month, dom.day, 
+                                      dom.hour, dom.min, dom.sec)
+        daysLeft = ((@contractExpires - Time.now) / spd).to_i
+        daysLeft = 0  if daysLeft < 0
+        @yearsTo15 = (daysLeft / 365).to_i
+        @daysTo15 = daysLeft - (@yearsTo15 * 365)
+
+        
     end
 
 

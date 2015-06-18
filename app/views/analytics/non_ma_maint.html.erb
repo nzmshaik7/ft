@@ -1,0 +1,36 @@
+
+<div class="navframe">
+  <font color="#000080">
+    <B><I>FUTURETECH ANALYTICS</I></B>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    <a href="/top/analytics">Home</a> &nbsp; 
+    | &nbsp; <a href="/vehicles/search_int1">Search Vehicles</a> &nbsp; 
+    | &nbsp; All Vehicles &nbsp; 
+    | &nbsp; Search Customers &nbsp; | &nbsp; Stores &nbsp; 
+    | &nbsp; Demographics &nbsp; | &nbsp; Help
+  </font>
+</div>
+
+<div class="periodframe">
+  <div class="periodbox">
+    <B>Internal Single Vehicle</B> <br />
+    <a href="/analytics/int1/<%= @vehicle.id %>">Back to vehicle report</a>
+  </div>
+</div>
+
+<div class="vehtopframe">
+  <H2>Non-Membership Auto Maintenance Records for <%= @vehicle.ymmpText %></H2>
+  <% for nmm in @vehicle.non_ma_maintenances %>
+    <hr>
+    <B>Date:</B> <%= nmm.strftime("%b %d, %Y") %>
+    &nbsp; &nbsp;
+    <B>Where:</B> <%= nmm.where %>
+    <br>
+    TBS IMAGE <%= nmm.document_image_id %>
+    <br>
+  <% end %>
+
+</div>
+
+<a href="/vehicles/search_int1">New Search</a> &nbsp; | &nbsp;
+<a href="/top/analytics">Analytics</a>

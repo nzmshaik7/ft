@@ -23,7 +23,10 @@
     <td><%= qualification.alignment_report_images_id %></td>
     <td><%= qualification.sixgas_report_images_id %></td>
     <td><%= qualification.spectrum_report_images_id %></td>
-    <td><%= qualification.cylinder_compression_spec %></td>
+    <td>
+      <%= qualification.cylinder_compression_spec %> PSI +/- 
+      <%= qualification.cylinder_compression_tolerance %>%
+    </td>
     <td><%= qualification.service_visit.visitText %></td>
     <td><%= link_to 'Show', qualification %></td>
     <td><%= link_to 'Edit', edit_qualification_path(qualification) %></td>

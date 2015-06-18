@@ -1,30 +1,14 @@
 class QualificationsController < ApplicationController
 
     before_filter :only_allow_admins
+    include QualificationsHelper
 
     def prepFormVariables(qual)
         @serviceVisits = ServiceVisit.all
         @serviceVisitCollect = @serviceVisits.collect { |p|
             [ p.visitText, p.id ] 
         }
-        @compressions = Array.new
-        @last_compression = 10
-        for c in 1..@last_compression
-            @compressions[c] = nil
-        end
-        if qual
-            for x in 1..12
-                for cc in qual.cylinder_compressions
-                    if cc.cyl_num == x
-                        @compressions[x] = cc.psi
-                        if @last_compression < x
-                            @last_compression = x
-                        end
-                        break
-                    end
-                end
-            end
-        end
+        prepCylinders(qual, 10)
     end
 
     # GET /qualifications

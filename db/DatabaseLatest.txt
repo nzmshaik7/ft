@@ -277,6 +277,7 @@ gen=( generate scaffold Qualification
     sixgas_report_images_id:integer
     spectrum_report_images_id:integer
     cylinder_compression_spec:integer
+    cylinder_compression_tolerance:integer  # In percent
     service_visit_id:integer
     )
     # Other tables that point to my Primary Key

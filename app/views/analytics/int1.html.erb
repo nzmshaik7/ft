@@ -58,7 +58,7 @@
       <B>Customer/Owner</B>
     </div>
     <div class="custbox2">
-      <table border="1">
+      <table border="1" class="anatab">
 	<tr><td>ID# <%= vcust.cid %></td></tr>
 	<tr><td><%= customerName2(vcust) %></td></tr>
 	<tr><td><%= vcust.street_addr1 %></td></tr>
@@ -136,7 +136,7 @@
     </div>
   </div>
   <div id="cust1id_div" style="display: none">
-    <table border="1">
+    <table border="1" class="anatab">
       <tr>
 	<th colspan="2">Customer Details</th>
       </tr>
@@ -258,7 +258,7 @@
     </table>
   </div>
   <div id="cust2id_div" style="display: none">
-    <table border="1">
+    <table border="1" class="anatab">
       <tr>
 	<th colspan="2" bgcolor="#e0e0e0"><font color="#006040">
 	  Customer History
@@ -313,7 +313,7 @@
       </B>
     </div>
     <div class="carbox2">
-      <table border="1">
+      <table border="1" class="anatab">
 	<tr>
 	  <td><B>Year | Make | Model | Sub</B></td>
 	  <td>
@@ -392,48 +392,86 @@
 	  <td><B>Manufacturer Warranty</B></td>
 	  <td>
             <% for mw in @vehicle.manufacturer_warranties %>
+              <%= mw.months %> mo/<%= mw.miles %> mi<br />
+              &nbsp; &nbsp; <%= mw.manufacturer_warranty_type.name %> <br />
             <% end %>
           </td>
 	</tr>
 	<tr>
 	  <td><B>KBB value on qualification</B></td>
-	  <td>$12,430</td>
+	  <td><%= number_to_currency(@vehicle.kbb_on_qual) %></td>
 	</tr>
 	<tr>
 	  <td><B>Current KBB value</B></td>
-	  <td>$8,430</td>
+	  <td><%= number_to_currency(@vehicle.current_kbb) %></td>
 	</tr>
 	<tr>
 	  <td><B>Consumer Reports</B></td>
-	  <td><a href="http://www.consumerreports.org/cro/cars/models/used/acura/ilx/overview.htm">View Report</a><br></td>
+          <td>
+	    <% if @vehicle.consumer_reports_url and 
+                  @vehicle.consumer_reports_url.length > 1 %>
+	      <a href="<%= @vehicle.consumer_reports_url %>">View Report</a>
+            <% else %>
+              <i>n/a</i>
+            <% end %>
+          </td>
 	</tr>
 	<tr>
 	  <td><B>Engine</B></td>
-	  <td>2.5L V6</td>
+	  <td>
+            <%= @vehicle.engine_cyl %> cyl 
+            <%= @vehicle.engine_displacement.name %>
+          </td>
 	</tr>
 	<tr>
 	  <td><B>Drive</B></td>
-	  <td>FWD</td>
+	  <td><%= @vehicle.wheel_drive.name %></td>
 	</tr>
 	<tr>
 	  <td><B>MPG 30 days after initial service</B></td>
-	  <td>16.2 mpg</td>
+	  <td><%= @vehicle.mpg30after_initial %></td>
 	</tr>
 	<tr>
-	  <td><B>Latest mileage: Oct 1, 2014</B></td>
-	  <td>16.0 mpg, down 0.2</td>
+	  <td>
+            <B>Latest mileage: 
+            <% if @latestMileage %>
+              <%= @latestMileageTime.strftime("%b %d, %Y") %>
+            <% else %>
+              <i>n/a</i>
+            <% end %>
+            </B>
+          </td>
+	  <td>
+            <% if @latestMileage %>
+              <%= @latestMileage %> mpg,
+              <% down = @vehicle.mpg30after_initial - @latestMileage %>
+              <% if down > 0.0 %>
+                down <%= down %>
+              <% else %>
+                up <%= -down %>
+              <% end %>
+            <% else %>
+              <i>n/a</i>
+            <% end %>
+          </td>
 	</tr>
 	<tr>
 	  <td><B>Average Miles Per Year</B></td>
-	  <td>12,544</td>
+	  <td><%= number_with_precision(@avgMilesPerYear, precision: 1) %></td>
 	</tr>
 	<tr>
 	  <td><B>Contract expires</B></td>
-	  <td>Jun 15, 2025 </td>
+          <td>
+            <% if @vehicle.mileage > 300000 %>
+              Expired (mileage)
+            <% else %>
+              <%= @contractExpires.strftime("%b %d, %Y") %></td>
+            <% end %>
+          </td>
 	</tr>
 	<tr>
 	  <td><B>Time to 15 year limit</B></td>
-	  <td>10 years, 210 days</td>
+	  <td><%= @yearsTo15 %> years, <%= @daysTo15 %> days</td>
 	</tr>
 	<tr>
 	  <td><B>Photos</B></td>
@@ -441,13 +479,16 @@
 	  <a id="vehphot" class="show_hide_popover" 
 	     title="2011 Toyota Matrix ES" 
 	     data-placement='right' data-trigger="focus" 
-	     tabindex="0" href='#'>View Photos</a>
+	     tabindex="0" href='#'>TBS View Photos</a>
 	  <a id="xvehphot" class='hide_popover' href='#'>Hide Photos</a>
 	  </td>
 	</tr>
 	<tr>
 	  <td><B>Non-MA Maintenance</B></td>
-	  <td><a href="NonMaMaint.html">View Records</a><br></td>
+	  <td>
+            <a href="/analytics/non_ma_maint/<%= @vehicle.id %>">
+            View Records</a>
+          </td>
 	</tr>
       </table>
     </div>
@@ -465,19 +506,21 @@
     <div class="boxhdr">
       <B>Fuel Economy</B>
     </div>
-    <img src="images/mileageChart.png">
+    <B><I><font color="#800080">Mileage chart TBS</font></I></B>
   </div>
   <div class="carbox">
     <div class="boxhdr">
       <B>Referrals</B>
     </div>
     <div class="carbox2">
-      <table border="1">
-	<tr><td><B>3 referred</B></td></tr>
-	<tr><td>&nbsp;&nbsp;Jack Sparrow</td></tr>
-	<tr><td>&nbsp;&nbsp;James Dean</td></tr>
-	<tr><td>&nbsp;&nbsp;Carrie Fisher</td></tr>
-	<tr><td><B>Credit Earned:</B><br>3 months</td></tr>
+      <table border="1" class="anatab">
+	<tr><td><B><%= @referredCust.length %> referred</B></td></tr>
+	<% for rcust in @referredCust %>
+	  <tr><td>&nbsp;&nbsp;<%= customerName2(rcust) %></td></tr>
+        <% end %>
+	<tr><td>
+          <B>Credit Earned:</B><br><%= @referredCust.length %> months
+        </td></tr>
       </table>
     </div>
   </div>
@@ -486,61 +529,61 @@
       <B>Qualification Readings</B>
     </div>
     <div class="carbox2">
-      <table border="1">
+      <table border="1" class="anatab">
 	<tr bgcolor="#e0e0e0">
 	  <th colspan="3"><font color="#006040">
 	    <center>Compression</center>
 	  </font></th>
 	</tr>
-	<tr>
-	  <td colspan="3">Spec: 145 +/-20%</td>
-	</tr>
+        <% if @qualification %>
+          <tr>
+            <td colspan="3">
+              Spec:
+              <%= @qualification.cylinder_compression_spec %> PSI +/-
+              <%= @qualification.cylinder_compression_tolerance %>%
+            </td>
+          </tr>
 
-	<tr>
-	  <th>Cyl</th><th>PSI</th>
-	  <th>Diff</th>
-	</tr>
-	<tr>
-	  <td>1</td>
-	  <td><font color="#800000">125</font></td>
-	  <td align="right"><font color="#800000">13.8%</font></td>
-	</tr>
-	<tr>
-	  <td>2</td><td>135</td>
-	  <td align="right"><font color="#008000">6.9%</font></td>
-	</tr>
-	<tr>
-	  <td>3</td><td>130</td>
-	  <td align="right"><font color="#800000">10.3%</font></td>
-	</tr>
-	<tr>
-	  <td>4</font></td>
-	  <td><font color="#008000">145</font></td>
-	  <td align="right"><font color="#008000">0.0%</font></td>
-	</tr>
-	<tr>
-	  <td>5</td><td>142</td>
-	  <td align="right"><font color="#008000">2.1%</font></td>
-	</tr>
-	<tr>
-	  <td>6</td><td>139</td>
-	  <td align="right"><font color="#008000">4.1%</font></td>
-	</tr>
-	<tr bgcolor="#e0e0e0">
-	  <th colspan="3"><font color="#006040">
-	    <center>Other</center>
-	  </font></th>
-	</tr>
-	<tr>
-	  <td colspan="2">Leakdown</td>
-	  <td colspan="1">10%</td>
-	</tr>
+          <tr>
+            <th>Cyl</th><th>PSI</th>
+            <th>Diff</th>
+          </tr>
+          <% for cx in 1..@last_compression %>
+            <% next  if @compressions[cx].nil? %>
+            <% if @compPct[cx] > @qualification.cylinder_compression_tolerance%>
+              <% cylColor = '#800000' %>
+            <% else %>
+              <% cylColor = '#008000' %>
+            <% end %>
+            <tr>
+              <td><%= cx %></td>
+              <td>
+                <font color="<%= cylColor %>">
+                  <%= @compressions[cx] %>
+                </font>
+              </td>
+              <td align="right"><font color="<%= cylColor %>">
+                <%= number_with_precision(@compPct[cx], precision: 1) %>%
+              </font></td>
+            </tr>
+          <% end %>
+
+          <tr bgcolor="#e0e0e0">
+            <th colspan="3"><font color="#006040">
+              <center>Other</center>
+            </font></th>
+          </tr>
+          <tr>
+            <td colspan="2">Leakdown</td>
+            <td colspan="1"><%= @qualification.leakdown %>%</td>
+          </tr>
+        <% end %>
 	<tr>
 	  <td colspan="3">
-	    <a href="QualReport.html">Qualification Reports</a><br>
-	    <a href="AlighmentReport.html">Alighment Reports</a><br>
-	    <a href="6Gas.html">6-Gas Readout</a><br>
-	    <a href="Spectrum.html">Spectrum Analysis</a><br>
+	    <a href="#">TBS Qualification Reports</a><br>
+	    <a href="#">TBS Alighment Reports</a><br>
+	    <a href="#">TBS 6-Gas Readout</a><br>
+	    <a href="#">TBS Spectrum Analysis</a><br>
 	  </td>
 	</tr>
       </table>
@@ -552,54 +595,26 @@
       <B>Code History</B>
     </div>
     <div class="carbox2">
-      <table border="1">
-	<tr>
-	  <td>Mar 17, 2014</td>
-	  <td>P151</td>
-	</tr>
-	<tr>
-	  <td>Apr 30, 2014</td>
-	  <td>P744</td>
-	</tr>
-	<tr>
-	  <td>Jun 7, 2014</td>
-	  <td>X101</td>
-	</tr>
-	<tr>
-	  <td>Jul 30, 2014</td>
-	  <td>C5001</td>
-	</tr>
-	<tr>
-	  <td>Aug 2, 2014</td>
-	  <td>C5002</td>
-	</tr>
+      <table border="1" class="anatab">
+        <% for ch in @vehicle.code_histories %>
+          <tr>
+            <td><%= ch.cdate.strftime("%b %d, %Y") %></td>
+            <td><%= ch.code %></td>
+          </tr>
+        <% end %>
       </table>
     </div>
     <div class="boxhdr">
       <B>Tire TD Readings</B>
     </div>
     <div class="carbox2">
-      <table border="1">
-	<tr>
-	  <td>Mar 17, 2014</td>
-	  <td>7/32</td>
-	</tr>
-	<tr>
-	  <td>Apr 30, 2014</td>
-	  <td>7/32</td>
-	</tr>
-	<tr>
-	  <td>Jun 7, 2014</td>
-	  <td>6/32</td>
-	</tr>
-	<tr>
-	  <td>Jul 30, 2014</td>
-	  <td>6/32</td>
-	</tr>
-	<tr>
-	  <td>Aug 2, 2014</td>
-	  <td>6/32</td>
-	</tr>
+      <table border="1" class="anatab">
+        <% for td in @vehicle.tire_td_readings %>
+          <tr>
+            <td><%= td.tdate.strftime("%b %d, %Y") %></td>
+            <td><%= td.depth32nds %>/32</td>
+          </tr>
+        <% end %>
       </table>
     </div>
   </div>
@@ -609,14 +624,14 @@
       <B>BG Compliance</B>
     </div>
     <div class="carbox2">
-      <table border="1">
+      <table border="1" class="anatab">
 	<tr>
 	  <td>BG Compliant?</td>
-	  <td><B>Yes</B></td>
+	  <td><B><%= boolText(@vehicle.bg_compliant) %></B></td>
 	</tr>
 	<tr>
 	  <td colspan="2">
-	    <a href='BgPaper.html'>View Paperwork</a>
+	    <a href='#'>TBS View Paperwork</a>
 	  </td>
 	</tr>
       </table>
@@ -625,28 +640,19 @@
       <B>Systems Covered</B>
     </div>
     <div class="carbox2">
-      <table border="1">
-	<tr>
-	  <td>fuel</td><td><B>$4,000</B></td>
-	</tr>
-	<tr>
-	  <td>engine</td><td><B>$4,000</B></td>
-	</tr>
-	<tr>
-	  <td>transmission</td><td><B>$2,000</B></td>
-	</tr>
-	<tr>
-	  <td>drive line</td><td><B>No</B></td>
-	</tr>
-	<tr>
-	  <td>cooling</td><td><B>$4,000</B></td>
-	</tr>
-	<tr>
-	  <td>power steering </td><td><B>$4,000</B></td>
-	</tr>
-	<tr>
-	  <td>brakes</td><td><B>$4,000</B></td>
-	</tr>
+      <table border="1" class="anatab">
+        <% for bgsc in @vehicle.bg_system_covereds %>
+          <tr>
+            <td><%= bgsc.system.name %></td>
+            <td>
+              <% if bgsc.coverage.nil? or bgsc.coverage == 0 %>
+                <B>No</B>
+              <% else %>
+                <B><%= number_to_currency(bgsc.coverage) %></B>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
       </table>
     </div>
   </div>
@@ -663,7 +669,7 @@
     </div>
     <div class="payhistbox2">
       <center>
-      <table border="1">
+      <table border="1" class="anatab">
 	<tr bgcolor="#e0e0e0">
 	  <th colspan="3">
 	    <font color="#006040">Level 3</font>
@@ -756,7 +762,7 @@
       <B>This Vehicle Service History</B>
     </div>
     <div class="visithistbox2">
-      <table border="1">
+      <table border="1" class="anatab">
 	<tr bgcolor="#e0e0e0">
 	  <th colspan="8"><font color="#006040">
 	    <center>Scheduled</center>
@@ -942,7 +948,7 @@
 
     <!-- contents of popovers -->
     <div id="vr1id_div" style="display: none">
-      <table border="1">
+      <table border="1" class="anatab">
         <tr>
 	  <th>Labor</th>
 	  <th>Parts</th>
@@ -967,7 +973,7 @@
     </div>
 
     <div id="vr2id_div" style="display: none">
-      <table border="1">
+      <table border="1" class="anatab">
         <tr>
 	  <th>Labor</th>
 	  <th>Parts</th>
@@ -992,7 +998,7 @@
     </div>
 
     <div id="vr3id_div" style="display: none">
-      <table border="1">
+      <table border="1" class="anatab">
         <tr>
 	  <th>Labor</th>
 	  <th>Parts</th>
@@ -1009,7 +1015,7 @@
     </div>
 
     <div id="vr4id_div" style="display: none">
-      <table border="1">
+      <table border="1" class="anatab">
         <tr>
 	  <th>Labor</th>
 	  <th>Parts</th>
@@ -1034,7 +1040,7 @@
     </div>
 
     <div id="vr5id_div" style="display: none">
-      <table border="1">
+      <table border="1" class="anatab">
         <tr>
 	  <th>Labor</th>
 	  <th>Parts</th>
@@ -1051,7 +1057,7 @@
     </div>
 
     <div id="vr6id_div" style="display: none">
-      <table border="1">
+      <table border="1" class="anatab">
         <tr>
 	  <th>Labor</th>
 	  <th>Parts</th>
@@ -1075,7 +1081,7 @@
     </div>
     <div class="plbox2">
       <center>
-      <table border="1">
+      <table border="1" class="anatab">
 	<tr>
 	  <td>Qualification Sale</td>
 	  <td align="right"><font color="#008000">
@@ -1192,7 +1198,7 @@
     </div>
     <div class="gendatabox">
       <div class="financetblbox">
-	<table border="1">
+	<table border="1" class="anatab">
 	  <tr>
 	    <th colspan="2">
 	      <center><B>Overview</B></center>
@@ -1233,7 +1239,7 @@
 	</table>
       </div>
       <div class="financetblbox">
-	<table border="1">
+	<table border="1" class="anatab">
 	  <tr>
 	    <th>Payment Amount</th>
 	    <th>Payment Date</th>
@@ -1298,7 +1304,7 @@
     </div>
     <div class="gendatabox">
       <div class="financetblbox">
-	<table border="1">
+	<table border="1" class="anatab">
 	  <tr>
 	    <th colspan="2">
 	      <center><B>S/N 541938</B></center>
@@ -1345,7 +1351,7 @@
     </div>
     <div class="gendatabox">
       <div class="financetblbox">
-	<table border="1">
+	<table border="1" class="anatab">
 	  <tr>
 	    <td>R8112: Alternator</td>
 	    <td><font color="#800000">NOT DONE</font></td>
@@ -1387,18 +1393,6 @@
     </center>
   </div>
 </div>
-
-<div class="footframe">
-
-</body>
-</html>
-
-
-
-
-<hr />
-
-<br />
 
 <a href="/vehicles/search_int1">New Search</a> &nbsp; | &nbsp;
 <a href="/top/analytics">Analytics</a>

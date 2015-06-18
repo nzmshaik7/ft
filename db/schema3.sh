@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Record the migration command here
+# Run it
+# rake db:migrate
+# Adjust model and forms
+
 exit 1
 
 rails generate scaffold PaymentType name:string
@@ -28,3 +33,4 @@ rails generate migration add_stype_to_ServiceLineItem stype:integer
 rails generate migration rename_manufacturer_warranty_column
 rails generate migration add_email_to_Customer email:string
 rails generate migration add_contact_method_to_Customer contact_method:integer
+rails generate migration add_cylinder_compression_tolerance_to_Qualification cylinder_compression_tolerance:integer

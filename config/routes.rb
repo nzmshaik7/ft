@@ -164,6 +164,7 @@ Ft::Application.routes.draw do
   get "mockup/bgPaper"
 
   get "analytics/int1/:id" => 'analytics#int1'
+  get "analytics/non_ma_maint/:id" => 'analytics#non_ma_maint'
 
   get "static/home"
   get "static/signed_up"
