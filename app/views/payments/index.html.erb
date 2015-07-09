@@ -44,6 +44,8 @@
     <td>
       <% if payment.payment_method %>
         <%= payment.payment_method.payment_type.name %>
+      <% elsif payment.status == Payment::STATUS_REFERRAL %>
+        <i>N/A</i>
       <% else %>
         <font color="#800000"><i>Fix this - missing payment type</i></font>
       <% end %>

@@ -504,12 +504,14 @@ RAILS ${gen[*]}
 gen=( generate scaffold Payment
     date_time:datetime
      invoice_id:integer     # (or InvoiceLineItem?)  # one or the other of these
-     contract_id:integer
+     contract_id:integer    # Membership fees are always under contract.
      finance_agreement_id:integer
     customer_id:integer
     amount:decimal{8.2}
-    payment_method_id:integer
-    status:integer            # Approved, Denied
+    payment_method_id:integer # Will be zero if payment is a Referral bonus.
+                              # If there is also an upgrade, then it will be
+			      # split into another Payment.
+    status:integer            # Approved, Denied, Referral
     merchant_services_status:string  # String back from bank
     comment:string
     )

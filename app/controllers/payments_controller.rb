@@ -24,17 +24,19 @@ class PaymentsController < ApplicationController
 
         @selStatus = 0
         if payment
-            if payment.status == Payment::STATUS_APPOVED or
-               payment.status == Payment::STATUS_PENDING or
-               payment.status == Payment::STATUS_DENIED 
+            if payment.statusValid?
                 @selStatus = payment.status
             end
         end
         @statusOptions = [
             [ "Select",   0  ],
-            [ "Approved",  Payment::STATUS_APPOVED ],
-            [ "Denied",    Payment::STATUS_DENIED ],
-            [ "Pending",   Payment::STATUS_PENDING ],
+            [ "Approved",          Payment::STATUS_APPOVED ],
+            [ "Denied",            Payment::STATUS_DENIED ],
+            [ "Pending",           Payment::STATUS_PENDING ],
+            [ "Referral",          Payment::STATUS_REFERRAL ],
+            [ "Approved Upgrade",  Payment::STATUS_UP_APPOVED ],
+            [ "Denied Upgrade",    Payment::STATUS_UP_DENIED ],
+            [ "Pending Upgrade",   Payment::STATUS_UP_PENDING ],
         ]
     end
 
@@ -79,20 +81,35 @@ class PaymentsController < ApplicationController
         prepFormVariables(@payment)
     end
 
+
+    def validatePayment?(payment)
+        if payment.status == Payment::STATUS_REFERRAL and
+               payment.payment_method_id and payment.payment_method_id != 0
+            session[:aux_error] = "ERROR: Payment with Referral must not have "
+            session[:aux_error] += "a payment method."
+            return false
+        end
+        return true
+    end
+
+
     # POST /payments
     # POST /payments.json
     def create
         @payment = Payment.new(params[:payment])
+        ok = validatePayment?(@payment)
 
         respond_to do |format|
-            if @payment.save
+            if ok and @payment.save
                 format.html { redirect_to payments_url,
                               notice: 'Payment was successfully created.' }
-                format.json { render json: @payment, status: :created, location: @payment }
+                format.json { render json: @payment, status: :created,
+                                     location: @payment }
             else
                 prepFormVariables(@payment)
                 format.html { render action: "new" }
-                format.json { render json: @payment.errors, status: :unprocessable_entity }
+                format.json { render json: @payment.errors, 
+                                     status: :unprocessable_entity }
             end
         end
     end
@@ -103,14 +120,17 @@ class PaymentsController < ApplicationController
         @payment = Payment.find(params[:id])
 
         respond_to do |format|
-            if @payment.update_attributes(params[:payment])
+            upok = @payment.update_attributes(params[:payment])
+            parok = validatePayment?(@payment)
+            if upok and parok
                 format.html { redirect_to payments_url,
                               notice: 'Payment was successfully updated.' }
                 format.json { head :no_content }
             else
                 prepFormVariables(@payment)
                 format.html { render action: "edit" }
-                format.json { render json: @payment.errors, status: :unprocessable_entity }
+                format.json { render json: @payment.errors,
+                                     status: :unprocessable_entity }
             end
         end
     end

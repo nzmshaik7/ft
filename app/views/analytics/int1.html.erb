@@ -684,64 +684,56 @@
 	  <th>Date</th>
 	</tr>
 	<!-- 10x 5.99 turbo  3 x 9.99 detail  4x7.00 tow -->
-	<tr>
-	  <td>$49.99</td>
-	  <td>$5.99 (turbo)</td>
-	  <td>Apr 1, 2014</td>
-	</tr>
-	<tr>
-	  <td>$49.99</td>
-	  <td>$5.99 (turbo)</td>
-	  <td>May 1, 2014</td>
-	</tr>
-	<tr>
-	  <td>$49.99</td>
-	  <td>$5.99 (turbo)</td>
-	  <td>Jun 1, 2014</td>
-	</tr>
-	<tr>
-	  <td>$49.99</td>
-	  <td>$5.99 (turbo)</td>
-	  <td>Jul 2, 2014</td>
-	</tr>
-	<tr>
-	  <td>$49.99</td>
-	  <td>$5.99 (turbo)</td>
-	  <td>Aug 1, 2014</td>
-	</tr>
-	<tr>
-	  <td>$49.99</td>
-	  <td>$5.99 (turbo)</td>
-	  <td>Sep 2, 2014</td>
-	</tr>
-	<tr>
-	  <td>$15.98</td>
-	  <td>$19.99 (turbo, detailing)</td>
-	  <td>Oct 1, 2014</td>
-	</tr>
-	<tr>
-	  <td>$49.99</td>
-	  <td>$22.98 (towing, turbo, detailing)</td>
-	  <td>Nov 1, 2014</td>
-	</tr>
-	<tr>
-	  <td>$49.99</td>
-	  <!-- 
-	  <td>
-	    $22.98
-	    <img src="images/tow30.png">
-	    <img src="images/turbo30.png">
-	    <img src="images/wash30.png">
-	  </td>
-	  -->
-	  <td>$22.98 (towing, turbo, detailing)</td>
-	  <td>Dec 1, 2014</td>
-	</tr>
-	<tr>
-	  <td>Ref.</td>
-	  <td>$22.98 (towing, turbo, detailing)</td>
-	  <td>Mar 1, 2014</td>
-	</tr>
+        <% for pmnt in vcust.payments %>
+          <% next if not pmnt.statusCompleted? %>
+          <% next if pmnt.contract.nil? %>
+
+          <% upgradeNote = '' %>
+          <% for ug in pmnt.contract.upgrades %>
+            <% if upgradeNote == '' %>
+              <% upgradeNote = ug.upgrade_type.name %>
+            <% else %>
+              <% upgradeNote += '+' %>
+              <% break %>
+            <% end %>
+          <% end %>
+          <% upgradeAmt = 0.0 %>
+
+          <% if pmnt.status == Payment::STATUS_REFERRAL %>
+            <% baseAmtStr = 'Ref.' %>
+            <% upgradeNote = '' %>
+          <% elsif pmnt.status == Payment::STATUS_UP_APPOVED %>
+            <% baseAmtStr = 'Upgrd' %>
+            <% upgradeAmt = pmnt.amount %>
+          <% else %>
+            <% baseAmt = pmnt.contract.base_cost %>
+            <% if baseAmt >= pmnt.amount %>
+              <% baseAmt = pmnt.amount %>
+              <% upgradeNote = '' %>
+            <% else %>
+              <% upgradeAmt = pmnt.amount - pmnt.contract.base_cost %>
+            <% end %>
+            <% baseAmtStr = number_to_currency(baseAmt) %>
+          <% end %>
+
+          <% if upgradeNote != '' %>
+            <% upgradeNote = '(' + upgradeNote + ')' %>
+          <% end %>
+
+          <tr>
+            <td><%= baseAmtStr %></td>
+            <td>
+              <%= number_to_currency(upgradeAmt) %>
+              <%= upgradeNote %>
+            </td>
+            <td><%= pmnt.date_time.strftime("%b %d, %Y") %></td>
+          </tr>
+        <% end %>
+
+
+
+
+
 	<tr>
 	  <td><B>$449.91</B></td>
 	  <td><B>$117.87</B></td>

@@ -12,12 +12,36 @@ class Payment < ActiveRecord::Base
     STATUS_APPOVED = 31
     STATUS_DENIED = 32
     STATUS_PENDING = 33
+    STATUS_REFERRAL = 34
+    STATUS_UP_APPOVED = 35
+    STATUS_UP_DENIED = 36
+    STATUS_UP_PENDING = 37
+    STATUS_LAST = 37
 
     def statusText
-        return "Approved"  if status == 31
-        return "Denied"    if status == 32
-        return "Pending"   if status == 33
+        return "Approved"    if status == 31
+        return "Denied"      if status == 32
+        return "Pending"     if status == 33
+        return "Referral"    if status == 34
+        return "Approved"    if status == 35
+        return "Denied upg"  if status == 36
+        return "Pending upg" if status == 37
         return "Unknown"
+    end
+
+    def statusValid?
+        return false  if status.nil?
+        return false  if status < STATUS_APPOVED 
+        return false  if status > STATUS_LAST
+        return true
+    end
+
+    def statusCompleted?
+        if status == STATUS_APPOVED or status == STATUS_REFERRAL or
+                                       status == STATUS_UP_APPOVED
+            return true
+        end
+        return false
     end
 
 end
