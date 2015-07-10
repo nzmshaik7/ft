@@ -683,6 +683,8 @@
 	  <th>Upgrade</th>
 	  <th>Date</th>
 	</tr>
+        <% baseTotal = 0.0 %>
+        <% upgTotal = 0.0 %>
 	<!-- 10x 5.99 turbo  3 x 9.99 detail  4x7.00 tow -->
         <% for pmnt in vcust.payments %>
           <% next if not pmnt.statusCompleted? %>
@@ -705,7 +707,7 @@
           <% elsif pmnt.status == Payment::STATUS_UP_APPOVED %>
             <% baseAmtStr = 'Upgrd' %>
             <% upgradeAmt = pmnt.amount %>
-          <% else %>
+          <% else # STATUS_APPOVED %>
             <% baseAmt = pmnt.contract.base_cost %>
             <% if baseAmt >= pmnt.amount %>
               <% baseAmt = pmnt.amount %>
@@ -714,7 +716,9 @@
               <% upgradeAmt = pmnt.amount - pmnt.contract.base_cost %>
             <% end %>
             <% baseAmtStr = number_to_currency(baseAmt) %>
+            <% baseTotal += baseAmt %>
           <% end %>
+          <% upgTotal += upgradeAmt %>
 
           <% if upgradeNote != '' %>
             <% upgradeNote = '(' + upgradeNote + ')' %>
@@ -735,9 +739,9 @@
 
 
 	<tr>
-	  <td><B>$449.91</B></td>
-	  <td><B>$117.87</B></td>
-	  <td><B>$567.78</B></td>
+	  <td><B><%= number_to_currency(baseTotal) %></B></td>
+	  <td><B><%= number_to_currency(upgTotal) %></B></td>
+	  <td><B><%= number_to_currency(baseTotal + upgTotal) %></B></td>
 	</tr>
       </table>
       </center>
@@ -745,7 +749,7 @@
     <div class="payhistbox2">
       <center>
       <B>Club Fees Only</B><br>
-      <img src="images/PieSchdUnschd.png">
+      <B><I><font color="#800080">Pie chart TBS</font></I></B>
       </center>
     </div>
   </div>
