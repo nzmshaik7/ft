@@ -3,6 +3,7 @@ class AnalyticsController < ApplicationController
     before_filter :only_allow_admins
     include CustomersHelper
     include QualificationsHelper
+    include ServiceLineItemsHelper
 
     def prepFormVariables(veh)
         now = Time.now
@@ -112,41 +113,34 @@ class AnalyticsController < ApplicationController
         @otherPartsActual = 0.0
         for svisit in veh.service_visits
             for sli in svisit.service_line_items
+		setTotalsForSvcLineItem(sli)
                 if sli.stype == ServiceLineItem::S_QUALIFICATION
-                    @qualRetail += 
-                                 sli.labor_hours_retail * sli.labor_rate_retail
-                    @qualLaborActual += 
-                                 sli.labor_hours_actual * sli.labor_rate_actual
+                    @qualRetail += @totLaborRetail
+                    @qualLaborActual += @totLaborActual
                     for sp in sli.service_parts
                         @qualRetail += sp.part_retail_price
                         @qualPartsActual += sp.part_actual_price
                     end
                 elsif sli.stype == ServiceLineItem::S_MEMB_SERVICE
-                    @membLaborActual += 
-                                 sli.labor_hours_actual * sli.labor_rate_actual
+                    @membLaborActual += @totLaborActual
                     for sp in sli.service_parts
                         @membPartsActual += sp.part_actual_price
                     end
                 elsif sli.stype == ServiceLineItem::S_MEMB_REPAIR
-                    @membLaborActual += 
-                                 sli.labor_hours_actual * sli.labor_rate_actual
+                    @membLaborActual += @totLaborActual
                     for sp in sli.service_parts
                         @membPartsActual += sp.part_actual_price
                     end
                 elsif sli.stype == ServiceLineItem::S_MEMB_NOT_COVERED
-                    @notCoveredIncome += 
-                                 sli.labor_hours_retail * sli.labor_rate_retail
-                    @notCoveredLaborActual += 
-                                 sli.labor_hours_actual * sli.labor_rate_actual
+                    @notCoveredIncome += @totLaborRetail
+                    @notCoveredLaborActual += @totLaborActual
                     for sp in sli.service_parts
                         @notCoveredIncome += sp.part_retail_price
                         @notCoveredPartsActual += sp.part_actual_price
                     end
                 else
-                    @otherIncome += 
-                                 sli.labor_hours_retail * sli.labor_rate_retail
-                    @otherLaborActual += 
-                                 sli.labor_hours_actual * sli.labor_rate_actual
+                    @otherIncome += @totLaborRetail
+                    @otherLaborActual += @totLaborActual
                     for sp in sli.service_parts
                         @otherPartsActual += sp.part_actual_price
                         @otherIncome += sp.part_retail_price
