@@ -35,15 +35,41 @@
   </div>
   </blockquote>
   <div class="field">
+    <%= f.label :labor_hours_retail %><font color="#800000">*</font><br />
+    <%= f.text_field :labor_hours_retail %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_rate_retail %><font color="#800000">*</font><br />
+    <%= f.text_field :labor_rate_retail %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_hours_actual %><font color="#800000">*</font><br />
+    <%= f.text_field :labor_hours_actual %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_rate_actual %><font color="#800000">*</font><br />
+    <%= f.text_field :labor_rate_actual %>
+  </div>
+  <div class="field">
+    <%= f.label :technician1_id %><br />
+    <select id="technician1" name="technician1">
+      <%= options_for_select(@technicianOptions, @selTech1) %>
+    </select> <br />
+    <%= f.label :technician2_id %><br />
+    <select id="technician2" name="technician2">
+      <%= options_for_select(@technicianOptions, @selTech2) %>
+    </select> <br />
+    <%= f.label :technician3_id %><br />
+    <select id="technician3" name="technician3">
+      <%= options_for_select(@technicianOptions, @selTech3) %>
+    </select> <br />
+  <div class="field">
     <%= f.label :stype, 'Service Type' %>
     <font color="#800000">* Important - controls profit/loss</font>
     <br />
     <select id="service_line_item_stype" name="service_line_item[stype]">
       <%= options_for_select(@stypeOptions, @selStype) %>
     </select> <br />
-  </div>
-  <div class="field">
-    <P>(You may add technicians and their hours later using Show.)</P>
   </div>
   <div class="actions">
     <%= f.submit %>

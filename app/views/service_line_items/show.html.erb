@@ -1,13 +1,50 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Service visit:</b>
-  <%= @service_line_item.service_visit_id %>
-</p>
+<table border="1">
+  <tr>
+    <td colspan="3">
+      <b>Line item for the following 
+      <a href="/service_visits/<%= @service_line_item.service_visit.id %>">
+      service visit</a>
+      </b>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>Mileage:</b>
+      <%= @service_line_item.service_visit.mileage %>
+    </td>
+    <td>
+      <b>Date:</b>
+      <%= @service_line_item.service_visit.sdate.strftime("%b %d, %Y, %H:%M") %>
+    </td>
+    <td>
+      <b>Store:</b>
+      <%= @service_line_item.service_visit.store.number %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>Vehicle:</b>
+      <%= @service_line_item.service_visit.vehicle.ymmpText  %>
+    </td>
+    <td>
+      <b>Salesperson:</b>
+      <%= @service_line_item.service_visit.salesperson_id %>
+    </td>
+    <td>
+      <b>Invoice:</b>
+      <% if @service_line_item.service_visit.invoice %>
+        <%= @service_line_item.service_visit.invoice.invoice_number %>
+      <% end %>
+    </td>
+
+  </tr>
+</table>
 
 <p>
   <b>Service description:</b>
-  <%= @service_line_item.service_description_id %>
+  <%= @service_line_item.service_description.name %>
 </p>
 
 <p>
@@ -16,38 +53,23 @@
 </p>
 
 <p>
-  <b>Labor hours retail:</b>
-  <%= @service_line_item.labor_hours_retail %>
+  <b>Total hours retail:</b>
+  <%= number_with_precision(@totHoursRetail, precision: 1) %>
 </p>
 
 <p>
-  <b>Labor rate retail:</b>
-  <%= @service_line_item.labor_rate_retail %>
+  <b>Total labor retail:</b>
+  <%= number_to_currency(@totLaborRetail) %>
 </p>
 
 <p>
-  <b>Labor hours actual:</b>
-  <%= @service_line_item.labor_hours_actual %>
+  <b>Total hours actual:</b>
+  <%= number_with_precision(@totHoursActual, precision: 1) %>
 </p>
 
 <p>
-  <b>Labor rate actual:</b>
-  <%= @service_line_item.labor_rate_actual %>
-</p>
-
-<p>
-  <b>Technician1:</b>
-  <%= @service_line_item.technician1_id %>
-</p>
-
-<p>
-  <b>Technician2:</b>
-  <%= @service_line_item.technician2_id %>
-</p>
-
-<p>
-  <b>Technician3:</b>
-  <%= @service_line_item.technician3_id %>
+  <b>Total labor actual:</b>
+  <%= number_to_currency(@totLaborActual) %>
 </p>
 
 <p>
@@ -60,6 +82,38 @@
   <%= @service_line_item.is_scheduled %>
 </p>
 
+<p>
+  <b>Technicians:</b>
+  <% if @service_line_item.technician_hours.length == 0 %>
+    <i>No technician hours for this line item</i>
+  <% else %>
+    <table border="1" class="ft_dbtab">
+      <tr>
+	<th>Technician</th>
+	<th>Labor hours retail</th>
+	<th>Labor rate retail</th>
+	<th>Labor hours actual</th>
+	<th>Labor rate actual</th>
+      </tr>
+      <% for th in @service_line_item.technician_hours %>
+	<tr>
+	  <td>
+	    <%= th.technician_id %>/
+	    <%= th.technician.employee.nameText %>
+	  </td>
+	  <td><%= th.labor_hours_retail %></td>
+	  <td><%= th.labor_rate_retail %></td>
+	  <td><%= th.labor_hours_actual %></td>
+	  <td><%= th.labor_rate_actual %></td>
+	</tr>
+      <% end %>
+    </table>
+  <% end %>
+</p>
+
+<a href="/technician_hours/th_for_sli/<%= @service_line_item.id %>">
+  Add new Technician Hours
+</a> |
 
 <%= link_to 'Edit', edit_service_line_item_path(@service_line_item) %> |
 <%= link_to 'Back', service_line_items_path %>

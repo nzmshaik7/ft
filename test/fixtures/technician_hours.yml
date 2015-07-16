@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  service_line_item_id: 1
+  labor_hours_retail: 9.99
+  labor_rate_retail: 9.99
+  labor_hours_actual: 9.99
+  labor_rate_actual: 9.99
+  technician_id: 1
+
+two:
+  service_line_item_id: 1
+  labor_hours_retail: 9.99
+  labor_rate_retail: 9.99
+  labor_hours_actual: 9.99
+  labor_rate_actual: 9.99
+  technician_id: 1

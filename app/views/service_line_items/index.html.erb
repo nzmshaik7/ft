@@ -5,13 +5,6 @@
     <th>Service visit</th>
     <th>Service description</th>
     <th>Service description text</th>
-    <th>Labor hours retail</th>
-    <th>Labor rate retail</th>
-    <th>Labor hours actual</th>
-    <th>Labor rate actual</th>
-    <th>Technician1</th>
-    <th>Technician2</th>
-    <th>Technician3</th>
     <th>Type</th>
     <th colspan="3"><i>Actions</i></th>
   </tr>
@@ -21,27 +14,6 @@
     <td><%= service_line_item.service_visit.visitText %></td>
     <td><%= service_line_item.service_description.name %></td>
     <td><%= service_line_item.service_description_text %></td>
-    <td><%= number_with_precision(service_line_item.labor_hours_retail,
-                                  precision: 2) %></td>
-    <td><%= number_to_currency(service_line_item.labor_rate_retail) %></td>
-    <td><%= number_with_precision(service_line_item.labor_hours_actual,
-                                  precision: 2) %></td>
-    <td><%= number_to_currency(service_line_item.labor_rate_actual) %></td>
-    <td>
-      <% if service_line_item.technician1 %>
-        <%= service_line_item.technician1.employee.nameText %>
-      <% end %>
-    </td>
-    <td>
-      <% if service_line_item.technician2 %>
-        <%= service_line_item.technician2.employee.nameText %>
-      <% end %>
-    </td>
-    <td>
-      <% if service_line_item.technician3 %>
-        <%= service_line_item.technician3.employee.nameText %>
-      <% end %>
-    </td>
     <td><%= stypeText(service_line_item.stype) %></td>
     <td><%= link_to 'Show', service_line_item %></td>
     <td><%= link_to 'Edit', edit_service_line_item_path(service_line_item) %></td>

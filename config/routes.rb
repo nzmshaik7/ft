@@ -1,5 +1,8 @@
 Ft::Application.routes.draw do
 
+  resources :technician_hours
+  get "technician_hours/th_for_sli/:id" => 'technician_hours#th_for_sli'
+
   resources :manufacturer_warranty_types
 
   resources :payment_types

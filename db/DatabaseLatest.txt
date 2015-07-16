@@ -399,6 +399,7 @@ RAILS ${gen[*]}
 
 # Retail price is copied here from Description if available.
 # FIXME: this might be wrong - maybe should track labor for each tech.
+# URHERE
 #
 gen=( generate scaffold ServiceLineItem
     service_visit_id:integer
@@ -415,8 +416,22 @@ gen=( generate scaffold ServiceLineItem
     )
     # Other tables that point to my Primary Key
     # List of ServiceParts
+    # List of TechnicianHours
 RAILS ${gen[*]}
 
+
+# One Technician working on one service line item.  One service line
+# item might have several of these.
+#
+gen=( generate scaffold TechnicianHour
+    service_line_item_id:integer
+    labor_hours_retail:decimal{8.2}
+    labor_rate_retail:decimal{8.2}
+    labor_hours_actual:decimal{8.2}
+    labor_rate_actual:decimal{8.2}
+    technician_id:integer
+    )
+RAILS ${gen[*]}
 
 # Dropdown of canned service items.  One item will be "Other" so that
 # objects can have an arbitrary field.  Category is to help organize

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150604205200) do
+ActiveRecord::Schema.define(:version => 20150710210730) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -415,15 +415,8 @@ ActiveRecord::Schema.define(:version => 20150604205200) do
     t.integer  "service_visit_id"
     t.integer  "service_description_id"
     t.string   "service_description_text"
-    t.decimal  "labor_hours_retail",       :precision => 8, :scale => 2
-    t.decimal  "labor_rate_retail",        :precision => 8, :scale => 2
-    t.decimal  "labor_hours_actual",       :precision => 8, :scale => 2
-    t.decimal  "labor_rate_actual",        :precision => 8, :scale => 2
-    t.integer  "technician1_id"
-    t.integer  "technician2_id"
-    t.integer  "technician3_id"
-    t.datetime "created_at",                                             :null => false
-    t.datetime "updated_at",                                             :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.integer  "stype"
   end
 
@@ -485,6 +478,17 @@ ActiveRecord::Schema.define(:version => 20150604205200) do
     t.integer  "make_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "technician_hours", :force => true do |t|
+    t.integer  "service_line_item_id"
+    t.decimal  "labor_hours_retail",   :precision => 8, :scale => 2
+    t.decimal  "labor_rate_retail",    :precision => 8, :scale => 2
+    t.decimal  "labor_hours_actual",   :precision => 8, :scale => 2
+    t.decimal  "labor_rate_actual",    :precision => 8, :scale => 2
+    t.integer  "technician_id"
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
   end
 
   create_table "technicians", :force => true do |t|

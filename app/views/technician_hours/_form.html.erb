@@ -1,0 +1,49 @@
+<%= form_for(@technician_hour) do |f| %>
+  <% if @technician_hour.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@technician_hour.errors.count, "error") %> prohibited this technician_hour from being saved:</h2>
+
+      <ul>
+      <% @technician_hour.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if defined?(given_sli) %>
+    <input name="technician_hour[service_line_item_id]" type="hidden" 
+	           value="<%= given_sli.id %>" />
+  <% else %>
+    <div class="field">
+      <%= f.label :service_line_item_id %><br />
+      <%= f.number_field :service_line_item_id %>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :labor_hours_retail %><br />
+    <%= f.text_field :labor_hours_retail %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_rate_retail %><br />
+    <%= f.text_field :labor_rate_retail %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_hours_actual %><br />
+    <%= f.text_field :labor_hours_actual %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_rate_actual %><br />
+    <%= f.text_field :labor_rate_actual %>
+  </div>
+  <div class="field">
+    <%= f.label :technician_id %><br />
+    <select id="technician_hour_technician_id" 
+            name="technician_hour[technician_id]">
+      <%= options_for_select(@technicianOptions, @selTech) %>
+    </select> <br />
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

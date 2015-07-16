@@ -34,3 +34,13 @@ rails generate migration rename_manufacturer_warranty_column
 rails generate migration add_email_to_Customer email:string
 rails generate migration add_contact_method_to_Customer contact_method:integer
 rails generate migration add_cylinder_compression_tolerance_to_Qualification cylinder_compression_tolerance:integer
+
+
+rails generate migration delete_labor_from_ServiceLineItem \
+    labor_hours_retail:decimal{8.2} \
+    labor_rate_retail:decimal{8.2} \
+    labor_hours_actual:decimal{8.2} \
+    labor_rate_actual:decimal{8.2} \
+    technician1_id:integer \
+    technician2_id:integer \
+    technician3_id:integer

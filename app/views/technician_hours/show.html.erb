@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Service line item:</b>
+  <%= @technician_hour.service_line_item_id %>
+</p>
+
+<p>
+  <b>Labor hours retail:</b>
+  <%= @technician_hour.labor_hours_retail %>
+</p>
+
+<p>
+  <b>Labor rate retail:</b>
+  <%= @technician_hour.labor_rate_retail %>
+</p>
+
+<p>
+  <b>Labor hours actual:</b>
+  <%= @technician_hour.labor_hours_actual %>
+</p>
+
+<p>
+  <b>Labor rate actual:</b>
+  <%= @technician_hour.labor_rate_actual %>
+</p>
+
+<p>
+  <b>Technician:</b>
+  <%= @technician_hour.technician_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_technician_hour_path(@technician_hour) %> |
+<%= link_to 'Back', technician_hours_path %>

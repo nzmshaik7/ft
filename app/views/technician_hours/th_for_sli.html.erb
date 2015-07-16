@@ -1,0 +1,18 @@
+<h2>New technician hours for Service Line Item </h2>
+
+<P>
+<B>For service visit on 
+  <%= @service_line_item.service_visit.sdate.strftime("%b %d, %Y") %>
+for <%= @service_line_item.service_visit.vehicle.ymmpText %>, 
+<%= @service_line_item.service_visit.mileage %> miles. </B>
+</P>
+<P>
+<B>For service line item
+  <%= @service_line_item.service_description.name %>
+  type <%= stypeText(@service_line_item.stype) %>:
+</B>
+</P>
+
+<%= render :partial => 'form',
+           :locals => { :given_sli => @service_line_item } %>
+

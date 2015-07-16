@@ -50,42 +50,27 @@
     <tr bgcolor="#F0FFF0">
       <th>Description</th>
       <th>Desc text</th>
-      <th>Labor hours<br> retail</th>
-      <th>Labor rate<br> retail</th>
-      <th>Labor hours<br> actual</th>
-      <th>Labor rate<br> actual</th>
-      <th>Technician1</th>
-      <th>Technician2</th>
-      <th>Technician3</th>
+      <th>Total hours<br> retail</th>
+      <th>Total labor<br> retail</th>
+      <th>Total hours<br> actual</th>
+      <th>Total labor<br> actual</th>
       <th>Type</th>
       <th><i>Action</i></th>
     </tr>
 
     <% for service_line_item in @service_visit.service_line_items %>
+      <% setTotalsForSvcLineItem(service_line_item) -%>
       <tr>
-        <td><%= service_line_item.service_description.name %></td>
+        <td>
+	  <a href="/service_line_items/<%= service_line_item.id %>">
+	  <%= service_line_item.service_description.name %>
+	  </a>
+	</td>
         <td><%= service_line_item.service_description_text %></td>
-        <td><%= number_with_precision(service_line_item.labor_hours_retail,
-                                      precision: 2) %></td>
-        <td><%= number_to_currency(service_line_item.labor_rate_retail) %></td>
-        <td><%= number_with_precision(service_line_item.labor_hours_actual,
-                                      precision: 2) %></td>
-        <td><%= number_to_currency(service_line_item.labor_rate_actual) %></td>
-        <td>
-          <% if service_line_item.technician1 %>
-            <%= service_line_item.technician1.employee.nameText %>
-          <% end %>
-        </td>
-        <td>
-          <% if service_line_item.technician2 %>
-            <%= service_line_item.technician2.employee.nameText %>
-          <% end %>
-        </td>
-        <td>
-          <% if service_line_item.technician3 %>
-            <%= service_line_item.technician3.employee.nameText %>
-          <% end %>
-        </td>
+        <td><%= number_with_precision(@totHoursRetail, precision: 1) %></td>
+        <td><%= number_to_currency(@totLaborRetail) %></td>
+        <td><%= number_with_precision(@totHoursActual, precision: 1) %></td>
+        <td><%= number_to_currency(@totLaborActual) %></td>
         <td><%= stypeText(service_line_item.stype) %></td>
         <td>
           <%= link_to 'Edit', edit_service_line_item_path(service_line_item) %>
