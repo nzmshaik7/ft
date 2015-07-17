@@ -774,6 +774,45 @@
 	  <th>Parts</th>
 	  <th>View</th>
 	</tr>
+	<% vnum = 1 %>
+	<% for vis in @vehicle.service_visits %>
+	  <% svLabor = getLaborForSvcVisit(vis) -%>
+	  <tr>
+	    <td><a href="/service_visits/<%= vis.id %>"><%= vnum %></a></td>
+	    <td><%= vis.sdate.strftime("%b %d, %Y") %></td>
+	    <td><%= vis.store.number %>/<%= vis.store.name %></td>
+	    <td><i>TBS</i></td>
+	    <td><%= vis.description %></td>
+	    <td><%= number_to_currency(svLabor[:actual]) %></td>
+            
+	    <td>PARTS</td>
+	    <td>VIEW URHERE</td>
+	  </tr>
+	  <% vnum += 1 %>
+	<% end %>
+      </table>
+    </div> <!-- visithistbox2 -->
+
+
+
+
+    <div class="visithistbox2">
+      <table border="1" class="anatab">
+	<tr bgcolor="#e0e0e0">
+	  <th colspan="8"><font color="#006040">
+	    <center>Scheduled</center>
+	  </font></th>
+	</tr>
+	<tr>
+	  <th>Num</th>
+	  <th>Date</th>
+	  <th>Location</th>
+	  <th>Hours in Garage</th>
+	  <th>Description</th>
+	  <th>Labor</th>
+	  <th>Parts</th>
+	  <th>View</th>
+	</tr>
 	<tr>
 	  <td>1</td>
 	  <td>Mar 15, 2014</td>
