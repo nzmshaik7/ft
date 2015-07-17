@@ -777,6 +777,7 @@
 	<% vnum = 1 %>
 	<% for vis in @vehicle.service_visits %>
 	  <% svSums = getSumsForSvcVisit(vis) -%>
+	  <% next unless svSums[:hasScheduled] -%>
 	  <tr>
 	    <td><a href="/service_visits/<%= vis.id %>"><%= vnum %></a></td>
 	    <td><%= vis.sdate.strftime("%b %d, %Y") %></td>

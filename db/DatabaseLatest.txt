@@ -398,20 +398,11 @@ RAILS ${gen[*]}
 
 
 # Retail price is copied here from Description if available.
-# FIXME: this might be wrong - maybe should track labor for each tech.
-# URHERE
 #
 gen=( generate scaffold ServiceLineItem
     service_visit_id:integer
     service_description_id:integer
     service_description_text:string
-    labor_hours_retail:decimal{8.2}
-    labor_rate_retail:decimal{8.2}
-    labor_hours_actual:decimal{8.2}
-    labor_rate_actual:decimal{8.2}
-    technician1_id:integer     # ok if not a list?
-    technician2_id:integer
-    technician3_id:integer
     stype:integer
     )
     # Other tables that point to my Primary Key

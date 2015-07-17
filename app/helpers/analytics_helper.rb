@@ -9,6 +9,7 @@ module AnalyticsHelper
 	visitLaborActual = 0.0
 	visitPartsRetail = 0.0
 	visitPartsActual = 0.0
+	hasScheduled = false
 	for sli in sv.service_line_items
 	    setTotalsForSvcLineItem(sli)
 	    visitLaborRetail += @totLaborRetail
@@ -17,11 +18,13 @@ module AnalyticsHelper
 		visitPartsRetail += servicePart.part_retail_price
 		visitPartsActual += servicePart.part_actual_price
 	    end
+	    hasScheduled = true  if sli.is_scheduled
 	end
 	ans[:laborRetail] = visitLaborRetail
 	ans[:laborActual] = visitLaborActual
 	ans[:partsRetail] = visitPartsRetail
 	ans[:partsActual] = visitPartsActual
+	ans[:hasScheduled] = hasScheduled
 	return ans
     end
 
