@@ -1,18 +1,27 @@
 module AnalyticsHelper
 
-    # Just get the total actual and retail labor cost for one service visit.
+    # Just get the total actual and retail labor cost and parts costs
+    # for one service visit.
     # 
-    def getLaborForSvcVisit(sv)
+    def getSumsForSvcVisit(sv)
 	ans = Hash.new
 	visitLaborRetail = 0.0
 	visitLaborActual = 0.0
+	visitPartsRetail = 0.0
+	visitPartsActual = 0.0
 	for sli in sv.service_line_items
 	    setTotalsForSvcLineItem(sli)
 	    visitLaborRetail += @totLaborRetail
 	    visitLaborActual += @totLaborActual
+	    for servicePart in sli.service_parts
+		visitPartsRetail += servicePart.part_retail_price
+		visitPartsActual += servicePart.part_actual_price
+	    end
 	end
-	ans[:retail] = visitLaborRetail
-	ans[:actual] = visitLaborActual
+	ans[:laborRetail] = visitLaborRetail
+	ans[:laborActual] = visitLaborActual
+	ans[:partsRetail] = visitPartsRetail
+	ans[:partsActual] = visitPartsActual
 	return ans
     end
 

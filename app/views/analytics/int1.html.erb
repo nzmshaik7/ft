@@ -776,17 +776,22 @@
 	</tr>
 	<% vnum = 1 %>
 	<% for vis in @vehicle.service_visits %>
-	  <% svLabor = getLaborForSvcVisit(vis) -%>
+	  <% svSums = getSumsForSvcVisit(vis) -%>
 	  <tr>
 	    <td><a href="/service_visits/<%= vis.id %>"><%= vnum %></a></td>
 	    <td><%= vis.sdate.strftime("%b %d, %Y") %></td>
 	    <td><%= vis.store.number %>/<%= vis.store.name %></td>
 	    <td><i>TBS</i></td>
 	    <td><%= vis.description %></td>
-	    <td><%= number_to_currency(svLabor[:actual]) %></td>
-            
-	    <td>PARTS</td>
+	    <td><%= number_to_currency(svSums[:laborActual]) %></td>
+	    <td><%= number_to_currency(svSums[:partsActual]) %></td>
 	    <td>VIEW URHERE</td>
+	    <td>
+	      <a id="vr2id" class="show_hide_popover" title="2: May 5" 
+		 data-placement='left' data-trigger="focus" 
+		 tabindex="0" href='#'>View</a>
+	      <a id="xvr2id" class='hide_popover' href='#'>Hide</a>
+	    </td>
 	  </tr>
 	  <% vnum += 1 %>
 	<% end %>
