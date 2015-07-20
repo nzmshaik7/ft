@@ -7,6 +7,8 @@ module AnalyticsHelper
 	ans = Hash.new
 	visitLaborRetail = 0.0
 	visitLaborActual = 0.0
+	visitHoursRetail = 0.0
+	visitHoursActual = 0.0
 	visitPartsRetail = 0.0
 	visitPartsActual = 0.0
 	hasScheduled = false
@@ -14,6 +16,8 @@ module AnalyticsHelper
 	    setTotalsForSvcLineItem(sli)
 	    visitLaborRetail += @totLaborRetail
 	    visitLaborActual += @totLaborActual
+	    visitHoursRetail += @totHoursRetail
+	    visitHoursActual += @totHoursActual
 	    for servicePart in sli.service_parts
 		visitPartsRetail += servicePart.part_retail_price
 		visitPartsActual += servicePart.part_actual_price
@@ -22,6 +26,8 @@ module AnalyticsHelper
 	end
 	ans[:laborRetail] = visitLaborRetail
 	ans[:laborActual] = visitLaborActual
+	ans[:hoursRetail] = visitHoursRetail
+	ans[:hoursActual] = visitHoursActual
 	ans[:partsRetail] = visitPartsRetail
 	ans[:partsActual] = visitPartsActual
 	ans[:hasScheduled] = hasScheduled

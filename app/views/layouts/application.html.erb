@@ -13,7 +13,12 @@
   <% if params[:controller] == 'mockup' or params[:controller] == 'analytics' %>
     <%= javascript_include_tag 'mockup/bootstrap-tooltip' %>
     <%= javascript_include_tag 'mockup/bootstrap-popover' %>
+  <% end %>
+  <% if params[:controller] == 'mockup' %>
     <%= javascript_include_tag 'mockup/mockup' %>
+  <% end %>
+  <% if params[:controller] == 'analytics' %>
+    <%= javascript_include_tag 'intPopover' %>
   <% end %>
   <%= csrf_meta_tags %>
 </head>

@@ -753,11 +753,17 @@
       </center>
     </div>
   </div>
+
   <div class="visithistbox">
     <div class="boxhdr">
       <B>This Vehicle Service History</B>
     </div>
     <div class="visithistbox2">
+      <!-- Yes, gon gem might make this easier, but staying lite for now -->
+      <!-- Put the number of service visits on the page where javascript -->
+      <!-- (intPopover.js) can find it.                                  -->
+      <javascriptfind id="jsVisitCount" 
+                      value="<%= @vehicle.service_visits.length %>" />
       <table border="1" class="anatab">
 	<tr bgcolor="#e0e0e0">
 	  <th colspan="8"><font color="#006040">
@@ -775,6 +781,10 @@
 	  <th>View</th>
 	</tr>
 	<% vnum = 1 %>
+	<% vnumHash = Hash.new %>
+	<% schedPartSubtotal = 0.0 %>
+	<% schedHoursSubtotal = 0.0 %>
+	<% schedLaborSubtotal = 0.0 %>
 	<% for vis in @vehicle.service_visits %>
 	  <% svSums = getSumsForSvcVisit(vis) -%>
 	  <% next unless svSums[:hasScheduled] -%>
@@ -786,109 +796,38 @@
 	    <td><%= vis.description %></td>
 	    <td><%= number_to_currency(svSums[:laborActual]) %></td>
 	    <td><%= number_to_currency(svSums[:partsActual]) %></td>
-	    <td>VIEW URHERE</td>
 	    <td>
-	      <a id="vr2id" class="show_hide_popover" title="2: May 5" 
+	      <% vrid = "vr#{vnum}id" -%>
+	      <% vrdiv = "vr#{vnum}id_div" -%>
+	      <a id="<%= vrid %>" class="show_hide_popover" 
+	         title="<%= vnum %>: <%= vis.sdate.strftime("%b %d") %>" 
 		 data-placement='left' data-trigger="focus" 
 		 tabindex="0" href='#'>View</a>
-	      <a id="xvr2id" class='hide_popover' href='#'>Hide</a>
+	      <a id="x<%= vrid %>" class='hide_popover' href='#'>Hide</a>
 	    </td>
 	  </tr>
+	  <% schedPartSubtotal += svSums[:partsActual] %>
+	  <% schedHoursSubtotal += svSums[:hoursActual] %>
+	  <% schedLaborSubtotal += svSums[:laborActual] %>
+	  <% vnumHash[vis.id] = vnum %>
 	  <% vnum += 1 %>
 	<% end %>
-      </table>
-    </div> <!-- visithistbox2 -->
-
-
-
-
-    <div class="visithistbox2">
-      <table border="1" class="anatab">
-	<tr bgcolor="#e0e0e0">
-	  <th colspan="8"><font color="#006040">
-	    <center>Scheduled</center>
-	  </font></th>
-	</tr>
-	<tr>
-	  <th>Num</th>
-	  <th>Date</th>
-	  <th>Location</th>
-	  <th>Hours in Garage</th>
-	  <th>Description</th>
-	  <th>Labor</th>
-	  <th>Parts</th>
-	  <th>View</th>
-	</tr>
-	<tr>
-	  <td>1</td>
-	  <td>Mar 15, 2014</td>
-	  <td>FL72</td>
-	  <td>2.5</td>
-	  <td>Oil/Filter Change</td>
-	  <td>1.3hr/$19.50</td>
-	  <td>$17.50</td>
-	  <td>
-	    <a id="vr1id" class="show_hide_popover" title="1: Mar 15" 
-	       data-placement='left' data-trigger="focus" 
-	       tabindex="0" href='#'>View</a>
-	    <a id="xvr1id" class='hide_popover' href='#'>Hide</a>
-	  </td>
-	</tr>
-	<tr>
-	  <td>2</td>
-	  <td>May 5, 2014</td>
-	  <td>FL72</td>
-	  <td>1.5</td>
-	  <td>Plugs, Bulbs, Wheel repair</td>
-	  <td>2.25hr/$37.50</td>
-	  <td>$31.17</td>
-	  <td>
-	    <a id="vr2id" class="show_hide_popover" title="2: May 5" 
-	       data-placement='left' data-trigger="focus" 
-	       tabindex="0" href='#'>View</a>
-	    <a id="xvr2id" class='hide_popover' href='#'>Hide</a>
-	  </td>
-	</tr>
-	<tr>
-	  <td>3</td>
-	  <td>Jul 8, 2014</td>
-	  <td>FL72</td>
-	  <td>3.2</td>
-	  <td>Tire Rotation</td>
-	  <td>1.2hr/$18.00</td>
-	  <td>$0.00</td>
-	  <td>
-	    <a id="vr3id" class="show_hide_popover" title="3: Jul 8" 
-	       data-placement='left' data-trigger="focus" 
-	       tabindex="0" href='#'>View</a>
-	    <a id="xvr3id" class='hide_popover' href='#'>Hide</a>
-	  </td>
-	</tr>
-	<tr>
-	  <td>4</td>
-	  <td>Oct 8, 2014</td>
-	  <td>FL72</td>
-	  <td>0.8</td>
-	  <td>Oil/Filter Change</td>
-	  <td>1.3hr/$19.50</td>
-	  <td>$27.50</td>
-	  <td>
-	    <a id="vr4id" class="show_hide_popover" title="4: Oct 8" 
-	       data-placement='left' data-trigger="focus" 
-	       tabindex="0" href='#'>View</a>
-	    <a id="xvr4id" class='hide_popover' href='#'>Hide</a>
-	  </td>
-	</tr>
 	<tr>
 	  <td></td>
 	  <td></td>
 	  <td></td>
 	  <td><B>SUBTOTAL</B></td>
-	  <td><B>$170.67</B></td>
-	  <td><B>6.05hr/$94.50</B></td>
-	  <td><B>$76.17</B></td>
+	  <td><B>
+	    <%= number_to_currency(schedLaborSubtotal + schedPartSubtotal) %>
+	  </B></td>
+	  <td>
+	    <B><%= schedHoursSubtotal %>hr/
+	       <%= number_to_currency(schedLaborSubtotal) %></B>
+	  </td>
+	  <td><B><%= number_to_currency(schedPartSubtotal) %></B></td>
 	  <td></td>
 	</tr>
+
 	<tr>
 	  <th colspan="8" bgcolor="#ffffff">
 	    <font size="+4">&nbsp; </font>
@@ -900,11 +839,6 @@
 	  </font></th>
 	</tr>
 	<tr>
-	  <th colspan="8">
-	    <font size="+3">&nbsp; </font>
-	  </th>
-	</tr>
-	<tr>
 	  <th>Num</th>
 	  <th>Date</th>
 	  <th>Location</th>
@@ -914,207 +848,168 @@
 	  <th>Parts</th>
 	  <th>View</th>
 	</tr>
-	<tr>
-	  <td>5</td>
-	  <td>May 01, 2014</td>
-	  <td>FL72</td>
-	  <td>5.8</td>
-	  <td>Front-end Repair</td>
-	  <td>1.3hr/$19.50</td>
-	  <td>$27.50</td>
-	  <td>
-	    <a id="vr5id" class="show_hide_popover" title="5: May 01" 
-	       data-placement='left' data-trigger="focus" 
-	       tabindex="0" href='#'>View</a>
-	    <a id="xvr5id" class='hide_popover' href='#'>Hide</a>
-	  </td>
-	</tr>
-	<tr>
-	  <td>6</td>
-	  <td>Jul 25, 2014</td>
-	  <td>FL72</td>
-	  <td>3.7</td>
-	  <td>Replace Shocks</td>
-	  <td>2.5hr/$37.50</td>
-	  <td>$29.05</td>
-	  <td>
-	    <a id="vr6id" class="show_hide_popover" title="6: May 5" 
-	       data-placement='left' data-trigger="focus" 
-	       tabindex="0" href='#'>View</a>
-	    <a id="xvr6id" class='hide_popover' href='#'>Hide</a>
-	  </td>
-	</tr>
+
+	<% unschedPartSubtotal = 0.0 %>
+	<% unschedHoursSubtotal = 0.0 %>
+	<% unschedLaborSubtotal = 0.0 %>
+	<% for vis in @vehicle.service_visits %>
+	  <% svSums = getSumsForSvcVisit(vis) -%>
+	  <% next if svSums[:hasScheduled] -%>
+	  <tr>
+	    <td><a href="/service_visits/<%= vis.id %>"><%= vnum %></a></td>
+	    <td><%= vis.sdate.strftime("%b %d, %Y") %></td>
+	    <td><%= vis.store.number %>/<%= vis.store.name %></td>
+	    <td><i>TBS</i></td>
+	    <td><%= vis.description %></td>
+	    <td><%= number_to_currency(svSums[:laborActual]) %></td>
+	    <td><%= number_to_currency(svSums[:partsActual]) %></td>
+	    <td>
+	      <% vrid = "vr#{vnum}id" -%>
+	      <% vrdiv = "vr#{vnum}id_div" -%>
+	      <a id="<%= vrid %>" class="show_hide_popover" 
+	         title="<%= vnum %>: <%= vis.sdate.strftime("%b %d") %>" 
+		 data-placement='left' data-trigger="focus" 
+		 tabindex="0" href='#'>View</a>
+	      <a id="x<%= vrid %>" class='hide_popover' href='#'>Hide</a>
+	    </td>
+	  </tr>
+	  <% unschedPartSubtotal += svSums[:partsActual] %>
+	  <% unschedHoursSubtotal += svSums[:hoursActual] %>
+	  <% unschedLaborSubtotal += svSums[:laborActual] %>
+	  <% vnumHash[vis.id] = vnum %>
+	  <% vnum += 1 %>
+	<% end %>
+
 	<tr>
 	  <td></td>
 	  <td></td>
 	  <td></td>
 	  <td><B>SUBTOTAL</B></td>
-	  <td><B>$113.55</B></td>
-	  <td><B>3.8hr/$57.00</B></td>
-	  <td><B>$56.55</B></td>
+	  <td><B>
+	   <%= number_to_currency(unschedLaborSubtotal + unschedPartSubtotal) %>
+	  </B></td>
+	  <td>
+	    <B><%= unschedHoursSubtotal %>hr/
+	       <%= number_to_currency(unschedLaborSubtotal) %></B>
+	  </td>
+	  <td><B><%= number_to_currency(unschedPartSubtotal) %></B></td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td></td>
 	  <td></td>
 	  <td></td>
 	  <td></td>
 	  <td><B>TOTAL</B></td>
-	  <td><B>9.85hr/$151.50</B></td>
-	  <td><B>$132.72</B></td>
+	  <td><B>
+	   <%= number_to_currency(schedLaborSubtotal + schedPartSubtotal +
+	                          unschedLaborSubtotal + unschedPartSubtotal) %>
+	  </B></td>
+	  <td>
+	    <B><%= schedHoursSubtotal + unschedHoursSubtotal %>hr/
+	       <%= number_to_currency(schedLaborSubtotal + 
+	                              unschedLaborSubtotal) %></B>
+	  </td>
+	  <td><B><%= number_to_currency(schedPartSubtotal + 
+	                                unschedPartSubtotal) %></B></td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td></td>
 	  <td></td>
 	  <td></td>
 	  <td></td>
 	  <td><B>YTD EXPECTED</B></td>
-	  <td><B>10.0hr/$160.00</B></td>
-	  <td><B>$140.00</B></td>
+	  <td><i>TBS</i></td>
+	  <td><i>TBS</i></td>
+	  <td><i>TBS</i></td>
 	  <td></td>
 	</tr>
 	<tr>
 	  <td></td>
 	  <td></td>
 	  <td></td>
-	  <td></td>
 	  <td><B>DIFFERENCE</B></td>
+	  <!--
 	  <td><B><font color="#008000">-0.15hr/$8.50</B></font></td>
 	  <td><B><font color="#008000">-$7.28</B></font></td>
+	  -->
+	  <td><i>TBS</i></td>
+	  <td><i>TBS</i></td>
+	  <td><i>TBS</i></td>
 	  <td></td>
 	</tr>
+
       </table>
     </div> <!-- visithistbox2 -->
 
     <!-- contents of popovers -->
-    <div id="vr1id_div" style="display: none">
-      <table border="1" class="anatab">
-        <tr>
-	  <th>Labor</th>
-	  <th>Parts</th>
-        </tr>
-        <tr>
-	  <td>T#181/Jackson 1.3hrs @ $15.00</td>
-	  <td>P#F99-84424/Oil Filter $8.50</td>
-        </tr>
-        <tr>
-	  <td>&nbsp;</td>
-	  <td>P#AX-12345/Air Filter $7.50</td>
-        </tr>
-        <tr>
-	  <td>&nbsp;</td>
-	  <td>P#78AA7-99/Cabin Filter $1.50</td>
-        </tr>
-        <tr>
-	  <td><B>Total:</B>$19.50</td>
-	  <td><B>Total:</B>$17.50</td>
-        </tr>
-      </table>
-    </div>
+    <% for vis in @vehicle.service_visits %>
+      <% vnum = vnumHash[vis.id] %>
+      <% vrdiv = "vr#{vnum}id_div" -%>
+      <div id="<%= vrdiv %>" style="display: none">
+	<table border="1" class="anatab">
+	  <tr>
+	    <th>Labor</th>
+	    <th>Parts</th>
+	  </tr>
+	  <!-- Accumulate list of parts and labor for this visit. -->
+	  <!-- Will populate colums below with them in parallel. -->
+	  <% xParts = Array.new %>
+	  <% xTechHours = Array.new %>
+	  <% for sli in vis.service_line_items %>
+	    <% for service_part in sli.service_parts %>
+	      <% xParts.push(service_part) %>
+	    <% end %>
+	    <% for techhr in sli.technician_hours %>
+	      <% xTechHours.push(techhr) %>
+	    <% end %>
+	  <% end %>
+	  <% tabDex = 0 %>
+	  <% partTot = 0.0 %>
+	  <% laborTot = 0.0 %>
+	  <% while tabDex < xParts.length or tabDex < xTechHours.length  %>
+	    <tr>
 
-    <div id="vr2id_div" style="display: none">
-      <table border="1" class="anatab">
-        <tr>
-	  <th>Labor</th>
-	  <th>Parts</th>
-        </tr>
-        <tr>
-	  <td>T#131/Johnson 1.5hrs @ $20.00</td>
-	  <td>P#F99-84424/Spark Plugs $18.50</td>
-        </tr>
-        <tr>
-	  <td>T#135/Jones 0.5hrs @ $10.00</td>
-	  <td>P#AX-12345/Rear Signal Bulb $7.50</td>
-        </tr>
-        <tr>
-	  <td>T#135/Jones 0.25hrs @ $10.00</td>
-	  <td>P#78AA7-99/Steering Wheel $5.17</td>
-        </tr>
-        <tr>
-	  <td><B>Total:</B>$37.50</td>
-	  <td><B>Total:</B>$31.17</td>
-        </tr>
-      </table>
-    </div>
+	      <% if tabDex < xTechHours.length  %>
+	        <td>T#<%= xTechHours[tabDex].technician_id %>
+		      /
+		      <%= xTechHours[tabDex].technician.employee.last_name %>
+		      <br>
+		      <%= number_with_precision(
+		                     xTechHours[tabDex].labor_hours_actual,
+		                                precision: 2) %>
+		      hrs @ 
+		      <%= number_to_currency(
+			  xTechHours[tabDex].labor_rate_actual) %>
+		      <% laborTot += xTechHours[tabDex].labor_rate_actual *
+		                     xTechHours[tabDex].labor_hours_actual %>
+		</td>
+	      <% else %>
+	        <td>&nbsp;</td>
+	      <% end %>
 
-    <div id="vr3id_div" style="display: none">
-      <table border="1" class="anatab">
-        <tr>
-	  <th>Labor</th>
-	  <th>Parts</th>
-        </tr>
-        <tr>
-	  <td>T#181/Jackson 1.2hrs @ $15.00</td>
-	  <td>&nbsp;</td>
-        </tr>
-        <tr>
-	  <td><B>Total:</B>$18.00</td>
-	  <td><B>Total:</B>$0.00</td>
-        </tr>
-      </table>
-    </div>
+	      <% if tabDex < xParts.length  %>
+	        <td>P#<%= xParts[tabDex].part.part_number %>
+		<br>
+		<%= xParts[tabDex].part.part_name.name %>
+		<%= number_to_currency(xParts[tabDex].part_actual_price) %>
+		<% partTot += xParts[tabDex].part_actual_price %>
+		</td>
+	      <% else %>
+	        <td>&nbsp;</td>
+	      <% end %>
+	    </tr>
+	    <% tabDex += 1 %>
+	  <% end %>
+	  <tr>
+	    <td><B>Total:</B> <%= number_to_currency(laborTot) %></td>
+	    <td><B>Total:</B> <%= number_to_currency(partTot) %></td>
+	  </tr>
+	</table>
+      </div>
+    <% end %>
+    <!-- end of contents of popovers -->
 
-    <div id="vr4id_div" style="display: none">
-      <table border="1" class="anatab">
-        <tr>
-	  <th>Labor</th>
-	  <th>Parts</th>
-        </tr>
-        <tr>
-	  <td>T#181/Jackson 1.3hrs @ $15.00</td>
-	  <td>P#F99-84424/Oil Filter $18.50</td>
-        </tr>
-        <tr>
-	  <td>&nbsp;</td>
-	  <td>P#AX-12345/Air Filter $7.50</td>
-        </tr>
-        <tr>
-	  <td>&nbsp;</td>
-	  <td>P#78AA7-99/Cabin Filter $1.50</td>
-        </tr>
-        <tr>
-	  <td><B>Total:</B>$19.50</td>
-	  <td><B>Total:</B>$27.50</td>
-        </tr>
-      </table>
-    </div>
-
-    <div id="vr5id_div" style="display: none">
-      <table border="1" class="anatab">
-        <tr>
-	  <th>Labor</th>
-	  <th>Parts</th>
-        </tr>
-        <tr>
-	  <td>T#181/Jackson 1.3hrs @ $15.00</td>
-	  <td>P#12345/Tie rod $27.50</td>
-        </tr>
-        <tr>
-	  <td><B>Total:</B>$19.50</td>
-	  <td><B>Total:</B>$27.50</td>
-        </tr>
-      </table>
-    </div>
-
-    <div id="vr6id_div" style="display: none">
-      <table border="1" class="anatab">
-        <tr>
-	  <th>Labor</th>
-	  <th>Parts</th>
-        </tr>
-        <tr>
-	  <td>T#181/Jackson 2.5hrs @ $15.00</td>
-	  <td>P#12345/Shocks $29.05</td>
-        </tr>
-        <tr>
-	  <td><B>Total:</B>$37.50</td>
-	  <td><B>Total:</B>$29.05</td>
-        </tr>
-      </table>
-    </div>
-
-  </div>
+  </div> <!-- end This Vehicle Service History -->
 
   <div class="plbox">
     <div class="boxhdr">
