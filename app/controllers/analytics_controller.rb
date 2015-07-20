@@ -166,6 +166,21 @@ class AnalyticsController < ApplicationController
             @profitPercent = @profit * 100.0 / @totalIncome
         end
     end
+    
+    
+    # Set up missed payment info for finance agreement area.
+    #
+    def calcFinanceAgreements(veh)
+	@finagrmtHash = Hash.new
+        for finagrmt in veh.customer.finance_agreements
+	    # Find all the payments that should have happened in the
+	    # past.  Look through the invoices to see if you can find
+	    # that many payments for this finance agreement.  Do calculation
+	    # in dollars rather than count, so that you can handle doubled
+	    # up payments.  Payments
+	    paymentsDueSoFar = 0  #URHERE
+	end
+    end
 
     
     # GET analytics/int1/:id
@@ -174,6 +189,7 @@ class AnalyticsController < ApplicationController
         prepFormVariables(@vehicle)
         calcProfitLoss(@vehicle)
         calcInternal1(@vehicle)
+        calcFinanceAgreements(@vehicle)
     end
 
     

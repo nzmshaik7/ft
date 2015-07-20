@@ -734,10 +734,6 @@
           </tr>
         <% end %>
 
-
-
-
-
 	<tr>
 	  <td><B><%= number_to_currency(baseTotal) %></B></td>
 	  <td><B><%= number_to_currency(upgTotal) %></B></td>
@@ -1127,6 +1123,41 @@
       </center>
     </div>
   </div>
+
+  <% for finagrmt in vcust.finance_agreements %>
+    <div class="genitembox">
+      <div class="boxhdr">
+	<B>Finance Agreement</B>
+      </div>
+      <div class="gendatabox">
+	<div class="financetblbox">
+	  <table border="1" class="anatab">
+	    <tr>
+	      <th colspan="2">
+		<center><B>Overview</B></center>
+	      </th>
+	    </tr>
+	    <tr>
+	      <td>Missed Payments</td>
+	      <td>1</td>
+	    </tr>
+	    <tr>
+	      <td>Missed Payment Fee</td>
+	      <td>$30.00</td>
+	    </tr>
+	    <tr>
+	      <td>Total Principal</td>
+	      <td><%= number_to_currency(finagrmt.total_principal) %></td>
+	    </tr>
+	  </table>
+	</div>
+      </div>
+    </div>
+  <% end %>
+
+
+
+    <URHERE>
 
   <div class="genitembox">
     <div class="boxhdr">
