@@ -1139,131 +1139,105 @@
 	    </tr>
 	    <tr>
 	      <td>Missed Payments</td>
-	      <td>1</td>
+	      <td><%= @finagrmtHash[finagrmt.id][:missedPayments] %></td>
 	    </tr>
 	    <tr>
 	      <td>Missed Payment Fee</td>
-	      <td>$30.00</td>
+	      <td><%= number_to_currency(finagrmt.missed_payment_fee) %></td>
 	    </tr>
 	    <tr>
 	      <td>Total Principal</td>
 	      <td><%= number_to_currency(finagrmt.total_principal) %></td>
 	    </tr>
+	    <tr>
+	      <td>Finance Fee 10%</td>
+	      <td>
+	        <%= number_to_currency(finagrmt.finance_fee) %>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>Monthly Payment</td>
+	      <td>
+	        <%= number_to_currency(finagrmt.monthly_payment_amount) %>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>Total Fees</td>
+	      <td>
+	        <%= number_to_currency(finagrmt.missed_payment_fee +
+		                       (finagrmt.finance_fee)) %>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>Start Date</td>
+	      <td><%= finagrmt.start_date.strftime("%b %d, %Y") %></td>
+	    </tr>
+	    <tr>
+	      <td>End Date</td>
+	      <td><%= finagrmt.end_date.strftime("%b %d, %Y") %></td>
+	    </tr>
 	  </table>
 	</div>
-      </div>
-    </div>
+      </div> <!-- end gendatabox -->
+
+      <div class="gendatabox">
+	<div class="financetblbox">
+	  <table border="1" class="anatab">
+	    <tr>
+	      <th>Payment Amount</th>
+	      <th>Payment Date</th>
+	    </tr>
+	    <% for payForThis in @finagrmtHash[finagrmt.id][:paymentList] %>
+	      <tr>
+	        <td><%= number_to_currency(payForThis.amount) %></td>
+		<td><%= payForThis.date_time.strftime("%b %d, %Y") %></td>
+	      </tr>
+	    <% end %>
+
+	    <tr>
+	      <td><B>Income Total</B></td>
+	      <td><B>
+	        <%= number_to_currency(@finagrmtHash[finagrmt.id][:income]) %>
+	      </B></td>
+	    </tr>
+	    <tr>
+	      <td><B>Balance</B></td>
+	      <td><B>
+	        <%= number_to_currency(@finagrmtHash[finagrmt.id][:balance]) %>
+	      </B></td>
+	    </tr>
+	    <tr>
+	      <td>Title</td>
+	      <td>
+		<a id="titlphot" class="show_hide_popover" 
+		   title="Title" 
+		   data-placement='left' data-trigger="focus" 
+		   tabindex="0" href='#'>TBS View</a>
+		<a id="xtitlphot" class='hide_popover' href='#'>Hide</a>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>Finance Agreement</td>
+	      <td>
+		<a href='LoanAgrmnt.html'>TBS View</a>
+	      </td>
+	    </tr>
+	  </table>
+	</div>
+	<div id="titlphot_div" style="display: none">
+	  <img src="images/FloridaTitle.jpg">
+	</div>
+	<div class="endfloat">
+	</div>
+      </div>  <!-- end gendatabox -->
+
+    </div> <!-- end genitembox -->
   <% end %>
 
 
 
     <URHERE>
 
-  <div class="genitembox">
-    <div class="boxhdr">
-      <B>Finance Agreement</B>
-    </div>
-    <div class="gendatabox">
-      <div class="financetblbox">
-	<table border="1" class="anatab">
-	  <tr>
-	    <th colspan="2">
-	      <center><B>Overview</B></center>
-	    </th>
-	  </tr>
-	  <tr>
-	    <td>Missed Payments</td>
-	    <td>1</td>
-	  </tr>
-	  <tr>
-	    <td>Missed Payment Fee</td>
-	    <td>$30.00</td>
-	  </tr>
-	  <tr>
-	    <td>Total Principal</td>
-	    <td>$800.00</td>
-	  </tr>
-	  <tr>
-	    <td>Finance Fee 10%</td>
-	    <td>$80.00</td>
-	  </tr>
-	  <tr>
-	    <td>Monthly Payment</td>
-	    <td>$88.00</td>
-	  </tr>
-	  <tr>
-	    <td>Total Fees</td>
-	    <td>$110.00</td>
-	  </tr>
-	  <tr>
-	    <td>Start Date</td>
-	    <td>Mar 1, 2014</td>
-	  </tr>
-	  <tr>
-	    <td>End Date</td>
-	    <td>Sep 1, 2014</td>
-	  </tr>
-	</table>
-      </div>
-      <div class="financetblbox">
-	<table border="1" class="anatab">
-	  <tr>
-	    <th>Payment Amount</th>
-	    <th>Payment Date</th>
-	  </tr>
-	  <tr>
-	    <td>$88.00</td>
-	    <td>Feb 15, 2014</td>
-	  </tr>
-	  <tr>
-	    <td>$88.00</td>
-	    <td>Mar 15, 2014</td>
-	  </tr>
-	  <tr>
-	    <td>$88.00</td>
-	    <td>Apr 18, 2014</td>
-	  </tr>
-	  <tr>
-	    <td>$100.00</td>
-	    <td>May 15, 2014</td>
-	  </tr>
-	  <tr>
-	    <td>$88.00</td>
-	    <td>Jun 12, 2014</td>
-	  </tr>
-	  <tr>
-	    <td><B>Income Total</B></td>
-	    <td><B>$452.00</B></td>
-	  </tr>
-	  <tr>
-	    <td><B>Balance</B></td>
-	    <td><B>$458.00</B></td>
-	  </tr>
-	  <tr>
-	    <td>Title</td>
-	    <td>
-	      <a id="titlphot" class="show_hide_popover" 
-		 title="Title" 
-		 data-placement='left' data-trigger="focus" 
-		 tabindex="0" href='#'>View</a>
-	      <a id="xtitlphot" class='hide_popover' href='#'>Hide</a>
-	    </td>
-	  </tr>
-	  <tr>
-	    <td>Finance Agreement</td>
-	    <td>
-	      <a href='LoanAgrmnt.html'>View</a>
-	    </td>
-	  </tr>
-	</table>
-      </div>
-      <div id="titlphot_div" style="display: none">
-	<img src="images/FloridaTitle.jpg">
-      </div>
-      <div class="endfloat">
-      </div>
-    </div>  <!-- end gendatabox -->
-  </div>
 
   <div class="genitembox">
     <div class="boxhdr">

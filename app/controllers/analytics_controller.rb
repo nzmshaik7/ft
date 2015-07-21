@@ -166,19 +166,70 @@ class AnalyticsController < ApplicationController
             @profitPercent = @profit * 100.0 / @totalIncome
         end
     end
+
+    # d1 = feb 4, d2 = jan 3, wholeMonths = -1
+    # d1 = jan 4, d2 = feb 3, wholeMonths = 0
+    # d1 = feb 2, d2 = jan 3, wholeMonths = 0
+    def monthDelta(d1, d2)
+	wholeMonths = (d2.year * 12 + d2.month) - (d1.year * 12 + d1.month)
+	if wholeMonths < 0
+	    if d2.day >= d1.day
+		wholeMonths += 1
+	    end
+	else
+	    if d2.day <= d1.day
+		wholeMonths -= 1
+	    end
+	end
+	return wholeMonths
+    end
+
+
+    def dateMin(d1, d2)
+        if d1 < d2
+	    return d1
+	else
+	    return d2
+	end
+    end
     
     
     # Set up missed payment info for finance agreement area.
     #
     def calcFinanceAgreements(veh)
-	@finagrmtHash = Hash.new
+	@finagrmtHash = Hash.new  # Hash of hashes
         for finagrmt in veh.customer.finance_agreements
+	    @finagrmtHash[finagrmt.id] = Hash.new
 	    # Find all the payments that should have happened in the
 	    # past.  Look through the invoices to see if you can find
 	    # that many payments for this finance agreement.  Do calculation
 	    # in dollars rather than count, so that you can handle doubled
 	    # up payments.  Payments
-	    paymentsDueSoFar = 0  #URHERE
+	    dupto = dateMin(Time.now, finagrmt.end_date)
+	    paymentsDueSoFar = monthDelta(finagrmt.start_date, dupto)
+	    amtDueSoFar = paymentsDueSoFar * finagrmt.monthly_payment_amount
+	    amtPaidSoFar = 0.0
+	    pastDueAmt = 0.0
+	    @finagrmtHash[finagrmt.id][:missedPayments] = 0
+	    q = "finance_agreement_id = ? and status = "
+	    q += Payment::STATUS_APPOVED.to_s
+	    @finagrmtHash[finagrmt.id][:paymentList] = 
+	                                          Payment.where(q, finagrmt.id)
+	    for payForThis in @finagrmtHash[finagrmt.id][:paymentList]
+	        amtPaidSoFar += payForThis.amount
+	    end
+	    if amtPaidSoFar < amtDueSoFar
+	        pastDueAmt = amtDueSoFar - amtPaidSoFar 
+		mPay = finagrmt.monthly_payment_amount
+		# Round up for partial payments, they count as whole.
+		@finagrmtHash[finagrmt.id][:missedPayments] = 
+					((pastDueAmt + mPay - 1.0) / mPay).to_i
+	    end
+	    @finagrmtHash[finagrmt.id][:income] = amtPaidSoFar
+	    principalPaid = amtPaidSoFar - 
+			    (finagrmt.missed_payment_fee + finagrmt.finance_fee)
+	    @finagrmtHash[finagrmt.id][:balance] = 
+	                               finagrmt.total_principal - principalPaid
 	end
     end
 
