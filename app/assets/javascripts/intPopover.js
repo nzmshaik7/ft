@@ -34,9 +34,10 @@ $(document).ready(function(){
       var vrid = "#vr" + vnum.toString() + "id";
       var vrdiv = "#vr" + vnum.toString() + "id_div";
       // Connect the popover to its content in a non-visible div.
-      //DBG alert("attach " + vrid);
+      //DBG alert("attach " + vrid + " to " + vrdiv);
       $(vrid).popover({ 
-	html : true, content: function() { return $(vrdiv).html(); }
+	// html : true, content: function() { return $(vrdiv).html(); }
+	html : true, content: $(vrdiv).html()
       });
   }
 
