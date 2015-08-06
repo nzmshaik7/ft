@@ -20,7 +20,7 @@
     <%= f.text_field :number %>
   </div>
   <div class="field">
-    <%= f.label :manager_id, 'Manager' %><br />
+    <%= f.label :manager_id, 'Manager' %><font color="#800000">*</font><br />
     <%= select("store", "manager_id", @employeeCollect,
                                                {prompt: 'Select Employee'}) %>
   </div>
