@@ -1119,6 +1119,7 @@
     </div>
     <div class="gendatabox">
       <center>
+        <B><I><font color="#800080">Bar chart TBS</font></I></B>
         <img src="images/BarPartLabr.png">
       </center>
     </div>
@@ -1234,11 +1235,6 @@
     </div> <!-- end genitembox -->
   <% end %>
 
-
-
-    <URHERE>
-
-
   <div class="genitembox">
     <div class="boxhdr">
       <B>&nbsp;Automatic Data Link Info&nbsp;</B>
@@ -1246,39 +1242,22 @@
     <div class="gendatabox">
       <div class="financetblbox">
 	<table border="1" class="anatab">
-	  <tr>
-	    <th colspan="2">
-	      <center><B>S/N 541938</B></center>
-	    </th>
-	  </tr>
-	  <tr>
-	    <td>Data</td>
-	    <td>1</td>
-	  </tr>
-	  <tr>
-	    <td>Data</td>
-	    <td>2</td>
-	  </tr>
-	  <tr>
-	    <td>Data</td>
-	    <td>3</td>
-	  </tr>
-	  <tr>
-	    <td>Data</td>
-	    <td>4</td>
-	  </tr>
-	  <tr>
-	    <td>Data</td>
-	    <td>5</td>
-	  </tr>
-	  <tr>
-	    <td>Data</td>
-	    <td>6</td>
-	  </tr>
-	  <tr>
-	    <td>Data</td>
-	    <td>Mar 1, 2014</td>
-	  </tr>
+          <% for adlisn in @adliSerials %>
+            <tr bgcolor="#e0e0e0">
+              <th colspan="2">
+                <font color="#006040">
+                  <center><B>S/N <%= adlisn %></B></center>
+                </font>
+              </th>
+            </tr>
+            <% for dli in @vehicle.automatic_data_link_infos %>
+              <% next unless dli.serial_number == adlisn %>
+              <tr>
+                <td><%= dli.idate.strftime("%b %d, %Y") %></td>
+                <td><%= dli.data %></td>
+              </tr>
+            <% end %>
+          <% end %>
 	</table>
       </div>
       <div class="endfloat">
@@ -1293,18 +1272,18 @@
     <div class="gendatabox">
       <div class="financetblbox">
 	<table border="1" class="anatab">
-	  <tr>
-	    <td>R8112: Alternator</td>
-	    <td><font color="#800000">NOT DONE</font></td>
-	  </tr>
-	  <tr>
-	    <td>R4622: ABS sensor</td>
-	    <td><font color="#008000">Done 03/14/2013</font></td>
-	  </tr>
-	  <tr>
-	    <td>R1982: Accelerator</td>
-	    <td><font color="#008000">Done 03/14/2013</font></td>
-	  </tr>
+          <% for tsbr in @vehicle.ts_band_recalls %>
+            <tr>
+              <td><%= tsbr.name %></td>
+              <% if tsbr.date_completed.nil? %>
+                <td><font color="#800000">NOT DONE</font></td>
+              <% else %>
+                <td><font color="#008000">
+                  Done <%= tsbr.date_completed.strftime("%b %d, %Y") %>
+                </font></td>
+              <% end %>
+            </tr>
+          <% end %>
 	</table>
       </div>
       <div class="endfloat">
@@ -1312,12 +1291,18 @@
     </div>  <!-- end gendatabox -->
   </div>
 
+
+
+    <URHERE>
+
+
   <div class="genitembox">
     <div class="boxhdr">
       <B>Mileage Tracker</B>
     </div>
     <div class="gendatabox">
       <center>
+        <B><I><font color="#800080">Line chart TBS</font></I></B>
         <img src="images/15kMilYr.png">
       </center>
     </div>

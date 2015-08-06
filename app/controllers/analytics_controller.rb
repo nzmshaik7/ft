@@ -232,6 +232,20 @@ class AnalyticsController < ApplicationController
 	                               finagrmt.total_principal - principalPaid
 	end
     end
+    
+    
+    def calcVehicleInfo(veh)
+        @adliSerials = Array.new
+        for dli in veh.automatic_data_link_infos
+            sn = dli.serial_number
+            if sn.nil? or sn == ''
+                sn = 'n/a'
+            end
+            if not @adliSerials.include?(sn)
+                @adliSerials.push(sn)
+            end
+        end
+    end
 
     
     # GET analytics/int1/:id
@@ -241,6 +255,7 @@ class AnalyticsController < ApplicationController
         calcProfitLoss(@vehicle)
         calcInternal1(@vehicle)
         calcFinanceAgreements(@vehicle)
+        calcVehicleInfo(@vehicle)
     end
 
     
@@ -257,6 +272,7 @@ class AnalyticsController < ApplicationController
         # mileage
         @latestMileageTime = nil
         @latestMileage = nil
+        now = Time.now
         for gm in veh.gas_mileages
             if @latestMileageTime.nil? or gm.mdate > @latestMileageTime
                 @latestMileageTime = gm.mdate
@@ -268,6 +284,13 @@ class AnalyticsController < ApplicationController
         oldestMileage = nil
         newestMileageTime = nil
         newestMileage = nil
+
+        oldestMileageTimeRecent = nil
+        oldestMileageRecent = nil
+        newestMileageTimeRecent = nil
+        newestMileageRecent = nil
+        yearAgo = now - (365.2425 * 24 * 3600)
+
         for s_visit in veh.service_visits
             if oldestMileageTime.nil? or s_visit.sdate < oldestMileageTime
                 oldestMileageTime = s_visit.sdate
@@ -277,13 +300,35 @@ class AnalyticsController < ApplicationController
                 newestMileageTime = s_visit.sdate
                 newestMileage = s_visit.mileage
             end
+            if s_visit.sdate > yearAgo  # Was less than a year ago
+                if oldestMileageTimeRecent.nil? or 
+                                     s_visit.sdate < oldestMileageTimeRecent
+                    oldestMileageTimeRecent = s_visit.sdate
+                    oldestMileageRecent = s_visit.mileage
+                end
+                if newestMileageTimeRecent.nil? or 
+                                     s_visit.sdate > newestMileageTimeRecent
+                    newestMileageTimeRecent = s_visit.sdate
+                    newestMileageRecent = s_visit.mileage
+                end
+            end
         end
         @avgMilesPerYear = nil
+        @avgMilesPerYearRecent = nil
         if oldestMileageTime
             daySpan = (newestMileageTime.to_i - oldestMileageTime.to_i) / spd
             if daySpan > 30.0
                 yearSpan = daySpan / 365.2425
                 @avgMilesPerYear = (newestMileage - oldestMileage) / yearSpan
+            end
+        end
+        if oldestMileageTimeRecent
+            daySpan = (newestMileageTimeRecent.to_i - 
+                       oldestMileageTimeRecent.to_i) / spd
+            if daySpan > 30.0
+                yearSpan = daySpan / 365.2425
+                @avgMilesPerYearRecent = (newestMileageRecent - 
+                                          oldestMileageRecent) / yearSpan
             end
         end
 
@@ -307,7 +352,6 @@ class AnalyticsController < ApplicationController
         daysLeft = 0  if daysLeft < 0
         @yearsTo15 = (daysLeft / 365).to_i
         @daysTo15 = daysLeft - (@yearsTo15 * 365)
-
         
     end
 
