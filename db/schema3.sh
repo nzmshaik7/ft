@@ -44,3 +44,5 @@ rails generate migration delete_labor_from_ServiceLineItem \
     technician1_id:integer \
     technician2_id:integer \
     technician3_id:integer
+
+rails generate migration add_added_miles_to_UpgradeType added_miles:integer

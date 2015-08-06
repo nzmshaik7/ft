@@ -120,6 +120,7 @@ RAILS ${gen[*]}
 gen=( generate scaffold UpgradeType 
     name:string
     cost:decimal{8.2}
+    added_miles:integer       # If this upgrade adds yearly mileage
     )
 RAILS ${gen[*]}
 

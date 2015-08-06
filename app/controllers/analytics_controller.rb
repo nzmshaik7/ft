@@ -273,6 +273,7 @@ class AnalyticsController < ApplicationController
         @latestMileageTime = nil
         @latestMileage = nil
         now = Time.now
+        @nowYear = now.strftime("%Y")
         for gm in veh.gas_mileages
             if @latestMileageTime.nil? or gm.mdate > @latestMileageTime
                 @latestMileageTime = gm.mdate
@@ -332,6 +333,14 @@ class AnalyticsController < ApplicationController
             end
         end
 
+        # Miles under
+        @allowedMiles = 15000
+        for upg in veh.contract.upgrades
+            if upg.upgrade_type.added_miles
+                @allowedMiles += upg.upgrade_type.added_miles
+            end
+        end
+
         # Referrals
         @referredCust = Customer.where("referredBy_id = ?", veh.customer.id)
 
@@ -342,7 +351,6 @@ class AnalyticsController < ApplicationController
             @qualification = nil
         end
         prepCylinders(@qualification, 10)
-
 
         # Misc
         dom = @vehicle.date_of_manufacture

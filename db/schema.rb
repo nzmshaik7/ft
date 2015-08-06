@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150710210730) do
+ActiveRecord::Schema.define(:version => 20150806203700) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -517,9 +517,10 @@ ActiveRecord::Schema.define(:version => 20150710210730) do
 
   create_table "upgrade_types", :force => true do |t|
     t.string   "name"
-    t.decimal  "cost",       :precision => 8, :scale => 2
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.decimal  "cost",        :precision => 8, :scale => 2
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "added_miles"
   end
 
   create_table "upgrades", :force => true do |t|

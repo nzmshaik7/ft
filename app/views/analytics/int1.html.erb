@@ -1291,11 +1291,6 @@
     </div>  <!-- end gendatabox -->
   </div>
 
-
-
-    <URHERE>
-
-
   <div class="genitembox">
     <div class="boxhdr">
       <B>Mileage Tracker</B>
@@ -1307,15 +1302,30 @@
       </center>
     </div>
     <div class="gendatabox">
-      <center>
-        <font color="#008000"><B>Under by 2867 miles</B></font>
-      </center>
+      <B>Allowed miles:</B> <%= number_with_precision(@allowedMiles, 
+                                     :precision => 0, :delimiter => ',') %><br>
+      <% if @avgMilesPerYearRecent %>
+        <B>Yearly miles:</B> <%= number_with_precision(@avgMilesPerYearRecent, 
+                                     :precision => 0, :delimiter => ',') %><br>
+        <% if @avgMilesPerYearRecent < @allowedMiles %>
+          <font color="#008000"><B>Under by
+              <%= number_with_precision(@allowedMiles - @avgMilesPerYearRecent,
+                                        :precision => 0, :delimiter => ',') %>
+              </B></font>
+        <% else %>
+          <font color="#800000"><B>Over by
+              <%= number_with_precision(@avgMilesPerYearRecent - @allowedMiles,
+                                        :precision => 0, :delimiter => ',') %>
+              </B></font>
+        <% end %>
+      <% end %>
     </div>
   </div>
 
   <div class="endfloat">
     <center>
-      Copyright &copy; 1999-2015 Innovative Auto, Inc. and Membership Auto.  All rights reserved.
+      Copyright &copy; 1999-<%= @nowYear %> Innovative Auto, Inc.
+      and Membership Auto.  All rights reserved.
     </center>
   </div>
 </div>

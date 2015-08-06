@@ -19,6 +19,11 @@
     <%= f.label :cost %><font color="#800000">*</font><br />
     $<%= f.text_field :cost %>
   </div>
+  <div class="field">
+    <%= f.label :added_miles %><font color="#808080">(Only if this upgrade 
+                              adds yearly miles to the contract.)</font><br />
+    <%= f.number_field :added_miles %> miles
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

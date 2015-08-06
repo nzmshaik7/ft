@@ -4,6 +4,7 @@
   <tr bgcolor="#F0FFF0">
     <th>Name</th>
     <th>Cost</th>
+    <th>Added Miles</th>
     <th colspan="3"><i>Actions</i></th>
   </tr>
 
@@ -11,6 +12,7 @@
   <tr>
     <td><%= upgrade_type.name %></td>
     <td><%= number_to_currency(upgrade_type.cost) %></td>
+    <td><%= upgrade_type.added_miles %></td>
     <td><%= link_to 'Show', upgrade_type %></td>
     <td><%= link_to 'Edit', edit_upgrade_type_path(upgrade_type) %></td>
     <td><%= link_to 'Destroy', upgrade_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
