@@ -1,6 +1,6 @@
 class InsuranceCompaniesController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /insurance_companies
     # GET /insurance_companies.json

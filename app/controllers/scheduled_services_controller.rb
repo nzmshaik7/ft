@@ -1,6 +1,6 @@
 class ScheduledServicesController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /scheduled_services
     # GET /scheduled_services.json

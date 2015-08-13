@@ -1,6 +1,6 @@
 class BgSystemsController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /bg_systems
     # GET /bg_systems.json

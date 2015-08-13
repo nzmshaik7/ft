@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
     include CustomersHelper
 
     def prepFormVariables(customer=nil)

@@ -1,6 +1,6 @@
 class LineItemPurposesController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /line_item_purposes
     # GET /line_item_purposes.json

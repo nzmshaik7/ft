@@ -51,4 +51,9 @@ protected
         end
     end
 
+    def database_area
+        only_allow_admins
+        @colorZone = 'DB'
+    end
+
 end

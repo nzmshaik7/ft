@@ -1,6 +1,6 @@
 class ReferredBiesController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /referred_bies
     # GET /referred_bies.json

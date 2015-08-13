@@ -1,6 +1,6 @@
 class WrittenTestimoniesController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /written_testimonies
     # GET /written_testimonies.json

@@ -1,6 +1,6 @@
 class PartManufacturersController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /part_manufacturers
     # GET /part_manufacturers.json

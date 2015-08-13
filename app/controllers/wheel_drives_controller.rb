@@ -1,6 +1,6 @@
 class WheelDrivesController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /wheel_drives
     # GET /wheel_drives.json

@@ -1,6 +1,6 @@
 class QualificationsController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
     include QualificationsHelper
 
     def prepFormVariables(qual)

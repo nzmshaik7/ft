@@ -1,6 +1,6 @@
 class MakesController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /makes
     # GET /makes.json

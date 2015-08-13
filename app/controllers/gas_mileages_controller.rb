@@ -1,6 +1,6 @@
 class GasMileagesController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /gas_mileages
     # GET /gas_mileages.json

@@ -3,6 +3,13 @@
 <head>
   <title>Futuretech</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <% bgColr = '#ffffff' %>
+  <% if @colorZone == 'DB' %>
+    <% bgColr = '#fff4ff' %>
+  <% end %>
+  <% if @colorZone == 'GF' %>
+    <% bgColr = '#f0fff0' %>
+  <% end %>
   <% if params[:controller] == 'mockup' or params[:controller] == 'analytics' %>
     <%= stylesheet_link_tag 'mockup/mcommon' %>
     <%= stylesheet_link_tag 'mockup/mock' %>
@@ -16,13 +23,14 @@
   <% end %>
   <% if params[:controller] == 'mockup' %>
     <%= javascript_include_tag 'mockup/mockup' %>
+    <% bgColr = '#fff0f0' %>
   <% end %>
   <% if params[:controller] == 'analytics' %>
     <%= javascript_include_tag 'intPopover' %>
   <% end %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body bgcolor="<%= bgColr %>">
 <%= render :partial => 'layouts/headnav' %>
 <%= render :partial => 'layouts/flash' %>
 

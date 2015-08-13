@@ -1,6 +1,6 @@
 class BgSystemCoveredsController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     def prepFormVariables
         @vehicles = Vehicle.all

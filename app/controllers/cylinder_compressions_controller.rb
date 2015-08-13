@@ -1,6 +1,6 @@
 class CylinderCompressionsController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /cylinder_compressions
     # GET /cylinder_compressions.json

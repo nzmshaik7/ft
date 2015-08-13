@@ -1,6 +1,6 @@
 class PaymentTypesController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /payment_types
     # GET /payment_types.json

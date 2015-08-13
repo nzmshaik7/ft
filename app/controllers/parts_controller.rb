@@ -1,6 +1,6 @@
 class PartsController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     def prepFormVariables
         @part_manufacturers = PartManufacturer.all

@@ -1,6 +1,6 @@
 class EngineDisplacementsController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /engine_displacements
     # GET /engine_displacements.json

@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /images
     # GET /images.json

@@ -1,6 +1,6 @@
 class FinanceAgreementsController < ApplicationController
 
-    before_filter :only_allow_admins
+    before_filter :database_area
 
     # GET /finance_agreements
     # GET /finance_agreements.json
