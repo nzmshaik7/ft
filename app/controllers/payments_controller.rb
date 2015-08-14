@@ -3,6 +3,7 @@ class PaymentsController < ApplicationController
     before_filter :database_area
 
     include CustomersHelper
+    include ApplicationHelper
 
     def prepFormVariables(payment=nil)
         @customers = Customer.all
@@ -85,8 +86,8 @@ class PaymentsController < ApplicationController
     def validatePayment?(payment)
         if payment.status == Payment::STATUS_REFERRAL and
                payment.payment_method_id and payment.payment_method_id != 0
-            session[:aux_error] = "ERROR: Payment with Referral must not have "
-            session[:aux_error] += "a payment method."
+            msg = "ERROR: Payment with Referral must not have a payment method."
+            addSessionError(msg)
             return false
         end
         return true
@@ -118,6 +119,8 @@ class PaymentsController < ApplicationController
     # PUT /payments/1.json
     def update
         @payment = Payment.find(params[:id])
+
+        FIX THIS TO BE LIKE customers_controller
 
         respond_to do |format|
             upok = @payment.update_attributes(params[:payment])

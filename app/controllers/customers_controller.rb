@@ -1,7 +1,9 @@
 class CustomersController < ApplicationController
 
-    before_filter :database_area
+    before_filter :database_area, :except => [:gfnew, :gfshow, ]
+    before_filter :gf_area, :only => [:gfnew, ]
     include CustomersHelper
+    include ApplicationHelper
 
     def prepFormVariables(customer=nil)
         @states = State.all
@@ -95,26 +97,71 @@ class CustomersController < ApplicationController
         end
     end
 
+
+    def gfnew
+        @isGroundFloor = true
+        new
+    end
+
+
     # GET /customers/1/edit
     def edit
         @customer = Customer.find(params[:id])
         prepFormVariables(@customer)
     end
 
+
+    def validateCustomer?(cust)
+        ok = true
+        cust.first_name.strip!
+        cust.middle_name.strip!
+        cust.last_name.strip!
+        cust.email.strip!
+        cust.zip.strip!
+        cust.city.strip!
+        if cust.city.nil? or cust.city == ''
+            ok = false
+            addSessionError('City is required field.')
+        end
+        return ok
+    end
+    
+    
+    def unzeroCid(cust)
+        if cust.cid.nil? or cust.cid == '' or cust.cid == '0'
+            cust.cid = cust.id
+            cust.save
+        end
+    end
+
+
     # POST /customers
     # POST /customers.json
     def create
         @customer = Customer.new(params[:customer])
+        ok = validateCustomer?(@customer)
+        if formHasGf?
+            okUrl = '/top/gf'
+            errAction = 'gfnew'
+            @isGroundFloor = true
+            @colorZone = 'GF'
+        else
+            okUrl = customers_url
+            errAction = 'new'
+        end
 
         respond_to do |format|
-            if @customer.save
-                format.html { redirect_to customers_url,
+            if ok and @customer.save
+                unzeroCid(@customer)
+                format.html { redirect_to okUrl,
                               notice: 'Customer was successfully created.' }
-                format.json { render json: @customer, status: :created, location: @customer }
+                format.json { render json: @customer, status: :created,
+                                     location: @customer }
             else
                 prepFormVariables(@customer)
-                format.html { render action: "new" }
-                format.json { render json: @customer.errors, status: :unprocessable_entity }
+                format.html { render action: errAction }
+                format.json { render json: @customer.errors,
+                                     status: :unprocessable_entity }
             end
         end
     end
@@ -125,14 +172,31 @@ class CustomersController < ApplicationController
         @customer = Customer.find(params[:id])
 
         respond_to do |format|
-            if @customer.update_attributes(params[:customer])
-                format.html { redirect_to customers_url,
+            @customer.assign_attributes(params[:customer])
+            parok = validateCustomer?(@customer)
+            if formHasGf?
+                okUrl = '/top/gf'
+                errAction = 'gfedit'
+                @isGroundFloor = true
+                @colorZone = 'GF'
+            else
+                okUrl = customers_url
+                errAction = 'edit'
+            end
+            saveok = false
+            if parok
+                saveok = @customer.save
+            end
+            if parok and saveok
+                unzeroCid(@customer)
+                format.html { redirect_to okUrl,
                               notice: 'Customer was successfully updated.' }
                 format.json { head :no_content }
             else
                 prepFormVariables(@customer)
-                format.html { render action: "edit" }
-                format.json { render json: @customer.errors, status: :unprocessable_entity }
+                format.html { render action: errAction }
+                format.json { render json: @customer.errors,
+                                     status: :unprocessable_entity }
             end
         end
     end

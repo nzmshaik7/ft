@@ -56,4 +56,9 @@ protected
         @colorZone = 'DB'
     end
 
+    def gf_area
+        only_allow_admins
+        @colorZone = 'GF'
+    end
+
 end

@@ -12,6 +12,18 @@ module ApplicationHelper
     end
 
 
+    def addSessionError(msg)
+        if session[:aux_error].nil?
+            session[:aux_error] = msg
+            return
+        end
+        unless session[:aux_error].index(msg).nil?
+            return
+        end
+        session[:aux_error] += "<br>" + msg
+    end
+
+
     def roleValid?(roleList, area = nil)
         if area.nil?
             area = 'that area'
@@ -47,6 +59,17 @@ module ApplicationHelper
             return 'No'
         end
         return 'Yes'
+    end
+
+
+    # True if params contains signal that ground floor is in effect.
+    #
+    def formHasGf?
+        if params.has_key?('is_ground_floor') and 
+                                              params[:is_ground_floor] == 'Y'
+            return true
+        end
+        return false
     end
 
 end

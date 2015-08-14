@@ -12,9 +12,11 @@
   <% end %>
 <% end %>
 <% if session[:aux_error] %>
-  <p class="alert"><B><font color="#800000">
-    <%= session[:aux_error].html_safe %>
-  </font></B></p>
+  <div class="errorbox">
+    <p class="alert"><B><font color="#800000">
+      <%= session[:aux_error].html_safe %>
+    </font></B></p>
+  </div>
   <% session[:aux_error] = nil %>
 <% end %>
 <% if session[:role_error] %>

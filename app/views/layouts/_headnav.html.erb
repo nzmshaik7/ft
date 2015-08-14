@@ -35,6 +35,10 @@
         &nbsp; <B>|</B> &nbsp;
 	<a href="/users">Users</a>
       <% end %>
+      <% if cu.role == User::ROLE_ADMIN %>
+        &nbsp; <B>|</B> &nbsp;
+	<a href="/top/gf">Ground Floor</a>
+      <% end %>
       <% if cu.role == User::ROLE_ADMIN or cu.role == User::ROLE_MOCKER %>
         &nbsp; <B>|</B> &nbsp;
 	<a href="/mockup/internal_veh">Analytics (Mockup)</a>

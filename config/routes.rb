@@ -10,6 +10,7 @@ Ft::Application.routes.draw do
   get "top/db"
   get "top/analytics"
   get "top/creds"
+  get "top/gf"
 
   resources :insurance_companies
 
@@ -127,6 +128,7 @@ Ft::Application.routes.draw do
 
   resources :finance_agreements
 
+  get 'customers/gfnew' => 'customers#gfnew'
   resources :customers
 
   devise_for :users, :controllers => {

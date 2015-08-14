@@ -5,9 +5,15 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <% bgColr = '#ffffff' %>
   <% if @colorZone == 'DB' %>
-    <% bgColr = '#fff4ff' %>
+    <% bgColr = '#fffaf0' %>
   <% end %>
   <% if @colorZone == 'GF' %>
+    <% bgColr = '#f8fff8' %>
+  <% end %>
+  <% if @colorZone2 == 'DB' %>
+    <% bgColr = '#fff4ff' %>
+  <% end %>
+  <% if @colorZone2 == 'GF' %>
     <% bgColr = '#f0fff0' %>
   <% end %>
   <% if params[:controller] == 'mockup' or params[:controller] == 'analytics' %>
