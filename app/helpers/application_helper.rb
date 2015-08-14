@@ -1,5 +1,26 @@
 module ApplicationHelper
 
+    ValidEmailPatt =
+       Regexp.new("([a-zA-Z0-9+_\.\-]+@[0-9a-zA-Z][\.0-9a-z_A-Z-]*\.[a-zA-Z]+)")
+    ValidPhonePatt = Regexp.new("^([\(\)0-9\.x -]+)$")
+
+
+    def emailValid?(email)
+        if ValidEmailPatt =~ email
+            return true
+        end
+        return false
+    end
+
+
+    def phoneValid?(ph)
+        if ValidPhonePatt =~ ph and ph.length >= 7
+            return true
+        end
+        return false
+    end
+
+
     def addFlashError(msg)
         if flash[:error].nil?
             flash[:error] = msg

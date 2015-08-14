@@ -16,7 +16,7 @@
   <% end %>
   <div class="field">
     <%= f.label :cid, 'Customer ID' %>:<font color="#800000">*</font>
-    <% if @customer.cid.nil? or @customer.cid == '' %>
+    <% if @customer.cid.nil? or @customer.cid == '' or @customer.cid == '0' %>
       <input id="customer_cid" name="customer[cid]" size="30" type="text" 
        value="0" /> (can be anything, leave zero for automatic)
     <% else %>

@@ -113,15 +113,76 @@ class CustomersController < ApplicationController
 
     def validateCustomer?(cust)
         ok = true
-        cust.first_name.strip!
-        cust.middle_name.strip!
-        cust.last_name.strip!
-        cust.email.strip!
-        cust.zip.strip!
-        cust.city.strip!
+        cust.first_name.strip!  if cust.first_name
+        cust.middle_name.strip!  if cust.middle_name
+        cust.last_name.strip!  if cust.last_name
+        cust.email.strip!  if cust.email
+        cust.zip.strip!  if cust.zip
+        cust.city.strip!  if cust.city
+        cust.street_addr1.strip!  if cust.street_addr1
+        cust.street_addr2.strip!  if cust.street_addr2
+        cust.home_phone.strip!  if cust.home_phone
+        cust.work_phone.strip!  if cust.work_phone
+        cust.mobile_phone.strip!  if cust.mobile_phone
+        cust.other_phone.strip!  if cust.other_phone
+        cust.spouse_name.strip!  if cust.spouse_name
+        cust.referredBy_other_text.strip!  if cust.referredBy_other_text
+        cust.ssn.strip!  if cust.ssn
+        cust.driver_lic_num.strip!  if cust.driver_lic_num
+
         if cust.city.nil? or cust.city == ''
             ok = false
             addSessionError('City is required field.')
+        end
+        if cust.state_id.nil?
+            ok = false
+            addSessionError('You must select a state.')
+        end
+        if cust.first_name.nil? or cust.first_name == ''
+            ok = false
+            addSessionError('First name is required field.')
+        end
+        if cust.last_name.nil? or cust.last_name == ''
+            ok = false
+            addSessionError('Last name is required field.')
+        end
+        if cust.signup_store_id.nil?
+            ok = false
+            addSessionError('You must select a signup store.')
+        end
+        if cust.driver_lic_state_id.nil?
+            ok = false
+            addSessionError("You must select a driver's license state.")
+        end
+        if cust.email and cust.email != ''
+            unless emailValid?(cust.email)
+                ok = false
+                addSessionError("Invalid email address.")
+            end
+        end
+        if cust.home_phone and cust.home_phone != ''
+            unless phoneValid?(cust.home_phone)
+                ok = false
+                addSessionError("Invalid home phone.")
+            end
+        end
+        if cust.work_phone and cust.work_phone != ''
+            unless phoneValid?(cust.work_phone)
+                ok = false
+                addSessionError("Invalid work phone.")
+            end
+        end
+        if cust.mobile_phone and cust.mobile_phone != ''
+            unless phoneValid?(cust.mobile_phone)
+                ok = false
+                addSessionError("Invalid mobile phone.")
+            end
+        end
+        if cust.other_phone and cust.other_phone != ''
+            unless phoneValid?(cust.other_phone)
+                ok = false
+                addSessionError("Invalid other phone.")
+            end
         end
         return ok
     end
