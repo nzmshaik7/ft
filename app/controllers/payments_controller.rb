@@ -119,13 +119,14 @@ class PaymentsController < ApplicationController
     # PUT /payments/1.json
     def update
         @payment = Payment.find(params[:id])
-
-        FIX THIS TO BE LIKE customers_controller
-
         respond_to do |format|
-            upok = @payment.update_attributes(params[:payment])
+            @payment.assign_attributes(params[:payment])
             parok = validatePayment?(@payment)
-            if upok and parok
+            saveok = false
+            if parok
+                saveok = @payment.save
+            end
+            if parok and saveok
                 format.html { redirect_to payments_url,
                               notice: 'Payment was successfully updated.' }
                 format.json { head :no_content }
