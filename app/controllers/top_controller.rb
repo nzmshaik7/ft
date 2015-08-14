@@ -1,5 +1,6 @@
 class TopController < ApplicationController
 
+    before_filter :gf_area, :only => [:gf, ]
     include ApplicationHelper
 
     def db
