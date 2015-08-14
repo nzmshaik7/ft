@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfshow, ]
+    before_filter :database_area, :except => [:gfnew, ]
     before_filter :gf_area, :only => [:gfnew, ]
     include CustomersHelper
     include ApplicationHelper

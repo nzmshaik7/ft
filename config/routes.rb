@@ -122,6 +122,9 @@ Ft::Application.routes.draw do
 
   resources :upgrades
 
+  get 'contracts/gfnew' => 'contracts#gfnew'
+  get 'contracts/gfindex' => 'contracts#gfindex'
+  get 'contracts/:id/gfedit' => 'contracts#gfedit'
   resources :contracts
 
   resources :referred_bies

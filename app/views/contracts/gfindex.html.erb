@@ -1,0 +1,45 @@
+<h2>Listing contracts</h2>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Begin date</th>
+    <th>Number</th>
+    <th>Status</th>
+    <th>Salesperson</th>
+    <th>Level</th>
+    <th>Base cost</th>
+    <th>Day of payment</th>
+    <th>Discount</th>
+    <th>Discount%</th>
+    <th><i>Actions</i></th>
+  </tr>
+
+<% @contracts.each do |contract| %>
+  <tr>
+    <td><%= contract.begin_date.strftime("%b %d, %Y") %></td>
+    <td><%= contract.number %></td>
+    <td><%= contract.statusText %></td>
+    <td>
+      <% if contract.salesperson %>
+        <%= contract.salesperson.employee.nameText %>
+      <% else %>
+        <i>None</i>
+      <% end %>
+    </td>
+    <td><%= contract.level %></td>
+    <td><%= number_to_currency(contract.base_cost) %></td>
+    <td><%= contract.day_of_payment %></td>
+    <td><%= number_to_currency(contract.discount) %></td>
+    <td><%= contract.discount_percent %>%</td>
+    <td><%= link_to 'Edit', "/contracts/#{contract.id}/gfedit" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<form action="/contracts/gfnew" style="display: inline;">
+  <input type="submit" value="Add New Contract"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>
