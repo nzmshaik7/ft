@@ -29,16 +29,7 @@ class PaymentsController < ApplicationController
                 @selStatus = payment.status
             end
         end
-        @statusOptions = [
-            [ "Select",   0  ],
-            [ "Approved",          Payment::STATUS_APPOVED ],
-            [ "Denied",            Payment::STATUS_DENIED ],
-            [ "Pending",           Payment::STATUS_PENDING ],
-            [ "Referral",          Payment::STATUS_REFERRAL ],
-            [ "Approved Upgrade",  Payment::STATUS_UP_APPOVED ],
-            [ "Denied Upgrade",    Payment::STATUS_UP_DENIED ],
-            [ "Pending Upgrade",   Payment::STATUS_UP_PENDING ],
-        ]
+        @statusOptions = Payment::STATUS_OPTIONS
     end
 
     # GET /payments

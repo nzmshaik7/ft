@@ -18,6 +18,17 @@ class Payment < ActiveRecord::Base
     STATUS_UP_PENDING = 37
     STATUS_LAST = 37
 
+    STATUS_OPTIONS = [  # Suitable for select dropdown helper
+            [ "Select",   0  ],
+            [ "Approved",          STATUS_APPOVED ],
+            [ "Denied",            STATUS_DENIED ],
+            [ "Pending",           STATUS_PENDING ],
+            [ "Referral",          STATUS_REFERRAL ],
+            [ "Approved Upgrade",  STATUS_UP_APPOVED ],
+            [ "Denied Upgrade",    STATUS_UP_DENIED ],
+            [ "Pending Upgrade",   STATUS_UP_PENDING ],
+    ]
+
     def statusText
         return "Approved"    if status == 31
         return "Denied"      if status == 32
