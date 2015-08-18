@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150806203700) do
+ActiveRecord::Schema.define(:version => 20150818004622) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -446,6 +446,7 @@ ActiveRecord::Schema.define(:version => 20150806203700) do
     t.text     "comments"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "status"
   end
 
   create_table "states", :force => true do |t|

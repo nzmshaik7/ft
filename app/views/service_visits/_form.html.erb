@@ -12,6 +12,12 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :status %><font color="#800000">*</font><br />
+    <select id="service_visit_status" name="service_visit[status]">
+      <%= options_for_select(@statusOptions, @selStatus) %>
+    </select>
+  </div>
+  <div class="field">
     <%= f.label :mileage %><font color="#800000">*</font><br />
     <%= f.number_field :mileage %>
   </div>

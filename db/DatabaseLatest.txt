@@ -377,6 +377,7 @@ gen=( generate scaffold ServiceVisit
     invoice_id:integer
     salesperson_id:integer
     comments:text
+    status:integer  # (Estimate, Cancelled, Approved, InProgress, Completed)
     )
     # Other tables that point to my Primary Key
     # List of ServiceLineItems

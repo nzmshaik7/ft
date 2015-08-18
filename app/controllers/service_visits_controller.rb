@@ -2,7 +2,7 @@ class ServiceVisitsController < ApplicationController
 
     before_filter :database_area
 
-    def prepFormVariables
+    def prepFormVariables(sv=nil)
         @stores = Store.all
         @storeCollect = @stores.collect { |p|
             [ p.number + '/' + p.name, p.id ] 
@@ -19,6 +19,13 @@ class ServiceVisitsController < ApplicationController
         @salespersonCollect = @salespersons.collect { |p|
             [ p.employee.nameText, p.id ] 
         }
+        @statusOptions = ServiceVisit::STATUS_OPTIONS
+        @selStatus = 0
+        if sv
+            if sv.statusValid?
+                @selStatus = sv.status
+            end
+        end
     end
 
 
@@ -37,7 +44,7 @@ class ServiceVisitsController < ApplicationController
     # GET /service_visits/1.json
     def show
         @service_visit = ServiceVisit.find(params[:id])
-        prepFormVariables
+        prepFormVariables(@service_visit)
 
         respond_to do |format|
             format.html # show.html.erb
@@ -49,7 +56,7 @@ class ServiceVisitsController < ApplicationController
     # GET /service_visits/new.json
     def new
         @service_visit = ServiceVisit.new
-        prepFormVariables
+        prepFormVariables(@service_visit)
 
         respond_to do |format|
             format.html # new.html.erb
@@ -60,7 +67,7 @@ class ServiceVisitsController < ApplicationController
     # GET /service_visits/1/edit
     def edit
         @service_visit = ServiceVisit.find(params[:id])
-        prepFormVariables
+        prepFormVariables(@service_visit)
     end
 
     # POST /service_visits
@@ -74,7 +81,7 @@ class ServiceVisitsController < ApplicationController
                               notice: 'ServiceVisit was successfully created.' }
                 format.json { render json: @service_visit, status: :created, location: @service_visit }
             else
-                prepFormVariables
+                prepFormVariables(@service_visit)
                 format.html { render action: "new" }
                 format.json { render json: @service_visit.errors, status: :unprocessable_entity }
             end
@@ -92,7 +99,7 @@ class ServiceVisitsController < ApplicationController
                               notice: 'ServiceVisit was successfully updated.' }
                 format.json { head :no_content }
             else
-                prepFormVariables
+                prepFormVariables(@service_visit)
                 format.html { render action: "edit" }
                 format.json { render json: @service_visit.errors, status: :unprocessable_entity }
             end

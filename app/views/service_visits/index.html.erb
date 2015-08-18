@@ -6,6 +6,7 @@
 
 <table border="1" class="ft_dbtab">
   <tr bgcolor="#F0FFF0">
+    <th>Status</th>
     <th>Mileage</th>
     <th>Sdate</th>
     <th>Description</th>
@@ -19,6 +20,7 @@
 
 <% @service_visits.each do |service_visit| %>
   <tr>
+    <td><%= service_visit.statusText %></td>
     <td><%= service_visit.mileage %></td>
     <td><%= service_visit.sdate.strftime("%b %d, %Y") %></td>
     <td><%= service_visit.description %></td>
