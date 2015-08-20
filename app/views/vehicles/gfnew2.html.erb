@@ -1,0 +1,10 @@
+<h2>Enter new vehicle part 2</h2>
+
+<P>
+<B>Customer:</B> <%= customerName2(@vehicle.customer) %> <br/>
+<B>Contract Number:</B> <%= @vehicle.contract.number %> <br/>
+<B>Make:</B> <%= @vehicle.make.name %> <br/>
+</P>
+<%= render :partial => 'formnew2' %>
+
+<%= link_to 'Cancel and return to Ground Floor', '/top/gf' %>

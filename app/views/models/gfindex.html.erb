@@ -1,0 +1,29 @@
+<h2>Listing models</h2>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Name</th>
+    <th>Make</th>
+    <th>First year made</th>
+    <th>Last year made</th>
+    <th><i>Actions</i></th>
+  </tr>
+
+<% @models.each do |model| %>
+  <tr>
+    <td><%= model.name %></td>
+    <td><%= model.make.name %></td>
+    <td><%= model.first_year_made %></td>
+    <td><%= model.last_year_made %></td>
+    <td><%= link_to 'Edit', "/models/#{model.id}/gfedit" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<form action="/models/gfnew" style="display: inline;">
+  <input type="submit" value="Add New Model"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

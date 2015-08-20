@@ -11,6 +11,9 @@
     </div>
   <% end %>
 
+  <% if defined?(isGroundFloor) and isGroundFloor %>
+    <input name="is_ground_floor" type="hidden" value="Y" />
+  <% end %>
   <div class="field">
     <%= f.label :name %><font color="#800000">*</font><br />
     <%= f.text_field :name %>

@@ -1,0 +1,35 @@
+<P>
+Before you enter a vehicle into the system, you must first have:
+<ul>
+  <li>A contract number for the vehicle registered in the system &nbsp;
+    <form action="/contracts/gfnew" style="display: inline;">
+      <input type="submit" value="Enter Contract Now">
+    </form>
+  </li>
+  <li>A customer that owns the vehicle in the system &nbsp;
+    <form action="/customers/gfnew" style="display: inline;">
+      <input type="submit" value="Enter Customer Now">
+    </form>
+  </li>
+</ul>
+
+<%= form_for @vehicle, :url => {:action => "gfnew2"} do |f| %>
+  <div class="field">
+    <%= f.label :customer_id %><font color="#800000">*</font><br />
+    <%= select("vehicle", "customer_id", @customerCollect,
+                                          {prompt: 'Select Customer'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :make_id %><font color="#800000">*</font><br />
+    <%= select("vehicle", "make_id", @makeCollect, {prompt: 'Select Make'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :contract_id, 'Contract number' %> 
+    (contract is required to track membership income)<br />
+    <%= select("vehicle", "contract_id", @contractCollect,
+					  {prompt: 'Select Contract'}) %>
+  </div>
+  <div class="actions">
+    <input type="submit" value="Next">
+  </div>
+<% end %>

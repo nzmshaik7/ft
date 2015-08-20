@@ -1,0 +1,10 @@
+<h2>Editing submodel</h2>
+
+<%= render :partial => 'form',
+                       :locals => { :isGroundFloor => @isGroundFloor } %>
+
+<form action="/submodels/gfindex" style="display: inline;">
+  <input type="submit" value="List/Edit Submodels"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

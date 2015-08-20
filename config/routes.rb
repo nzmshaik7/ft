@@ -44,8 +44,14 @@ Ft::Application.routes.draw do
 
   resources :engine_displacements
 
+  get 'submodels/gfnew'
+  get 'submodels/gfindex'
+  get 'submodels/:id/gfedit' => 'submodels#gfedit'
   resources :submodels
 
+  get 'models/gfnew'
+  get 'models/gfindex'
+  get 'models/:id/gfedit' => 'models#gfedit'
   resources :models
 
   resources :makes
@@ -111,6 +117,13 @@ Ft::Application.routes.draw do
 
   get "vehicles/search_int1"
   post "vehicles/match"
+  get 'vehicles/gfnew'
+  get 'vehicles/gfindex'
+  get 'vehicles/:id/gfedit' => 'vehicles#gfedit'
+  get 'vehicles/gfsearch1'
+  post 'vehicles/gfmatch1'
+  post 'vehicles/gfnew2'
+  post 'vehicles/gfcreate'
   resources :vehicles
 
   resources :images

@@ -1,18 +1,30 @@
 class VehiclesController < ApplicationController
 
-    before_filter :database_area
+    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
+                                              :gfsearch1, :gfmatch1, :gfnew2,
+                                              :gfcreate, ]
+    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+                                              :gfsearch1, :gfmatch1, :gfnew2,
+                                              :gfcreate, ]
     include CustomersHelper
+    include ApplicationHelper
 
-    def prepFormVariables
+
+    def prepFormVariables(make_id = nil)
         @makes = Make.all
         @makeCollect = @makes.collect { |p|
             [ p.name, p.id ] 
         }
-        @models = Model.all
+        if make_id.nil?
+            @models = Model.all
+            @submodels = Submodel.all
+        else
+            @models = Model.where("make_id = ?", make_id)
+            @submodels = Submodel.where("make_id = ?", make_id)
+        end
         @modelCollect = @models.collect { |p|
             [ p.name, p.id ] 
         }
-        @submodels = Submodel.all
         @submodelCollect = @submodels.collect { |p|
             [ p.name, p.id ] 
         }
@@ -75,6 +87,13 @@ class VehiclesController < ApplicationController
         end
     end
 
+
+    def gfindex
+        @isGroundFloor = true
+        index
+    end
+
+
     # GET /vehicles/1
     # GET /vehicles/1.json
     def show
@@ -86,6 +105,7 @@ class VehiclesController < ApplicationController
             format.json { render json: @vehicle }
         end
     end
+
 
     # GET /vehicles/new
     # GET /vehicles/new.json
@@ -99,11 +119,31 @@ class VehiclesController < ApplicationController
         end
     end
 
+
+    def gfnew
+        @isGroundFloor = true
+        new
+    end
+
+
     # GET /vehicles/1/edit
     def edit
         @vehicle = Vehicle.find(params[:id])
         prepFormVariables
     end
+
+
+    def gfedit
+        @isGroundFloor = true
+        edit
+    end
+
+
+    def gfsearch1
+        prepFormVariables
+        prepDateCollects
+    end
+
 
     def validateForm(vehicle)
         par = params[:vehicle]
@@ -120,6 +160,7 @@ class VehiclesController < ApplicationController
         return true
     end
 
+
     # POST /vehicles
     # POST /vehicles.json
     def create
@@ -130,14 +171,61 @@ class VehiclesController < ApplicationController
             if valid and @vehicle.save
                 format.html { redirect_to vehicles_url,
                               notice: 'Vehicle was successfully created.' }
-                format.json { render json: @vehicle, status: :created, location: @vehicle }
+                format.json { render json: @vehicle, status: :created,
+                                     location: @vehicle }
             else
                 prepFormVariables
                 format.html { render action: "new" }
-                format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+                format.json { render json: @vehicle.errors,
+                                     status: :unprocessable_entity }
             end
         end
     end
+
+
+    def validateFormnew1(veh)
+        ok = true
+        if veh.customer_id.nil? or veh.customer_id.to_i == 0
+            ok = false
+            addSessionError('You must select a Customer')
+        end
+        if veh.make_id.nil? or veh.make_id.to_i == 0
+            ok = false
+            addSessionError('You must select a Make')
+        end
+        if veh.contract_id.nil? or veh.contract_id.to_i == 0
+            ok = false
+            addSessionError('You must select a Contract Number')
+        else
+            conflict = Vehicle.where("contract_id = ?", veh.contract_id.to_i)
+            if conflict.length > 0
+                ok = false
+                msg = 'Another vehicle (' + conflict.first.ymmText +
+                      ') already has that contract.'
+                addSessionError(msg)
+            end
+        end
+        return ok
+    end
+
+
+    # POST /vehicles/gfnew2, from _formnew1.html.erb
+    #
+    def gfnew2
+        @vehicle = Vehicle.new(params[:vehicle])
+        valid = validateFormnew1(@vehicle)
+
+        if valid
+            prepFormVariables(@vehicle.make_id)
+            @vehicle_customer_id = @vehicle.customer_id
+            @vehicle_make_id = @vehicle.make_id
+            @vehicle_contract_id = @vehicle.contract_id
+        else
+            prepFormVariables
+            render :gfnew
+        end
+    end
+
 
     # PUT /vehicles/1
     # PUT /vehicles/1.json
@@ -157,6 +245,7 @@ class VehiclesController < ApplicationController
             end
         end
     end
+
 
     # DELETE /vehicles/1
     # DELETE /vehicles/1.json
@@ -247,6 +336,11 @@ class VehiclesController < ApplicationController
         else
             @vehicles = Vehicle.where(whereClause, whereHash)
         end
+    end
+
+
+    def gfmatch
+        match
     end
 
 end

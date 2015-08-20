@@ -11,21 +11,24 @@
     </div>
   <% end %>
 
+  <% if defined?(isGroundFloor) and isGroundFloor %>
+    <input name="is_ground_floor" type="hidden" value="Y" />
+  <% end %>
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :make_id %><br />
+    <%= f.label :make_id, 'Make for this model' %>:
+    <font color="#800000">*</font><br />
     <%= select("model", "make_id", 
                     @makeCollect, {prompt: 'Select Make'}) %>
+    &nbsp; &nbsp; 
+    <%= f.label :name, 'Name of model' %>:
+    <font color="#800000">*</font>
+    <%= f.text_field :name, :size => 15 %>
   </div>
   <div class="field">
-    <%= f.label :first_year_made %><br />
+    <%= f.label :first_year_made %>:
     <%= f.number_field :first_year_made %>
-  </div>
-  <div class="field">
-    <%= f.label :last_year_made %><br />
+    &nbsp; &nbsp; 
+    <%= f.label :last_year_made %>:
     <%= f.number_field :last_year_made %>
   </div>
   <div class="actions">

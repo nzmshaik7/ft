@@ -1,6 +1,9 @@
 class SubmodelsController < ApplicationController
 
-    before_filter :database_area
+    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, ]
+    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, ]
+    include ApplicationHelper
+
 
     def prepFormVariables
         @makes = Make.all
@@ -8,6 +11,7 @@ class SubmodelsController < ApplicationController
             [ p.name, p.id ] 
         }
     end
+
 
     # GET /submodels
     # GET /submodels.json
@@ -19,6 +23,13 @@ class SubmodelsController < ApplicationController
             format.json { render json: @submodels }
         end
     end
+
+
+    def gfindex
+        @isGroundFloor = true
+        index
+    end
+
 
     # GET /submodels/1
     # GET /submodels/1.json
@@ -32,6 +43,7 @@ class SubmodelsController < ApplicationController
         end
     end
 
+
     # GET /submodels/new
     # GET /submodels/new.json
     def new
@@ -44,29 +56,86 @@ class SubmodelsController < ApplicationController
         end
     end
 
+
+    def gfnew
+        @isGroundFloor = true
+        new
+    end
+
+
+    def validateSubmodel?(submodl, isNew)
+        ok = true
+
+        if submodl.make_id.nil?
+            ok = false
+            addSessionError('You must select a Make.')
+        end
+
+        submodl.name.strip!  if submodl.name
+        if submodl.name.nil? or submodl.name == ''
+            ok = false
+            addSessionError('Submodel name is required field.')
+        else
+            if isNew
+                conflict = Submodel.where("name like ?", submodl.name)
+                for c in conflict
+                    if c.make_id == submodl.make_id
+                        ok = false
+                        addSessionError('That Submodel is already in the ' +
+                                        'system.')
+                        break
+                    end
+                end
+            end
+        end
+
+        return ok
+    end
+
+
     # GET /submodels/1/edit
     def edit
         @submodel = Submodel.find(params[:id])
         prepFormVariables
     end
 
+
+    def gfedit
+        @isGroundFloor = true
+        edit
+    end
+
+
     # POST /submodels
     # POST /submodels.json
     def create
         @submodel = Submodel.new(params[:submodel])
+        ok = validateSubmodel?(@submodel, true)
+        if formHasGf?
+            okUrl = '/top/gf'
+            errAction = 'gfnew'
+            @isGroundFloor = true
+            @colorZone = 'GF'
+        else
+            okUrl = submodels_url
+            errAction = 'new'
+        end
 
         respond_to do |format|
-            if @submodel.save
-                format.html { redirect_to submodels_url,
+            if ok and @submodel.save
+                format.html { redirect_to okUrl,
                               notice: 'Submodel was successfully created.' }
-                format.json { render json: @submodel, status: :created, location: @submodel }
+                format.json { render json: @submodel, status: :created,
+                                                      location: @submodel }
             else
                 prepFormVariables
-                format.html { render action: "new" }
-                format.json { render json: @submodel.errors, status: :unprocessable_entity }
+                format.html { render action: errAction }
+                format.json { render json: @submodel.errors,
+                                     status: :unprocessable_entity }
             end
         end
     end
+
 
     # PUT /submodels/1
     # PUT /submodels/1.json
@@ -74,17 +143,34 @@ class SubmodelsController < ApplicationController
         @submodel = Submodel.find(params[:id])
 
         respond_to do |format|
-            if @submodel.update_attributes(params[:submodel])
-                format.html { redirect_to submodels_url,
+            @submodel.assign_attributes(params[:submodel])
+            parok = validateSubmodel?(@submodel, false)
+            if formHasGf?
+                okUrl = '/top/gf'
+                errAction = 'gfedit'
+                @isGroundFloor = true
+                @colorZone = 'GF'
+            else
+                okUrl = submodels_url
+                errAction = 'edit'
+            end
+            saveok = false
+            if parok
+                saveok = @submodel.save
+            end
+            if parok and saveok
+                format.html { redirect_to okUrl,
                               notice: 'Submodel was successfully updated.' }
                 format.json { head :no_content }
             else
                 prepFormVariables
-                format.html { render action: "edit" }
-                format.json { render json: @submodel.errors, status: :unprocessable_entity }
+                format.html { render action: errAction }
+                format.json { render json: @submodel.errors,
+                                     status: :unprocessable_entity }
             end
         end
     end
+
 
     # DELETE /submodels/1
     # DELETE /submodels/1.json

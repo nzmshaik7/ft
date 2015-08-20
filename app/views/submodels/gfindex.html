@@ -1,0 +1,25 @@
+<h2>Listing submodels</h2>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Name</th>
+    <th>Make</th>
+    <th><i>Actions</i></th>
+  </tr>
+
+<% @submodels.each do |submodel| %>
+  <tr>
+    <td><%= submodel.name %></td>
+    <td><%= submodel.make.name %></td>
+    <td><%= link_to 'Edit', "/submodels/#{submodel.id}/gfedit" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<form action="/submodels/gfnew" style="display: inline;">
+  <input type="submit" value="Add New Submodel"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>
