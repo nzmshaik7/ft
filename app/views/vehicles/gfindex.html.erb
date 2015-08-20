@@ -1,0 +1,71 @@
+<h2>Listing vehicles</h2>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Vin</th>
+    <th>License plate</th>
+    <th>Customer</th>
+    <th>Make</th>
+    <th>Model</th>
+    <th>Sub</th>
+    <th>Made in</th>
+    <th>MSRP</th>
+    <th>Cyl</th>
+    <th>Displ.</th>
+    <th>Drive</th>
+    <th>Color</th>
+    <th>Doors</th>
+    <th>Mileage</th>
+    <th>Contract</th>
+    <th><i>Actions</i></th>
+  </tr>
+
+<% @vehicles.each do |vehicle| %>
+  <tr>
+    <td><%= vehicle.vin %></td>
+    <td>
+      <% if vehicle.license_plate_state %>
+        <%= vehicle.license_plate_state.name %>
+      <% else %>
+        <i>??<i>
+      <% end %>
+      <%= vehicle.license_plate %>
+    </td>
+    <td>
+      <%= vehicle.customer.first_name %> <%= vehicle.customer.last_name %>
+    </td>
+    <td><%= vehicle.make.name %></td>
+    <td><%= vehicle.model.name %></td>
+    <td>
+      <% if vehicle.submodel %>
+        <%= vehicle.submodel.name %>
+      <% else %>
+        <i>N/A</i>
+      <% end %>
+    </td>
+    <td><%= countryOrUnk(vehicle) %></td>
+    <td>$<%= number_with_precision(vehicle.msrp, precision: 0) %></td>
+    <td><%= vehicle.engine_cyl %></td>
+    <td><%= vehicle.engine_displacement.name %></td>
+    <td><%= vehicle.wheel_drive.name %></td>
+    <td><%= vehicle.color.name %></td>
+    <td><%= vehicle.doors %></td>
+    <td><%= vehicle.mileage %></td>
+    <td><%= vehicle.contract.number %></td>
+    <td>
+      <!--
+      <%= link_to 'Edit', "/vehicles/#{vehicle.id}/gfedit" %>
+      -->
+      <strike>Edit</strike>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<form action="/vehicles/gfnew" style="display: inline;">
+  <input type="submit" value="Add New Vehicle"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

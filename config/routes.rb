@@ -42,6 +42,7 @@ Ft::Application.routes.draw do
 
   resources :payments
 
+  get 'engine_displacements/gfnew'
   resources :engine_displacements
 
   get 'submodels/gfnew'
@@ -123,7 +124,6 @@ Ft::Application.routes.draw do
   get 'vehicles/gfsearch1'
   post 'vehicles/gfmatch1'
   post 'vehicles/gfnew2'
-  post 'vehicles/gfcreate'
   resources :vehicles
 
   resources :images

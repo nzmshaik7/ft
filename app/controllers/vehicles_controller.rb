@@ -2,22 +2,22 @@ class VehiclesController < ApplicationController
 
     before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
                                               :gfsearch1, :gfmatch1, :gfnew2,
-                                              :gfcreate, ]
+                                              ]
     before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :gfsearch1, :gfmatch1, :gfnew2,
-                                              :gfcreate, ]
+                                              ]
     include CustomersHelper
     include ApplicationHelper
 
 
     def prepFormVariables(make_id = nil)
-        @makes = Make.all
+        @makes = Make.find(:all, :order => 'name')
         @makeCollect = @makes.collect { |p|
             [ p.name, p.id ] 
         }
         if make_id.nil?
-            @models = Model.all
-            @submodels = Submodel.all
+            @models = Model.find(:all, :order => 'name')
+            @submodels = Submodel.find(:all, :order => 'name')
         else
             @models = Model.where("make_id = ?", make_id)
             @submodels = Submodel.where("make_id = ?", make_id)
@@ -32,7 +32,7 @@ class VehiclesController < ApplicationController
         @stateCollect = @states.collect { |p|
             [ p.name, p.id ] 
         }
-        @customers = Customer.all
+        @customers = Customer.find(:all, :order => 'last_name')
         @customerCollect = @customers.collect { |p|
             [ customerName2(p), p.id ] 
         }
@@ -40,11 +40,11 @@ class VehiclesController < ApplicationController
         @storeCollect = @stores.collect { |p|
             [ p.number, p.id ] 
         }
-        @countries = Country.all
+        @countries = Country.find(:all, :order => 'name')
         @countryCollect = @countries.collect { |p|
             [ p.name, p.id ] 
         }
-        @engineDisplacements = EngineDisplacement.all
+        @engineDisplacements = EngineDisplacement.find(:all, :order => 'name')
         @engineDisplacementCollect = @engineDisplacements.collect { |p|
             [ p.name, p.id ] 
         }
@@ -56,7 +56,7 @@ class VehiclesController < ApplicationController
         @colorCollect = @colors.collect { |p|
             [ p.name, p.id ] 
         }
-        @contracts = Contract.all
+        @contracts = Contract.find(:all, :order => 'number')
         @contractCollect = @contracts.collect { |p|
             [ p.number, p.id ] 
         }
@@ -145,11 +145,10 @@ class VehiclesController < ApplicationController
     end
 
 
-    def validateForm(vehicle)
+    def cleanUpForm
         par = params[:vehicle]
         if par[:msrp]
             par[:msrp] = par[:msrp].strip().delete(",")
-            # logger.info("==== set msrp to #{par[:msrp]}")
         end
         if par[:kbb_on_qual]
             par[:kbb_on_qual] = par[:kbb_on_qual].strip().delete(",")
@@ -157,25 +156,67 @@ class VehiclesController < ApplicationController
         if par[:current_kbb]
             par[:current_kbb] = par[:current_kbb].strip().delete(",")
         end
-        return true
+        if par[:mileage]
+            par[:mileage] = par[:mileage].strip().delete(",")
+        end
+    end
+
+
+    def validateForm(vehicle)
+        ok = true
+        vehicle.vin.strip!  if vehicle.vin
+        vehicle.license_plate.strip!  if vehicle.license_plate
+        if vehicle.license_plate_state_id.nil?
+            ok = false
+            addSessionError('You must select a state for the license plate.')
+        end
+        if vehicle.model_id.nil?
+            ok = false
+            addSessionError('You must select a model.')
+        end
+        if vehicle.engine_displacement_id.nil?
+            ok = false
+            addSessionError('You must select an engine displacement.')
+        end
+        if vehicle.wheel_drive_id.nil?
+            ok = false
+            addSessionError('You must select the wheel drive.')
+        end
+        if vehicle.color_id.nil?
+            ok = false
+            addSessionError('You must select the color.')
+        end
+        return ok
     end
 
 
     # POST /vehicles
     # POST /vehicles.json
     def create
+        cleanUpForm
         @vehicle = Vehicle.new(params[:vehicle])
-        valid = validateForm(@vehicle)
+        p = params[:vehicle]
+        # logger.info("==== create veh custid #{ @vehicle.customer_id }")
+        ok = validateForm(@vehicle)
+        okUrl, errAction = setSaveAction('new', vehicles_url)
+        errAction = 'gfnew2'  if errAction == 'gfnew'  # 2 step form
 
         respond_to do |format|
-            if valid and @vehicle.save
-                format.html { redirect_to vehicles_url,
+            if ok and @vehicle.save
+                format.html { redirect_to okUrl,
                               notice: 'Vehicle was successfully created.' }
                 format.json { render json: @vehicle, status: :created,
                                      location: @vehicle }
             else
-                prepFormVariables
-                format.html { render action: "new" }
+                if errAction == 'gfnew2'
+                    prepFormVariables(@vehicle.make_id)
+                    @vehicle_customer_id = @vehicle.customer_id
+                    @vehicle_make_id = @vehicle.make_id
+                    @vehicle_contract_id = @vehicle.contract_id
+                else
+                    prepFormVariables
+                end
+                format.html { render action: errAction }
                 format.json { render json: @vehicle.errors,
                                      status: :unprocessable_entity }
             end
@@ -241,7 +282,8 @@ class VehiclesController < ApplicationController
             else
                 prepFormVariables
                 format.html { render action: "edit" }
-                format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+                format.json { render json: @vehicle.errors,
+                                     status: :unprocessable_entity }
             end
         end
     end
