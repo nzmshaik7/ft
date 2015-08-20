@@ -93,4 +93,32 @@ module ApplicationHelper
         return false
     end
 
+
+    def prepDateCollects(yearFuture = 0)
+        now = Time.now
+
+        @monthsCollect = Array.new
+        for mn in 1 .. 12
+            mtime = Time.local(2000, mn, 15, 1, 1, 1)
+            @monthsCollect.push([ mtime.strftime("%b"), mtime.mon ])
+        end
+        @selStMonth = 1
+        @selEnMonth = 12
+
+        @daysCollect = Array.new
+        for dy in 1 .. 31
+            @daysCollect.push([ dy, dy ])
+        end
+        @selStDay = 1
+        @selEnDay = 1
+
+        @yearsCollect = Array.new
+        thisYear = Time.now.year
+        for yr in thisYear - 15 .. thisYear + yearFuture
+            @yearsCollect.push([ yr, yr ])
+        end
+        @selStYear = thisYear
+        @selEnYear = thisYear
+    end
+
 end
