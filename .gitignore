@@ -19,3 +19,5 @@
 /tmp
 
 /.capistrano
+/.*.swp
+/app/controllers/.*.swp
