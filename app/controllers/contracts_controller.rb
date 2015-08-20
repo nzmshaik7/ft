@@ -104,6 +104,13 @@ class ContractsController < ApplicationController
         if contr.number.nil? or contr.number == ''
             ok = false
             addSessionError('Contract number is required field.')
+        else
+            conflict = Contract.where("number = ?", contr.number)
+            if conflict.length > 0
+                ok = false
+                addSessionError('That Contract number is already in the ' +
+                                'system.')
+            end
         end
         if contr.status.nil? or contr.status == 0
             ok = false
