@@ -122,8 +122,8 @@ Ft::Application.routes.draw do
 
   resources :upgrades
 
-  get 'contracts/gfnew' => 'contracts#gfnew'
-  get 'contracts/gfindex' => 'contracts#gfindex'
+  get 'contracts/gfnew'
+  get 'contracts/gfindex'
   get 'contracts/:id/gfedit' => 'contracts#gfedit'
   resources :contracts
 
@@ -131,7 +131,11 @@ Ft::Application.routes.draw do
 
   resources :finance_agreements
 
-  get 'customers/gfnew' => 'customers#gfnew'
+  get 'customers/gfnew'
+  get 'customers/gfindex'
+  get 'customers/:id/gfedit' => 'customers#gfedit'
+  get 'customers/gfsearch1'
+  post 'customers/gfmatch1'
   resources :customers
 
   devise_for :users, :controllers => {

@@ -1,0 +1,52 @@
+<form accept-charset="UTF-8" action="/customers/gfmatch1" 
+      id="search_customers" method="post">
+
+  <input name="authenticity_token" type="hidden" 
+                                    value="<%= form_authenticity_token %>" />
+  <input name="target_cm" type="hidden" value="<%= target_cm %>" />
+
+  <table border="0">
+    <tr>
+      <td>First Name</td>
+      <td>
+        <input id="customer_first_name" name="customer[first_name]" />
+      </td>
+      <td>Last Name</td>
+      <td>
+        <input id="customer_first_name" name="customer[last_name]" />
+      </td>
+    </tr>
+    <tr>
+      <td>Resident State</td>
+      <td>
+        <select id="customer_state_id" 
+                name="customer[state_id]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@stateCollect) %>
+        </select>
+      </td>
+      <td>Zip code</td>
+      <td>
+        <input id="customer_zip" name="customer[zip]" />
+      </td>
+    </tr>
+    <tr>
+      <td>Signup Store</td>
+      <td>
+        <select id="customer_signup_store_id" 
+                name="customer[signup_store_id]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@storeCollect) %>
+        </select>
+      </td>
+      <td>Phone number</td>
+      <td>
+        <input id="customer_phone" name="customer[phone]" />
+      </td>
+    </tr>
+  </table>
+
+  <div class="actions">
+    <input name="go" type="submit" value="Search" />
+  </div>
+</form>

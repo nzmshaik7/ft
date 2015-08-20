@@ -1,9 +1,12 @@
 class CustomersController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, ]
-    before_filter :gf_area, :only => [:gfnew, ]
+    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
+                                              :gfsearch1, :gfmatch1, ]
+    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+                                              :gfsearch1, :gfmatch1, ]
     include CustomersHelper
     include ApplicationHelper
+
 
     def prepFormVariables(customer=nil)
         @states = State.all
@@ -61,6 +64,7 @@ class CustomersController < ApplicationController
         ]
     end
 
+
     # GET /customers
     # GET /customers.json
     def index
@@ -73,6 +77,13 @@ class CustomersController < ApplicationController
         end
     end
 
+
+    def gfindex
+        @isGroundFloor = true
+        index
+    end
+
+
     # GET /customers/1
     # GET /customers/1.json
     def show
@@ -84,6 +95,7 @@ class CustomersController < ApplicationController
             format.json { render json: @customer }
         end
     end
+    
 
     # GET /customers/new
     # GET /customers/new.json
@@ -108,6 +120,82 @@ class CustomersController < ApplicationController
     def edit
         @customer = Customer.find(params[:id])
         prepFormVariables(@customer)
+    end
+
+
+    def gfedit
+        @isGroundFloor = true
+        edit
+    end
+
+
+    def gfsearch1
+        prepFormVariables
+        prepDateCollects
+    end
+
+
+    # Get search criteria from form and find all matching customers.
+    # View will render a list of hyperlinks that will point to the
+    # given controller and method page for that customer.
+    #
+    def gfmatch1
+        @target_cm = params[:target_cm]
+        if @target_cm and @target_cm[0] == '/'  # Whack leading slash
+            @target_cm = @target_cm[1..-1] 
+        end
+
+        whereHash = Hash.new
+        whereClause = ''
+        andop = ''
+        cust = params[:customer]
+
+        if cust[:first_name] and cust[:first_name].length > 0
+            whereHash[:first_name] = "%#{ cust[:first_name] }%"
+            whereClause += andop + " first_name like :first_name"
+            andop = ' AND'
+        end
+        if cust[:last_name] and cust[:last_name].length > 0
+            whereHash[:last_name] = "%#{ cust[:last_name] }%"
+            whereClause += andop + " last_name like :last_name"
+            andop = ' AND'
+        end
+        if cust[:zip] and cust[:zip].length > 0
+            whereHash[:zip] = "%#{ cust[:zip] }%"
+            whereClause += andop + " zip like :zip"
+            andop = ' AND'
+        end
+        if cust[:zip] and cust[:zip].length > 0
+            whereHash[:zip] = "%#{ cust[:zip] }%"
+            whereClause += andop + " zip like :zip"
+            andop = ' AND'
+        end
+        if cust[:state_id] and cust[:state_id].to_i > 0
+            whereHash[:state_id] = cust[:state_id]
+            whereClause += andop + " state_id = :state_id"
+            andop = ' AND'
+        end
+        if cust[:signup_store_id] and cust[:signup_store_id].to_i > 0
+            whereHash[:signup_store_id] = cust[:signup_store_id]
+            whereClause += andop + " signup_store_id = :signup_store_id"
+            andop = ' AND'
+        end
+        if cust[:phone] and cust[:phone].length > 0
+            whereHash[:phone] = "%#{ cust[:phone] }%"
+            whereClause += andop + " (home_phone like :phone or mobile_phone" +
+                                   " like :phone or other_phone like :phone)"
+            andop = ' AND'
+        end
+
+        logger.info("==== cust whereHash: #{whereHash.inspect}")
+        logger.info("==== cust whereClause: #{whereClause}")
+
+        if whereClause == ''
+            @customers = Customer.all
+        else
+            @customers = Customer.where(whereClause, whereHash)
+        end
+        render :gfindex
     end
 
 

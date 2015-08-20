@@ -1,0 +1,8 @@
+<h2>Search for customer(s)</h2>
+
+<P><B>Fill in whatever values you would like to search on:</B></P>
+
+<%= render :partial => 'search_form',
+           :locals => { :target_cm => 'customers/searched' } %>
+
+<%= link_to 'Back to Ground Floor', '/top/gf' %>
