@@ -123,15 +123,7 @@ class ModelsController < ApplicationController
     def create
         @model = Model.new(params[:model])
         ok = validateModel?(@model, true)
-        if formHasGf?
-            okUrl = '/top/gf'
-            errAction = 'gfnew'
-            @isGroundFloor = true
-            @colorZone = 'GF'
-        else
-            okUrl = models_url
-            errAction = 'new'
-        end
+        okUrl, errAction = setSaveAction('new', models_url)
 
         respond_to do |format|
             if ok and @model.save
@@ -157,15 +149,7 @@ class ModelsController < ApplicationController
         respond_to do |format|
             @model.assign_attributes(params[:model])
             parok = validateModel?(@model, false)
-            if formHasGf?
-                okUrl = '/top/gf'
-                errAction = 'gfedit'
-                @isGroundFloor = true
-                @colorZone = 'GF'
-            else
-                okUrl = models_url
-                errAction = 'edit'
-            end
+            okUrl, errAction = setSaveAction('edit', models_url)
             saveok = false
             if parok
                 saveok = @model.save

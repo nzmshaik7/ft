@@ -139,15 +139,7 @@ class ContractsController < ApplicationController
         @contract.discount = 0.0  if @contract.discount.nil?
         @contract.discount_percent = 0  if @contract.discount_percent.nil?
         ok = validateContract?(@contract)
-        if formHasGf?
-            okUrl = '/top/gf'
-            errAction = 'gfnew'
-            @isGroundFloor = true
-            @colorZone = 'GF'
-        else
-            okUrl = contracts_url
-            errAction = 'new'
-        end
+        okUrl, errAction = setSaveAction('new', contracts_url)
 
         respond_to do |format|
             if ok and @contract.save
@@ -173,15 +165,7 @@ class ContractsController < ApplicationController
         respond_to do |format|
             @contract.assign_attributes(params[:contract])
             parok = validateContract?(@contract)
-            if formHasGf?
-                okUrl = '/top/gf'
-                errAction = 'gfedit'
-                @isGroundFloor = true
-                @colorZone = 'GF'
-            else
-                okUrl = contracts_url
-                errAction = 'edit'
-            end
+            okUrl, errAction = setSaveAction('edit', contracts_url)
             saveok = false
             if parok
                 saveok = @contract.save

@@ -94,6 +94,24 @@ module ApplicationHelper
     end
 
 
+    # This lets your multipath different sequences of forms through
+    # the same action.  It sets up the different turns depending on
+    # what level of interface you are on (basement or ground floor).
+    #
+    def setSaveAction(act, url)
+        if formHasGf?
+            okUrl = '/top/gf'
+            errAction = 'gf' + act
+            @isGroundFloor = true
+            @colorZone = 'GF'
+        else
+            okUrl = url
+            errAction = act
+        end
+        return okUrl, errAction
+    end
+
+
     def prepDateCollects(yearFuture = 0)
         now = Time.now
 

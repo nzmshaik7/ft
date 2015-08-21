@@ -70,15 +70,7 @@ class EngineDisplacementsController < ApplicationController
         @engine_displacement = 
                            EngineDisplacement.new(params[:engine_displacement])
         ok = validateEngineDisplacement?(@engine_displacement)
-        if formHasGf?
-            okUrl = '/top/gf'
-            errAction = 'gfnew'
-            @isGroundFloor = true
-            @colorZone = 'GF'
-        else
-            okUrl = engine_displacements_url
-            errAction = 'new'
-        end
+        okUrl, errAction = setSaveAction('new', engine_displacements_url)
 
         respond_to do |format|
             if ok and @engine_displacement.save

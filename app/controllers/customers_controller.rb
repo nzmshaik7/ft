@@ -289,15 +289,7 @@ class CustomersController < ApplicationController
     def create
         @customer = Customer.new(params[:customer])
         ok = validateCustomer?(@customer)
-        if formHasGf?
-            okUrl = '/top/gf'
-            errAction = 'gfnew'
-            @isGroundFloor = true
-            @colorZone = 'GF'
-        else
-            okUrl = customers_url
-            errAction = 'new'
-        end
+        okUrl, errAction = setSaveAction('new', customers_url)
 
         respond_to do |format|
             if ok and @customer.save
@@ -323,15 +315,7 @@ class CustomersController < ApplicationController
         respond_to do |format|
             @customer.assign_attributes(params[:customer])
             parok = validateCustomer?(@customer)
-            if formHasGf?
-                okUrl = '/top/gf'
-                errAction = 'gfedit'
-                @isGroundFloor = true
-                @colorZone = 'GF'
-            else
-                okUrl = customers_url
-                errAction = 'edit'
-            end
+            okUrl, errAction = setSaveAction('edit', customers_url)
             saveok = false
             if parok
                 saveok = @customer.save

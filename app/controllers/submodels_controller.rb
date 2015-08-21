@@ -111,15 +111,7 @@ class SubmodelsController < ApplicationController
     def create
         @submodel = Submodel.new(params[:submodel])
         ok = validateSubmodel?(@submodel, true)
-        if formHasGf?
-            okUrl = '/top/gf'
-            errAction = 'gfnew'
-            @isGroundFloor = true
-            @colorZone = 'GF'
-        else
-            okUrl = submodels_url
-            errAction = 'new'
-        end
+        okUrl, errAction = setSaveAction('new', submodels_url)
 
         respond_to do |format|
             if ok and @submodel.save
@@ -145,15 +137,7 @@ class SubmodelsController < ApplicationController
         respond_to do |format|
             @submodel.assign_attributes(params[:submodel])
             parok = validateSubmodel?(@submodel, false)
-            if formHasGf?
-                okUrl = '/top/gf'
-                errAction = 'gfedit'
-                @isGroundFloor = true
-                @colorZone = 'GF'
-            else
-                okUrl = submodels_url
-                errAction = 'edit'
-            end
+            okUrl, errAction = setSaveAction('edit', submodels_url)
             saveok = false
             if parok
                 saveok = @submodel.save
