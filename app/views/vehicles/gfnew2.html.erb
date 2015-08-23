@@ -2,7 +2,11 @@
 
 <P>
 <B>Customer:</B> <%= customerName2(@vehicle.customer) %> <br/>
-<B>Contract Number:</B> <%= @vehicle.contract.number %> <br/>
+<% if @vehicle.contract %>
+  <B>Contract Number:</B> <%= @vehicle.contract.number %> <br/>
+<% else %>
+  <B>No Contract</B> (Not a member vehicle.) <br/>
+<% end %>
 <B>Make:</B> <%= @vehicle.make.name %> <br/>
 </P>
 

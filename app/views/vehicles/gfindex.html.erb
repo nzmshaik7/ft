@@ -51,7 +51,13 @@
     <td><%= vehicle.color.name %></td>
     <td><%= vehicle.doors %></td>
     <td><%= vehicle.mileage %></td>
-    <td><%= vehicle.contract.number %></td>
+    <td>
+      <% if vehicle.contract %>
+        <%= vehicle.contract.number %>
+      <% else %>
+        <i>None</i>
+      <% end %>
+    </td>
     <td>
       <!--
       <%= link_to 'Edit', "/vehicles/#{vehicle.id}/gfedit" %>

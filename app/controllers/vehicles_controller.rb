@@ -234,10 +234,7 @@ class VehiclesController < ApplicationController
             ok = false
             addSessionError('You must select a Make')
         end
-        if veh.contract_id.nil? or veh.contract_id.to_i == 0
-            ok = false
-            addSessionError('You must select a Contract Number')
-        else
+        if veh.contract_id != nil and veh.contract_id.to_i != 0
             conflict = Vehicle.where("contract_id = ?", veh.contract_id.to_i)
             if conflict.length > 0
                 ok = false
