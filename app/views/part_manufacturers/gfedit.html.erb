@@ -1,0 +1,10 @@
+<h2>Editing Part Manufacturer</h2>
+
+<%= render :partial => 'form',
+                       :locals => { :isGroundFloor => @isGroundFloor } %>
+
+<form action="/part_manufacturers/gfindex" style="display: inline;">
+  <input type="submit" value="List/Edit Part Manufacturers"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

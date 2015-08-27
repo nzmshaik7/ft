@@ -11,20 +11,21 @@
     </div>
   <% end %>
 
+  <% if defined?(isGroundFloor) and isGroundFloor %>
+    <input name="is_ground_floor" type="hidden" value="Y" />
+  <% end %>
   <div class="field">
-    <%= f.label :first_name %><font color="#800000">*</font><br />
+    <%= f.label :first_name %>:<font color="#800000">*</font>
     <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><font color="#800000">*</font><br />
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :last_name %>:<font color="#800000">*</font>
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :ssn %><br />
+    <%= f.label :ssn %>:
     <%= f.text_field :ssn %>
-  </div>
-  <div class="field">
-    <%= f.label :store_id %><font color="#800000">*</font><br />
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :store_id %>:<font color="#800000">*</font>
     <%= select("employee", "store_id", @storeCollect,
                                                   {prompt: 'Select Store'}) %>
   </div>

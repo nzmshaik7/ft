@@ -24,6 +24,9 @@ Ft::Application.routes.draw do
 
   resources :inventories
 
+  get 'employees/gfnew'
+  get 'employees/gfindex'
+  get 'employees/:id/gfedit' => 'employees#gfedit'
   resources :employees
 
   resources :salespeople
@@ -62,6 +65,9 @@ Ft::Application.routes.draw do
   get 'part_names/:id/gfedit' => 'part_names#gfedit'
   resources :part_names
 
+  get 'part_manufacturers/gfnew'
+  get 'part_manufacturers/gfindex'
+  get 'part_manufacturers/:id/gfedit' => 'part_manufacturers#gfedit'
   resources :part_manufacturers
 
   get 'parts/gfnew'
