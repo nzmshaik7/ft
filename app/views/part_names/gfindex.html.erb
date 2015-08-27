@@ -1,0 +1,23 @@
+<h2>Listing Generic Part Names</h2>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th><i>Actions</i></th>
+  </tr>
+
+<% @part_names.each do |part_name| %>
+  <tr>
+    <td><%= part_name.name %></td>
+    <td><%= link_to 'Edit', "/part_names/#{part_name.id}/gfedit" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<form action="/part_names/gfnew" style="display: inline;">
+  <input type="submit" value="Add New Generic Part Name"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

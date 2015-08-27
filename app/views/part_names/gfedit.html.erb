@@ -1,0 +1,10 @@
+<h2>Editing generic part name</h2>
+
+<%= render :partial => 'form',
+                       :locals => { :isGroundFloor => @isGroundFloor } %>
+
+<form action="/part_names/gfindex" style="display: inline;">
+  <input type="submit" value="List/Edit Generic Part Names"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

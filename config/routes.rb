@@ -57,6 +57,9 @@ Ft::Application.routes.draw do
 
   resources :makes
 
+  get 'part_names/gfnew'
+  get 'part_names/gfindex'
+  get 'part_names/:id/gfedit' => 'part_names#gfedit'
   resources :part_names
 
   resources :part_manufacturers
