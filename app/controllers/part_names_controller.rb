@@ -8,7 +8,7 @@ class PartNamesController < ApplicationController
     # GET /part_names
     # GET /part_names.json
     def index
-        @part_names = PartName.all
+        @part_names = PartName.find(:all, :order => 'name')
 
         respond_to do |format|
             format.html # index.html.erb
