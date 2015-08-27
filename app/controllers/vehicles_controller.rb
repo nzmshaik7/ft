@@ -162,7 +162,7 @@ class VehiclesController < ApplicationController
     end
 
 
-    def validateForm(vehicle)
+    def validateForm?(vehicle)
         ok = true
         vehicle.vin.strip!  if vehicle.vin
         vehicle.license_plate.strip!  if vehicle.license_plate
@@ -197,7 +197,7 @@ class VehiclesController < ApplicationController
         @vehicle = Vehicle.new(params[:vehicle])
         p = params[:vehicle]
         # logger.info("==== create veh custid #{ @vehicle.customer_id }")
-        ok = validateForm(@vehicle)
+        ok = validateForm?(@vehicle)
         okUrl, errAction = setSaveAction('new', vehicles_url)
         errAction = 'gfnew2'  if errAction == 'gfnew'  # 2 step form
 
@@ -247,6 +247,25 @@ class VehiclesController < ApplicationController
     end
 
 
+    def prevalidateContract(veh)
+        ok = true
+        vpar = params[:vehicle]
+        if vpar[:contract_id] 
+            newContractId = vpar[:contract_id].to_i
+            if newContractId > 0 and veh.contract_id != newContractId 
+                conflict = Vehicle.where("contract_id = ?", newContractId)
+                if conflict.length > 0
+                    ok = false
+                    msg = 'Another vehicle (' + conflict.first.ymmText +
+                          ') already has that contract.'
+                    addSessionError(msg)
+                end
+            end
+        end
+        return ok
+    end
+
+
     # POST /vehicles/gfnew2, from _formnew1.html.erb
     #
     def gfnew2
@@ -269,16 +288,23 @@ class VehiclesController < ApplicationController
     # PUT /vehicles/1.json
     def update
         @vehicle = Vehicle.find(params[:id])
-        valid = validateForm(@vehicle)
+        preok = prevalidateContract(@vehicle)
 
         respond_to do |format|
-            if valid and @vehicle.update_attributes(params[:vehicle])
-                format.html { redirect_to vehicles_url,
+            @vehicle.assign_attributes(params[:vehicle])
+            parok = validateForm?(@vehicle)
+            okUrl, errAction = setSaveAction('edit', vehicles_url)
+            saveok = false
+            if parok and preok
+                saveok = @vehicle.save
+            end
+            if parok and preok and saveok
+                format.html { redirect_to okUrl,
                               notice: 'Vehicle was successfully updated.' }
                 format.json { head :no_content }
             else
                 prepFormVariables
-                format.html { render action: "edit" }
+                format.html { render action: errAction }
                 format.json { render json: @vehicle.errors,
                                      status: :unprocessable_entity }
             end

@@ -13,8 +13,7 @@
     <th>Web</th>
     <th>Signup store</th>
     <th>Date of birth</th>
-    <th>Referral credits earned</th>
-    <th>Referral credits used</th>
+    <th>Vehicles</th>
     <th><i>Actions</i></th>
   </tr>
 
@@ -37,8 +36,11 @@
         <i>unknown</i>
       <% end %>
     </td>
-    <td><%= customer.referral_credits_earned %></td>
-    <td><%= customer.referral_credits_used %></td>
+    <td>
+      <% for veh in customer.vehicles %>
+        <%= veh.ymmpText %><br/>
+      <% end %>
+    </td>
     <td><%= link_to 'Edit', "/customers/#{customer.id}/gfedit" %></td>
   </tr>
 <% end %>

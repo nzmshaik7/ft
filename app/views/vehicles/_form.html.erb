@@ -11,150 +11,146 @@
     </div>
   <% end %>
 
+  <% if not defined?(isGroundFloor) %>
+    <% isGroundFloor = false %>
+  <% end %>
   <div class="field">
-    <%= f.label :vin %><br />
+    <%= f.label :vin %>
     <%= f.text_field :vin %>
-  </div>
-  <div class="field">
-    <%= f.label :vin_decoded %><br />
-    <%= f.text_field :vin_decoded %>
-  </div>
-  <div class="field">
-    <%= f.label :license_plate %><br />
-    <%= f.text_field :license_plate %>
-  </div>
-  <div class="field">
-    <%= f.label :license_plate_state_id %><font color="#800000">*</font><br />
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :license_plate %>
+    <%= f.text_field :license_plate, :size => 8 %>
+    <%= f.label :license_plate_state_id %><font color="#800000">*</font>
     <%= select("vehicle", "license_plate_state_id", @stateCollect,
                                                    {prompt: 'Select State'}) %>
   </div>
   <div class="field">
-    <%= f.label :customer_id %><font color="#800000">*</font><br />
+    <%= f.label :make_id %><font color="#800000">*</font>
+    <%= select("vehicle", "make_id", @makeCollect, {prompt: 'Select Make'}) %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :model_id %><font color="#800000">*</font>
+    <%= select("vehicle", "model_id", @modelCollect, {prompt: 'Select Model'}) %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :submodel_id %>
+    <%= select("vehicle", "submodel_id", @submodelCollect,
+                                              {prompt: 'Select Submodel'}) %>
+  </div>
+  <% if isGroundFloor %>
+     <input name="is_ground_floor" type="hidden" value="Y" />
+  <% else %>
+    <div class="field">
+      <%= f.label :vin_decoded %><br />
+      <%= f.text_field :vin_decoded %>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :customer_id %><font color="#800000">*</font>
     <%= select("vehicle", "customer_id", @customerCollect,
                                           {prompt: 'Select Customer'}) %>
   </div>
   <div class="field">
-    <%= f.label :make_id %><font color="#800000">*</font><br />
-    <%= select("vehicle", "make_id", @makeCollect, {prompt: 'Select Make'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :model_id %><font color="#800000">*</font><br />
-    <%= select("vehicle", "model_id", @modelCollect, {prompt: 'Select Model'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :submodel_id %><br />
-    <%= select("vehicle", "submodel_id", @submodelCollect,
-                                              {prompt: 'Select Submodel'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :date_of_manufacture %><font color="#800000">*</font><br />
+    <%= f.label :date_of_manufacture %><font color="#800000">*</font>
     <%= f.date_select :date_of_manufacture, :start_year => 1990 %>
-  </div>
-  <div class="field">
-    <%= f.label :country_of_manufacture_id %><br />
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :country_of_manufacture_id %>
     <%= select("vehicle", "country_of_manufacture_id", @countryCollect,
 					      {prompt: 'Select Country'}) %>
   </div>
   <div class="field">
-    <%= f.label :msrp %><br />
-    $<%= f.text_field :msrp %>
-  </div>
-  <div class="field">
-    <%= f.label :kbb_on_qual %><br />
-    $<%= f.text_field :kbb_on_qual %>
-  </div>
-  <div class="field">
-    <%= f.label :current_kbb %><br />
-    $<%= f.text_field :current_kbb %>
-  </div>
-  <div class="field">
-    <%= f.label :consumer_reports_url %><br />
-    <%= f.text_field :consumer_reports_url %>
-  </div>
-  <div class="field">
-    <%= f.label :engine_cyl %><br />
-    <%= f.number_field :engine_cyl %>
-  </div>
-  <div class="field">
-    <%= f.label :engine_displacement_id %><font color="#800000">*</font><br />
+    <%= f.label :engine_cyl %>
+    <%= f.number_field :engine_cyl, :size => 4 %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :engine_displacement_id %><font color="#800000">*</font>
     <%= select("vehicle", "engine_displacement_id", @engineDisplacementCollect,
 					  {prompt: 'Select Displacement'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :wheel_drive_id %><font color="#800000">*</font><br />
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :wheel_drive_id %><font color="#800000">*</font>
     <%= select("vehicle", "wheel_drive_id", @wheelDriveCollect,
 					  {prompt: 'Select Drive'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :color_id %><font color="#800000">*</font><br />
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :color_id %><font color="#800000">*</font>
     <%= select("vehicle", "color_id", @colorCollect,
 					      {prompt: 'Select Color'}) %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :doors %>
+    <%= f.number_field :doors, :size => 4  %>
   </div>
   <div class="field">
-    <%= f.label :doors %><br />
-    <%= f.number_field :doors %>
+    <%= f.label :msrp %>
+    $<%= f.text_field :msrp, :size => 8 %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :kbb_on_qual %>
+    $<%= f.text_field :kbb_on_qual, :size => 8 %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :current_kbb %>
+    $<%= f.text_field :current_kbb, :size => 8 %>
   </div>
+  <% if not isGroundFloor %>
+    <div class="field">
+      <%= f.label :consumer_reports_url %><br />
+      <%= f.text_field :consumer_reports_url %>
+    </div>
+  <% end %>
   <div class="field">
-    <%= f.label :convertible %><br />
+    <%= f.label :mileage %>:
+    <%= f.number_field :mileage, :size => 8 %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :convertible %>:
     <%= f.check_box :convertible %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :bg_compliant %>:
+    <%= f.check_box :bg_compliant %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :mpg30after_initial, 'MPG 30 days after 1st visit:' %>
+    <%= f.text_field :mpg30after_initial, :size => 8 %> MPG
   </div>
   <div class="field">
     <%= f.label :comments %><br />
-    <%= f.text_area :comments %>
+    <%= f.text_area :comments, :cols => 100, :rows => 8 %>
   </div>
+  <% if not isGroundFloor %>
+    <div class="field">
+      <%= f.label :service_schedule_id %><br />
+      <%= f.number_field :service_schedule_id %>
+      &nbsp; (ID from service schedule table)
+    </div>
+    <div class="field">
+      <%= f.label :insurance_company_id %><br />
+      <%= select("vehicle", "insurance_company_id", @insuranceCompanyCollect,
+                                            {prompt: 'Select Insurance'}) %>
+    </div>
+    <div class="field">
+      <%= f.label :insurance_policy_number %><br />
+      <%= f.text_field :insurance_policy_number %>
+    </div>
+    <div class="field">
+      <%= f.label :insurance_image_id %><br />
+      <%= f.number_field :insurance_image_id %>
+    </div>
+    <div class="field">
+      <%= f.label :carfax_url %><br />
+      <%= f.text_field :carfax_url %>
+    </div>
+    <div class="field">
+      <%= f.label :carfax_copy_at_qual %><br />
+      <%= f.text_field :carfax_copy_at_qual %>
+    </div>
+    <div class="field">
+      <%= f.label :door_plate_image_id %><br />
+      <%= f.number_field :door_plate_image_id %>
+    </div>
+    <div class="field">
+      <%= f.label :photos_image_id %><br />
+      <%= f.number_field :photos_image_id %>
+    </div>
+    <div class="field">
+      <%= f.label :qualification_id %><br />
+      <%= f.number_field :qualification_id %> (ID from qualification table)
+    </div>
+  <% end %>
   <div class="field">
-    <%= f.label :service_schedule_id %><br />
-    <%= f.number_field :service_schedule_id %>
-    &nbsp; (ID from service schedule table)
-  </div>
-  <div class="field">
-    <%= f.label :insurance_company_id %><br />
-    <%= select("vehicle", "insurance_company_id", @insuranceCompanyCollect,
-					  {prompt: 'Select Insurance'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :insurance_policy_number %><br />
-    <%= f.text_field :insurance_policy_number %>
-  </div>
-  <div class="field">
-    <%= f.label :insurance_image_id %><br />
-    <%= f.number_field :insurance_image_id %>
-  </div>
-  <div class="field">
-    <%= f.label :carfax_url %><br />
-    <%= f.text_field :carfax_url %>
-  </div>
-  <div class="field">
-    <%= f.label :carfax_copy_at_qual %><br />
-    <%= f.text_field :carfax_copy_at_qual %>
-  </div>
-  <div class="field">
-    <%= f.label :door_plate_image_id %><br />
-    <%= f.number_field :door_plate_image_id %>
-  </div>
-  <div class="field">
-    <%= f.label :mileage %><br />
-    <%= f.number_field :mileage %>
-  </div>
-  <div class="field">
-    <%= f.label :mpg30after_initial %><br />
-    <%= f.text_field :mpg30after_initial %> MPG
-  </div>
-  <div class="field">
-    <%= f.label :photos_image_id %><br />
-    <%= f.number_field :photos_image_id %>
-  </div>
-  <div class="field">
-    <%= f.label :qualification_id %><br />
-    <%= f.number_field :qualification_id %> (ID from qualification table)
-  </div>
-  <div class="field">
-    <%= f.label :bg_compliant %><br />
-    <%= f.check_box :bg_compliant %>
-  </div>
-  <div class="field">
-    <%= f.label :contract_id %> (contract is required to track membership 
-    income)<br />
+    <%= f.label :contract_id, 'Contract number' %> 
+    (contract is required to track membership income):
     <%= select("vehicle", "contract_id", @contractCollect,
 					  {prompt: 'Select Contract'}) %>
   </div>
