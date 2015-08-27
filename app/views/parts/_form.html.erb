@@ -11,31 +11,31 @@
     </div>
   <% end %>
 
+  <% if defined?(isGroundFloor) and isGroundFloor %>
+    <input name="is_ground_floor" type="hidden" value="Y" />
+  <% end %>
   <div class="field">
-    <%= f.label :part_manufacturer_id %><font color="#800000">*</font><br />
+    <%= f.label :part_manufacturer_id %><font color="#800000">*</font>
     <%= select("part", "part_manufacturer_id", 
                 @part_manufacturerCollect, {prompt: 'Select Manufacturer'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :part_name_id %><font color="#800000">*</font><br />
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :part_name_id %><font color="#800000">*</font>
     <%= select("part", "part_name_id", 
                 @part_nameCollect, {prompt: 'Select Generic Part Name'}) %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
+    <%= f.label :description %>:
+    <%= f.text_field :description, :size => 40 %>
   </div>
   <div class="field">
-    <%= f.label :part_number %><font color="#800000">*</font><br />
-    <%= f.text_field :part_number %>
-  </div>
-  <div class="field">
-    <%= f.label :actual_cost %><font color="#800000">*</font><br />
-    <%= f.text_field :actual_cost %>
-  </div>
-  <div class="field">
-    <%= f.label :retail_price %><font color="#800000">*</font><br />
-    <%= f.text_field :retail_price %>
+    <%= f.label :part_number %>:<font color="#800000">*</font>
+    <%= f.text_field :part_number, :size => 20 %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :actual_cost %>:<font color="#800000">*</font>
+    $<%= f.text_field :actual_cost, :size => 8 %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :retail_price %>:<font color="#800000">*</font>
+    $<%= f.text_field :retail_price, :size => 8 %>
   </div>
   <div class="actions">
     <%= f.submit %>

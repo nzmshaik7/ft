@@ -1,0 +1,10 @@
+<h2>Editing part</h2>
+
+<%= render :partial => 'form',
+                       :locals => { :isGroundFloor => @isGroundFloor } %>
+
+<form action="/parts/gfindex" style="display: inline;">
+  <input type="submit" value="List/Edit Parts"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>
