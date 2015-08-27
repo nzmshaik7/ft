@@ -5,11 +5,11 @@ class PartsController < ApplicationController
     include ApplicationHelper
 
     def prepFormVariables
-        @part_manufacturers = PartManufacturer.all
+        @part_manufacturers = PartManufacturer.find(:all, :order => 'name')
         @part_manufacturerCollect = @part_manufacturers.collect { |p|
             [ p.name, p.id ]
         }
-        @part_names = PartName.all
+        @part_names = PartName.find(:all, :order => 'name')
         @part_nameCollect = @part_names.collect { |p|
             [ p.name, p.id ]
         }
