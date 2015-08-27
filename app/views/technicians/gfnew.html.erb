@@ -1,0 +1,22 @@
+<h2>New technician</h2>
+
+<P>
+Before you can enter a new Technician, you must first have an
+Employee that can be designated a Technicials (i.e. all Technicians
+must be Employees).
+</P>
+<P>
+<font color="#606060"><i>
+  (If you need to 
+   <a target="_blank" href="/employees/gfnew">add an employee</a>
+   to the Employee dropdown for this Technician, click the
+   <a target="_blank" href="/employees/gfnew">add an employee</a>
+   link to open a new window, then come back to this
+   window and refresh or hit F5.)
+</i></font>
+</P>
+
+<%= render :partial => 'form',
+                       :locals => { :isGroundFloor => @isGroundFloor } %>
+
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

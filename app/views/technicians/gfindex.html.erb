@@ -1,0 +1,27 @@
+<h2>Listing technicians</h2>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Employee</th>
+    <th>Level</th>
+    <th>Hourly rate</th>
+    <th><i>Actions</i></th>
+  </tr>
+
+<% @technicians.each do |technician| %>
+  <tr>
+    <td><%= technician.employee.nameText %></td>
+    <td><%= technician.level %></td>
+    <td><%= number_to_currency(technician.hourly_rate) %></td>
+    <td><%= link_to 'Edit', "/technicians/#{technician.id}/gfedit" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<form action="/technicians/gfnew" style="display: inline;">
+  <input type="submit" value="Add New Technician"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

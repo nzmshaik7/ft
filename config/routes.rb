@@ -31,6 +31,9 @@ Ft::Application.routes.draw do
 
   resources :salespeople
 
+  get 'technicians/gfnew'
+  get 'technicians/gfindex'
+  get 'technicians/:id/gfedit' => 'technicians#gfedit'
   resources :technicians
 
   resources :stores
