@@ -25,7 +25,11 @@
   <tr>
     <td>
       <% if @target_cm %>
-        <a href="/<%= @target_cm %>/<%= vehicle.id %>"> <%= vehicle.vin %> </a>
+        <% if @target_cm == 'analytics/int1' and vehicle.contract.nil? %>
+          <%= vehicle.vin %>
+        <% else %>
+          <a href="/<%= @target_cm %>/<%= vehicle.id %>"><%= vehicle.vin %></a>
+        <% end %>
       <% else %>
         <%= vehicle.vin %>
       <% end %>
@@ -63,7 +67,13 @@
     </td>
     <td>
       <% if @target_cm %>
-        <a href="/<%= @target_cm %>/<%= vehicle.id %>">View</a>
+        <% if @target_cm == 'analytics/int1' and vehicle.contract.nil? %>
+          <i>n/a</i>
+        <% else %>
+          <a href="/<%= @target_cm %>/<%= vehicle.id %>">
+            <%= @target_label %>
+          </a>
+        <% end %>
       <% end %>
     </td>
   </tr>
