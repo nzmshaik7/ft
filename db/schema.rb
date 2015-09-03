@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150818004622) do
+ActiveRecord::Schema.define(:version => 20150903131630) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -427,6 +427,7 @@ ActiveRecord::Schema.define(:version => 20150818004622) do
     t.decimal  "part_actual_price",    :precision => 8, :scale => 2
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
+    t.integer  "quantity"
   end
 
   create_table "service_schedules", :force => true do |t|

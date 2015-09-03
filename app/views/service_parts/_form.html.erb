@@ -27,6 +27,10 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :quantity %><font color="#800000">*</font><br />
+    <%= f.number_field :quantity, :size => 4 %>
+  </div>
+  <div class="field">
     <%= f.label :part_id %><font color="#800000">*</font><br />
     <%= select("service_part", "part_id", 
             @partCollect, {prompt: 'Select Part'}) %>

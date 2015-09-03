@@ -9,6 +9,7 @@ These are the parts used for Service Line Items.
 <table border="1" class="ft_dbtab">
   <tr bgcolor="#F0FFF0">
     <th>Service line item</th>
+    <th>Quantity</th>
     <th>Part</th>
     <th>Part retail price</th>
     <th>Part actual price</th>
@@ -25,6 +26,7 @@ These are the parts used for Service Line Items.
         <font color="#800000"><i>Fix this - missing service line item</i></font>
       <% end %>
     </td>
+    <td><%= service_part.quantity %></td>
     <td><%= service_part.part.part_name.name %></td>
     <td><%= number_to_currency(service_part.part_retail_price) %></td>
     <td><%= number_to_currency(service_part.part_actual_price) %></td>
