@@ -33,7 +33,13 @@
         <font color="#800000"><i>Service visit should have Invoice</i></font>
       <% end %>
     </td>
-    <td><%= service_visit.salesperson.employee.nameText %></td>
+    <td>
+      <% if service_visit.salesperson %>
+        <%= service_visit.salesperson.employee.nameText %>
+      <% else %>
+        <i>none</i>
+      <% end %>
+    </td>
     <td><%= service_visit.comments %></td>
     <td><%= link_to 'Show', service_visit %></td>
     <td><%= link_to 'Edit', edit_service_visit_path(service_visit) %></td>
