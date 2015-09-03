@@ -462,7 +462,7 @@
 	<tr>
 	  <td><B>Contract expires</B></td>
           <td>
-            <% if @vehicle.mileage > 300000 %>
+            <% if @vehicle.mileage and @vehicle.mileage > 300000 %>
               Expired (mileage)
             <% else %>
               <%= @contractExpires.strftime("%b %d, %Y") %></td>
