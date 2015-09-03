@@ -38,7 +38,7 @@
     </td>
     <td>
       <% for veh in customer.vehicles %>
-        <%= veh.ymmpText %><br/>
+        <a href="/vehicles/<%= veh.id %>/gfedit"><%= veh.ymmpText %></a><br/>
       <% end %>
     </td>
     <td><%= link_to 'Edit', "/customers/#{customer.id}/gfedit" %></td>
