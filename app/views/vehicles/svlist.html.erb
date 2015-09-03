@@ -1,0 +1,62 @@
+<h2>All Vehicles</h2>
+
+<P>
+<B>Select vehicle to enter a service visit for:</B>
+</P>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Vin</th>
+    <th>License plate</th>
+    <th>Customer</th>
+    <th>Make</th>
+    <th>Model</th>
+    <th>Sub</th>
+    <th>Color</th>
+    <th>Contract</th>
+    <th><i>Action</i></th>
+  </tr>
+
+<% @vehicles.each do |vehicle| %>
+  <tr>
+    <td><%= vehicle.vin %></td>
+    <td>
+      <% if vehicle.license_plate_state %>
+        <%= vehicle.license_plate_state.name %>
+      <% else %>
+        <i>??<i>
+      <% end %>
+      <%= vehicle.license_plate %>
+    </td>
+    <td>
+      <%= vehicle.customer.first_name %> <%= vehicle.customer.last_name %>
+    </td>
+    <td><%= vehicle.make.name %></td>
+    <td><%= vehicle.model.name %></td>
+    <td>
+      <% if vehicle.submodel %>
+        <%= vehicle.submodel.name %>
+      <% else %>
+        <i>N/A</i>
+      <% end %>
+    </td>
+    <td><%= vehicle.color.name %></td>
+    <td>
+      <% if vehicle.contract %>
+        <%= vehicle.contract.number %>
+      <% else %>
+        <i>None</i>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to 'Select', "/service_visits/gfnew1/#{vehicle.id}" %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Back to Vehicle Selection methods', '/service_visits/gfnew0' %>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

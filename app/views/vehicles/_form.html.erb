@@ -155,6 +155,7 @@
 					  {prompt: 'Select Contract'}) %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Update Vehicle', name: 'update' %> &nbsp; &nbsp;
+    <%= f.submit 'Enter Service Visit for this Vehicle', name: 'new_sv' %>
   </div>
 <% end %>

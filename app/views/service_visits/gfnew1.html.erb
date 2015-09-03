@@ -1,0 +1,16 @@
+<h2>Enter Service Visit</h2>
+
+<P>
+Entering Service Visit information for: <br/>
+<%= @vehicle.ymmText %>, plate <%= @vehicle.license_plate %>, owner
+<%= @vehicle.customer.first_name %> <%= @vehicle.customer.last_name %>
+</P>
+
+<%= render :partial => 'gfform1',
+           :locals => { :form_action => 'gfnew2', } %>
+
+<%= link_to 'Back to Service Visits', '/service_visits/gfindex' %>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Vehicle Selection methods', '/service_visits/gfnew0' %>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

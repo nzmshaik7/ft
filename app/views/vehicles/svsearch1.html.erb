@@ -1,0 +1,11 @@
+<h2>Search for vehicle for Service Visit</h2>
+
+<P><B>Fill in whatever values you would like to search on:</B></P>
+
+<%= render :partial => 'search_form',
+           :locals => { :target_cm => 'service_visits/gfnew1',
+                        :target_label => 'Select' } %>
+
+<%= link_to 'Back to Vehicle Selection methods', '/service_visits/gfnew0' %>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

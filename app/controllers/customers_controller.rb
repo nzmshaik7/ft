@@ -1,9 +1,13 @@
 class CustomersController < ApplicationController
 
     before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
-                                              :gfsearch1, :gfmatch1, ]
+                                              :gfsearch1, :gfmatch1, 
+                                              :svsearch1,
+                                              ]
     before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
-                                              :gfsearch1, :gfmatch1, ]
+                                              :gfsearch1, :gfmatch1, 
+                                              :svsearch1,
+                                              ]
     include CustomersHelper
     include ApplicationHelper
 
@@ -132,6 +136,12 @@ class CustomersController < ApplicationController
     def gfsearch1
         prepFormVariables
         prepDateCollects
+    end
+
+
+    def svsearch1
+        @isSvSelect = true
+        gfsearch1
     end
 
 

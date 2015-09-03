@@ -2,9 +2,13 @@ class VehiclesController < ApplicationController
 
     before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
                                               :gfsearch1, :gfmatch1, :gfnew2,
+                                              :svlist, :svsearch1,
+                                              :match, :search_int1,
                                               ]
     before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :gfsearch1, :gfmatch1, :gfnew2,
+                                              :svlist, :svsearch1,
+                                              :match, :search_int1,
                                               ]
     include CustomersHelper
     include ApplicationHelper
@@ -88,6 +92,11 @@ class VehiclesController < ApplicationController
     end
 
 
+    def svlist
+        @vehicles = Vehicle.all
+    end
+
+
     def gfindex
         @isGroundFloor = true
         index
@@ -142,6 +151,12 @@ class VehiclesController < ApplicationController
     def gfsearch1
         prepFormVariables
         prepDateCollects
+    end
+
+
+    def svsearch1
+        @isSvSelect = true
+        gfsearch1
     end
 
 
@@ -287,6 +302,10 @@ class VehiclesController < ApplicationController
     # PUT /vehicles/1
     # PUT /vehicles/1.json
     def update
+        if params[:new_sv]
+            redirect_to '/service_visits/gfnew1/' + params[:id]
+            return
+        end
         @vehicle = Vehicle.find(params[:id])
         preok = prevalidateContract(@vehicle)
 
@@ -340,6 +359,7 @@ class VehiclesController < ApplicationController
         if @target_cm and @target_cm[0] == '/'  # Whack leading slash
             @target_cm = @target_cm[1..-1] 
         end
+        @target_label = params[:target_label]
 
         whereHash = Hash.new
         whereClause = ''

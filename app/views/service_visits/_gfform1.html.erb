@@ -1,0 +1,270 @@
+<%= form_for @service_visit, :url => {:action => form_action } do |f| %>
+  <% if @service_visit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@service_visit.errors.count, "error") %> prohibited this service_visit from being saved:</h2>
+
+      <ul>
+      <% @service_visit.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <input name="service_visit[vehicle_id]" type="hidden" 
+                                          value="<%= @vehicle.id %>" />
+  <div class="field">
+    <%= f.label :status %>:<font color="#800000">*</font>
+    <select id="service_visit_status" name="service_visit[status]">
+      <%= options_for_select(@statusOptions, @selStatus) %>
+    </select>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :mileage %>:<font color="#800000">*</font>
+    <%= f.number_field :mileage, :size => 8 %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :sdate, 'Date of service' %>:<font color="#800000">*</font>
+    <%= f.datetime_select :sdate %>
+  </div>
+  <div class="field">
+    <%= f.label :description, 'Brief Description' %>:
+    <%= f.text_field :description, :size => 80 %>
+  </div>
+  <div class="field">
+    <%= f.label :store_id %><font color="#800000">*</font>
+    <%= select("service_visit", "store_id", @storeCollect,
+                                                  {prompt: 'Select Store'}) %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :salesperson_id, 'Salesperson' %>:
+    <%= select("service_visit", "salesperson_id", @salespersonCollect,
+					    {prompt: 'Select Salesperson'}) %>
+  </div>
+  <hr>
+  <div>
+    <% if @service_visit.service_line_items.length > 0 %>
+      <b>Existing Service Line Items:</b><br>
+      <table border="1" class="ft_dbtab">
+        <tr bgcolor="#F0FFF0">
+          <th>Type</th>
+          <th>Description</th>
+          <th>Desc text</th>
+          <th>Total hours<br> retail</th>
+          <th>Total labor<br> retail</th>
+          <th>Total hours<br> actual</th>
+          <th>Total labor<br> actual</th>
+          <th><i>Action</i></th>
+        </tr>
+
+        <% for service_line_item in @service_visit.service_line_items %>
+          <% setTotalsForSvcLineItem(service_line_item) -%>
+          <tr>
+            <td><%= stypeText(service_line_item.stype) %></td>
+            <td>
+              <a href="/service_line_items/<%= service_line_item.id %>">
+                <%= service_line_item.service_description.name %>
+              </a>
+            </td>
+            <td><%= service_line_item.service_description_text %></td>
+            <td><%= number_with_precision(@totHoursRetail, precision: 1) %></td>
+            <td><%= number_to_currency(@totLaborRetail) %></td>
+            <td><%= number_with_precision(@totHoursActual, precision: 1) %></td>
+            <td><%= number_to_currency(@totLaborActual) %></td>
+            <td>
+              <%= link_to 'Edit', edit_service_line_item_path(service_line_item) %>
+              &nbsp;
+              <a href="/service_parts/sp_for_sli/<%= service_line_item.id %>">
+                Add part
+              </a>
+            </td>
+          </tr>
+          <% if service_line_item.service_parts.length > 0 %>
+            <tr>
+              <td> &nbsp; </td>
+              <td colspan="7">
+
+                <table border="1" class="ft_dbtab">
+                  <tr bgcolor="#F0FFF0">
+                    <th>Part</th>
+                    <th>Part retail price</th>
+                    <th>Part actual price</th>
+                    <th><i>Actions</i></th>
+                  </tr>
+
+                  <% service_line_item.service_parts.each do |spart| %>
+                    <tr>
+                      <td><%= spart.part.part_name.name %></td>
+                      <td>
+                        <%= number_to_currency(spart.part_retail_price) %>
+                      </td>
+                      <td>
+                        <%= number_to_currency(spart.part_actual_price) %>
+                      </td>
+                      <td>
+                        <%= link_to 'Edit', edit_service_part_path(spart) %>
+                        &nbsp;
+                        <%= link_to 'Delete', spart, method: :delete,
+                            data: { confirm: 'Are you sure?' } %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </table>
+
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+
+  <div>
+    <b>Add First Service Line Item:</b> (can add more later)<br>
+    <table border="1" class="ft_dbtab">
+      <tr bgcolor="#E0FFE0">
+        <th>Type</th>
+        <th>Description</th>
+        <th>Desc text</th>
+      </tr>
+      <tr>
+        <td>
+          <select id="service_line_item_stype" name="service_line_item[stype]">
+            <%= options_for_select(@stypeOptions, @selStype) %>
+          </select>
+        </td>
+        <td>
+          <%= select("service_line_item", "service_description_id",
+                                    @serviceDescriptionCollect,
+                                    {prompt: 'Select Service Description'}) %>
+        </td>
+        <td>
+          <input id="service_line_item_service_description_text" 
+                 name="service_line_item[service_description_text]" 
+                 size="40" type="text" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+
+          <table border="1" class="ft_dbtab">
+            <tr bgcolor="#F0F0F0">
+              <th colspan="5">
+                Labor <font color="#606060">
+                  (Leave Actual Rate blank to pull from db)</font>
+              </th>
+            </tr>
+            <tr bgcolor="#E0FFE0">
+              <th>Technician</th>
+              <th>Labor Hours Retail</th>
+              <th>Labor Rate Retail</th>
+              <th>Labor Hours Actual</th>
+              <th>Labor Rate Actual</th>
+            </tr>
+            <% for tdex in 1..4 %>
+              <tr>
+                <td>
+                  <select id="technician_hour_technician_id_<%= tdex %>" 
+                          name="technician_hour[technician_id_<%= tdex %>]">
+                    <%= options_for_select(@technicianOptions, 0) %>
+                  </select>
+                </td>
+                <td>
+                  <input id="technician_hour_labor_hours_retail_<%= tdex %>" 
+                         name="technician_hour[labor_hours_retail_<%= tdex %>]" 
+                         size="8" type="text" />
+                </td>
+                <td>
+                  $<input id="technician_hour_labor_rate_retail_<%= tdex %>" 
+                         name="technician_hour[labor_rate_retail_<%= tdex %>]" 
+                         size="8" type="text" />
+                </td>
+                <td>
+                  <input id="technician_hour_labor_hours_actual_<%= tdex %>" 
+                         name="technician_hour[labor_hours_actual_<%= tdex %>]" 
+                         size="8" type="text" />
+                </td>
+                <td>
+                  $<input id="technician_hour_labor_rate_actual_<%= tdex %>" 
+                         name="technician_hour[labor_rate_actual_<%= tdex %>]" 
+                         size="8" type="text" />
+                </td>
+              </tr>
+            <% end %>
+          </table>
+
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+
+          <table border="1" class="ft_dbtab">
+            <tr bgcolor="#F0F0F0">
+              <th colspan="4">
+                Parts <font color="#606060">
+                  (Leave Retail/Actual Cost blank to pull from db)</font>
+              </th>
+            </tr>
+            <tr bgcolor="#E0FFE0">
+              <th>Part</th>
+              <th>Quantity</th>
+              <th>Retail Price</th>
+              <th>Actual Cost</th>
+            </tr>
+            <% for pdex in 1..8 %>
+              <tr>
+                <td>
+                  <select id="service_part_part_id_<%= pdex %>" 
+                          name="service_part[part_id_<%= pdex %>]">
+                    <%= options_for_select(@partCollect, 0) %>
+                  </select>
+                </td>
+                <td>
+                  <select id="service_part_quantity_<%= pdex %>" 
+                          name="service_part[quantity_<%= pdex %>]">
+                    <option value="1" selected="selected">1</option>
+                    <% for q in 2..10 %>
+                      <option value="<%= q %>"><%= q %></option>
+                    <% end %>
+                  </select>
+                </td>
+                <td>
+                  $<input id="service_part_part_retail_price<%= pdex %>" 
+                         name="service_part[part_retail_price_<%= pdex %>]" 
+                         size="8" type="text" />
+                </td>
+                <td>
+                  $<input id="service_part_part_actual_price<%= pdex %>" 
+                         name="service_part[part_actual_price_<%= pdex %>]" 
+                         size="8" type="text" />
+                </td>
+              </tr>
+            <% end %>
+          </table>
+
+        </td>
+      </tr>
+    </table>
+    <P>
+      <font color="#606060"><i>
+        (If you need to add an item to one of the dropdowns above,
+         you can use one of these links, then return to this
+         tab or window and refresh or hit F5.): <br/>
+         <a target="_blank" href="/technicians/gfnew">Add a technician</a> <br/>
+         <a target="_blank" href="/parts/gfnew">Add a part</a> <br/>
+      </i></font>
+    </P>
+
+  </div>
+
+  <div class="field">
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments, :cols => 100, :rows => 8 %>
+  </div>
+  <div class="actions">
+    <% if form_action == 'gfnew2' %>
+      <%= f.submit 'Create Service Visit', name: 'sv_create' %>
+    <% else %>
+      <%= f.submit 'Update Service Visit', name: 'sv_update' %>
+    <% end %>
+    &nbsp; &nbsp; 
+    <%= f.submit 'Save and Add more', name: 'sv_save' %>
+  </div>
+<% end %>

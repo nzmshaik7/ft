@@ -1,0 +1,134 @@
+<p id="notice"><%= notice %></p>
+
+<table border="1">
+  <tr>
+    <td>
+      <b>Mileage:</b>
+      <%= @service_visit.mileage %>
+    </td>
+    <td>
+      <b>Date:</b>
+      <%= @service_visit.sdate.strftime("%b %d, %Y, %H:%M") %>
+    </td>
+    <td>
+      <b>Store:</b>
+      <%= @service_visit.store.number %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>Vehicle:</b>
+      <%= @service_visit.vehicle.ymmpText  %>
+    </td>
+    <td>
+      <b>Salesperson:</b>
+      <%= @service_visit.salesperson_id %>
+    </td>
+    <td>
+      <b>Invoice:</b>
+      <% if @service_visit.invoice %>
+        <%= @service_visit.invoice.invoice_number %>
+      <% end %>
+    </td>
+
+  </tr>
+</table>
+
+<p>
+  <b>Description:</b>
+  <%= @service_visit.description %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @service_visit.comments %>
+</p>
+
+<p>
+  <b>Service Line Items:</b><br>
+  <table border="1" class="ft_dbtab">
+    <tr bgcolor="#F0FFF0">
+      <th>Description</th>
+      <th>Desc text</th>
+      <th>Total hours<br> retail</th>
+      <th>Total labor<br> retail</th>
+      <th>Total hours<br> actual</th>
+      <th>Total labor<br> actual</th>
+      <th>Type</th>
+      <th><i>Action</i></th>
+    </tr>
+
+    <% for service_line_item in @service_visit.service_line_items %>
+      <% setTotalsForSvcLineItem(service_line_item) -%>
+      <tr>
+        <td>
+	  <a href="/service_line_items/<%= service_line_item.id %>">
+	  <%= service_line_item.service_description.name %>
+	  </a>
+	</td>
+        <td><%= service_line_item.service_description_text %></td>
+        <td><%= number_with_precision(@totHoursRetail, precision: 1) %></td>
+        <td><%= number_to_currency(@totLaborRetail) %></td>
+        <td><%= number_with_precision(@totHoursActual, precision: 1) %></td>
+        <td><%= number_to_currency(@totLaborActual) %></td>
+        <td><%= stypeText(service_line_item.stype) %></td>
+        <td>
+          <a href="/service_parts/sp_for_sli/<%= service_line_item.id %>">
+            Add part
+          </a>
+        </td>
+      </tr>
+      <% if service_line_item.service_parts.length > 0 %>
+        <tr>
+          <td> &nbsp; </td>
+          <td colspan="7">
+
+            <table border="1" class="ft_dbtab">
+              <tr bgcolor="#F0FFF0">
+                <th>Part</th>
+                <th>Quantity</th>
+                <th>Unit retail price</th>
+                <th>Unit actual price</th>
+                <th>Total retail price</th>
+                <th>Total actual price</th>
+                <th><i>Actions</i></th>
+              </tr>
+
+              <% service_line_item.service_parts.each do |service_part| %>
+                <tr>
+                  <td><%= service_part.part.part_name.name %></td>
+                  <td><%= service_part.quantity %></td>
+                  <td>
+                    <%= number_to_currency(service_part.part_retail_price) %>
+                  </td>
+                  <td>
+                    <%= number_to_currency(service_part.part_actual_price) %>
+                  </td>
+                  <td>
+                    <%= number_to_currency(service_part.quantity * 
+                                           service_part.part_retail_price) %>
+                  </td>
+                  <td>
+                    <%= number_to_currency(service_part.quantity * 
+                                           service_part.part_actual_price) %>
+                  </td>
+                  <td>
+                    <strike>Edit</strike>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</p>
+<p>
+  <strike>Add new Service Line Item</strike>
+</p>
+
+<%= link_to 'List Service Visits', '/service_visits/gfindex' %>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

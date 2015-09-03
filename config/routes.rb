@@ -93,6 +93,13 @@ Ft::Application.routes.draw do
 
   resources :service_journals
 
+  get 'service_visits/gfnew0'
+  # :id here is a vehicle id
+  get 'service_visits/gfnew1/:id' => 'service_visits#gfnew1'
+  post 'service_visits/gfnew2' => 'service_visits#gfnew2'
+  get 'service_visits/gfindex'
+  get "service_visits/gfshow/:id" => 'service_visits#gfshow'
+  get 'service_visits/gfedit2/:id' => 'service_visits#gfedit2'
   resources :service_visits
 
   resources :scheduled_appointments
@@ -137,8 +144,10 @@ Ft::Application.routes.draw do
   get 'vehicles/gfindex'
   get 'vehicles/:id/gfedit' => 'vehicles#gfedit'
   get 'vehicles/gfsearch1'
+  get 'vehicles/svsearch1'
   post 'vehicles/gfmatch1'
   post 'vehicles/gfnew2'
+  get 'vehicles/svlist'
   resources :vehicles
 
   resources :images
@@ -163,6 +172,7 @@ Ft::Application.routes.draw do
   get 'customers/gfindex'
   get 'customers/:id/gfedit' => 'customers#gfedit'
   get 'customers/gfsearch1'
+  get 'customers/svsearch1'
   post 'customers/gfmatch1'
   resources :customers
 

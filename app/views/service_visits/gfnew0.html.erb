@@ -1,0 +1,29 @@
+<h2>Enter a new Service Visit</h2>
+
+<P>
+To enter a new Service Visit, you must select a vehicle, using one
+of these methods:
+<ul>
+  <li>
+    <form action="/vehicles/svlist" style="display: inline;">
+      <input type="submit" value="Select from a list of all Vehicles"> 
+    </form>
+  </li>
+  <li>
+    <form action="/vehicles/svsearch1" style="display: inline;">
+      <input type="submit" value="Search for the Vehicle"> 
+    </form>
+  </li>
+  <li>
+    <form action="/customers/svsearch1" style="display: inline;">
+      <input type="submit" value="Search for the Customer"> 
+    </form>
+  </li>
+</ul>
+</P>
+<P>
+If the Vehicle being serviced is not yet in the system, you
+must <a href="/vehicles/gfnew">add it first</a>.
+</P>
+
+<%= link_to 'Back to Ground Floor', '/top/gf' %>
