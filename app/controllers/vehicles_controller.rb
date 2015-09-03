@@ -360,6 +360,7 @@ class VehiclesController < ApplicationController
             @target_cm = @target_cm[1..-1] 
         end
         @target_label = params[:target_label]
+        @isGroundFloor = true  if formHasGf?
 
         whereHash = Hash.new
         whereClause = ''

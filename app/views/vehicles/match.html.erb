@@ -21,6 +21,12 @@
     <th><i>View</i></th>
   </tr>
 
+<% if defined?(@isGroundFloor) and @isGroundFloor %>
+  <% eaction = 'gfedit' %>
+<% else %>
+  <% eaction = 'edit' %>
+<% end %>
+
 <% @vehicles.each do |vehicle| %>
   <tr>
     <td>
@@ -43,9 +49,9 @@
       <% end %>
     </td>
     <td>
-      <a href="/customers/<%= vehicle.customer.id %>/edit">
-        <%= vehicle.customer.first_name %> <%= vehicle.customer.last_name %>
-      </a>
+        <a href="/customers/<%= vehicle.customer.id %>/<%= eaction %>">
+          <%= vehicle.customer.first_name %> <%= vehicle.customer.last_name %>
+        </a>
     </td>
     <td><%= vehicle.make.name %></td>
     <td><%= vehicle.model.name %></td>
@@ -61,7 +67,7 @@
     <td><%= vehicle.doors %></td>
     <td><%= vehicle.mileage %></td>
     <td>
-      <a href="/contracts/<%= vehicle.contract_id %>/edit">
+      <a href="/contracts/<%= vehicle.contract_id %>/<%= eaction %>">
         <%= vehicle.contract_id %>
       </a>
     </td>
