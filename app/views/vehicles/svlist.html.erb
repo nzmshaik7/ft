@@ -19,7 +19,9 @@
 
 <% @vehicles.each do |vehicle| %>
   <tr>
-    <td><%= vehicle.vin %></td>
+    <td>
+      <a href="/service_visits/gfnew1/<%= vehicle.id %>"><%= vehicle.vin %></a>
+    </td>
     <td>
       <% if vehicle.license_plate_state %>
         <%= vehicle.license_plate_state.name %>
