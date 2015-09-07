@@ -407,7 +407,7 @@ class ServiceVisitsController < ApplicationController
         return false if not ok
 
         for th in sv_ths 
-            if th.technician_id.nil? or th.technician_id == 0
+            if th.nil? or th.technician_id.nil? or th.technician_id == 0
                 next
             end
             th.service_line_item_id = sv_sli.id
@@ -416,7 +416,7 @@ class ServiceVisitsController < ApplicationController
         end
 
         for sp in sv_sparts
-            if sp.part_id.nil? or sp.part_id == 0
+            if sp.nil? or sp.part_id.nil? or sp.part_id == 0
                 next
             end
             sp.service_line_item_id = sv_sli.id
