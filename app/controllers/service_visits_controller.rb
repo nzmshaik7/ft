@@ -441,7 +441,11 @@ class ServiceVisitsController < ApplicationController
         end
         if ok 
             flash[:notice] = 'Service Visit successfully created.'
-            redirect_to action: 'gfindex'
+            if params[:sv_save]
+                redirect_to '/service_visits/gfedit2/' + @service_visit.id.to_s
+            else
+                redirect_to action: 'gfindex'
+            end
         else
             prepFormVariables
             prepSliVariables(@sv_sli)
@@ -466,7 +470,11 @@ class ServiceVisitsController < ApplicationController
         end
         if svok and ok 
             flash[:notice] = 'Service Visit successfully updated.'
-            redirect_to action: 'gfindex'
+            if params[:sv_save]
+                redirect_to '/service_visits/gfedit2/' + @service_visit.id.to_s
+            else
+                redirect_to action: 'gfindex'
+            end
         else
             prepFormVariables(@service_visit)
             prepSliVariables(@sv_sli)
