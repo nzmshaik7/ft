@@ -1,4 +1,8 @@
-<%= form_for @service_visit, :url => {:action => form_action } do |f| %>
+<form accept-charset="UTF-8" action="/service_visits/<%= form_action %>" 
+      class="service_visit" id="service_visit" method="post">
+<input name="authenticity_token" type="hidden" 
+                                    value="<%= form_authenticity_token %>" />
+<%= fields_for @service_visit do |f| %>
   <% if @service_visit.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@service_visit.errors.count, "error") %> prohibited this service_visit from being saved:</h2>
@@ -117,7 +121,22 @@
   </div>
 
   <div>
-    <b>Add First Service Line Item:</b> (can add more later)<br>
+    <% if @service_visit.service_line_items.length > 0 %>
+      <div>
+        <span id="expander1">
+          <%= image_tag("gen/expand16.png") %>
+          <b><u>Add Service Line Item:</u></b>
+        </span>
+        <span id="collapser1" class="genhide">
+          <%= image_tag("gen/collapse16.png") %>
+          <b><u>Add Service Line Item:</u></b>
+        </span>
+      </div>
+      <div id = "expdiv1" class="genhide">
+    <% else %>
+      <b>Add First Service Line Item:</b> (can add more later)<br>
+      <div>
+    <% end %>
     <table border="1" class="ft_dbtab">
       <tr bgcolor="#E0FFE0">
         <th>Type</th>
@@ -131,14 +150,18 @@
           </select>
         </td>
         <td>
-          <%= select("service_line_item", "service_description_id",
-                                    @serviceDescriptionCollect,
-                                    {prompt: 'Select Service Description'}) %>
+          <select id="service_line_item_service_description_id" 
+                  name="service_line_item[service_description_id]">
+            <%= options_for_select(@serviceDescriptionCollect, 
+                                   @sv_sli.service_description_id) %>
+          </select>
         </td>
         <td>
           <input id="service_line_item_service_description_text" 
                  name="service_line_item[service_description_text]" 
-                 size="40" type="text" />
+                 size="40" type="text" 
+                 value="<%= @sv_sli.service_description_text %>"
+                 />
         </td>
       </tr>
       <tr>
@@ -158,33 +181,45 @@
               <th>Labor Hours Actual</th>
               <th>Labor Rate Actual</th>
             </tr>
-            <% for tdex in 1..4 %>
+            <% for tdex in 1..@num_ths %>
+              <% th = @sv_ths[tdex] %>
               <tr>
                 <td>
                   <select id="technician_hour_technician_id_<%= tdex %>" 
                           name="technician_hour[technician_id_<%= tdex %>]">
-                    <%= options_for_select(@technicianOptions, 0) %>
+                    <%= options_for_select(@technicianOptions,
+                                           th.technician_id) %>
                   </select>
                 </td>
                 <td>
                   <input id="technician_hour_labor_hours_retail_<%= tdex %>" 
                          name="technician_hour[labor_hours_retail_<%= tdex %>]" 
-                         size="8" type="text" />
+                         size="8" type="text" 
+                         value="<%= th.labor_hours_retail %>" />
                 </td>
                 <td>
                   $<input id="technician_hour_labor_rate_retail_<%= tdex %>" 
                          name="technician_hour[labor_rate_retail_<%= tdex %>]" 
-                         size="8" type="text" />
+                         size="8" type="text" 
+                         <% if th.labor_rate_retail %>
+                           value="<%= sprintf("%.2f", th.labor_rate_retail) %>" 
+                         <% end %>
+                         />
                 </td>
                 <td>
                   <input id="technician_hour_labor_hours_actual_<%= tdex %>" 
                          name="technician_hour[labor_hours_actual_<%= tdex %>]" 
-                         size="8" type="text" />
+                         size="8" type="text" 
+                         value="<%= th.labor_hours_actual %>" />
                 </td>
                 <td>
                   $<input id="technician_hour_labor_rate_actual_<%= tdex %>" 
                          name="technician_hour[labor_rate_actual_<%= tdex %>]" 
-                         size="8" type="text" />
+                         size="8" type="text"
+                         <% if th.labor_rate_actual %>
+                           value="<%= sprintf("%.2f", th.labor_rate_actual) %>" 
+                         <% end %>
+                         />
                 </td>
               </tr>
             <% end %>
@@ -208,32 +243,46 @@
               <th>Retail Price</th>
               <th>Actual Cost</th>
             </tr>
-            <% for pdex in 1..8 %>
+            <% for pdex in 1..@num_sparts %>
+              <% sp = @sv_sparts[pdex] %>
               <tr>
                 <td>
                   <select id="service_part_part_id_<%= pdex %>" 
                           name="service_part[part_id_<%= pdex %>]">
-                    <%= options_for_select(@partCollect, 0) %>
+                    <%= options_for_select(@partCollect, sp.part_id) %>
                   </select>
                 </td>
                 <td>
+                  <% qsel = 1 %>
+                  <% qsel = sp.quantity  if sp.quantity %>
                   <select id="service_part_quantity_<%= pdex %>" 
                           name="service_part[quantity_<%= pdex %>]">
-                    <option value="1" selected="selected">1</option>
-                    <% for q in 2..10 %>
-                      <option value="<%= q %>"><%= q %></option>
+                    <% for q in 1..10 %>
+                      <option 
+                      <% if q == qsel %>
+                        selected="selected"
+                      <% end %>
+                        value="<%= q %>"><%= q %></option>
                     <% end %>
                   </select>
                 </td>
                 <td>
                   $<input id="service_part_part_retail_price<%= pdex %>" 
                          name="service_part[part_retail_price_<%= pdex %>]" 
-                         size="8" type="text" />
+                         size="8" type="text" 
+                         <% if sp.part_retail_price %>
+                           value="<%= sprintf("%.2f", sp.part_retail_price) %>" 
+                         <% end %>
+                         />
                 </td>
                 <td>
                   $<input id="service_part_part_actual_price<%= pdex %>" 
                          name="service_part[part_actual_price_<%= pdex %>]" 
-                         size="8" type="text" />
+                         size="8" type="text" 
+                         <% if sp.part_actual_price %>
+                           value="<%= sprintf("%.2f", sp.part_actual_price) %>" 
+                         <% end %>
+                         />
                 </td>
               </tr>
             <% end %>
@@ -251,6 +300,7 @@
          <a target="_blank" href="/parts/gfnew">Add a part</a> <br/>
       </i></font>
     </P>
+    </div>
 
   </div>
 

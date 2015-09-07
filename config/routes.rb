@@ -99,7 +99,8 @@ Ft::Application.routes.draw do
   post 'service_visits/gfnew2' => 'service_visits#gfnew2'
   get 'service_visits/gfindex'
   get "service_visits/gfshow/:id" => 'service_visits#gfshow'
-  get 'service_visits/gfedit2/:id' => 'service_visits#gfedit2'
+  get "service_visits/gfedit2/:id" => 'service_visits#gfedit2'
+  post "service_visits/gfupdate2/:id" => 'service_visits#gfupdate2'
   resources :service_visits
 
   resources :scheduled_appointments

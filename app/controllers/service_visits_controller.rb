@@ -1,11 +1,11 @@
 class ServiceVisitsController < ApplicationController
 
     before_filter :database_area, :except => [:gfindex, :gfedit2, :gfshow,
-                                              :gfsearch1, :gfmatch1, 
+                                              :gfsearch1, :gfmatch1, :gfupdate2,
                                               :gfnew0, :gfnew1, :gfnew2,
                                               ]
     before_filter :gf_area,       :only   => [:gfindex, :gfedit2, :gfshow,
-                                              :gfsearch1, :gfmatch1, 
+                                              :gfsearch1, :gfmatch1, :gfupdate2,
                                               :gfnew0, :gfnew1, :gfnew2,
                                               ]
     include CustomersHelper
@@ -40,14 +40,18 @@ class ServiceVisitsController < ApplicationController
     end
 
 
+    # Similar to prepFormVariables in service_visit
+    #
     def prepSliVariables(sli=nil)
         @serviceDescriptions = ServiceDescription.find(:all, :order => 'name')
-        @serviceDescriptionCollect = @serviceDescriptions.collect { |p|
-            [ p.name, p.id ] 
-        }
+        @serviceDescriptionCollect = Array.new
+        @serviceDescriptionCollect.push(['Select', 0])
+        for p in @serviceDescriptions
+            @serviceDescriptionCollect.push([p.name, p.id])
+        end
 
         @selStype = 0
-        if sli   # Currently always false
+        if sli
             if sli.stypeIsValid
                 @selStype = sli.stype
             end
@@ -135,6 +139,7 @@ class ServiceVisitsController < ApplicationController
     def gfnew1
         @vehicle = Vehicle.find(params[:id])
         prepSliVariables
+        makeEmptySvPlus
         new
     end
 
@@ -157,18 +162,41 @@ class ServiceVisitsController < ApplicationController
     end
 
 
-    def validateSvPlus?(sv)
+    def validateSvPlus?(sv, allowEmpty)
         ok = validateServiceVisit?(sv)
-        @new_sli = makeNewSli
-        ok = false  if @new_sli.nil?
+        sliok, @sv_sli = makeNewSli(allowEmpty)
+        ok = false  if not sliok
 
-        thok, @new_ths = makeNewTechHours
+        thok, @sv_ths = makeNewTechHours
         ok = false  if not thok
 
-        spok, @new_sparts = makeNewServiceParts
+        spok, @sv_sparts = makeNewServiceParts
         ok = false  if not spok
 
         return ok
+    end
+
+
+    # Similar to validateSvPlus, this makes all the subcomponents, but
+    # makes them empty.  This is so we can put all the variables in the
+    # form, and if there is an error, the re-render won't lose the data
+    # on the form.
+    #
+    def makeEmptySvPlus
+        @sv_sli = ServiceLineItem.new()
+
+        @num_sparts = 8
+        @sv_sparts = Array.new()
+        for pdex in 1..@num_sparts 
+            # note: 1 based, not zero based
+            @sv_sparts[pdex] = ServicePart.new
+        end
+
+        @num_ths = 4
+        @sv_ths = Array.new()
+        for tdex in 1..@num_ths
+            @sv_ths[tdex] = TechnicianHour.new
+        end
     end
     
     
@@ -185,18 +213,28 @@ class ServiceVisitsController < ApplicationController
             if not parsp.has_key?(pkeyid)
                 break
             end
+            @num_sparts = pdex
 
             sp = ServicePart.new
+            # Save will see this later, and will skip if part_id is zero.
+            sps[pdex] = sp
             keyid = "quantity_#{pdex}"
-            sp.quantity = parsp[keyid].to_i
+            if parsp[keyid] and parsp[keyid].strip != ''
+                sp.quantity = parsp[keyid].to_i
+            end
             keyid = "part_retail_price_#{pdex}"
-            sp.part_retail_price = parsp[keyid].to_f
+            if parsp[keyid] and parsp[keyid].strip != ''
+                sp.part_retail_price = parsp[keyid].to_f
+            end
             keyid = "part_actual_price_#{pdex}"
-            sp.part_actual_price = parsp[keyid].to_f
+            if parsp[keyid] and parsp[keyid].strip != ''
+                sp.part_actual_price = parsp[keyid].to_f
+            end
 
             # All or nothing
             if parsp[pkeyid].nil? or parsp[pkeyid].to_i == 0
-                if sp.part_retail_price > 0 or sp.part_actual_price > 0
+                if (sp.part_retail_price and sp.part_retail_price > 0) or 
+                   (sp.part_actual_price and sp.part_actual_price > 0)
                     addSessionError("You must select a Part if you" +
                                     "enter a part price.")
                     ok = false
@@ -236,7 +274,6 @@ class ServiceVisitsController < ApplicationController
                     sp.part_actual_price = parsp[keyid].to_f
                 end
 
-                sps.push(sp)
             end
         end
         return ok, sps
@@ -256,18 +293,29 @@ class ServiceVisitsController < ApplicationController
             if not parth.has_key?(tkeyid)
                 break
             end
+            # logger.info("==== Found #{parth[tkeyid]}")
+            @num_ths = tdex
 
             th = TechnicianHour.new
+            # Save will see this later, and will skip if technician_id is zero.
+            ths[tdex] = th
             keyid = "labor_hours_retail_#{tdex}"
-            th.labor_hours_retail = parth[keyid].to_i
+            if parth[keyid] and parth[keyid].strip != ''
+                th.labor_hours_retail = parth[keyid].to_f
+            end
             keyid = "labor_rate_retail_#{tdex}"
-            th.labor_rate_retail = parth[keyid].to_f
+            if parth[keyid] and parth[keyid].strip != ''
+                th.labor_rate_retail = parth[keyid].to_f
+            end
             keyid = "labor_hours_actual_#{tdex}"
-            th.labor_hours_actual = parth[keyid].to_i
+            if parth[keyid] and parth[keyid].strip != ''
+                th.labor_hours_actual = parth[keyid].to_f
+            end
 
             # All or nothing
             if parth[tkeyid].nil? or parth[tkeyid].to_i == 0
-                if th.labor_hours_retail > 0 or th.labor_hours_actual > 0
+                if (th.labor_hours_retail and th.labor_hours_retail > 0) or 
+                   (th.labor_hours_actual and th.labor_hours_actual > 0)
                     addSessionError("You must select a Technician if you" +
                                     "enter hours.")
                     ok = false
@@ -275,11 +323,20 @@ class ServiceVisitsController < ApplicationController
                     next
                 end
             else  # tech is selected
-                if th.labor_hours_retail == 0 and th.labor_hours_actual == 0
-                    addSessionError("You must enter hours if you select " +
-                                    "a Technician.")
+                if th.labor_hours_retail.nil? or th.labor_hours_retail == 0
+                    addSessionError("You must enter retail hours if " +
+                                    "you select a Technician.")
                     ok = false
-                    next
+                end
+                if th.labor_hours_actual.nil? or th.labor_hours_actual == 0
+                    addSessionError("You must enter actual hours if " +
+                                    "you select a Technician.")
+                    ok = false
+                end
+                if th.labor_rate_retail.nil? or th.labor_rate_retail == 0 
+                    addSessionError("You must enter retail labor rate if " +
+                                    "you select a Technician.")
+                    ok = false
                 end
                 th.technician_id = parth[tkeyid].to_i
 
@@ -296,61 +353,73 @@ class ServiceVisitsController < ApplicationController
                     th.labor_rate_actual = parth[keyid].to_f
                 end
 
-                ths.push(th)
             end
         end
         return ok, ths
     end
 
 
-    def makeNewSli
+    def makeNewSli(allowEmpty)
         ok = true
         sli = ServiceLineItem.new()
         parsli = params[:service_line_item]
         if parsli.nil?
             addSessionError('INTERNAL ERROR: no service_line_item')
-            return nil
+            return false, nil
         end
 
         sli.service_description_id = parsli[:service_description_id].to_i
         if sli.service_description_id.nil? or sli.service_description_id == 0
-            ok = false
-            addSessionError('You must select a service line item Service ' +
-                            'Description.')
+            if not allowEmpty
+                ok = false
+                addSessionError('You must select a service line item Service ' +
+                                'Description.')
+            end
         end
 
         sli.stype = parsli[:stype].to_i
         if sli.stype.nil? or sli.stype == 0
-            ok = false
-            addSessionError('You must select a service line item Type.')
+            if not allowEmpty
+                ok = false
+                addSessionError('You must select a service line item Type.')
+            end
         end
 
         sli.service_description_text = parsli[:service_description_text]
 
-        return sli  if ok
-        return nil
+        return ok, sli
     end
 
 
     # By this time, we are commited to save/create the service visit
     # and all its subcomponents.  save makes the ids valid.  
+    # Can be called from update - all new stuff might be empty.
     #
-    def saveAndUpdateSvIds(sv, new_sli, new_ths, new_sparts)
+    def saveAndUpdateSvIds(sv, sv_sli, sv_ths, sv_sparts)
         ok = sv.save
         return false if not ok
 
-        new_sli.service_visit_id = sv.id
-        ok = new_sli.save
+        if sv_sli.stype.nil? or sv_sli.stype == 0
+            return true  # No new added (update)
+        end
+        sv_sli.service_visit_id = sv.id
+        ok = sv_sli.save
         return false if not ok
 
-        for th in new_ths 
-            th.service_line_item_id = new_sli.id
+        for th in sv_ths 
+            if th.technician_id.nil? or th.technician_id == 0
+                next
+            end
+            th.service_line_item_id = sv_sli.id
             ok = th.save
             return false if not ok
         end
 
-        for sp in new_sparts
-            sp.service_line_item_id = new_sli.id
+        for sp in sv_sparts
+            if sp.part_id.nil? or sp.part_id == 0
+                next
+            end
+            sp.service_line_item_id = sv_sli.id
             ok = sp.save
             return false if not ok
         end
@@ -364,23 +433,45 @@ class ServiceVisitsController < ApplicationController
     #
     def gfnew2
         @service_visit = ServiceVisit.new(params[:service_visit])
-        ok = validateSvPlus?(@service_visit)
+        ok = validateSvPlus?(@service_visit, false)
 
         if ok 
-            ok = saveAndUpdateSvIds(@service_visit, @new_sli, @new_ths,
-                                                              @new_sparts)
+            ok = saveAndUpdateSvIds(@service_visit, @sv_sli, @sv_ths,
+                                                              @sv_sparts)
         end
         if ok 
             flash[:notice] = 'Service Visit successfully created.'
             redirect_to action: 'gfindex'
         else
             prepFormVariables
-            prepSliVariables
+            prepSliVariables(@sv_sli)
             svpar = params[:service_visit]
             if svpar.has_key?('vehicle_id')
                 @vehicle = Vehicle.find(svpar[:vehicle_id])
             end
             render action: 'gfnew1'
+        end
+    end
+
+
+    def gfupdate2
+        @service_visit = ServiceVisit.find(params[:id])
+        svok = @service_visit.update_attributes(params[:service_visit])
+        ok = validateSvPlus?(@service_visit, true)
+
+        if svok and ok 
+            # This only apply if user expanded and added another SLI.
+            ok = saveAndUpdateSvIds(@service_visit, @sv_sli, @sv_ths,
+                                                              @sv_sparts)
+        end
+        if svok and ok 
+            flash[:notice] = 'Service Visit successfully updated.'
+            redirect_to action: 'gfindex'
+        else
+            prepFormVariables(@service_visit)
+            prepSliVariables(@sv_sli)
+            @vehicle = @service_visit.vehicle
+            render action: 'gfedit2'
         end
     end
 
@@ -393,8 +484,10 @@ class ServiceVisitsController < ApplicationController
 
 
     def gfedit2
-        @isGroundFloor = true
         edit
+        @vehicle = @service_visit.vehicle
+        prepSliVariables
+        makeEmptySvPlus
     end
 
 

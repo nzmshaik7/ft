@@ -1,0 +1,14 @@
+<h2>Edit Service Visit</h2>
+
+<P>
+Editing Service Visit information for: <br/>
+<%= @vehicle.ymmText %>, plate <%= @vehicle.license_plate %>, owner
+<%= @vehicle.customer.first_name %> <%= @vehicle.customer.last_name %>
+</P>
+
+<%= render :partial => 'gfform1',
+           :locals => { :form_action => "gfupdate2/#{@service_visit.id}", } %>
+
+<%= link_to 'Back to Service Visits', '/service_visits/gfindex' %>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>
