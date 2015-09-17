@@ -17,7 +17,8 @@
   </div>
   <div class="field">
     <%= f.label :vendor_id, 'Vendor' %><font color="#800000">*</font><br />
-    <%= select("vendor", "vendor_id", @vendorCollect, {prompt: 'Select Vendor'}) %>
+    <%= select("purchase_order", "vendor_id", @vendorCollect,
+                                              {prompt: 'Select Vendor'}) %>
   </div>
   <div class="field">
     <%= f.label :date_time, 'Time ordered' %><font color="#800000">*</font>
