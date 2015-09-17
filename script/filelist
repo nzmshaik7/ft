@@ -1,0 +1,6 @@
+#!/bin/bash
+
+find config -type f -print
+find app -type f -print
+find db -type f -print
+find script -type f -print

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ "`basename $PWD`" != ft ]; then
+    echo "ERROR: Run from the ft directory" >&2
+fi
+
+rm -f tmp/locwc
+plus=
+for f in `script/filelist`; do
+    echo `wc -l < $f` $plus >> tmp/locwc
+    plus="+"
+done
+echo "p q" >> tmp/locwc
+dc < tmp/locwc
