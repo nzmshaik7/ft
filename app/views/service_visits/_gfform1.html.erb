@@ -45,16 +45,17 @@
   <hr>
   <div>
     <% if @service_visit.service_line_items.length > 0 %>
+      <% svTotalRetail = 0.0 %>
+      <% svTotalActual = 0.0 %>
       <b>Existing Service Line Items:</b><br>
       <table border="1" class="ft_dbtab">
         <tr bgcolor="#F0FFF0">
           <th>Type</th>
           <th>Description</th>
           <th>Desc text</th>
-          <th>Total hours<br> retail</th>
-          <th>Total labor<br> retail</th>
-          <th>Total hours<br> actual</th>
-          <th>Total labor<br> actual</th>
+          <th>Total retail</th>
+          <th>Total actual</th>
+          <th>Total profit</th>
           <th><i>Action</i></th>
         </tr>
 
@@ -68,11 +69,14 @@
               </a>
             </td>
             <td><%= service_line_item.service_description_text %></td>
-            <td><%= number_with_precision(@totHoursRetail, precision: 1) %></td>
-            <td><%= number_to_currency(@totLaborRetail) %></td>
-            <td><%= number_with_precision(@totHoursActual, precision: 1) %></td>
-            <td><%= number_to_currency(@totLaborActual) %></td>
             <td>
+              <%= number_to_currency(@sliTotLaborRetail + @sliTotPartsRetail) %>
+            </td>
+            <td>
+              <%= number_to_currency(@sliTotLaborActual + @sliTotPartsActual) %>
+            </td>
+            <td><%= number_to_currency(@sliTotProfit) %></td>
+            <td bgcolor="#FFE0E0">
               <%= link_to 'Edit', edit_service_line_item_path(service_line_item) %>
               &nbsp;
               <a href="/service_parts/sp_for_sli/<%= service_line_item.id %>">
@@ -80,29 +84,38 @@
               </a>
             </td>
           </tr>
+
           <% if service_line_item.service_parts.length > 0 %>
             <tr>
               <td> &nbsp; </td>
-              <td colspan="7">
+              <td colspan="6">
 
                 <table border="1" class="ft_dbtab">
                   <tr bgcolor="#F0FFF0">
                     <th>Part</th>
-                    <th>Part retail price</th>
-                    <th>Part actual price</th>
+                    <th>Qty</th>
+                    <th>Part unit retail</th>
+                    <th>Part unit actual</th>
+                    <th>Part retail</th>
+                    <th>Part actual</th>
                     <th><i>Actions</i></th>
                   </tr>
 
                   <% service_line_item.service_parts.each do |spart| %>
                     <tr>
                       <td><%= spart.part.part_name.name %></td>
+                      <td><%= spart.quantity %></td>
                       <td>
                         <%= number_to_currency(spart.part_retail_price) %>
                       </td>
                       <td>
                         <%= number_to_currency(spart.part_actual_price) %>
                       </td>
-                      <td>
+                      <% x = spart.quantity * spart.part_retail_price -%>
+                      <td><%= number_to_currency(x) %></td>
+                      <% x = spart.quantity * spart.part_actual_price -%>
+                      <td><%= number_to_currency(x) %></td>
+                      <td bgcolor="#FFE0E0">
                         <%= link_to 'Edit', edit_service_part_path(spart) %>
                         &nbsp;
                         <%= link_to 'Delete', spart, method: :delete,
@@ -114,8 +127,48 @@
 
               </td>
             </tr>
-          <% end %>
-        <% end %>
+          <% end %>  <%# service_line_item.service_parts.length > 0 %>
+
+          <% if service_line_item.technician_hours.length > 0 %>
+            <tr>
+              <td> &nbsp; </td>
+              <td colspan="6">
+
+                <table border="1" class="ft_dbtab">
+                  <tr bgcolor="#F0FFF0">
+                    <th>Technician</th>
+                    <th>Labor Hours Retail</th>
+                    <th>Labor Rate Retail</th>
+                    <th>Labor Hours Actual</th>
+                    <th>Labor Rate Actual</th>
+                    <th><i>Actions</i></th>
+                  </tr>
+
+                  <% service_line_item.technician_hours.each do |th| %>
+                    <tr>
+                      <td><%= th.technician.employee.nameText %></td>
+                      <td><%= th.labor_hours_retail %></td>
+                      <td>
+                        <%= number_to_currency(th.labor_rate_retail) %>
+                      </td>
+                      <td><%= th.labor_hours_actual %></td>
+                      <td>
+                        <%= number_to_currency(th.labor_rate_actual) %>
+                      </td>
+                      <td bgcolor="#FFE0E0">
+                        <%= link_to 'Edit', edit_technician_hour_path(th) %>
+                        &nbsp;
+                        <%= link_to 'Delete', th, method: :delete,
+                            data: { confirm: 'Are you sure?' } %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </table>
+
+              </td>
+            </tr>
+          <% end %>  <%# service_line_item.technician_hours.length > 0 %>
+        <% end %>  <%# for service_line_item loop %>
       </table>
     <% end %>
   </div>
@@ -234,7 +287,7 @@
             <tr bgcolor="#F0F0F0">
               <th colspan="4">
                 Parts <font color="#606060">
-                  (Leave Retail/Actual Cost blank to pull from db)</font>
+                  (Leave Retail Cost blank to pull from db)</font>
               </th>
             </tr>
             <tr bgcolor="#E0FFE0">
