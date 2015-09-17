@@ -67,10 +67,10 @@
 	  </a>
 	</td>
         <td><%= service_line_item.service_description_text %></td>
-        <td><%= number_with_precision(@totHoursRetail, precision: 1) %></td>
-        <td><%= number_to_currency(@totLaborRetail) %></td>
-        <td><%= number_with_precision(@totHoursActual, precision: 1) %></td>
-        <td><%= number_to_currency(@totLaborActual) %></td>
+        <td><%= number_with_precision(@sliTotHoursRetail, precision: 1) %></td>
+        <td><%= number_to_currency(@sliTotLaborRetail) %></td>
+        <td><%= number_with_precision(@sliTotHoursActual, precision: 1) %></td>
+        <td><%= number_to_currency(@sliTotLaborActual) %></td>
         <td><%= stypeText(service_line_item.stype) %></td>
         <td>
           <a href="/service_parts/sp_for_sli/<%= service_line_item.id %>">

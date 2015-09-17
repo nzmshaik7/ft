@@ -94,32 +94,32 @@ class AnalyticsController < ApplicationController
             for sli in svisit.service_line_items
 		setTotalsForSvcLineItem(sli)
                 if sli.stype == ServiceLineItem::S_QUALIFICATION
-                    @qualRetail += @totLaborRetail
-                    @qualLaborActual += @totLaborActual
+                    @qualRetail += @sliTotLaborRetail
+                    @qualLaborActual += @sliTotLaborActual
                     for sp in sli.service_parts
                         @qualRetail += sp.part_retail_price
                         @qualPartsActual += sp.part_actual_price
                     end
                 elsif sli.stype == ServiceLineItem::S_MEMB_SERVICE
-                    @membLaborActual += @totLaborActual
+                    @membLaborActual += @sliTotLaborActual
                     for sp in sli.service_parts
                         @membPartsActual += sp.part_actual_price
                     end
                 elsif sli.stype == ServiceLineItem::S_MEMB_REPAIR
-                    @membLaborActual += @totLaborActual
+                    @membLaborActual += @sliTotLaborActual
                     for sp in sli.service_parts
                         @membPartsActual += sp.part_actual_price
                     end
                 elsif sli.stype == ServiceLineItem::S_MEMB_NOT_COVERED
-                    @notCoveredIncome += @totLaborRetail
-                    @notCoveredLaborActual += @totLaborActual
+                    @notCoveredIncome += @sliTotLaborRetail
+                    @notCoveredLaborActual += @sliTotLaborActual
                     for sp in sli.service_parts
                         @notCoveredIncome += sp.part_retail_price
                         @notCoveredPartsActual += sp.part_actual_price
                     end
                 else
-                    @otherIncome += @totLaborRetail
-                    @otherLaborActual += @totLaborActual
+                    @otherIncome += @sliTotLaborRetail
+                    @otherLaborActual += @sliTotLaborActual
                     for sp in sli.service_parts
                         @otherPartsActual += sp.part_actual_price
                         @otherIncome += sp.part_retail_price

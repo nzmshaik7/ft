@@ -12,18 +12,26 @@ module ServiceLineItemsHelper
     end
 
     def setTotalsForSvcLineItem(sli)
-	@totHoursRetail = 0.0
-	@totLaborRetail = 0.0
-	@totHoursActual = 0.0
-	@totLaborActual = 0.0
+	@sliTotHoursRetail = 0.0
+	@sliTotLaborRetail = 0.0
+	@sliTotHoursActual = 0.0
+	@sliTotLaborActual = 0.0
+	@sliTotPartsRetail = 0.0
+	@sliTotPartsActual = 0.0
         for techhr in sli.technician_hours
-	    @totHoursRetail += techhr.labor_hours_retail 
-	    @totLaborRetail += 
+	    @sliTotHoursRetail += techhr.labor_hours_retail 
+	    @sliTotLaborRetail += 
 	                   techhr.labor_hours_retail * techhr.labor_rate_retail
-	    @totHoursActual += techhr.labor_hours_actual 
-	    @totLaborActual += 
+	    @sliTotHoursActual += techhr.labor_hours_actual 
+	    @sliTotLaborActual += 
 	                   techhr.labor_hours_actual * techhr.labor_rate_actual
 	end
+        for sp in sli.service_parts
+            @sliTotPartsRetail += sp.quantity * sp.part_retail_price
+            @sliTotPartsActual += sp.quantity * sp.part_actual_price
+        end
+        @sliTotProfit = (@sliTotLaborRetail + @sliTotPartsRetail) -
+                        (@sliTotLaborActual + @sliTotPartsActual)
     end
 
 end

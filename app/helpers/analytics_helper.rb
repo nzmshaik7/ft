@@ -14,10 +14,10 @@ module AnalyticsHelper
 	hasScheduled = false
 	for sli in sv.service_line_items
 	    setTotalsForSvcLineItem(sli)
-	    visitLaborRetail += @totLaborRetail
-	    visitLaborActual += @totLaborActual
-	    visitHoursRetail += @totHoursRetail
-	    visitHoursActual += @totHoursActual
+	    visitLaborRetail += @sliTotLaborRetail
+	    visitLaborActual += @sliTotLaborActual
+	    visitHoursRetail += @sliTotHoursRetail
+	    visitHoursActual += @sliTotHoursActual
 	    for servicePart in sli.service_parts
 		visitPartsRetail += servicePart.part_retail_price
 		visitPartsActual += servicePart.part_actual_price
