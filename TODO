@@ -1,5 +1,5 @@
 X Add totals (from qty) to SLI parts table
-"F5" shortcut to add Service Line Item Description dropdown menu.
+X "F5" shortcut to add Service Line Item Description dropdown menu.
 The "edit" and "add part" on a service line item still drop you down into 
     the basement interface.  I haven't gone the ground floor part for that yet.
 X Make the existing service line items look better, more like the form to 

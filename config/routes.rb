@@ -91,6 +91,9 @@ Ft::Application.routes.draw do
 
   resources :service_categories
 
+  get 'service_descriptions/gfnew'
+  get 'service_descriptions/gfindex'
+  get 'service_descriptions/:id/gfedit' => 'service_descriptions#gfedit'
   resources :service_descriptions
 
   resources :service_line_items
