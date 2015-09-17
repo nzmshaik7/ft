@@ -1,0 +1,28 @@
+<h2>Listing inventory_parts</h2>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Purchase order</th>
+    <th>Part</th>
+    <th>Quantity</th>
+    <th>Part actual price</th>
+    <th colspan="3"><i>Actions</i></th>
+  </tr>
+
+<% @inventory_parts.each do |inventory_part| %>
+  <tr>
+    <td><%= inventory_part.purchase_order.po_number %></td>
+    <td><%= inventory_part.part.part_number %></td>
+    <td><%= inventory_part.quantity %></td>
+    <td><%= inventory_part.part_actual_price %></td>
+    <td><%= link_to 'Show', inventory_part %></td>
+    <td><%= link_to 'Edit', edit_inventory_part_path(inventory_part) %></td>
+    <td><%= link_to 'Destroy', inventory_part, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Inventory part', new_inventory_part_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

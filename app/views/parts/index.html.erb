@@ -6,7 +6,6 @@
     <th>Part name</th>
     <th>Description</th>
     <th>Part number</th>
-    <th>Actual cost</th>
     <th>Retail price</th>
     <th colspan="3"><i>Actions</i></th>
   </tr>
@@ -17,7 +16,6 @@
     <td><%= part.part_name.name %></td>
     <td><%= part.description %></td>
     <td><%= part.part_number %></td>
-    <td><%= number_to_currency(part.actual_cost) %></td>
     <td><%= number_to_currency(part.retail_price) %></td>
     <td><%= link_to 'Show', part %></td>
     <td><%= link_to 'Edit', edit_part_path(part) %></td>

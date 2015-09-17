@@ -1,0 +1,30 @@
+<h2>Listing vendor_invoices</h2>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Invoice number</th>
+    <th>Date time</th>
+    <th>Vendor</th>
+    <th>Status</th>
+    <th>Purchase order</th>
+    <th colspan="3"><i>Actions</i></th>
+  </tr>
+
+<% @vendor_invoices.each do |vendor_invoice| %>
+  <tr>
+    <td><%= vendor_invoice.invoice_number %></td>
+    <td><%= vendor_invoice.date_time %></td>
+    <td><%= vendor_invoice.vendor.name %></td>
+    <td><%= vendor_invoice.statusText %></td>
+    <td><%= vendor_invoice.purchase_order.po_number %></td>
+    <td><%= link_to 'Show', vendor_invoice %></td>
+    <td><%= link_to 'Edit', edit_vendor_invoice_path(vendor_invoice) %></td>
+    <td><%= link_to 'Destroy', vendor_invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Vendor invoice', new_vendor_invoice_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

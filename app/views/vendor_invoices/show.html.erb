@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Invoice number:</b>
+  <%= @vendor_invoice.invoice_number %>
+</p>
+
+<p>
+  <b>Date time:</b>
+  <%= @vendor_invoice.date_time %>
+</p>
+
+<p>
+  <b>Vendor:</b>
+  <%= @vendor_invoice.vendor_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @vendor_invoice.status %>
+</p>
+
+<p>
+  <b>Purchase order:</b>
+  <%= @vendor_invoice.purchase_order_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_vendor_invoice_path(@vendor_invoice) %> |
+<%= link_to 'Back', vendor_invoices_path %>

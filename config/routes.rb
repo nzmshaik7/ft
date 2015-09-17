@@ -1,5 +1,13 @@
 Ft::Application.routes.draw do
 
+  resources :vendor_invoices
+
+  resources :inventory_parts
+
+  resources :purchase_orders
+
+  resources :vendors
+
   resources :technician_hours
   get "technician_hours/th_for_sli/:id" => 'technician_hours#th_for_sli'
 

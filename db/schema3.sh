@@ -48,3 +48,9 @@ rails generate migration delete_labor_from_ServiceLineItem \
 rails generate migration add_added_miles_to_UpgradeType added_miles:integer
 rails generate migration add_status_to_ServiceVisit status:integer
 rails generate migration add_quantity_to_ServicePart quantity:integer
+
+# Create an omnibus purchase order and attach all service parts to it.
+rails generate migration add_purchase_order_id_to_ServicePart \
+                         purchase_order_id:integer
+rails generate migration DropInventoryTable
+rails generate migration delete_actual_cost_from_Part "actual_cost:decimal{8.2}"

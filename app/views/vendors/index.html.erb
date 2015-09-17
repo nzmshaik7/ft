@@ -1,0 +1,22 @@
+<h2>Listing vendors</h2>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Name</th>
+    <th colspan="3"><i>Actions</i></th>
+  </tr>
+
+<% @vendors.each do |vendor| %>
+  <tr>
+    <td><%= vendor.name %></td>
+    <td><%= link_to 'Show', vendor %></td>
+    <td><%= link_to 'Edit', edit_vendor_path(vendor) %></td>
+    <td><%= link_to 'Destroy', vendor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Vendor', new_vendor_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

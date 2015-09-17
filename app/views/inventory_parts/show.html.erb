@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Purchase order:</b>
+  <%= @inventory_part.purchase_order_id %>
+</p>
+
+<p>
+  <b>Part:</b>
+  <%= @inventory_part.part_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @inventory_part.quantity %>
+</p>
+
+<p>
+  <b>Part actual price:</b>
+  <%= @inventory_part.part_actual_price %>
+</p>
+
+
+<%= link_to 'Edit', edit_inventory_part_path(@inventory_part) %> |
+<%= link_to 'Back', inventory_parts_path %>

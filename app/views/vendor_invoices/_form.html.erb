@@ -1,0 +1,42 @@
+<%= form_for(@vendor_invoice) do |f| %>
+  <% if @vendor_invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@vendor_invoice.errors.count, "error") %> prohibited this vendor_invoice from being saved:</h2>
+
+      <ul>
+      <% @vendor_invoice.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :invoice_number %> <font color="#800000">*</font><br />
+    <%= f.text_field :invoice_number %>
+  </div>
+  <div class="field">
+    <%= f.label :date_time %> <font color="#800000">*</font><br />
+    <%= f.datetime_select :date_time %>
+  </div>
+  <div class="field">
+    <%= f.label :vendor_id, 'Vendor' %> <font color="#800000">*</font><br />
+    <%= select("vendor_invoice", "vendor_id", @vendorCollect,
+                                 {prompt: 'Select Vendor'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :status %> <font color="#800000">*</font><br />
+    <select id="vendor_invoice_status" name="vendor_invoice[status]">
+      <%= options_for_select(@statusOptions, @selStatus) %>
+    </select>
+  </div>
+  <div class="field">
+    <%= f.label :purchase_order_id, 'Purchase Order' %>
+    <font color="#800000">*</font><br />
+    <%= select("vendor_invoice", "purchase_order_id", @purchaseOrdersCollect,
+                                 {prompt: 'Select Purchase Order'}) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

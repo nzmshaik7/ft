@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150903131630) do
+ActiveRecord::Schema.define(:version => 20150917181452) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -189,12 +189,13 @@ ActiveRecord::Schema.define(:version => 20150903131630) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "inventories", :force => true do |t|
-    t.integer  "store_id"
+  create_table "inventory_parts", :force => true do |t|
+    t.integer  "purchase_order_id"
     t.integer  "part_id"
-    t.integer  "count"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "quantity"
+    t.decimal  "part_actual_price", :precision => 8, :scale => 2
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
 
   create_table "invoice_line_items", :force => true do |t|
@@ -281,7 +282,6 @@ ActiveRecord::Schema.define(:version => 20150903131630) do
     t.integer  "part_name_id"
     t.string   "description"
     t.string   "part_number"
-    t.decimal  "actual_cost",          :precision => 8, :scale => 2
     t.decimal  "retail_price",         :precision => 8, :scale => 2
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
@@ -319,6 +319,14 @@ ActiveRecord::Schema.define(:version => 20150903131630) do
     t.string   "comment"
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
+  end
+
+  create_table "purchase_orders", :force => true do |t|
+    t.string   "po_number"
+    t.integer  "vendor_id"
+    t.datetime "date_time"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "qualifications", :force => true do |t|
@@ -428,6 +436,7 @@ ActiveRecord::Schema.define(:version => 20150903131630) do
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
     t.integer  "quantity"
+    t.integer  "purchase_order_id"
   end
 
   create_table "service_schedules", :force => true do |t|
@@ -596,6 +605,22 @@ ActiveRecord::Schema.define(:version => 20150903131630) do
     t.integer  "contract_id"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
+  end
+
+  create_table "vendor_invoices", :force => true do |t|
+    t.string   "invoice_number"
+    t.datetime "date_time"
+    t.integer  "vendor_id"
+    t.integer  "status"
+    t.integer  "purchase_order_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "vendors", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "wheel_drives", :force => true do |t|

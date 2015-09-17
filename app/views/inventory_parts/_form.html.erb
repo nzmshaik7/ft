@@ -1,0 +1,36 @@
+<%= form_for(@inventory_part) do |f| %>
+  <% if @inventory_part.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@inventory_part.errors.count, "error") %> prohibited this inventory_part from being saved:</h2>
+
+      <ul>
+      <% @inventory_part.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :purchase_order_id, 'Purchase Order' %>
+    <font color="#800000">*</font><br />
+    <%= select("inventory_part", "purchase_order_id", @purchaseOrdersCollect,
+                {prompt: 'Select Purchase Order'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :part_id %><font color="#800000">*</font><br />
+    <%= select("inventory_part", "part_id",
+                                 @partCollect, {prompt: 'Select Part'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><font color="#800000">*</font><br />
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :part_actual_price %><font color="#800000">*</font><br />
+    <%= f.text_field :part_actual_price %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

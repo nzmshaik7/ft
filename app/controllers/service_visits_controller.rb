@@ -261,15 +261,18 @@ class ServiceVisitsController < ApplicationController
 
                 keyid = "part_actual_price_#{pdex}"
                 if parsp[keyid].nil? or parsp[keyid].strip == ''
-                    if not partSearched
-                        part = Part.where("id = ?", sp.part_id).first
-                        if part.nil?
-                            addSessionError("INTERNAL ERROR: part " +
-                                            "#{sp.part_id} not found")
-                            return false, nil
-                        end
-                    end
-                    sp.part_actual_price = part.actual_cost
+                    ### addSessionError("No purchase order yet, you must " +
+                                    ### "enter a part actual price.")
+                    ### ok = false
+                    # if not partSearched
+                        # part = Part.where("id = ?", sp.part_id).first
+                        # if part.nil?
+                            # addSessionError("INTERNAL ERROR: part " +
+                                            # "#{sp.part_id} not found")
+                            # return false, nil
+                        # end
+                    # end
+                    # sp.part_actual_price = part.actual_cost
                 else
                     sp.part_actual_price = parsp[keyid].to_f
                 end
