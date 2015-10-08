@@ -462,9 +462,9 @@ RAILS ${gen[*]}
 gen=( generate scaffold ServicePart
     service_line_item_id:integer
     purchase_order_id:integer    # Origin when we bought this part.
-    # Purchase order is nil (and actual cost) if we don't have the part yet.
+    # Purchase order is nil (and actual cost) if we do not have the part yet.
     part_id:integer
-    quantity:integer
+    quantity:decimal{8.2}
     # (These are copied from the part since the part may change later:
     part_retail_price:decimal{8.2}
     part_actual_price:decimal{8.2}
@@ -475,7 +475,7 @@ RAILS ${gen[*]}
 gen=( generate scaffold InventoryPart
     purchase_order_id:integer
     part_id:integer
-    quantity:integer
+    quantity:decimal{8.2}
     part_actual_price:decimal{8.2}
     )
 RAILS ${gen[*]}

@@ -27,8 +27,14 @@ module ServiceLineItemsHelper
 	                   techhr.labor_hours_actual * techhr.labor_rate_actual
 	end
         for sp in sli.service_parts
-            @sliTotPartsRetail += sp.quantity * sp.part_retail_price
-            @sliTotPartsActual += sp.quantity * sp.part_actual_price
+            q = sp.quantity
+            q = 0.0  if q.nil?
+            if sp.part_retail_price
+                @sliTotPartsRetail += q * sp.part_retail_price
+            end
+            if sp.part_actual_price
+                @sliTotPartsActual += q * sp.part_actual_price
+            end
         end
         @sliTotProfit = (@sliTotLaborRetail + @sliTotPartsRetail) -
                         (@sliTotLaborActual + @sliTotPartsActual)

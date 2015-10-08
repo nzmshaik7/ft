@@ -19,8 +19,12 @@ module AnalyticsHelper
 	    visitHoursRetail += @sliTotHoursRetail
 	    visitHoursActual += @sliTotHoursActual
 	    for servicePart in sli.service_parts
-		visitPartsRetail += servicePart.part_retail_price
-		visitPartsActual += servicePart.part_actual_price
+		if servicePart.part_retail_price
+                    visitPartsRetail += servicePart.part_retail_price
+                end
+		if servicePart.part_actual_price
+                    visitPartsActual += servicePart.part_actual_price
+                end
 	    end
 	    hasScheduled = true  if sli.is_scheduled
 	end

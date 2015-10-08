@@ -54,3 +54,6 @@ rails generate migration add_purchase_order_id_to_ServicePart \
                          purchase_order_id:integer
 rails generate migration DropInventoryTable
 rails generate migration delete_actual_cost_from_Part "actual_cost:decimal{8.2}"
+
+rails generate migration change_quantity_in_ServicePart
+rails generate migration change_quantity_in_InventoryPart

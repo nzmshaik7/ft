@@ -109,12 +109,18 @@
                         <%= number_to_currency(spart.part_retail_price) %>
                       </td>
                       <td>
-                        <%= number_to_currency(spart.part_actual_price) %>
+                        <% if spart.part_actual_price %>
+                          <%= number_to_currency(spart.part_actual_price) %>
+			<% end %>
                       </td>
                       <% x = spart.quantity * spart.part_retail_price -%>
                       <td><%= number_to_currency(x) %></td>
-                      <% x = spart.quantity * spart.part_actual_price -%>
-                      <td><%= number_to_currency(x) %></td>
+                      <td>
+                        <% if spart.part_actual_price %>
+                          <% x = spart.quantity * spart.part_actual_price -%>
+		          <%= number_to_currency(x) %>
+			<% end %>
+		      </td>
                       <td bgcolor="#FFE0E0">
                         <%= link_to 'Edit', edit_service_part_path(spart) %>
                         &nbsp;
@@ -306,18 +312,13 @@
                   </select>
                 </td>
                 <td>
-                  <% qsel = 1 %>
-                  <% qsel = sp.quantity  if sp.quantity %>
-                  <select id="service_part_quantity_<%= pdex %>" 
-                          name="service_part[quantity_<%= pdex %>]">
-                    <% for q in 1..10 %>
-                      <option 
-                      <% if q == qsel %>
-                        selected="selected"
-                      <% end %>
-                        value="<%= q %>"><%= q %></option>
-                    <% end %>
-                  </select>
+                  <input id="service_part_part_quantity_<%= pdex %>" 
+                         name="service_part[quantity_<%= pdex %>]" 
+                         size="8" type="text" 
+                         <% if sp.quantity %>
+                           value="<%= sprintf("%.2f", sp.quantity) %>" 
+                         <% end %>
+                         />
                 </td>
                 <td>
                   $<input id="service_part_part_retail_price<%= pdex %>" 

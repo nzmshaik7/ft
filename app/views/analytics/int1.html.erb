@@ -988,7 +988,9 @@
 		<br>
 		<%= xParts[tabDex].part.part_name.name %>
 		<%= number_to_currency(xParts[tabDex].part_actual_price) %>
-		<% partTot += xParts[tabDex].part_actual_price %>
+		<% if xParts[tabDex].part_actual_price %>
+		  <% partTot += xParts[tabDex].part_actual_price %>
+		<% end %>
 		</td>
 	      <% else %>
 	        <td>&nbsp;</td>

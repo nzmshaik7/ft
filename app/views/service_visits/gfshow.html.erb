@@ -105,12 +105,18 @@
                     <%= number_to_currency(service_part.part_actual_price) %>
                   </td>
                   <td>
-                    <%= number_to_currency(service_part.quantity * 
-                                           service_part.part_retail_price) %>
+                    <% if service_part.quantity and
+                                           service_part.part_retail_price %>
+                      <%= number_to_currency(service_part.quantity * 
+                                             service_part.part_retail_price) %>
+		    <% end %>
                   </td>
                   <td>
-                    <%= number_to_currency(service_part.quantity * 
-                                           service_part.part_actual_price) %>
+                    <% if service_part.quantity and
+                                           service_part.part_actual_price %>
+                      <%= number_to_currency(service_part.quantity * 
+                                             service_part.part_actual_price) %>
+		    <% end %>
                   </td>
                   <td>
                     <strike>Edit</strike>
