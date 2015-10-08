@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150917181452) do
+ActiveRecord::Schema.define(:version => 20150920003237) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(:version => 20150917181452) do
   create_table "inventory_parts", :force => true do |t|
     t.integer  "purchase_order_id"
     t.integer  "part_id"
-    t.integer  "quantity"
+    t.decimal  "quantity",          :precision => 8, :scale => 2
     t.decimal  "part_actual_price", :precision => 8, :scale => 2
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
@@ -435,7 +435,7 @@ ActiveRecord::Schema.define(:version => 20150917181452) do
     t.decimal  "part_actual_price",    :precision => 8, :scale => 2
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
-    t.integer  "quantity"
+    t.decimal  "quantity",             :precision => 8, :scale => 2
     t.integer  "purchase_order_id"
   end
 
