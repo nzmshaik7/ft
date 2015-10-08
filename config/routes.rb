@@ -21,6 +21,7 @@ Ft::Application.routes.draw do
   get "top/gf"
   get "top/files"
   get "top/file1"
+  get "top/file2"
 
   resources :insurance_companies
 

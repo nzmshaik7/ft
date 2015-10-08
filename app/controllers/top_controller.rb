@@ -23,4 +23,8 @@ class TopController < ApplicationController
         return  unless roleValid?([User::ROLE_MOCKER], 'files')
         send_file '/tmp/dump.Oct08.sql'
     end
+    def file2
+        return  unless roleValid?([User::ROLE_MOCKER], 'files')
+        send_file '/home/rails/ft/db/DatabaseLatest.txt'
+    end
 end
