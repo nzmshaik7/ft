@@ -19,6 +19,8 @@ Ft::Application.routes.draw do
   get "top/analytics"
   get "top/creds"
   get "top/gf"
+  get "top/files"
+  get "top/file1"
 
   resources :insurance_companies
 

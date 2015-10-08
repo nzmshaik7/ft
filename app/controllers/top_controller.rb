@@ -16,4 +16,11 @@ class TopController < ApplicationController
     def gf
         return  unless roleValid?([User::ROLE_ADMIN], 'ground floor')
     end
+    def files
+        return  unless roleValid?([User::ROLE_MOCKER], 'files')
+    end
+    def file1
+        return  unless roleValid?([User::ROLE_MOCKER], 'files')
+        send_file '/tmp/dump.Oct08.sql'
+    end
 end
