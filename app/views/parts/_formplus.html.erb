@@ -1,0 +1,44 @@
+<%= form_for(@part) do |f| %>
+  <% if @part.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@part.errors.count, "error") %> prohibited this part from being saved:</h2>
+
+      <ul>
+      <% @part.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <input name="is_ground_floor" type="hidden" value="Y" />
+  <input name="is_plus" type="hidden" value="Y" />
+  <div class="field">
+    <%= f.label :part_manufacturer_id %><font color="#800000">*</font>
+    <%= select("part", "part_manufacturer_id", 
+                @part_manufacturerCollect, {prompt: 'Select Manufacturer'}) %>
+
+    &nbsp; &nbsp;  or add new manufacturer:
+    <input id="part_new_manuf" name="part_new_manuf" size="40" type="text">
+    <br />
+    <%= f.label :part_name_id %><font color="#800000">*</font>
+    <%= select("part", "part_name_id", 
+                @part_nameCollect, {prompt: 'Select Generic Part Name'}) %>
+    &nbsp; &nbsp;  or add new name:
+    <input id="part_new_name" name="part_new_name" size="40" type="text">
+  </div>
+  <div class="field">
+    <%= f.label :description %>:
+    <%= f.text_field :description, :size => 40 %>
+  </div>
+  <div class="field">
+    <%= f.label :part_number %>:<font color="#800000">*</font>
+    <%= f.text_field :part_number, :size => 20 %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <%= f.label :retail_price %>:<font color="#800000">*</font>
+    $<%= f.text_field :retail_price, :size => 8 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

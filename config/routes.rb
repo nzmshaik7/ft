@@ -85,6 +85,7 @@ Ft::Application.routes.draw do
   resources :part_manufacturers
 
   get 'parts/gfnew'
+  get 'parts/gfnewplus'
   get 'parts/gfindex'
   get 'parts/:id/gfedit' => 'parts#gfedit'
   resources :parts

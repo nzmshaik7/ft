@@ -1,0 +1,12 @@
+<h2>New part</h2>
+
+<P>
+In order to can enter a new Part, you must first have a generic Part Name
+and a Part Manufacturer  (i.e. all Parts must have a generic name and
+a Manufacturer).
+</P>
+
+<%= render :partial => 'formplus',
+                       :locals => { :isGroundFloor => @isGroundFloor } %>
+
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

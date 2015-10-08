@@ -1,7 +1,9 @@
 class PartsController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, ]
+    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
+                                              :gfnewplus, ]
+    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, 
+                                              :gfnewplus, ]
     include ApplicationHelper
 
     def prepFormVariables
@@ -66,6 +68,12 @@ class PartsController < ApplicationController
     end
 
 
+    def gfnewplus
+        @isGroundFloor = true
+        new
+    end
+
+
     # GET /parts/1/edit
     def edit
         @part = Part.find(params[:id])
@@ -97,6 +105,10 @@ class PartsController < ApplicationController
             ok = false
             addSessionError('Part number is required field.')
         end
+        if part.retail_price.nil?
+            ok = false
+            addSessionError('Part retail price is required field.')
+        end
 
         return ok
     end
@@ -106,11 +118,15 @@ class PartsController < ApplicationController
     # POST /parts.json
     def create
         @part = Part.new(params[:part])
+        savok = saveNewManufNam(@part)
         ok = validatePart?(@part)
         okUrl, errAction = setSaveAction('new', parts_url)
+        if params[:is_plus]
+            errAction = 'gfnewplus'
+        end
 
         respond_to do |format|
-            if ok and @part.save
+            if savok and ok and @part.save
                 format.html { redirect_to okUrl,
                               notice: 'Part was successfully created.' }
                 format.json { render json: @part, status: :created,
@@ -122,6 +138,49 @@ class PartsController < ApplicationController
                                      status: :unprocessable_entity }
             end
         end
+    end
+
+
+    def saveNewManufNam(part)
+        if part.part_manufacturer.nil?
+            if params[:part_new_manuf] and 
+                                       params[:part_new_manuf].strip.length > 0
+                new_manuf = params[:part_new_manuf].strip
+                if new_manuf.length > 0
+                    for p in PartManufacturer.find(:all) 
+                        if p.name.downcase == new_manuf.downcase
+                            addSessionError("Part Manufacturer #{new_manuf} " +
+                                            "already exists.")
+                            return false
+                        end
+                    end
+                    pm = PartManufacturer.new
+                    pm.name = new_manuf
+                    pm.save
+                    part.part_manufacturer_id = pm.id
+                end
+            end
+        end
+        if part.part_name.nil?
+            if params[:part_new_name] and 
+                                      params[:part_new_name].strip.length > 0
+                new_pname = params[:part_new_name].strip
+                if new_pname.length > 0
+                    for p in PartName.find(:all) 
+                        if p.name.downcase == new_pname.downcase
+                            addSessionError("Part Name #{new_pname} " +
+                                            "already exists.")
+                            return false
+                        end
+                    end
+                    pn = PartName.new
+                    pn.name = new_pname
+                    pn.save
+                    part.part_name_id = pn.id
+                end
+            end
+        end
+        return true
     end
 
 
