@@ -1,0 +1,10 @@
+<h2>Editing Service Line Item</h2>
+
+<%= render :partial => 'form',
+                       :locals => { :isGroundFloor => @isGroundFloor } %>
+
+<form action="/service_line_items/gfindex" style="display: inline;">
+  <input type="submit" value="List/Edit Service Line Items"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>
