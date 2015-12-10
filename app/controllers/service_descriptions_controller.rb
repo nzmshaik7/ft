@@ -125,7 +125,7 @@ class ServiceDescriptionsController < ApplicationController
         respond_to do |format|
             @service_description.assign_attributes(params[:service_description])
             parok = validateServiceDescription?(@service_description)
-            okUrl, errAction = setSaveAction('new', service_descriptions_url)
+            okUrl, errAction = setSaveAction('edit', service_descriptions_url)
             saveok = false
             if parok
                 saveok = @service_description.save

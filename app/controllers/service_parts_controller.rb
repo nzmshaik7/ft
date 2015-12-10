@@ -1,6 +1,8 @@
 class ServicePartsController < ApplicationController
 
-    before_filter :database_area
+    before_filter :database_area, :except => [:sp_for_sli, ]
+    before_filter :gf_area,       :only   => [:sp_for_sli, ]
+    include ApplicationHelper
 
     def prepFormVariables
         @serviceLineItems = ServiceLineItem.all
@@ -71,11 +73,13 @@ class ServicePartsController < ApplicationController
             if @service_part.save
                 format.html { redirect_to service_parts_url,
                               notice: 'ServicePart was successfully created.' }
-                format.json { render json: @service_part, status: :created, location: @service_part }
+                format.json { render json: @service_part, status: :created,
+                              location: @service_part }
             else
                 prepFormVariables
                 format.html { render action: "new" }
-                format.json { render json: @service_part.errors, status: :unprocessable_entity }
+                format.json { render json: @service_part.errors,
+                              status: :unprocessable_entity }
             end
         end
     end
@@ -93,7 +97,8 @@ class ServicePartsController < ApplicationController
             else
                 prepFormVariables
                 format.html { render action: "edit" }
-                format.json { render json: @service_part.errors, status: :unprocessable_entity }
+                format.json { render json: @service_part.errors,
+                              status: :unprocessable_entity }
             end
         end
     end

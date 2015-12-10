@@ -100,6 +100,9 @@ Ft::Application.routes.draw do
   get 'service_descriptions/:id/gfedit' => 'service_descriptions#gfedit'
   resources :service_descriptions
 
+  get 'service_line_items/gfnew'
+  get 'service_line_items/gfindex'
+  get 'service_line_items/:id/gfedit' => 'service_line_items#gfedit'
   resources :service_line_items
   get "service_line_items/sli_for_visit/:id" => 
                                              'service_line_items#sli_for_visit'

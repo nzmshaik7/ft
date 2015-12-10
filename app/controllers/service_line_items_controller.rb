@@ -1,7 +1,10 @@
 class ServiceLineItemsController < ApplicationController
 
-    before_filter :database_area
+    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, ]
+    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, ]
+    include ApplicationHelper
     include ServiceLineItemsHelper
+
 
     def prepFormVariables(sli)
         @serviceVisits = ServiceVisit.all
@@ -27,6 +30,7 @@ class ServiceLineItemsController < ApplicationController
 
     end
 
+
     # GET /service_line_items
     # GET /service_line_items.json
     def index
@@ -37,6 +41,13 @@ class ServiceLineItemsController < ApplicationController
             format.json { render json: @service_line_items }
         end
     end
+
+
+    def gfindex
+        @isGroundFloor = true
+        index
+    end
+
 
     # GET /service_line_items/1
     # GET /service_line_items/1.json
@@ -52,6 +63,7 @@ class ServiceLineItemsController < ApplicationController
         end
     end
 
+
     # GET /service_line_items/new
     # GET /service_line_items/new.json
     def new
@@ -64,6 +76,13 @@ class ServiceLineItemsController < ApplicationController
         end
     end
 
+
+    def gfnew
+        @isGroundFloor = true
+        new
+    end
+
+
     # GET /service_line_items/sli_for_visit/:id"
     # Create a new service line item for a given service visit
     #
@@ -72,10 +91,17 @@ class ServiceLineItemsController < ApplicationController
         new
     end
 
+
     # GET /service_line_items/1/edit
     def edit
         @service_line_item = ServiceLineItem.find(params[:id])
         prepFormVariables(@service_line_item)
+    end
+
+
+    def gfedit
+        @isGroundFloor = true
+        edit
     end
 
 
@@ -89,27 +115,47 @@ class ServiceLineItemsController < ApplicationController
     end
 
 
+    def validateServiceLineItem?(sli)
+        ok = true
+
+        sli.service_description_text.strip!  if sli.service_description_text
+        if sli.service_description_text.nil? or 
+                                             sli.service_description_text == ''
+            if sli.service_description.nil?
+                ok = false
+                addSessionError('Either Service Description text or ' +
+                                'selection from dropdown required.')
+            end
+        end
+
+        return ok
+    end
+
+
     # POST /service_line_items
     # POST /service_line_items.json
     def create
         @service_line_item = ServiceLineItem.new(params[:service_line_item])
+        ok = validateServiceLineItem?(@service_line_item)
+        okUrl, errAction = setSaveAction('new', service_line_items_url)
         setTechnicians(@service_line_item)
 
         respond_to do |format|
-            if @service_line_item.save
-                format.html { redirect_to service_line_items_url,
-                          notice: 'ServiceLineItem was successfully created.' }
+            if ok and @service_line_item.save
+                format.html { redirect_to okUrl,
+                      notice: 'Service Line Item was successfully created.' }
                 format.json { render json: @service_line_item,
 		                     status: :created,
 				     location: @service_line_item }
             else
                 prepFormVariables(@service_line_item)
-                format.html { render action: "new" }
+                format.html { render action: errAction }
                 format.json { render json: @service_line_item.errors,
 		                     status: :unprocessable_entity }
             end
         end
     end
+
 
     # PUT /service_line_items/1
     # PUT /service_line_items/1.json
@@ -118,18 +164,26 @@ class ServiceLineItemsController < ApplicationController
         setTechnicians(@service_line_item)
 
         respond_to do |format|
-            if @service_line_item.update_attributes(params[:service_line_item])
-                format.html { redirect_to service_line_items_url,
-			  notice: 'ServiceLineItem was successfully updated.' }
+            @service_line_item.assign_attributes(params[:service_line_item])
+            parok = validateServiceLineItem?(@service_line_item)
+            okUrl, errAction = setSaveAction('edit', service_line_items_url)
+            saveok = false
+            if parok
+                saveok = @service_line_item.save
+            end
+            if parok and saveok
+                format.html { redirect_to okUrl,
+			 notice: 'Service Line Item was successfully updated.' }
                 format.json { head :no_content }
             else
                 prepFormVariables(@service_line_item)
-                format.html { render action: "edit" }
+                format.html { render action: errAction }
                 format.json { render json: @service_line_item.errors,
 		                     status: :unprocessable_entity }
             end
         end
     end
+
 
     # DELETE /service_line_items/1
     # DELETE /service_line_items/1.json
@@ -142,4 +196,5 @@ class ServiceLineItemsController < ApplicationController
             format.json { head :no_content }
         end
     end
+
 end
