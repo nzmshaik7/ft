@@ -10,6 +10,10 @@ Ft::Application.routes.draw do
 
   resources :technician_hours
   get "technician_hours/th_for_sli/:id" => 'technician_hours#th_for_sli'
+  get "technician_hours/gfnew_for_sli/:id" => 'technician_hours#gfnew_for_sli'
+  get "technician_hours/gfedit_for_sp/:id" => 'technician_hours#gfedit_for_sp'
+  get "technician_hours/gfdelete_for_sp/:id" => 
+                                             'technician_hours#gfdelete_for_sp'
 
   resources :manufacturer_warranty_types
 
@@ -92,6 +96,9 @@ Ft::Application.routes.draw do
 
   resources :service_parts
   get "service_parts/sp_for_sli/:id" => 'service_parts#sp_for_sli'
+  get "service_parts/gfnew_for_sli/:id" => 'service_parts#gfnew_for_sli'
+  get "service_parts/gfedit_for_sp/:id" => 'service_parts#gfedit_for_sp'
+  get "service_parts/gfdelete_for_sp/:id" => 'service_parts#gfdelete_for_sp'
 
   resources :service_categories
 

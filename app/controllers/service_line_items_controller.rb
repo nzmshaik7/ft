@@ -167,6 +167,10 @@ class ServiceLineItemsController < ApplicationController
             @service_line_item.assign_attributes(params[:service_line_item])
             parok = validateServiceLineItem?(@service_line_item)
             okUrl, errAction = setSaveAction('edit', service_line_items_url)
+            if params[:svsv]
+                svid = @service_line_item.service_visit.id
+                okUrl = "/service_visits/gfedit2/#{svid}"
+            end
             saveok = false
             if parok
                 saveok = @service_line_item.save

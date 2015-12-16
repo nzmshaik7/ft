@@ -1,7 +1,7 @@
 <h2>Editing Service Line Item</h2>
 
-<%= render :partial => 'form',
-                       :locals => { :isGroundFloor => @isGroundFloor } %>
+<%= render :partial => 'form', :locals => { 
+                      :isGroundFloor => @isGroundFloor, :isUpdate => true } %>
 
 <form action="/service_line_items/gfindex" style="display: inline;">
   <input type="submit" value="List/Edit Service Line Items"> 

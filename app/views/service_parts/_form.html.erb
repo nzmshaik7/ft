@@ -44,6 +44,14 @@
     <%= f.text_field :part_actual_price %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <% if defined?(returnToSv) and returnToSv %>
+      <%= f.submit 'Add part to Service Line Item' %>
+      <input name="returnToSv" type="hidden" value="true" />
+    <% elsif defined?(editToSv) and editToSv %>
+      <%= f.submit 'Update part for Service Line Item' %>
+      <input name="editToSv" type="hidden" value="true" />
+    <% else %>
+      <%= f.submit %>
+    <% end %>
   </div>
 <% end %>

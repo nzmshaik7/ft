@@ -1,0 +1,18 @@
+<h2>New Service Part for a Service Line Item</h2>
+
+<P> 
+<B>For service line item (<%= stypeText(@service_line_item.stype) %>)
+<%= @service_line_item.service_description.name %>/
+<%= @service_line_item.service_description_text %>
+<br>
+<% sv = @service_line_item.service_visit %>
+For service visit 
+<%= sv.sdate.strftime("%b %d, %Y") %>
+<%= sv.vehicle.ymmpText %>, 
+<%= sv.mileage %> miles: </B>
+&nbsp; &nbsp;
+<a href="/service_visits/gfedit2/<%= sv.id %>">Edit this service visit</a>
+</P> 
+
+<%= render :partial => 'form',
+          :locals => { :given_sli => @service_line_item, :returnToSv => true } %>

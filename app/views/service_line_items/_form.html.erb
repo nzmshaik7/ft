@@ -57,6 +57,16 @@
     <P>(You may add technicians and their hours later using Show.)</P>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <% if defined?(isUpdate) and isUpdate %>
+      <%= f.submit 'Update Service Line Item and go to Ground Floor',
+                   name: 'update' %>
+      &nbsp; &nbsp;
+      <% if defined?(isGroundFloor) and isGroundFloor %>
+        <%= f.submit 'Update Service Line Item and return to Service Visit',
+                     name: 'svsv' %>
+      <% end %>
+    <% else %>
+      <%= f.submit %>
+    <% end %>
   </div>
 <% end %>
