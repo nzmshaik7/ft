@@ -16,20 +16,20 @@
 	           value="<%= given_sli.id %>" />
   <% else %>
     <div class="field">
-      <%= f.label :service_line_item_id %><br />
+      <%= f.label :service_line_item_id %><font color="#800000">*</font><br />
       <%= f.number_field :service_line_item_id %>
     </div>
   <% end %>
   <div class="field">
-    <%= f.label :labor_hours_retail %><br />
+    <%= f.label :labor_hours_retail %><font color="#800000">*</font><br />
     <%= f.text_field :labor_hours_retail %>
   </div>
   <div class="field">
-    <%= f.label :labor_rate_retail %><br />
+    <%= f.label :labor_rate_retail %><font color="#800000">*</font><br />
     <%= f.text_field :labor_rate_retail %>
   </div>
   <div class="field">
-    <%= f.label :labor_hours_actual %><br />
+    <%= f.label :labor_hours_actual %><font color="#800000">*</font><br />
     <%= f.text_field :labor_hours_actual %>
   </div>
   <div class="field">
@@ -37,13 +37,21 @@
     <%= f.text_field :labor_rate_actual %>
   </div>
   <div class="field">
-    <%= f.label :technician_id %><br />
+    <%= f.label :technician_id %><font color="#800000">*</font><br />
     <select id="technician_hour_technician_id" 
             name="technician_hour[technician_id]">
       <%= options_for_select(@technicianOptions, @selTech) %>
     </select> <br />
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <% if defined?(returnToSv) and returnToSv %>
+      <%= f.submit 'Add Technician Hours to Service Line Item' %>
+      <input name="returnToSv" type="hidden" value="true" />
+    <% elsif defined?(editToSv) and editToSv %>
+      <%= f.submit 'Update Technician Hours for Service Line Item' %>
+      <input name="editToSv" type="hidden" value="true" />
+    <% else %>
+      <%= f.submit %>
+    <% end %>
   </div>
 <% end %>

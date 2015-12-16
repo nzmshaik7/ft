@@ -11,9 +11,9 @@ Ft::Application.routes.draw do
   resources :technician_hours
   get "technician_hours/th_for_sli/:id" => 'technician_hours#th_for_sli'
   get "technician_hours/gfnew_for_sli/:id" => 'technician_hours#gfnew_for_sli'
-  get "technician_hours/gfedit_for_sp/:id" => 'technician_hours#gfedit_for_sp'
-  get "technician_hours/gfdelete_for_sp/:id" => 
-                                             'technician_hours#gfdelete_for_sp'
+  get "technician_hours/gfedit_for_th/:id" => 'technician_hours#gfedit_for_th'
+  get "technician_hours/gfdelete_for_th/:id" => 
+                                             'technician_hours#gfdelete_for_th'
 
   resources :manufacturer_warranty_types
 
