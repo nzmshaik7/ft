@@ -133,7 +133,9 @@ class ServicePartsController < ApplicationController
             else
                 prepFormVariables
                 @service_line_item = @service_part.service_line_item
-                @colorZone = 'GF'  # render loses URL
+                if params[:returnToSv]
+                    @colorZone = 'GF'  # render loses URL
+                end
                 format.html { render action: errAction }
                 format.json { render json: @service_part.errors,
                               status: :unprocessable_entity }
@@ -154,6 +156,7 @@ class ServicePartsController < ApplicationController
             if params[:returnToSv] or params[:editToSv]
                 svid = @service_part.service_line_item.service_visit_id
                 okUrl = "/service_visits/gfedit2/#{ svid }"
+                errAction = 'gfedit_for_sp'
             end
             saveok = false
             if parok
@@ -165,6 +168,10 @@ class ServicePartsController < ApplicationController
                 format.json { head :no_content }
             else
                 prepFormVariables
+                @service_line_item = @service_part.service_line_item
+                if params[:returnToSv] or params[:editToSv]
+                    @colorZone = 'GF'  # render loses URL
+                end
                 format.html { render action: errAction }
                 format.json { render json: @service_part.errors,
                               status: :unprocessable_entity }
