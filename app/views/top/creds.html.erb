@@ -11,3 +11,21 @@ nathan_reardon &nbsp; &nbsp;  ************
 <P>
 &nbsp;
 </P>
+<hr>
+<pre>
+import socket
+import time
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.sendto('X', ('aws1.donlaw.com', 1789))
+time.sleep(0.2)
+sock.sendto('X', ('aws1.donlaw.com', 4988))
+time.sleep(0.2)
+sock.sendto('X', ('aws1.donlaw.com', 31099))
+time.sleep(0.2)
+sock.sendto('X', ('aws1.donlaw.com', 8107))
+</pre>
+<hr>
+<P>
+&nbsp;
+</P>
