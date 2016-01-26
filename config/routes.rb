@@ -26,6 +26,8 @@ Ft::Application.routes.draw do
   get "top/files"
   get "top/file1"
   get "top/file2"
+  get "top/cygwin1"
+  get "top/openmawiki"
 
   resources :insurance_companies
 

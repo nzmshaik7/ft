@@ -27,4 +27,12 @@ class TopController < ApplicationController
         return  unless roleValid?([User::ROLE_MOCKER], 'files')
         send_file '/home/rails/ft/db/DatabaseLatest.txt'
     end
+    def cygwin1
+        return  unless roleValid?([User::ROLE_ADMIN], 'files')
+        send_file '/home/rails/ft/app/assets/binaries/cygwin1.dll'
+    end
+    def openmawiki
+        return  unless roleValid?([User::ROLE_ADMIN], 'files')
+        send_file '/home/rails/ft/app/assets/binaries/openmawiki.exe'
+    end
 end
