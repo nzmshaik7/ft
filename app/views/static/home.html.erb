@@ -22,6 +22,9 @@
   <% if cu.role == User::ROLE_ADMIN or cu.role == User::ROLE_MOCKER %>
     <a href="/mockup/internal_veh">View Mockup</a><br>
   <% end %>
+  <% if cu.role == User::ROLE_ADMIN or cu.role == User::ROLE_DATAENT %>
+    <a href="/top/gf">Ground Floor Service Visits</a><br>
+  <% end %>
   <% if cu.role == User::ROLE_CUSTOMER %>
     (Customer section isn't ready yet.)<br>
   <% end %>

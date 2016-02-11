@@ -18,7 +18,9 @@ class User < ActiveRecord::Base
     ROLE_CLERK = 12
     ROLE_MOCKER = 13
     ROLE_CUSTOMER = 14
-    ALL_ROLES = [ ROLE_ADMIN, ROLE_CLERK, ROLE_MOCKER, ROLE_CUSTOMER, ]
+    ROLE_DATAENT = 15
+    ALL_ROLES = [ ROLE_ADMIN, ROLE_CLERK, ROLE_MOCKER, ROLE_CUSTOMER, 
+                  ROLE_DATAENT, ]
 
 
     def roleText(r = nil)
@@ -27,7 +29,8 @@ class User < ActiveRecord::Base
         return 'Administrator'   if r == ROLE_ADMIN
         return 'Clerk'           if r == ROLE_CLERK
         return 'Mockup Viewer'   if r == ROLE_MOCKER
-        return 'Customer'   if r == ROLE_CUSTOMER
+        return 'Data Entry'      if r == ROLE_DATAENT
+        return 'Customer'        if r == ROLE_CUSTOMER
         return 'Unknown'
     end
 
