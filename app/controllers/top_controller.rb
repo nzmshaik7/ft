@@ -1,6 +1,6 @@
 class TopController < ApplicationController
 
-    before_filter :gf_area, :only => [:gf, ]
+    # before_filter :gf_area, :only => [:gf, ]
     include ApplicationHelper
 
     def db
@@ -14,7 +14,7 @@ class TopController < ApplicationController
         return  unless roleValid?([User::ROLE_ADMIN], 'credentials')
     end
     def gf
-        return  unless roleValid?([User::ROLE_ADMIN], 'ground floor')
+        gf_area
     end
     def files
         return  unless roleValid?([User::ROLE_MOCKER], 'files')
