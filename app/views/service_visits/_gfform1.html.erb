@@ -45,23 +45,29 @@
   <hr>
   <div>
     <% if @service_visit.service_line_items.length > 0 %>
-      <% svTotalRetail = 0.0 %>
-      <% svTotalActual = 0.0 %>
+      <% svTotalLaborRetail = 0.0 %>
+      <% svTotalLaborActual = 0.0 %>
+      <% svTotalPartsRetail = 0.0 %>
+      <% svTotalPartsActual = 0.0 %>
       <b>Existing Service Line Items:</b><br>
       <table border="1" class="ft_dbtab">
-        <tr bgcolor="#F0FFF0">
-          <th>Type</th>
-          <th>Description</th>
-          <th>Desc text</th>
-          <th>Total retail</th>
-          <th>Total actual</th>
-          <th>Total profit</th>
-          <th><i>Action</i></th>
-        </tr>
 
         <% for service_line_item in @service_visit.service_line_items %>
           <% sliid = service_line_item.id %>
           <% setTotalsForSvcLineItem(service_line_item) -%>
+          <% svTotalLaborRetail += @sliTotLaborRetail -%>
+          <% svTotalLaborActual += @sliTotLaborActual -%>
+
+          <tr bgcolor="#F0FFF0">
+            <th>Type</th>
+            <th>Description</th>
+            <th>Desc text</th>
+            <th>Line retail</th>
+            <th>Line actual</th>
+            <th>Line profit</th>
+            <th><i>Action</i></th>
+          </tr>
+
           <tr>
             <td><%= stypeText(service_line_item.stype) %></td>
             <td>
@@ -90,6 +96,8 @@
           </tr>
 
           <% if service_line_item.service_parts.length > 0 %>
+            <% itemPartSumRetail = 0.0 %>
+            <% itemPartSumActual = 0.0 %>
             <tr>
               <td> &nbsp; </td>
               <td colspan="6">
@@ -118,10 +126,14 @@
 			<% end %>
                       </td>
                       <% x = spart.quantity * spart.part_retail_price -%>
+                      <% svTotalPartsRetail += x %>
+                      <% itemPartSumRetail += x %>
                       <td><%= number_to_currency(x) %></td>
                       <td>
                         <% if spart.part_actual_price %>
                           <% x = spart.quantity * spart.part_actual_price -%>
+                          <% svTotalPartsActual += x %>
+                          <% itemPartSumActual += x %>
 		          <%= number_to_currency(x) %>
 			<% end %>
 		      </td>
@@ -135,6 +147,15 @@
                       </td>
                     </tr>
                   <% end %>
+                  <% if service_line_item.service_parts.length > 1 %>
+                    <tr>
+                      <td colspan="2"> &nbsp; </td>
+                      <td colspan="2"> <B>Line Item Part Totals:</B> </td>
+                      <td><%= number_to_currency(itemPartSumRetail) %></td>
+                      <td><%= number_to_currency(itemPartSumActual) %></td>
+                      <td> &nbsp; </td>
+                    </tr>
+                  <% end %>
                 </table>
 
               </td>
@@ -142,6 +163,8 @@
           <% end %>  <%# service_line_item.service_parts.length > 0 %>
 
           <% if service_line_item.technician_hours.length > 0 %>
+            <% itemLaborSumRetail = 0.0  -%>
+            <% itemLaborSumActual = 0.0  -%>
             <tr>
               <td> &nbsp; </td>
               <td colspan="6">
@@ -161,12 +184,16 @@
                       <td><%= th.technician.employee.nameText %></td>
                       <td><%= th.labor_hours_retail %></td>
                       <td>
-                        <%= number_to_currency(th.labor_rate_retail) %>
+                        <%= number_to_currency(th.labor_rate_retail) %>/hr
                       </td>
+                      <% x = th.labor_rate_retail * th.labor_hours_retail  -%>
+                      <% itemLaborSumRetail += x  -%>
                       <td><%= th.labor_hours_actual %></td>
                       <td>
-                        <%= number_to_currency(th.labor_rate_actual) %>
+                        <%= number_to_currency(th.labor_rate_actual) %>/hr
                       </td>
+                      <% x = th.labor_rate_actual * th.labor_hours_actual  -%>
+                      <% itemLaborSumActual += x  -%>
                       <td>
                         <%= link_to 'Edit', 
                                 "/technician_hours/gfedit_for_th/#{ th.id }" %>
@@ -177,14 +204,48 @@
                       </td>
                     </tr>
                   <% end %>
+                  <tr>
+                    <td colspan="2"><B>Line Item Labor Totals:</b></td>
+                    <td><%= number_to_currency(itemLaborSumRetail) %></td>
+                    <td>&nbsp;</td>
+                    <td><%= number_to_currency(itemLaborSumActual) %></td>
+                    <td>&nbsp;</td>
+                  </tr>
                 </table>
 
               </td>
             </tr>
-          <% end %>  <%# service_line_item.technician_hours.length > 0 %>
-        <% end %>  <%# for service_line_item loop %>
+          <% end %>  <%# end service_line_item.technician_hours.length > 0 %>
+        <% end %>  <%# end for service_line_item loop %>
+
+        <tr>
+          <td> &nbsp; </td>
+          <td colspan="6">
+            <table border="1" class="ft_dbtab">
+              <tr>
+                <td>
+                  <B>Total Labor Retail:</B>
+                  <%= number_to_currency(svTotalLaborRetail) %>
+                </td>
+                <td>
+                  <B>Total Labor Actual:</B>
+                  <%= number_to_currency(svTotalLaborActual) %>
+                </td>
+                <td>
+                  <B>Total Parts Retail:</B>
+                  <%= number_to_currency(svTotalPartsRetail) %>
+                </td>
+                <td>
+                  <B>Total Parts Actual:</B>
+                  <%= number_to_currency(svTotalPartsActual) %>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
       </table>
-    <% end %>
+    <% end %> <%# end if @service_visit.service_line_items.length > 0 %>
   </div>
 
   <div>

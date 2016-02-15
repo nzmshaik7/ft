@@ -47,19 +47,26 @@
 <p>
   <b>Service Line Items:</b><br>
   <table border="1" class="ft_dbtab">
-    <tr bgcolor="#F0FFF0">
-      <th>Description</th>
-      <th>Desc text</th>
-      <th>Total hours<br> retail</th>
-      <th>Total labor<br> retail</th>
-      <th>Total hours<br> actual</th>
-      <th>Total labor<br> actual</th>
-      <th>Type</th>
-      <th><i>Action</i></th>
-    </tr>
 
+    <% totalLaborRetail = 0.0 -%>
+    <% totalLaborActual = 0.0 -%>
+    <% totalPartsRetail = 0.0 -%>
+    <% totalPartsActual = 0.0 -%>
     <% for service_line_item in @service_visit.service_line_items %>
       <% setTotalsForSvcLineItem(service_line_item) -%>
+      <% totalLaborRetail += @sliTotLaborRetail -%>
+      <% totalLaborActual += @sliTotLaborActual -%>
+
+      <tr bgcolor="#F0FFF0">
+        <th>Description</th>
+        <th>Desc text</th>
+        <th>Hours retail</th>
+        <th>Labor retail</th>
+        <th>Hours actual</th>
+        <th>Labor actual</th>
+        <th>Type</th>
+      </tr>
+
       <tr>
         <td>
 	  <a href="/service_line_items/<%= service_line_item.id %>">
@@ -72,16 +79,13 @@
         <td><%= number_with_precision(@sliTotHoursActual, precision: 1) %></td>
         <td><%= number_to_currency(@sliTotLaborActual) %></td>
         <td><%= stypeText(service_line_item.stype) %></td>
-        <td>
-          <a href="/service_parts/sp_for_sli/<%= service_line_item.id %>">
-            Add part
-          </a>
-        </td>
       </tr>
       <% if service_line_item.service_parts.length > 0 %>
+        <% itemPartSumRetail = 0.0 %>
+        <% itemPartSumActual = 0.0 %>
         <tr>
           <td> &nbsp; </td>
-          <td colspan="7">
+          <td colspan="6">
 
             <table border="1" class="ft_dbtab">
               <tr bgcolor="#F0FFF0">
@@ -89,9 +93,8 @@
                 <th>Quantity</th>
                 <th>Unit retail price</th>
                 <th>Unit actual price</th>
-                <th>Total retail price</th>
-                <th>Total actual price</th>
-                <th><i>Actions</i></th>
+                <th>Retail price</th>
+                <th>Actual price</th>
               </tr>
 
               <% service_line_item.service_parts.each do |service_part| %>
@@ -107,34 +110,118 @@
                   <td>
                     <% if service_part.quantity and
                                            service_part.part_retail_price %>
-                      <%= number_to_currency(service_part.quantity * 
-                                             service_part.part_retail_price) %>
+                      <% partPrice = service_part.quantity * 
+                                             service_part.part_retail_price %>
+                      <%= number_to_currency(partPrice) %>
+                      <% totalPartsRetail += partPrice -%>
+                      <% itemPartSumRetail += partPrice %>
 		    <% end %>
                   </td>
                   <td>
                     <% if service_part.quantity and
                                            service_part.part_actual_price %>
-                      <%= number_to_currency(service_part.quantity * 
-                                             service_part.part_actual_price) %>
+                      <% partPrice = service_part.quantity * 
+                                             service_part.part_actual_price %>
+                      <%= number_to_currency(partPrice) %>
+                      <% totalPartsActual += partPrice -%>
+                      <% itemPartSumActual += partPrice -%>
 		    <% end %>
                   </td>
-                  <td>
-                    <strike>Edit</strike>
-                  </td>
+                </tr>
+              <% end %>
+              <% if service_line_item.service_parts.length > 1 %>
+                <tr>
+                  <td colspan="2"> &nbsp; </td>
+                  <td colspan="2"> <B>Line Item Part Totals:</B> </td>
+                  <td><%= number_to_currency(itemPartSumRetail) %></td>
+                  <td><%= number_to_currency(itemPartSumActual) %></td>
                 </tr>
               <% end %>
             </table>
 
           </td>
         </tr>
-      <% end %>
-    <% end %>
+      <% end %> <%# if service_line_item.service_parts.length > 0 %>
+
+      <% if service_line_item.technician_hours.length > 0 %>
+        <% itemLaborSumRetail = 0.0  -%>
+        <% itemLaborSumActual = 0.0  -%>
+        <tr>
+          <td> &nbsp; </td>
+          <td colspan="6">
+
+            <table border="1" class="ft_dbtab">
+              <tr bgcolor="#F0FFF0">
+                <th>Technician</th>
+                <th>Labor Hours Retail</th>
+                <th>Labor Rate Retail</th>
+                <th>Labor Hours Actual</th>
+                <th>Labor Rate Actual</th>
+              </tr>
+
+              <% service_line_item.technician_hours.each do |th| %>
+                <tr>
+                  <td><%= th.technician.employee.nameText %></td>
+                  <td><%= th.labor_hours_retail %></td>
+                  <td>
+                    <%= number_to_currency(th.labor_rate_retail) %>/hr
+                  </td>
+                  <% x = th.labor_rate_retail * th.labor_hours_retail  -%>
+                  <% itemLaborSumRetail += x  -%>
+                  <td><%= th.labor_hours_actual %></td>
+                  <td>
+                    <%= number_to_currency(th.labor_rate_actual) %>/hr
+                  </td>
+                  <% x = th.labor_rate_actual * th.labor_hours_actual  -%>
+                  <% itemLaborSumActual += x  -%>
+                </tr>
+              <% end %>
+              <tr>
+                <td colspan="2"><B>Line Item Labor Totals:</b></td>
+                <td><%= number_to_currency(itemLaborSumRetail) %></td>
+                <td>&nbsp;</td>
+                <td><%= number_to_currency(itemLaborSumActual) %></td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+      <% end %>  <%# end service_line_item.technician_hours.length > 0 %>
+
+    <% end %> <%# for service_line_item in @service_visit.service_line_items %>
+    <tr>
+      <td> &nbsp; </td>
+      <td colspan="6">
+
+        <table border="1" class="ft_dbtab">
+          <tr>
+            <td>
+              <B>Total Labor Retail:</B>
+              <%= number_to_currency(totalLaborRetail) %>
+            </td>
+            <td>
+              <B>Total Labor Actual:</B>
+              <%= number_to_currency(totalLaborActual) %>
+            </td>
+            <td>
+              <B>Total Parts Retail:</B>
+              <%= number_to_currency(totalPartsRetail) %>
+            </td>
+            <td>
+              <B>Total Parts Actual:</B>
+              <%= number_to_currency(totalPartsActual) %>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
   </table>
 </p>
-<p>
-  <strike>Add new Service Line Item</strike>
-</p>
 
+<%= link_to 'Edit This Service Visit',
+                            "/service_visits/gfedit2/#{@service_visit.id}" %>
+&nbsp; &nbsp; 
 <%= link_to 'List Service Visits', '/service_visits/gfindex' %>
 &nbsp; &nbsp; 
 <%= link_to 'Back to Ground Floor', '/top/gf' %>
