@@ -1,0 +1,32 @@
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Status</th>
+    <th>Mileage</th>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Store</th>
+    <th>Vehicle</th>
+    <th>Salesperson</th>
+    <th colspan="2"><i>Actions</i></th>
+  </tr>
+
+<% @service_visits.each do |service_visit| %>
+  <tr>
+    <td><%= service_visit.statusText %></td>
+    <td><%= service_visit.mileage %></td>
+    <td><%= service_visit.sdate.strftime("%b %d, %Y") %></td>
+    <td><%= service_visit.description %></td>
+    <td><%= service_visit.store.number %></td>
+    <td><%= service_visit.vehicle.ymmpText %></td>
+    <td>
+      <% if service_visit.salesperson %>
+        <%= service_visit.salesperson.employee.nameText %>
+      <% else %>
+        <i>none</i>
+      <% end %>
+    </td>
+    <td><%= link_to 'Show', "/service_visits/gfshow/#{service_visit.id}" %></td>
+    <td><%= link_to 'Edit',"/service_visits/gfedit2/#{service_visit.id}" %></td>
+  </tr>
+<% end %>
+</table>

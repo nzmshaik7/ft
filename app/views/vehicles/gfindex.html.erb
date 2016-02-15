@@ -60,6 +60,8 @@
     </td>
     <td>
       <%= link_to 'Edit', "/vehicles/#{vehicle.id}/gfedit" %>
+      |
+      <%= link_to 'SVs', "/service_visits/gflist4veh/#{vehicle.id}" %>
     </td>
   </tr>
 <% end %>

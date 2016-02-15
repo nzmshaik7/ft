@@ -3,11 +3,11 @@ class ServiceVisitsController < ApplicationController
     before_filter :database_area, :except => [:gfindex, :gfedit2, :gfshow,
                                               :gfsearch1, :gfmatch1, :gfupdate2,
                                               :gfnew0, :gfnew1, :gfnew2,
-                                              ]
+                                              :gflist4veh, ]
     before_filter :gf_area,       :only   => [:gfindex, :gfedit2, :gfshow,
                                               :gfsearch1, :gfmatch1, :gfupdate2,
                                               :gfnew0, :gfnew1, :gfnew2,
-                                              ]
+                                              :gflist4veh, ]
     include CustomersHelper
     include ApplicationHelper
     include ServiceLineItemsHelper
@@ -86,7 +86,7 @@ class ServiceVisitsController < ApplicationController
     # GET /service_visits
     # GET /service_visits.json
     def index
-        @service_visits = ServiceVisit.all
+        @service_visits = ServiceVisit.find(:all, :order => 'sdate')
 
         respond_to do |format|
             format.html # index.html.erb
@@ -98,6 +98,14 @@ class ServiceVisitsController < ApplicationController
     def gfindex
         @isGroundFloor = true
         index
+    end
+
+
+    def gflist4veh
+        @isGroundFloor = true
+        @vehicle = Vehicle.find(params[:id])
+        @service_visits = ServiceVisit.where("vehicle_id = ?",
+                                             @vehicle.id).order('sdate')
     end
 
 

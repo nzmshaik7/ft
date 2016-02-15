@@ -123,6 +123,7 @@ Ft::Application.routes.draw do
   get 'service_visits/gfnew0'
   # :id here is a vehicle id
   get 'service_visits/gfnew1/:id' => 'service_visits#gfnew1'
+  get 'service_visits/gflist4veh/:id' => 'service_visits#gflist4veh'
   post 'service_visits/gfnew2' => 'service_visits#gfnew2'
   get 'service_visits/gfindex'
   get "service_visits/gfshow/:id" => 'service_visits#gfshow'
