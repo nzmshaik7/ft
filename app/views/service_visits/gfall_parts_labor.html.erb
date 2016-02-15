@@ -1,0 +1,133 @@
+<h2>Listing Vehicle Service Parts/Labor History</h2>
+
+<P>
+<b>Parts/Labor for Vehicle:</b>
+<%= @vehicle.ymmpText %>
+</P>
+
+<% totalLaborRetail = 0.0 -%>
+<% totalLaborActual = 0.0 -%>
+<% totalPartsRetail = 0.0 -%>
+<% totalPartsActual = 0.0 -%>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th colspan="9"><B>PARTS</B></th>
+  </tr>
+  <tr bgcolor="#F0FFF0">
+    <th>Mileage</th>
+    <th>Date</th>
+    <th>Part</th>
+    <th>Quantity</th>
+    <th>Unit retail price</th>
+    <th>Unit actual price</th>
+    <th>Retail price</th>
+    <th>Actual price</th>
+    <th><I>Actions</I></th>
+  </tr>
+
+  <% @service_visits.each do |service_visit| %>
+    <% for service_line_item in service_visit.service_line_items %>
+      <% service_line_item.service_parts.each do |service_part| %>
+        <tr>
+          <td><%= service_visit.mileage %></td>
+          <td><%= service_visit.sdate.strftime("%b %d, %Y") %></td>
+          <td><%= service_part.part.part_name.name %></td>
+          <td><%= service_part.quantity %></td>
+          <td><%= number_to_currency(service_part.part_retail_price) %></td>
+          <td><%= number_to_currency(service_part.part_actual_price) %></td>
+          <td>
+            <% if service_part.quantity and
+                                   service_part.part_retail_price %>
+              <% partPrice = service_part.quantity * 
+                                     service_part.part_retail_price %>
+              <%= number_to_currency(partPrice) %>
+              <% totalPartsRetail += partPrice  -%>
+            <% end %>
+          </td>
+          <td>
+            <% if service_part.quantity and
+                                   service_part.part_actual_price %>
+              <% partPrice = service_part.quantity * 
+                                     service_part.part_actual_price %>
+              <%= number_to_currency(partPrice) %>
+              <% totalPartsActual += partPrice  -%>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to 'Edit',"/service_visits/gfedit2/#{service_visit.id}" %>
+            <input name="cb<%= service_part.id %>" type="checkbox">
+          </td>
+        </tr>
+      <% end %> <%# service_line_item.service_parts.each loop %>
+    <% end %> <%# for service_line_item loop %>
+  <% end %> <%# @service_visits.each loop %>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    <td colspan="2"><B>TOTALS:</B></td>
+    <td><%= number_to_currency(totalPartsRetail) %></td>
+    <td><%= number_to_currency(totalPartsActual) %></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+<hr>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th colspan="11"><B>LABOR</B></th>
+  </tr>
+  <tr bgcolor="#F0FFF0">
+    <th>Mileage</th>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Tech</th>
+    <th>Hours retail</th>
+    <th>Rate retail</th>
+    <th>Labor retail</th>
+    <th>Hours actual</th>
+    <th>Rate actual</th>
+    <th>Labor actual</th>
+    <th><I>Actions</I></th>
+  </tr>
+
+  <% @service_visits.each do |service_visit| %>
+    <% for service_line_item in service_visit.service_line_items %>
+      <% service_line_item.technician_hours.each do |th| %>
+        <tr>
+          <td><%= service_visit.mileage %></td>
+          <td><%= service_visit.sdate.strftime("%b %d, %Y") %></td>
+	  <td><%= service_line_item.service_description.name %></td>
+          <td><%= th.technician.employee.nameText %></td>
+          <td><%= th.labor_hours_retail %></td>
+          <td><%= number_to_currency(th.labor_rate_retail) %>/hr</td>
+          <% x = th.labor_rate_retail * th.labor_hours_retail  -%>
+          <% totalLaborRetail += x  -%>
+          <td><%= number_to_currency(x) %></td>
+          <td><%= th.labor_hours_actual %></td>
+          <td><%= number_to_currency(th.labor_rate_actual) %>/hr</td>
+          <% x = th.labor_rate_actual * th.labor_hours_actual  -%>
+          <% totalLaborActual += x  -%>
+          <td><%= number_to_currency(x) %></td>
+          <td>
+            <%= link_to 'Edit',"/service_visits/gfedit2/#{service_visit.id}" %>
+            <input name="cb<%= th.id %>" type="checkbox">
+          </td>
+        </tr>
+      <% end %> <%# service_line_item.technician_hours.each loop %>
+    <% end %> <%# for service_line_item loop %>
+  <% end %> <%# @service_visits.each loop %>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    <td colspan="2"><B>TOTALS:</B></td>
+    <td><%= number_to_currency(totalLaborRetail) %></td>
+    <td colspan="2">&nbsp;</td>
+    <td><%= number_to_currency(totalLaborActual) %></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+
+
+
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

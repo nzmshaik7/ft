@@ -3,11 +3,11 @@ class ServiceVisitsController < ApplicationController
     before_filter :database_area, :except => [:gfindex, :gfedit2, :gfshow,
                                               :gfsearch1, :gfmatch1, :gfupdate2,
                                               :gfnew0, :gfnew1, :gfnew2,
-                                              :gflist4veh, ]
+                                              :gflist4veh, :gfall_parts_labor, ]
     before_filter :gf_area,       :only   => [:gfindex, :gfedit2, :gfshow,
                                               :gfsearch1, :gfmatch1, :gfupdate2,
                                               :gfnew0, :gfnew1, :gfnew2,
-                                              :gflist4veh, ]
+                                              :gflist4veh, :gfall_parts_labor, ]
     include CustomersHelper
     include ApplicationHelper
     include ServiceLineItemsHelper
@@ -102,6 +102,14 @@ class ServiceVisitsController < ApplicationController
 
 
     def gflist4veh
+        @isGroundFloor = true
+        @vehicle = Vehicle.find(params[:id])
+        @service_visits = ServiceVisit.where("vehicle_id = ?",
+                                             @vehicle.id).order('sdate')
+    end
+
+
+    def gfall_parts_labor
         @isGroundFloor = true
         @vehicle = Vehicle.find(params[:id])
         @service_visits = ServiceVisit.where("vehicle_id = ?",
