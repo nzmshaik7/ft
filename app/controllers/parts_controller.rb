@@ -1,9 +1,9 @@
 class PartsController < ApplicationController
 
     before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
-                                              :gfnewplus, ]
+                                              :gfnewplus, :update, :create,  ]
     before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, 
-                                              :gfnewplus, ]
+                                              :gfnewplus, :update, :create,  ]
     include ApplicationHelper
 
     def prepFormVariables

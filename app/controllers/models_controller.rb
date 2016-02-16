@@ -1,7 +1,9 @@
 class ModelsController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, ]
+    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit,
+                                              :update, :create, ]
+    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+                                              :update, :create, ]
     include ApplicationHelper
 
 
