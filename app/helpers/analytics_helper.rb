@@ -18,14 +18,8 @@ module AnalyticsHelper
 	    visitLaborActual += @sliTotLaborActual
 	    visitHoursRetail += @sliTotHoursRetail
 	    visitHoursActual += @sliTotHoursActual
-	    for servicePart in sli.service_parts
-		if servicePart.part_retail_price
-                    visitPartsRetail += servicePart.part_retail_price
-                end
-		if servicePart.part_actual_price
-                    visitPartsActual += servicePart.part_actual_price
-                end
-	    end
+            visitPartsRetail += @sliTotPartsRetail
+            visitPartsActual += @sliTotPartsActual
 	    hasScheduled = true  if sli.is_scheduled
 	end
 	ans[:laborRetail] = visitLaborRetail

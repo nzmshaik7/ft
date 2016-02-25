@@ -81,9 +81,12 @@ class AnalyticsController < ApplicationController
         @qualRetail = 0.0
         @qualLaborActual = 0.0
         @qualPartsActual = 0.0
-        @membIncome = 0.0
-        @membLaborActual = 0.0
-        @membPartsActual = 0.0
+        @membIncome = 0.0       # All payments
+        @membClubFees = 0.0     # Club fees only
+        @membLaborActual = 0.0  # Covered service and repair only
+        @membPartsActual = 0.0  # Covered service and repair only
+        @membScheduled = 0.0    # Covered service, parts and labor
+        @membUnscheduled = 0.0  # Covered repair, parts and labor
         @notCoveredIncome = 0.0
         @notCoveredLaborActual = 0.0
         @notCoveredPartsActual = 0.0
@@ -96,20 +99,20 @@ class AnalyticsController < ApplicationController
                 if sli.stype == ServiceLineItem::S_QUALIFICATION
                     @qualRetail += @sliTotLaborRetail
                     @qualLaborActual += @sliTotLaborActual
-                    for sp in sli.service_parts
-                        @qualRetail += sp.part_retail_price
-                        @qualPartsActual += sp.part_actual_price
-                    end
+                    @qualRetail += @sliTotPartsRetail
+                    @qualPartsActual += @sliTotPartsActual
                 elsif sli.stype == ServiceLineItem::S_MEMB_SERVICE
                     @membLaborActual += @sliTotLaborActual
-                    for sp in sli.service_parts
-                        @membPartsActual += sp.part_actual_price
-                    end
+                    @membScheduled +=   @sliTotLaborActual
+                    @membPartsActual += @sliTotPartsActual
+                    @membScheduled +=   @sliTotPartsActual
+                    logger.info("==== sch add lab sli #{sli.id}, + #{@sliTotLaborActual} to get #{@membScheduled}")
                 elsif sli.stype == ServiceLineItem::S_MEMB_REPAIR
                     @membLaborActual += @sliTotLaborActual
-                    for sp in sli.service_parts
-                        @membPartsActual += sp.part_actual_price
-                    end
+                    @membUnscheduled += @sliTotLaborActual
+                    logger.info("==== uns add lab sli #{sli.id}, + #{@sliTotLaborActual} to get #{@membUnscheduled}")
+                    @membPartsActual += @sliTotPartsActual
+                    @membUnscheduled += @sliTotPartsActual
                 elsif sli.stype == ServiceLineItem::S_MEMB_NOT_COVERED
                     @notCoveredIncome += @sliTotLaborRetail
                     @notCoveredLaborActual += @sliTotLaborActual
@@ -131,6 +134,9 @@ class AnalyticsController < ApplicationController
         for payment in Payment.where("contract_id = ?", veh.contract_id)
             if payment.status == Payment::STATUS_APPOVED
                 @membIncome += payment.amount
+                if payment.contract
+                    @membClubFees += payment.amount
+                end
             end
         end
 
@@ -235,6 +241,11 @@ class AnalyticsController < ApplicationController
         calcInternal1(@vehicle)
         calcFinanceAgreements(@vehicle)
         calcVehicleInfo(@vehicle)
+
+        gg = Gengraph.new
+        gg.clubfeespie(@vehicle, @membClubFees, @membScheduled,
+                                                @membUnscheduled)
+        @graphUrls = gg.getUrls
     end
 
     
