@@ -24,6 +24,31 @@ class ServiceLineItem < ActiveRecord::Base
         end
     end
 
+
+    def stypeText
+        return "Qualification"        if stype == S_QUALIFICATION
+        return "Membership Service"   if stype == S_MEMB_SERVICE
+        return "Membership Repair"    if stype == S_MEMB_REPAIR
+        return "Member Not Covered"   if stype == S_MEMB_NOT_COVERED
+        return "Non Member Service"   if stype == S_NON_MEMB_SERVICE
+        return "Non Member Repair"    if stype == S_NON_MEMB_REPAIR
+        return "Other"                if stype == S_OTHER
+        return "Unknown"
+    end
+
+
+    def stypeAbbrev
+        return "Qual"         if stype == S_QUALIFICATION
+        return "Memb Srv"     if stype == S_MEMB_SERVICE
+        return "Memb Repr"    if stype == S_MEMB_REPAIR
+        return "Not Cvrd"     if stype == S_MEMB_NOT_COVERED
+        return "Nonm Srv"     if stype == S_NON_MEMB_SERVICE
+        return "Nonm Repr"    if stype == S_NON_MEMB_REPAIR
+        return "Other"        if stype == S_OTHER
+        return "Unk"
+    end
+
+
     def is_scheduled
         return true  if stype == S_MEMB_SERVICE
         return false
