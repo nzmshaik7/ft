@@ -106,11 +106,9 @@ class AnalyticsController < ApplicationController
                     @membScheduled +=   @sliTotLaborActual
                     @membPartsActual += @sliTotPartsActual
                     @membScheduled +=   @sliTotPartsActual
-                    logger.info("==== sch add lab sli #{sli.id}, + #{@sliTotLaborActual} to get #{@membScheduled}")
                 elsif sli.stype == ServiceLineItem::S_MEMB_REPAIR
                     @membLaborActual += @sliTotLaborActual
                     @membUnscheduled += @sliTotLaborActual
-                    logger.info("==== uns add lab sli #{sli.id}, + #{@sliTotLaborActual} to get #{@membUnscheduled}")
                     @membPartsActual += @sliTotPartsActual
                     @membUnscheduled += @sliTotPartsActual
                 elsif sli.stype == ServiceLineItem::S_MEMB_NOT_COVERED
