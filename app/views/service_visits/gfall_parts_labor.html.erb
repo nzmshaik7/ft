@@ -23,6 +23,7 @@
     <th>Unit actual price</th>
     <th>Retail price</th>
     <th>Actual price</th>
+    <th>Type</th>
     <th><I>Actions</I></th>
   </tr>
 
@@ -54,6 +55,7 @@
               <% totalPartsActual += partPrice  -%>
             <% end %>
           </td>
+          <td><%= service_line_item.stypeAbbrev %></td>
           <td>
             <%= link_to 'Edit',"/service_visits/gfedit2/#{service_visit.id}" %>
             <input name="cb<%= service_part.id %>" type="checkbox">
@@ -88,6 +90,7 @@
     <th>Hours actual</th>
     <th>Rate actual</th>
     <th>Labor actual</th>
+    <th>Type</th>
     <th><I>Actions</I></th>
   </tr>
 
@@ -109,6 +112,7 @@
           <% x = th.labor_rate_actual * th.labor_hours_actual  -%>
           <% totalLaborActual += x  -%>
           <td><%= number_to_currency(x) %></td>
+          <td><%= service_line_item.stypeAbbrev %></td>
           <td>
             <%= link_to 'Edit',"/service_visits/gfedit2/#{service_visit.id}" %>
             <input name="cb<%= th.id %>" type="checkbox">
