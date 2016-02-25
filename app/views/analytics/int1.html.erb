@@ -745,7 +745,7 @@
     <div class="payhistbox2">
       <center>
       <B>Club Fees Only</B><br>
-      <B><I><font color="#800080">Pie chart TBS</font></I></B>
+      <img src="<%= @graphUrls['clubfeespie'] %>">
       </center>
     </div>
   </div>
@@ -824,9 +824,13 @@
 	  <td></td>
 	</tr>
 
+
+
+
+
 	<tr>
 	  <th colspan="8" bgcolor="#ffffff">
-	    <font size="+4">&nbsp; </font>
+	    <font size="+2">&nbsp; </font>
 	  </th>
 	</tr>
 	<tr bgcolor="#e0e0e0">
@@ -890,6 +894,20 @@
 	  </td>
 	  <td><B><%= number_to_currency(unschedPartSubtotal) %></B></td>
 	  <td></td>
+	</tr>
+
+
+
+
+	<tr>
+	  <th colspan="8" bgcolor="#ffffff">
+	    <font size="+2">&nbsp; </font>
+	  </th>
+	</tr>
+	<tr bgcolor="#e0e0e0">
+	  <th colspan="8"><font color="#006040">
+	    <center>Totals</center>
+	  </font></th>
 	</tr>
 	<tr>
 	  <td></td>
@@ -987,10 +1005,35 @@
 	        <td>P#<%= xParts[tabDex].part.part_number %>
 		<br>
 		<%= xParts[tabDex].part.part_name.name %>
-		<%= number_to_currency(xParts[tabDex].part_actual_price) %>
-		<% if xParts[tabDex].part_actual_price %>
-		  <% partTot += xParts[tabDex].part_actual_price %>
-		<% end %>
+
+                <% pprice = xParts[tabDex].part_actual_price %>
+                <% if xParts[tabDex].quantity %>
+		  <% if pprice %>
+                    <% tprice = pprice * xParts[tabDex].quantity %>
+		    <% partTot += tprice %>
+                    <% stprice = number_to_currency(tprice) %>
+		    <% spprice = number_to_currency(pprice) %>
+                  <% else %>
+                    <% spprice = '????' %>
+                    <% stprice = '????' %>
+                  <% end %>
+                <% else %>
+		  <% if pprice %>
+                    <% spprice = number_to_currency(pprice) %>
+		    <% partTot += pprice %>
+                  <% else %>
+                    <% spprice = '????' %>
+                  <% end %>
+                <% end %>
+
+                <% if xParts[tabDex].quantity and xParts[tabDex].quantity > 1 %>
+                  <%= number_with_precision(xParts[tabDex].quantity, 
+                                                               precision: 1) %>
+                  x <%= spprice %> = <%= stprice %>
+                <% else %>
+                  <%= spprice %>
+                <% end %>
+
 		</td>
 	      <% else %>
 	        <td>&nbsp;</td>
@@ -1098,7 +1141,14 @@
           </td>
 	</tr>
 	<tr>
-	  <td><font color="#008000"><B>NET PROFIT</B></font></td>
+	  <td>
+            <% if @profit < 0.0 %>
+              <font color="#800000">
+            <% else %>
+              <font color="#008000">
+            <% end %>
+            <B>NET PROFIT</B></font>
+          </td>
 	  <td align="right"><font color="#008000"><B>
             <%= number_to_currency(@profit) %>
           </B></font></td>
