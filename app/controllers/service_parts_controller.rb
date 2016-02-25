@@ -11,7 +11,12 @@ class ServicePartsController < ApplicationController
         }
         @parts = Part.all
         @partCollect = @parts.collect { |p|
-            [ p.id.to_s + ':' + p.part_name.name, p.id ] 
+            if p.description and p.description.strip.length > 1
+                [ p.id.to_s + ':' + p.part_name.name + '-' + 
+                                    p.description[0..20], p.id ] 
+            else
+                [ p.id.to_s + ':' + p.part_name.name, p.id ] 
+            end
         }
     end
 
