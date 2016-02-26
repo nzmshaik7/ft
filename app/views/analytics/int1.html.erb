@@ -817,7 +817,7 @@
 	    <%= number_to_currency(schedLaborSubtotal + schedPartSubtotal) %>
 	  </B></td>
 	  <td>
-	    <B><%= schedHoursSubtotal %>hr/
+	    <B><%= number_with_precision(schedHoursSubtotal, precision: 1) %>hr/
 	       <%= number_to_currency(schedLaborSubtotal) %></B>
 	  </td>
 	  <td><B><%= number_to_currency(schedPartSubtotal) %></B></td>
@@ -889,8 +889,9 @@
 	   <%= number_to_currency(unschedLaborSubtotal + unschedPartSubtotal) %>
 	  </B></td>
 	  <td>
-	    <B><%= unschedHoursSubtotal %>hr/
-	       <%= number_to_currency(unschedLaborSubtotal) %></B>
+	    <B>
+              <%= number_with_precision(unschedHoursSubtotal, precision: 1) %>
+              hr/<%= number_to_currency(unschedLaborSubtotal) %></B>
 	  </td>
 	  <td><B><%= number_to_currency(unschedPartSubtotal) %></B></td>
 	  <td></td>
