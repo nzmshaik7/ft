@@ -90,7 +90,7 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
         (op, fname) = opAndFile(lines)
         if op == 'clubfeesloss':
             clubfees(self.request, lines, fname, True)
-        elif op == 'clubfeesloss':
+        elif op == 'clubfeesprof':
             clubfees(self.request, lines, fname, False)
         else:
             self.request.sendall("Unknown operator: %s\n" % (op))
