@@ -2,7 +2,7 @@ class Gengraph
 
     require 'socket'
 
-    @@GRAPHDIR = "/home/rails/ft/public/graphs"
+    @@GRAPHDIR = "public/graphs"
     @@HOST = 'localhost'
     @@PORT = 7001
 
@@ -35,7 +35,8 @@ class Gengraph
 
         # scheduled,unscheduled,gross 
         imgfile = "clubfeespie-#{veh.id}.png"
-        clubfeespie = "#{@@GRAPHDIR}/#{imgfile}"
+        graphPath = Rails.root.join(@@GRAPHDIR).to_s
+        clubfeespie = "#{graphPath}/#{imgfile}"
         grossProfit = membClubFees - (membScheduled + membUnscheduled)
 
         if grossProfit < 0
