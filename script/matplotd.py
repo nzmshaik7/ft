@@ -84,6 +84,7 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
         lines = allData.split('\n')
         for ln in lines:
             print ln
+        sys.stdout.flush()
         (op, fname) = opAndFile(lines)
         if op == 'clubfeesloss':
             clubfees(self.request, lines, fname, True)
