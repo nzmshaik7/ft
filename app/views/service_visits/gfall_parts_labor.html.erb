@@ -27,6 +27,11 @@
     <th><I>Actions</I></th>
   </tr>
 
+  <% partsActualQual = 0.0 %>
+  <% partsActualService = 0.0 %>
+  <% partsActualRepair = 0.0 %>
+  <% partsActualOther = 0.0 %>
+
   <% @service_visits.each do |service_visit| %>
     <% for service_line_item in service_visit.service_line_items %>
       <% service_line_item.service_parts.each do |service_part| %>
@@ -49,13 +54,25 @@
           <td>
             <% if service_part.quantity and
                                    service_part.part_actual_price %>
-              <% partPrice = service_part.quantity * 
+              <% acPartPrice = service_part.quantity * 
                                      service_part.part_actual_price %>
-              <%= number_to_currency(partPrice) %>
-              <% totalPartsActual += partPrice  -%>
+              <%= number_to_currency(acPartPrice) %>
+              <% totalPartsActual += acPartPrice  -%>
             <% end %>
           </td>
-          <td><%= service_line_item.stypeAbbrev %></td>
+          <td>
+            <%= service_line_item.stypeAbbrev %>
+            <% st = service_line_item.stype  -%>
+            <% if st == ServiceLineItem::S_QUALIFICATION  -%>
+              <% partsActualQual += acPartPrice  -%>
+            <% elsif st == ServiceLineItem::S_MEMB_SERVICE  -%>
+              <% partsActualService += acPartPrice  -%>
+            <% elsif st == ServiceLineItem::S_MEMB_REPAIR  -%>
+              <% partsActualRepair += acPartPrice  -%>
+            <% else %>
+              <% partsActualOther += acPartPrice  -%>
+            <% end %>
+          </td>
           <td>
             <%= link_to 'Edit',"/service_visits/gfedit2/#{service_visit.id}" %>
             <input name="cb<%= service_part.id %>" type="checkbox">
@@ -65,10 +82,31 @@
     <% end %> <%# for service_line_item loop %>
   <% end %> <%# @service_visits.each loop %>
   <tr>
+    <td>&nbsp;</td>
+    <td colspan="2">
+      <B>SUBTOTAL QUAL:</B>
+      <%= number_to_currency(partsActualQual) %>
+    </td>
+    <td colspan="2">
+      <B>SUBTOTAL SERVICE:</B>
+      <%= number_to_currency(partsActualService) %>
+    </td>
+    <td colspan="2">
+      <B>SUBTOTAL REPAIR:</B>
+      <%= number_to_currency(partsActualRepair) %>
+    </td>
+    <td colspan="2">
+      <B>SUBTOTAL OTHER:</B>
+      <%= number_to_currency(partsActualOther) %>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td colspan="4">&nbsp;</td>
     <td colspan="2"><B>TOTALS:</B></td>
     <td><%= number_to_currency(totalPartsRetail) %></td>
     <td><%= number_to_currency(totalPartsActual) %></td>
+    <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
 </table>
@@ -94,6 +132,10 @@
     <th><I>Actions</I></th>
   </tr>
 
+  <% laborActualQual = 0.0 %>
+  <% laborActualService = 0.0 %>
+  <% laborActualRepair = 0.0 %>
+  <% laborActualOther = 0.0 %>
   <% @service_visits.each do |service_visit| %>
     <% for service_line_item in service_visit.service_line_items %>
       <% service_line_item.technician_hours.each do |th| %>
@@ -109,10 +151,22 @@
           <td><%= number_to_currency(x) %></td>
           <td><%= th.labor_hours_actual %></td>
           <td><%= number_to_currency(th.labor_rate_actual) %>/hr</td>
-          <% x = th.labor_rate_actual * th.labor_hours_actual  -%>
-          <% totalLaborActual += x  -%>
-          <td><%= number_to_currency(x) %></td>
-          <td><%= service_line_item.stypeAbbrev %></td>
+          <% ax = th.labor_rate_actual * th.labor_hours_actual  -%>
+          <% totalLaborActual += ax  -%>
+          <td><%= number_to_currency(ax) %></td>
+          <td>
+            <%= service_line_item.stypeAbbrev %>
+            <% st = service_line_item.stype -%>
+            <% if st == ServiceLineItem::S_QUALIFICATION  -%>
+              <% laborActualQual += ax  -%>
+            <% elsif st == ServiceLineItem::S_MEMB_SERVICE  -%>
+              <% laborActualService += ax  -%>
+            <% elsif st == ServiceLineItem::S_MEMB_REPAIR  -%>
+              <% laborActualRepair += ax  -%>
+            <% else %>
+              <% laborActualOther += ax  -%>
+            <% end %>
+          </td>
           <td>
             <%= link_to 'Edit',"/service_visits/gfedit2/#{service_visit.id}" %>
             <input name="cb<%= th.id %>" type="checkbox">
@@ -122,11 +176,32 @@
     <% end %> <%# for service_line_item loop %>
   <% end %> <%# @service_visits.each loop %>
   <tr>
+    <td colspan="3">&nbsp;</td>
+    <td colspan="2">
+      <B>SUBTOTAL QUAL:</B>
+      <%= number_to_currency(laborActualQual) %>
+    </td>
+    <td colspan="2">
+      <B>SUBTOTAL SERVICE:</B>
+      <%= number_to_currency(laborActualService) %>
+    </td>
+    <td colspan="2">
+      <B>SUBTOTAL REPAIR:</B>
+      <%= number_to_currency(laborActualRepair) %>
+    </td>
+    <td colspan="2">
+      <B>SUBTOTAL OTHER:</B>
+      <%= number_to_currency(laborActualOther) %>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td colspan="4">&nbsp;</td>
     <td colspan="2"><B>TOTALS:</B></td>
     <td><%= number_to_currency(totalLaborRetail) %></td>
     <td colspan="2">&nbsp;</td>
     <td><%= number_to_currency(totalLaborActual) %></td>
+    <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
 </table>
