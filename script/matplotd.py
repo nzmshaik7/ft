@@ -58,9 +58,12 @@ def clubfees(req, lines, fname, isLoss):
                                        (deltadol, 100.0 * deltaf / totalf) ]
     else:
         colors = [ '#c040ff', 'lightskyblue', 'green' ]
-        labels = [ "Unscheduled\n%1.1f%%" % (100.0 * unschedf / totalf), 
-                   "Scheduled\n%1.1f%%" % (100.0 * schedf / totalf), 
-                   "Gross Profit\n%1.1f%%" % (100.0 * deltaf / totalf) ]
+        labels = [ "Unscheduled\n%s\n%1.1f%%" % 
+                                       (unscheddol, 100.0 * unschedf / totalf), 
+                   "Scheduled\n%s\n%1.1f%%" % 
+                                       (scheddol, 100.0 * schedf / totalf), 
+                   "Gross Profit\n%s\n%1.1f%%" % 
+                                       (deltadol, 100.0 * deltaf / totalf) ]
     # explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
     fig = plt.figure(figsize=(4,4))
 
