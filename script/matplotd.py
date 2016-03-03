@@ -42,11 +42,13 @@ def clubfees(req, lines, fname, isLoss):
     unschedf = float(valtoks[1])
     deltaf = float(valtoks[2])
     totalf = schedf + unschedf + deltaf
-    sizes = [ schedf, unschedf, deltaf ]
 
     scheddol = locale.currency(schedf, grouping=True)
     unscheddol = locale.currency(unschedf, grouping=True)
     deltadol = locale.currency(deltaf, grouping=True)
+
+    # Must be in same order as labels
+    sizes = [ unschedf, schedf, deltaf ]
 
     if isLoss:
         colors = [ '#c040ff', 'lightskyblue', '#ff4040' ]
