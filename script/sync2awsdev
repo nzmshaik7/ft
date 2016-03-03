@@ -10,6 +10,10 @@ if [ "`basename $PWD`" != ft ]; then
     exit 1
 fi
 
+echo "Cleaning out graphs ..."
+rm -rf public/graphs/*.png
+
+echo "Syncing ..."
 rsync -az . rails@$IP:/home/rails/ft
 ssh rails@$IP ft/script/awsdevpatch
 
