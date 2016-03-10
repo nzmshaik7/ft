@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Run erd
+
+if [ "`basename $PWD`" != ft ]; then
+    echo "Must run from ft directory"
+    exit 1
+fi
+
+grep -q "^gem 'rails-erd'" Gemfile
+if [ $? -ne 0 ]; then
+    echo "Uncomment gem 'rails-erd' in Gemfile first"
+    exit 2
+fi
+
+mv app/runners/migrhelp/mvToTechHours.rb tmp
+
+erd
+
+mv tmp/mvToTechHours.rb app/runners/migrhelp
