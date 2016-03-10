@@ -448,12 +448,13 @@ RAILS ${gen[*]}
 # are copied from the part because the part prices may change later.
 # Normally a part comes from either an InventoryPart or from a
 # Purchase Order.  So part life cycle is PurchaseOrderPart, then
-# optionally InventoryPart, then ServicePart.  But there is not need for
+# optionally InventoryPart, then ServicePart.  But there is no need for
 # a PurchaseOrderPart, since we only purchase parts for a service visit,
 # or to go into Inventory.
-# If a part is put on a car, then InventoryPart is deleted and ServicePart
-# is created.  It still points back to the vendor PO, so that object remains
-# complete.
+# If a part is put on a car, then InventoryPart is deleted (or quantity
+# decremented) and ServicePart is created, and purchase order and
+# part foreign keys are copied.  It still points back to the vendor PO, 
+# so that object remains complete.
 #
 # Service Visit state changes:
 # When does a ServicePart map to an actual part?  An estimate might
@@ -664,13 +665,7 @@ gen=( generate scaffold Employee
 RAILS ${gen[*]}
 
 
-gen=( generate scaffold Inventory
-    store_id:integer
-    part_id:integer
-    count:integer
-    )
-RAILS ${gen[*]}
-
+# DELETED generate scaffold Inventory
 
 # regions within states
 gen=( generate scaffold Region
