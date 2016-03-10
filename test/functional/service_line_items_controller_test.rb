@@ -18,7 +18,7 @@ class ServiceLineItemsControllerTest < ActionController::TestCase
 
   test "should create service_line_item" do
     assert_difference('ServiceLineItem.count') do
-      post :create, service_line_item: { is_scheduled: @service_line_item.is_scheduled, labor_hours_actual: @service_line_item.labor_hours_actual, labor_hours_retail: @service_line_item.labor_hours_retail, labor_rate_actual: @service_line_item.labor_rate_actual, labor_rate_retail: @service_line_item.labor_rate_retail, service_description_id: @service_line_item.service_description_id, service_description_text: @service_line_item.service_description_text, service_visit_id: @service_line_item.service_visit_id, technician1_id: @service_line_item.technician1_id, technician2_id: @service_line_item.technician2_id, technician3_id: @service_line_item.technician3_id }
+      post :create, service_line_item: { service_description_id: @service_line_item.service_description_id, service_description_text: @service_line_item.service_description_text, service_visit_id: @service_line_item.service_visit_id, }
     end
 
     assert_redirected_to service_line_item_path(assigns(:service_line_item))
@@ -35,7 +35,7 @@ class ServiceLineItemsControllerTest < ActionController::TestCase
   end
 
   test "should update service_line_item" do
-    put :update, id: @service_line_item, service_line_item: { is_scheduled: @service_line_item.is_scheduled, labor_hours_actual: @service_line_item.labor_hours_actual, labor_hours_retail: @service_line_item.labor_hours_retail, labor_rate_actual: @service_line_item.labor_rate_actual, labor_rate_retail: @service_line_item.labor_rate_retail, service_description_id: @service_line_item.service_description_id, service_description_text: @service_line_item.service_description_text, service_visit_id: @service_line_item.service_visit_id, technician1_id: @service_line_item.technician1_id, technician2_id: @service_line_item.technician2_id, technician3_id: @service_line_item.technician3_id }
+    put :update, id: @service_line_item, service_line_item: { service_description_id: @service_line_item.service_description_id, service_description_text: @service_line_item.service_description_text, service_visit_id: @service_line_item.service_visit_id, }
     assert_redirected_to service_line_item_path(assigns(:service_line_item))
   end
 
