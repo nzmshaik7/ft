@@ -77,6 +77,56 @@ def clubfees(req, lines, fname, isLoss):
     req.sendall("OK\n")
 
 
+def totprofpie(req, lines, fname, isLoss):
+    if not fname:
+        req.sendall("Missing totprofpie filename\n")
+        return
+    if len(lines) < 2:
+        req.sendall("Empty totprofpie data\n")
+        return
+    valtoks = lines[1].split(',')
+    if len(valtoks) < 3:
+        req.sendall("Missing totprofpie data\n")
+        return
+    
+    totLabor = float(valtoks[0])
+    totParts = float(valtoks[1])
+    delta = float(valtoks[2])
+    totalf = totLabor + totParts + delta
+
+    laborDol = locale.currency(totLabor, grouping=True)
+    partsDol = locale.currency(totParts, grouping=True)
+    deltadol = locale.currency(delta, grouping=True)
+
+    # Must be in same order as labels
+    sizes = [ totLabor, totParts, delta ]
+
+    if isLoss:
+        colors = [ '#ffffd0', '#c0d0ff', '#ff4040' ]
+        labels = [ "Labor Cost\n%s\n%1.1f%%" % 
+                                       (laborDol, 100.0 * totLabor / totalf), 
+                   "Parts Cost\n%s\n%1.1f%%" % 
+                                       (partsDol, 100.0 * totParts / totalf), 
+                   "Net Loss\n%s\n%1.1f%%" % 
+                                       (deltadol, 100.0 * delta / totalf) ]
+    else:
+        colors = [ '#ffffd0', '#c0d0ff', 'green' ]
+        labels = [ "Labor Cost\n%s\n%1.1f%%" % 
+                                       (laborDol, 100.0 * totLabor / totalf), 
+                   "Parts Cost\n%s\n%1.1f%%" % 
+                                       (partsDol, 100.0 * totParts / totalf), 
+                   "Net Profit\n%s\n%1.1f%%" % 
+                                       (deltadol, 100.0 * delta / totalf) ]
+    fig = plt.figure(figsize=(4.08,4))
+
+    plt.pie(sizes, labels=labels, colors=colors, labeldistance=0.35, 
+                   shadow=True)
+    # Set aspect ratio to be equal so that pie is drawn as a circle.
+    plt.axis('equal')
+    fig.savefig(fname, dpi=72)
+    req.sendall("OK\n")
+
+
 class MyTCPHandler(SocketServer.BaseRequestHandler):
 
     def handle(self):
@@ -97,6 +147,10 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
             clubfees(self.request, lines, fname, True)
         elif op == 'clubfeesprof':
             clubfees(self.request, lines, fname, False)
+        elif op == 'totproflosspie':
+            totprofpie(self.request, lines, fname, True)
+        elif op == 'totprofpie':
+            totprofpie(self.request, lines, fname, False)
         else:
             self.request.sendall("Unknown operator: %s\n" % (op))
 

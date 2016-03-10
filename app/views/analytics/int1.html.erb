@@ -1085,6 +1085,7 @@
             <%= number_to_currency(gpoq) %>
           </td>
 	</tr>
+
 	<tr>
 	  <td colspan="2">&nbsp;</td>
 	</tr>
@@ -1112,6 +1113,7 @@
             <%= number_to_currency(@membLaborActual + @membPartsActual) %>
           </font></td>
 	</tr>
+
         <% if @notCoveredIncome != 0.0 %>
           <tr>
             <td>Membership Not Covered Income</td>
@@ -1132,6 +1134,28 @@
             </font></td>
           </tr>
         <% end %>
+
+        <% if @otherIncome != 0.0 %>
+          <tr>
+            <td>Other Income</td>
+            <td align="right"><font color="#008000">
+              <%= number_to_currency(@otherIncome) %>
+            </font></td>
+          </tr>
+          <tr>
+            <td>Other Labor Cost</td>
+            <td align="right"><font color="#800000">
+              <%= number_to_currency(@otherLaborActual) %>
+            </font></td>
+          </tr>
+          <tr>
+            <td>Other Parts Cost</td>
+            <td align="right"><font color="#800000">
+              <%= number_to_currency(@otherPartsActual) %>
+            </font></td>
+          </tr>
+        <% end %>
+
 	<tr>
 	  <td colspan="2">&nbsp;</td>
 	</tr>
@@ -1156,8 +1180,7 @@
 	</tr>
       </table>
       <B>Total Vehicle Profitability</B><br>
-      <B><I><font color="#800080">Pie chart TBS</font></I></B>
-      <img src="images/piePl.png"><br>
+      <img src="<%= @graphUrls['totprofpie'] %>">
       &nbsp;<br>
       <B>Vehicle Profitability Trend</B><br>
       <B><I><font color="#800080">Trend chart TBS</font></I></B>

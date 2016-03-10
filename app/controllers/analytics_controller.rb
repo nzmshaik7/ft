@@ -78,6 +78,7 @@ class AnalyticsController < ApplicationController
 
     
     def calcProfitLoss(veh)
+
         @qualRetail = 0.0
         @qualLaborActual = 0.0
         @qualPartsActual = 0.0
@@ -93,6 +94,7 @@ class AnalyticsController < ApplicationController
         @otherIncome = 0.0
         @otherLaborActual = 0.0
         @otherPartsActual = 0.0
+
         for svisit in veh.service_visits
             for sli in svisit.service_line_items
 		setTotalsForSvcLineItem(sli)
@@ -139,9 +141,11 @@ class AnalyticsController < ApplicationController
         end
 
         @totalIncome = @qualRetail + @membIncome + @notCoveredIncome
-        @totalCost = @qualLaborActual + @qualPartsActual +
-                     @membLaborActual + @membPartsActual +
-                     @notCoveredLaborActual + @notCoveredPartsActual
+        @totalPartsCost = @qualPartsActual + @membPartsActual +
+                                             @notCoveredPartsActual
+        @totalLaborCost = @qualLaborActual + @membLaborActual + 
+                                             @notCoveredLaborActual
+        @totalCost = @totalPartsCost + @totalLaborCost
         @profit = @totalIncome - @totalCost
         if @totalIncome == 0.0
             @profitPercent = 0.0
@@ -240,9 +244,13 @@ class AnalyticsController < ApplicationController
         calcFinanceAgreements(@vehicle)
         calcVehicleInfo(@vehicle)
 
-        gg = Gengraph.new
-        gg.clubfeespie(@vehicle, @membClubFees, @membScheduled,
+        ll = LocalLogger.new('/tmp/gengraph.txt')
+        gg = Gengraph.new(ll)
+        gg.clubFeesPie(@vehicle, @membClubFees, @membScheduled,
                                                 @membUnscheduled)
+        gg.profitabilityPie(@vehicle, @totalIncome, @totalPartsCost, 
+                                                    @totalLaborCost) 
+
         @graphUrls = gg.getUrls
     end
 
