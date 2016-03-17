@@ -96,6 +96,9 @@ class AnalyticsController < ApplicationController
         @otherPartsActual = 0.0
 
         for svisit in veh.service_visits
+            if svisit.status != ServiceVisit::STATUS_COMPLETED
+                next
+            end
             for sli in svisit.service_line_items
 		setTotalsForSvcLineItem(sli)
                 if sli.stype == ServiceLineItem::S_QUALIFICATION
@@ -289,6 +292,9 @@ class AnalyticsController < ApplicationController
         yearAgo = now - (365.2425 * 24 * 3600)
 
         for s_visit in veh.service_visits
+            if s_visit.status != ServiceVisit::STATUS_COMPLETED
+                next
+            end
             if oldestMileageTime.nil? or s_visit.sdate < oldestMileageTime
                 oldestMileageTime = s_visit.sdate
                 oldestMileage = s_visit.mileage
