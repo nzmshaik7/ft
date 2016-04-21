@@ -1,5 +1,9 @@
 Ft::Application.routes.draw do
 
+  resources :backups
+
+  resources :service_visit_notes
+
   resources :vendor_invoices
 
   resources :inventory_parts

@@ -704,4 +704,34 @@ gen=( generate scaffold InsuranceCompany
     )
 RAILS ${gen[*]}
 
+
+# I'm fine if you need a table of service visit notes - it could have a column
+# for the service_visit_id that points back to the service visit.  Each service
+# visit already has a comments text field, but if you need more than that, it is
+# fine.  I could imagine each note having a date/time and author with it so
+# there is a history
+#
+gen=( generate scaffold ServiceVisitNotes
+    service_visit_id:integer
+    user_id:integer
+    note:text
+    )
+RAILS ${gen[*]}
+
+
+# I will also need a new "Backup" table.  This will be a place I can
+# record information before it is altered.  It doesn't need to be
+# fancy, but needs to include columns for the following information:
+# id, created (no need for updated in this table), table or form name,
+# user id that made the change, and a string field that can contain a
+# lot of information.  I will be storing specifically formatted text
+# in this field so I can easily retrieve it if needed at a later date.
+#
+gen=( generate scaffold Backup
+    table_name:string
+    user_id:integer
+    info:text
+    )
+RAILS ${gen[*]}
+
 # vim :se noexpandtab

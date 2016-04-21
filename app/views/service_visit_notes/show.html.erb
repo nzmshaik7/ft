@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Service visit:</b>
+  <%= @service_visit_note.service_visit_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @service_visit_note.user_id %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @service_visit_note.note %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_visit_note_path(@service_visit_note) %> |
+<%= link_to 'Back', service_visit_notes_path %>

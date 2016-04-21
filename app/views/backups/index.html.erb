@@ -1,0 +1,27 @@
+<h1>Listing backups</h1>
+
+<table>
+  <tr>
+    <th>Table name</th>
+    <th>User</th>
+    <th>Info</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @backups.each do |backup| %>
+  <tr>
+    <td><%= backup.table_name %></td>
+    <td><%= backup.user_id %></td>
+    <td><%= backup.info %></td>
+    <td><%= link_to 'Show', backup %></td>
+    <td><%= link_to 'Edit', edit_backup_path(backup) %></td>
+    <td><%= link_to 'Destroy', backup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Backup', new_backup_path %>

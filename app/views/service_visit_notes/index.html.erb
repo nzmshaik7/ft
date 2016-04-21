@@ -1,0 +1,27 @@
+<h1>Listing service_visit_notes</h1>
+
+<table>
+  <tr>
+    <th>Service visit</th>
+    <th>User</th>
+    <th>Note</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @service_visit_notes.each do |service_visit_note| %>
+  <tr>
+    <td><%= service_visit_note.service_visit_id %></td>
+    <td><%= service_visit_note.user_id %></td>
+    <td><%= service_visit_note.note %></td>
+    <td><%= link_to 'Show', service_visit_note %></td>
+    <td><%= link_to 'Edit', edit_service_visit_note_path(service_visit_note) %></td>
+    <td><%= link_to 'Destroy', service_visit_note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Service visit note', new_service_visit_note_path %>

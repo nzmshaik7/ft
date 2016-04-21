@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Table name:</b>
+  <%= @backup.table_name %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @backup.user_id %>
+</p>
+
+<p>
+  <b>Info:</b>
+  <%= @backup.info %>
+</p>
+
+
+<%= link_to 'Edit', edit_backup_path(@backup) %> |
+<%= link_to 'Back', backups_path %>
