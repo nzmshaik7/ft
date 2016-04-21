@@ -119,7 +119,7 @@ def totprofpie(req, lines, fname, isLoss):
                                        (deltadol, 100.0 * delta / totalf) ]
     fig = plt.figure(figsize=(4.08,4))
 
-    plt.pie(sizes, labels=labels, colors=colors, labeldistance=0.35, 
+    plt.pie(sizes, labels=labels, colors=colors, labeldistance=0.40, 
                    shadow=True)
     # Set aspect ratio to be equal so that pie is drawn as a circle.
     plt.axis('equal')
