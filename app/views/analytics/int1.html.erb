@@ -745,7 +745,33 @@
     <div class="payhistbox2">
       <center>
       <B>Club Fees Only</B><br>
-      <img src="<%= @graphUrls['clubfeespie'] %>">
+      <table class="nopad"><tr>
+        <td>
+          <table class="nopad">
+            <% xgap = false %>
+            <% for lgn in @clubFeesLegend %>
+              <% if xgap %>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              <% end %>
+              <tr>
+                <td bgcolor="<%= lgn[:color] %>">&nbsp; &nbsp;</td>
+                <td>
+                  <%= lgn[:label] %><br>
+                  <%= number_to_currency(lgn[:amount]) %><br>
+                  <%= sprintf("%.1f", lgn[:percent])%>%
+                </td>
+              </tr>
+              <% xgap = true %>
+            <% end %>
+          </table>
+        </td>
+        <td>
+          <img src="<%= @graphUrls['clubfeespie'] %>">
+        </td>
+      </tr></table>
       </center>
     </div>
   </div>

@@ -249,8 +249,31 @@ class AnalyticsController < ApplicationController
 
         ll = LocalLogger.new('/tmp/gengraph.txt')
         gg = Gengraph.new(ll)
+
+        # Club fees pie chart
         gg.clubFeesPie(@vehicle, @membClubFees, @membScheduled,
                                                 @membUnscheduled)
+        grossProfit = @membClubFees - (@membScheduled + @membUnscheduled)
+        totalf = @membScheduled + @membUnscheduled + grossProfit.abs
+        @clubFeesLegend = Array.new
+        @clubFeesLegend.push( { :color => '#c040ff', :label => 'Unscheduled', 
+                                :percent => 100.0 * @membUnscheduled / totalf,
+                                :amount => @membUnscheduled } )
+        @clubFeesLegend.push( { :color => '#87cefa', :label => 'Scheduled', 
+                                :percent => 100.0 * @membScheduled / totalf,
+                                :amount => @membScheduled } )
+        if grossProfit < 0.0
+            color3 = '#ff4040'
+            label3 = 'Gross Loss'
+        else
+            color3 = '#40ff40'
+            label3 = 'Gross Profit'
+        end
+        @clubFeesLegend.push( { :color => color3, :label => label3, 
+                                :percent => 100.0 * grossProfit.abs / totalf,
+                                :amount => grossProfit.abs } )
+
+        # Total Vehicle Profitability pie chart
         gg.profitabilityPie(@vehicle, @totalIncome, @totalPartsCost, 
                                                     @totalLaborCost) 
 
