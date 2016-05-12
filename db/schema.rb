@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150920003237) do
+ActiveRecord::Schema.define(:version => 20160421134422) do
 
   create_table "automatic_data_link_infos", :force => true do |t|
     t.integer  "vehicle_id"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(:version => 20150920003237) do
     t.text     "data"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "backups", :force => true do |t|
+    t.string   "table_name"
+    t.integer  "user_id"
+    t.text     "info"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "bg_system_covereds", :force => true do |t|
@@ -443,6 +451,14 @@ ActiveRecord::Schema.define(:version => 20150920003237) do
     t.integer  "image_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "service_visit_notes", :force => true do |t|
+    t.integer  "service_visit_id"
+    t.integer  "user_id"
+    t.text     "note"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "service_visits", :force => true do |t|
