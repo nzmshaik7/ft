@@ -26,6 +26,12 @@ def opAndFile(lines):
 
 
 def clubfees(req, lines, fname, isLoss):
+    labelStyle = 'none'
+    labelStyle = 'pct'
+    labelStyle = 'big'
+    labelStyle = 'small'
+    labelDist = 0.65
+
     # The slices will be ordered and plotted counter-clockwise.
     if not fname:
         req.sendall("Missing clubfees filename\n")
@@ -51,25 +57,47 @@ def clubfees(req, lines, fname, isLoss):
     sizes = [ unschedf, schedf, deltaf ]
 
     if isLoss:
-        colors = [ '#c040ff', 'lightskyblue', '#ff4040' ]
-        labels = [ "Unscheduled\n%s\n%1.1f%%" % 
+        colors = [ '#c040ff', '#87cefa', '#ff4040' ]
+        if labelStyle == 'big':
+            labels = [ "Unscheduled\n%s\n%1.1f%%" % 
                                        (unscheddol, 100.0 * unschedf / totalf), 
-                   "Scheduled\n%s\n%1.1f%%" % 
+                       "Scheduled\n%s\n%1.1f%%" % 
                                        (scheddol, 100.0 * schedf / totalf), 
-                   "Gross Loss\n%s\n%1.1f%%" % 
+                       "Gross Loss\n%s\n%1.1f%%" % 
                                        (deltadol, 100.0 * deltaf / totalf) ]
+        elif labelStyle == 'pct':
+            labels = [ "%1.1f%%" % (100.0 * unschedf / totalf), 
+                       "%1.1f%%" % (100.0 * schedf / totalf), 
+                       "%1.1f%%" % (100.0 * deltaf / totalf) ]
+        elif labelStyle == 'none':
+            labels = [ " ", " ", " " ]
+        else:
+            labels = [ "Unsch\n%1.1f%%" % (100.0 * unschedf / totalf), 
+                       "Sched\n%1.1f%%" % (100.0 * schedf / totalf), 
+                       "Gr Loss\n%1.1f%%" % (100.0 * deltaf / totalf) ]
     else:
-        colors = [ '#c040ff', 'lightskyblue', 'green' ]
-        labels = [ "Unscheduled\n%s\n%1.1f%%" % 
+        colors = [ '#c040ff', '#87cefa', '#40ff40' ]
+        if labelStyle == 'big':
+            labels = [ "Unscheduled\n%s\n%1.1f%%" % 
                                        (unscheddol, 100.0 * unschedf / totalf), 
-                   "Scheduled\n%s\n%1.1f%%" % 
+                       "Scheduled\n%s\n%1.1f%%" % 
                                        (scheddol, 100.0 * schedf / totalf), 
-                   "Gross Profit\n%s\n%1.1f%%" % 
+                       "Gross Profit\n%s\n%1.1f%%" % 
                                        (deltadol, 100.0 * deltaf / totalf) ]
+        elif labelStyle == 'pct':
+            labels = [ "%1.1f%%" % (100.0 * unschedf / totalf), 
+                       "%1.1f%%" % (100.0 * schedf / totalf), 
+                       "%1.1f%%" % (100.0 * deltaf / totalf) ]
+        elif labelStyle == 'none':
+            labels = [ " ", " ", " " ]
+        else:
+            labels = [ "Unsch\n%1.1f%%" % (100.0 * unschedf / totalf), 
+                       "Sched\n%1.1f%%" % (100.0 * schedf / totalf), 
+                       "Gr Prof\n%1.1f%%" % (100.0 * deltaf / totalf) ]
     # explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
     fig = plt.figure(figsize=(4,4))
 
-    plt.pie(sizes, labels=labels, colors=colors, labeldistance=0.35, 
+    plt.pie(sizes, labels=labels, colors=colors, labeldistance=labelDist, 
                    shadow=True)
     # Set aspect ratio to be equal so that pie is drawn as a circle.
     plt.axis('equal')
@@ -110,7 +138,7 @@ def totprofpie(req, lines, fname, isLoss):
                    "Net Loss\n%s\n%1.1f%%" % 
                                        (deltadol, 100.0 * delta / totalf) ]
     else:
-        colors = [ '#ffffd0', '#c0d0ff', 'green' ]
+        colors = [ '#ffffd0', '#c0d0ff', '#40ff40' ]
         labels = [ "Labor Cost\n%s\n%1.1f%%" % 
                                        (laborDol, 100.0 * totLabor / totalf), 
                    "Parts Cost\n%s\n%1.1f%%" % 
