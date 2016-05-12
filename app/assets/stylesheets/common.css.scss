@@ -1,6 +1,21 @@
 /* 4 numbers are: top, right, btm, left  */
 
-table.navtab { padding: 4px 10px 4px 10px; background-color: #E0E0E8; }
+table.navtab { 
+    padding: 0px 10px 0px 10px;
+    background-color: #ffffff;   /* Shows under image on chrome */
+    background-image: url(/assets/gen/bgtile5.png); 
+    background-repeat: repeat-x;
+    a:link { color: #016082; background-color: transparent; }
+    a:visited { color: #014062; background-color: transparent; }
+    a:hover { color: #0160a2; background-color: transparent; }
+    a:active { color: blue; background-color: transparent; }
+}
+td.navtablogo { 
+    padding: 0px 0px 0px 0px;
+    background-image: url(/assets/gen/ftlogo5.png); 
+    background-repeat: no-repeat;
+    background-position: center;
+}
 .genfloatr { float: right; }
 .endfloat { clear: both; }
 
