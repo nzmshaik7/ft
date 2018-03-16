@@ -2,6 +2,7 @@
 
 <table border="1" class="ft_dbtab">
   <tr bgcolor="#F0FFF0">
+    <th> Store Name </th>
     <th>Begin date</th>
     <th>Number</th>
     <th>Status</th>
@@ -16,7 +17,8 @@
 
 <% @contracts.each do |contract| %>
   <tr>
-    <td><%= contract.begin_date.strftime("%b %d, %Y") %></td>
+    <td><%= contract.store_id %> </td>
+    <td><%= contract.begin_date.strftime("%b %d, %Y") unless contract.begin_date.nil?%></td>
     <td><%= contract.number %></td>
     <td><%= contract.statusText %></td>
     <td>

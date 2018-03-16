@@ -1,6 +1,6 @@
 class SalespeopleController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @employees = Employee.all
@@ -53,7 +53,7 @@ class SalespeopleController < ApplicationController
     # POST /salespeople
     # POST /salespeople.json
     def create
-        @salesperson = Salesperson.new(params[:salesperson])
+        @salesperson = Salesperson.new(params.require(:salesperson).permit(:employee_id))
 
         respond_to do |format|
             if @salesperson.save
@@ -74,7 +74,7 @@ class SalespeopleController < ApplicationController
         @salesperson = Salesperson.find(params[:id])
 
         respond_to do |format|
-            if @salesperson.update_attributes(params[:salesperson])
+            if @salesperson.update_attributes(params.require(:salesperson).permit(:employee_id))
                 format.html { redirect_to salespeople_url,
                               notice: 'Salesperson was successfully updated.' }
                 format.json { head :no_content }

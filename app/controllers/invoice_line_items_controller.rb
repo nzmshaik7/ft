@@ -1,6 +1,6 @@
 class InvoiceLineItemsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @invoices = Invoice.all
@@ -69,7 +69,7 @@ class InvoiceLineItemsController < ApplicationController
     # POST /invoice_line_items
     # POST /invoice_line_items.json
     def create
-        @invoice_line_item = InvoiceLineItem.new(params[:invoice_line_item])
+        @invoice_line_item = InvoiceLineItem.new(params.require(:invoice_line_item).permit(:amount, :description, :invoice_id, :line_item_purpose_id, :service_visit_id, :vehicle_id))
 
         respond_to do |format|
             if @invoice_line_item.save
@@ -90,7 +90,7 @@ class InvoiceLineItemsController < ApplicationController
         @invoice_line_item = InvoiceLineItem.find(params[:id])
 
         respond_to do |format|
-            if @invoice_line_item.update_attributes(params[:invoice_line_item])
+            if @invoice_line_item.update_attributes(params.require(:invoice_line_item).permit(:amount, :description, :invoice_id, :line_item_purpose_id, :service_visit_id, :vehicle_id))
                 format.html { redirect_to invoice_line_items_url,
                               notice: 'InvoiceLineItem was successfully updated.' }
                 format.json { head :no_content }

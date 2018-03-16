@@ -1,6 +1,6 @@
 class WheelDrivesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /wheel_drives
     # GET /wheel_drives.json
@@ -43,7 +43,7 @@ class WheelDrivesController < ApplicationController
     # POST /wheel_drives
     # POST /wheel_drives.json
     def create
-        @wheel_drive = WheelDrive.new(params[:wheel_drive])
+        @wheel_drive = WheelDrive.new(params.require(:wheel_drive).permit(:name))
 
         respond_to do |format|
             if @wheel_drive.save
@@ -63,7 +63,7 @@ class WheelDrivesController < ApplicationController
         @wheel_drive = WheelDrive.find(params[:id])
 
         respond_to do |format|
-            if @wheel_drive.update_attributes(params[:wheel_drive])
+            if @wheel_drive.update_attributes(params.require(:wheel_drive).permit(:name))
                 format.html { redirect_to wheel_drives_url,
                               notice: 'WheelDrive was successfully updated.' }
                 format.json { head :no_content }

@@ -1,6 +1,6 @@
 class ColorsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /colors
     # GET /colors.json
@@ -43,7 +43,7 @@ class ColorsController < ApplicationController
     # POST /colors
     # POST /colors.json
     def create
-        @color = Color.new(params[:color])
+        @color = Color.new(params.require(:color).permit(:name))
 
         respond_to do |format|
             if @color.save
@@ -63,7 +63,7 @@ class ColorsController < ApplicationController
         @color = Color.find(params[:id])
 
         respond_to do |format|
-            if @color.update_attributes(params[:color])
+            if @color.update_attributes(params.require(:color).permit(:name))
                 format.html { redirect_to colors_url,
                               notice: 'Color was successfully updated.' }
                 format.json { head :no_content }

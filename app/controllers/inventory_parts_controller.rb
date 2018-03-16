@@ -1,6 +1,6 @@
 class InventoryPartsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @purchaseOrders = PurchaseOrder.all
@@ -11,6 +11,9 @@ class InventoryPartsController < ApplicationController
         @partCollect = @parts.collect { |p|
             [ p.id.to_s + ':' + p.part_name.name, p.id ] 
         }
+    end
+    def purchase_order_params
+	params.require(:purchase_order).permit(:date_time, :po_number, :vendor_id)
     end
 
 
@@ -63,7 +66,8 @@ class InventoryPartsController < ApplicationController
     # POST /inventory_parts
     # POST /inventory_parts.json
     def create
-        @inventory_part = InventoryPart.new(params[:inventory_part])
+        @inventory_part = InventoryPart.new(params.require(:inventory_part).permit(:part_actual_price, :part_id, :purchase_order_id, :quantity)
+)
 
         respond_to do |format|
             if @inventory_part.save
@@ -88,7 +92,8 @@ class InventoryPartsController < ApplicationController
         @inventory_part = InventoryPart.find(params[:id])
 
         respond_to do |format|
-            if @inventory_part.update_attributes(params[:inventory_part])
+            if @inventory_part.update_attributes(params.require(:inventory_part).permit(:part_actual_price, :part_id, :purchase_order_id, :quantity)
+)
                 format.html { redirect_to inventory_parts_url,
                             notice: 'Inventory part was successfully updated.' }
                 format.json { head :no_content }

@@ -1,6 +1,6 @@
 class CountiesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @states = State.all
@@ -54,7 +54,7 @@ class CountiesController < ApplicationController
     # POST /counties
     # POST /counties.json
     def create
-        @county = County.new(params[:county])
+        @county = County.new(params.require(:county).permit(:name, :state_id))
 
         respond_to do |format|
             if @county.save
@@ -75,7 +75,7 @@ class CountiesController < ApplicationController
         @county = County.find(params[:id])
 
         respond_to do |format|
-            if @county.update_attributes(params[:county])
+            if @county.update_attributes(params.require(:county).permit(:name, :state_id))
                 format.html { redirect_to counties_url,
                               notice: 'County was successfully updated.' }
                 format.json { head :no_content }

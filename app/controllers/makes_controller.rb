@@ -1,6 +1,6 @@
 class MakesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /makes
     # GET /makes.json
@@ -43,7 +43,7 @@ class MakesController < ApplicationController
     # POST /makes
     # POST /makes.json
     def create
-        @make = Make.new(params[:make])
+        @make = Make.new(params.require(:make).permit(:name))
 
         respond_to do |format|
             if @make.save
@@ -63,7 +63,7 @@ class MakesController < ApplicationController
         @make = Make.find(params[:id])
 
         respond_to do |format|
-            if @make.update_attributes(params[:make])
+            if @make.update_attributes(params.require(:make).permit(:name))
                 format.html { redirect_to makes_url,
                               notice: 'Make was successfully updated.' }
                 format.json { head :no_content }

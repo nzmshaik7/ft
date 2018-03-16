@@ -1,6 +1,6 @@
 class WrittenTestimoniesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /written_testimonies
     # GET /written_testimonies.json
@@ -48,7 +48,7 @@ class WrittenTestimoniesController < ApplicationController
     # POST /written_testimonies
     # POST /written_testimonies.json
     def create
-        @written_testimony = WrittenTestimony.new(params[:written_testimony])
+        @written_testimony = WrittenTestimony.new(params.require(:written_testimony).permit(:user_text))
 
         respond_to do |format|
             if @written_testimony.save
@@ -68,7 +68,7 @@ class WrittenTestimoniesController < ApplicationController
         @written_testimony = WrittenTestimony.find(params[:id])
 
         respond_to do |format|
-            if @written_testimony.update_attributes(params[:written_testimony])
+            if @written_testimony.update_attributes(params.require(:written_testimony).permit(:user_text))
                 format.html { redirect_to written_testimonies_url,
                               notice: 'WrittenTestimony was successfully updated.' }
                 format.json { head :no_content }

@@ -1,6 +1,6 @@
 class InventoriesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @stores = Store.all
@@ -57,7 +57,8 @@ class InventoriesController < ApplicationController
     # POST /inventories
     # POST /inventories.json
     def create
-        @inventory = Inventory.new(params[:inventory])
+        @inventory = Inventory.new(params.require(:inventory).permit(:count, :part_id, :store_id)
+)
 
         respond_to do |format|
             if @inventory.save
@@ -78,7 +79,8 @@ class InventoriesController < ApplicationController
         @inventory = Inventory.find(params[:id])
 
         respond_to do |format|
-            if @inventory.update_attributes(params[:inventory])
+            if @inventory.update_attributes(params.require(:inventory).permit(:count, :part_id, :store_id)
+)
                 format.html { redirect_to inventories_url,
                               notice: 'Inventory was successfully updated.' }
                 format.json { head :no_content }

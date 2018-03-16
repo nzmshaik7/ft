@@ -98,13 +98,18 @@
     <%= f.label :is_web_registered %>:
     <%= f.check_box :is_web_registered %>
   </div>
+
+
+<% if false %>
   <div class="field">
-    <%= f.label :spouse_name %>:
-    <%= f.text_field :spouse_name %>
-    &nbsp; &nbsp; 
-    <%= f.label :spouse_id, 'Spouse if Customer' %>:
-    <%= select("customer", "spouse_id", @customerCollect,
+  <%= f.label :spouse_name, 'Spouse Name:'%>: <font color="#800000">*</font>
+  <%= f.text_field :spouse_name, :size => 14 %>
+  &nbsp; &nbsp; 
+  <%= f.label :spouse_id, 'Spouse if Customer' %>:<font color="#800000">*</font>
+  <%= select("customer", "spouse_id", @customerCollect,
                                                   {prompt: 'Select Spouse'}) %>
+<% end %>
+
   </div>
   <div class="field">
     <%= f.label :signup_store_id, 'Signup Store' %>:

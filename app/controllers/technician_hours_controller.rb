@@ -1,7 +1,7 @@
 class TechnicianHoursController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew_for_sli, :gfedit_for_th, ]
-    before_filter :gf_area,       :only   => [:gfnew_for_sli, :gfedit_for_th, ]
+    before_action :database_area, :except => [:gfnew_for_sli, :gfedit_for_th, ]
+    before_action :gf_area,       :only   => [:gfnew_for_sli, :gfedit_for_th, ]
     include ApplicationHelper
 
 
@@ -123,7 +123,9 @@ class TechnicianHoursController < ApplicationController
     # POST /technician_hours
     # POST /technician_hours.json
     def create
-        @technician_hour = TechnicianHour.new(params[:technician_hour])
+        @technician_hour = TechnicianHour.new(params.require(:technician_hour).permit(:labor_hours_actual, :labor_hours_retail, 
+                    :labor_rate_actual, :labor_rate_retail, 
+    		    :service_line_item_id, :technician_id))
         ok = validateTechnicianHour?(@technician_hour)
         okUrl, errAction = setSaveAction('new', technician_hours_url)
         successMsg = 'Technician Hours was successfully created.'
@@ -159,7 +161,9 @@ class TechnicianHoursController < ApplicationController
         @technician_hour = TechnicianHour.find(params[:id])
 
         respond_to do |format|
-            @technician_hour.assign_attributes(params[:technician_hour])
+            @technician_hour.assign_attributes(params.require(:technician_hour).permit(:labor_hours_actual, :labor_hours_retail, 
+                    :labor_rate_actual, :labor_rate_retail, 
+    		    :service_line_item_id, :technician_id))
             parok = validateTechnicianHour?(@technician_hour)
             okUrl, errAction = setSaveAction('edit', technician_hours_url)
             if params[:returnToSv] or params[:editToSv]

@@ -10,7 +10,7 @@
 
 <% @ts_band_recalls.each do |ts_band_recall| %>
   <tr>
-    <td><%= ts_band_recall.vehicle.ymmpText %></td>
+    <td><%= ts_band_recall.vehicle.ymmpText unless ts_band_recall.vehicle.nil? %></td>
     <td><%= ts_band_recall.name %></td>
     <td>
       <% if ts_band_recall.date_completed %>

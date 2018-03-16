@@ -1,6 +1,6 @@
 class QualificationsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
     include QualificationsHelper
 
     def prepFormVariables(qual)
@@ -87,7 +87,11 @@ class QualificationsController < ApplicationController
     # POST /qualifications
     # POST /qualifications.json
     def create
-        @qualification = Qualification.new(params[:qualification])
+        @qualification = Qualification.new(params.require(:qualification).permit(:alignment_report_images_id, :cylinder_compression_spec,
+                    :cylinder_compression_tolerance,
+                    :leakdown, :qdate, :qual_report_images_id,
+                    :service_visit_id, :sixgas_report_images_id,
+                    :spectrum_report_images_id))
         if @qualification.save
             saveCompressions(@qualification)
             ok = true
@@ -115,7 +119,11 @@ class QualificationsController < ApplicationController
         saveCompressions(@qualification)
 
         respond_to do |format|
-            if @qualification.update_attributes(params[:qualification])
+            if @qualification.update_attributes(params.require(:qualification).permit(:alignment_report_images_id, :cylinder_compression_spec,
+                    :cylinder_compression_tolerance,
+                    :leakdown, :qdate, :qual_report_images_id,
+                    :service_visit_id, :sixgas_report_images_id,
+                    :spectrum_report_images_id))
                 format.html { redirect_to qualifications_url,
                               notice: 'Qualification was successfully updated.' }
                 format.json { head :no_content }

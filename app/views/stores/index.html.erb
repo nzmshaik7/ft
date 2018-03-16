@@ -27,7 +27,7 @@
     <td><%= store.city %></td>
     <td><%= store.state.name %></td>
     <td><%= store.county.name %></td>
-    <td><%= store.region.name %></td>
+    <td><%= store.region.name unless store.region.nil?%></td>
     <td><%= store.zip %></td>
     <td><%= store.phone %></td>
     <td><%= store.number_of_lifts %></td>

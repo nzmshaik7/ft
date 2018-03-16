@@ -1,6 +1,6 @@
 class TireTdReadingsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @vehicles = Vehicle.all
@@ -53,7 +53,7 @@ class TireTdReadingsController < ApplicationController
     # POST /tire_td_readings
     # POST /tire_td_readings.json
     def create
-        @tire_td_reading = TireTdReading.new(params[:tire_td_reading])
+        @tire_td_reading = TireTdReading.new(params.require(:tire_td_reading).permit(:depth32nds, :tdate, :vehicle_id))
 
         respond_to do |format|
             if @tire_td_reading.save
@@ -74,7 +74,7 @@ class TireTdReadingsController < ApplicationController
         @tire_td_reading = TireTdReading.find(params[:id])
 
         respond_to do |format|
-            if @tire_td_reading.update_attributes(params[:tire_td_reading])
+            if @tire_td_reading.update_attributes(params.require(:tire_td_reading).permit(:depth32nds, :tdate, :vehicle_id))
                 format.html { redirect_to tire_td_readings_url,
                               notice: 'TireTdReading was successfully updated.' }
                 format.json { head :no_content }

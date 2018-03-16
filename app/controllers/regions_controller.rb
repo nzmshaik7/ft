@@ -1,6 +1,6 @@
 class RegionsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @states = State.all
@@ -54,7 +54,8 @@ class RegionsController < ApplicationController
     # POST /regions
     # POST /regions.json
     def create
-        @region = Region.new(params[:region])
+        @region = Region.new(params.require(:region).permit(:name, :state_id)
+)
 
         respond_to do |format|
             if @region.save
@@ -75,7 +76,8 @@ class RegionsController < ApplicationController
         @region = Region.find(params[:id])
 
         respond_to do |format|
-            if @region.update_attributes(params[:region])
+            if @region.update_attributes(params.require(:region).permit(:name, :state_id)
+)
                 format.html { redirect_to regions_url,
                               notice: 'Region was successfully updated.' }
                 format.json { head :no_content }

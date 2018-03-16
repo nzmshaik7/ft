@@ -1,0 +1,394 @@
+
+<div class="navframe">
+  <font color="#000080">
+    <B><I>FUTURETECH ANALYTICS</I></B>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    <a href="/top/analytics">Home</a> &nbsp; 
+    | &nbsp; <a href="/vehicles/search_int1">Search Vehicles</a> &nbsp; 
+    | &nbsp;<a href="/vehicles/search_int2"> All Vehicles</a> &nbsp; 
+    | &nbsp; Search Customers &nbsp; | &nbsp; Stores &nbsp; 
+    | &nbsp; Demographics &nbsp; | &nbsp; Help
+  </font>
+</div>
+
+<div class="periodframe">
+ <h1> Vehicle Statistics wrt different entities </h1>
+
+
+
+<% if false %>
+ <h2> Choose Statistic </h2>
+ <input type="radio" name="select_mode" value"color_count">
+	Color
+ &nbsp; &nbsp;
+ <input type="radio" name="select_mode" value="enginedisp_count">
+	Engine Displacement
+ &nbsp; &nbsp;
+ <input type="button" onclick="select_mode" name="submit" value="submit">
+
+<% end %>
+ 
+</div>
+
+
+
+<div class="vehtopframe">
+
+<div class="carbox">
+
+	<div class="vehicle_pl">
+		<table width=100%>
+		<tr>
+			<th width=20%>
+				<h3 align="right"> #Vehicles in Profit = <%= @more_less[0] %> </h3>
+			</th>
+			<th width=60%>
+			
+				<h2 align="center"> <font size ="4" color="green"> Cummulative Profit/Loss = <%=  @total_pl[0] %> </font></h2>
+			
+		
+				<h3 align="center"> Average Profit/Loss = <%=  @total_pl[1].round(3) %> </h3>
+			
+			</th>
+			<th width=20%>
+				<h3 align="left"> #Vehicles in Loss = <%= @more_less[1] %> </h3>
+			</th>
+		</tr>
+		</table>
+		<div class="boxhdr">
+			<b>Vehicles with Highest profit and Highest Loss</b>
+		</div>
+		<table border="3" width=100%>
+		
+			<tr>
+				<th> PROFIT/LOSS </th>
+				<th> VIN</th>
+				<th> Contract Number-Customer Name</th>
+				<th> Make-Model-Year</th>
+				<th> Total Parts Cost</th>
+				<th> Total Labor Cost </th>
+				<th> Total Revenue </th>
+				<th> Profit/Loss Value</th>
+				<th> Profit/Loss %	</th>
+				<th> More/Less than average </th>
+				<th> More/Less than total </th>
+				<th> Profit/Loss Yield </th>
+			</tr>
+		
+			<tr bgcolor="green" style="color:white">
+				<td> <b>PROFIT </b></td>
+				<td><%= @pl[0].vin if @pl[0]!=0 %></td>
+				<td><%=  @pl[0].vehicle_id if @pl[0]!=0 %></td>
+				<td><%= @pl[0].make.name if @pl[0]!=0 %>-<% if @pl[0]!=0 %><%=  @pl[0].model.name unless @pl[0].model.nil? %> <%end %></td>
+				<td><%= @pl[0].vehicle_parts_actual_cost if @pl[0]!=0 %></td>
+				<td><%= @pl[0].vehicle_labor_actual_cost if @pl[0]!=0 %></td>
+				<td><%= @pl[0].vehicle_revenue  if @pl[0]!=0 %></td>
+				<td><%= @pl[0].profit_loss if @pl[0]!=0 %></td>
+				<td><%= @pl[2].round(3) if @pl[0]!=0 %></td> 
+				<td><%= @pl[4].round(3) if @pl[0]!=0 %></td>
+				<td><%= @pl[5].round(3) if @pl[0]!=0  %></td>
+				<td> TBC </td>
+			</tr>
+			<tr bgcolor="red" style="color:white">
+				<td> <b>LOSS </b></td>
+				<td><%= @pl[1].vin if @pl[1]!=0 %></td>
+				<td><%= @pl[1].vehicle_id if @pl[1]!=0 %></td>
+				<td><%= @pl[1].make.name if @pl[1]!=0 %>-<% if @pl[1]!=0 %><%=  @pl[1].model.name unless @pl[1].model.nil? %> <%end %></td>
+				<td><%= @pl[1].vehicle_parts_actual_cost if @pl[1]!=00 %></td>
+				<td><%= @pl[1].vehicle_labor_actual_cost if @pl[1]!=00 %></td>
+				<td><%= @pl[1].vehicle_revenue if @pl[1]!=0 %></td>
+				<td><%= @pl[1].profit_loss if @pl[1]!=0 %></td>
+				<td><%= @pl[3].round(3) if @pl[1]!=0 %></td> 
+				<td><%= @pl[6].round(3) if @pl[1]!=0 %></td>
+				<td><%= @pl[7].round(3) if @pl[1]!=0 %></td>
+				<td> TBC </td>
+			</tr>
+		
+		</table>
+	</div>
+
+	<div class="veh_pl">
+
+		<table border="5" width=100%>
+		<tr>
+			<td width=60%>
+				<div class="Boxhdr" >
+					<iframe src="/vehicles/search_int2" width="100%" height="400">
+        					alternative content for browsers which do not support iframe.
+    					</iframe>
+				</div>
+			</td>
+
+			<td width=40% >
+				<div class="Boxhdr">
+						<iframe src="/contracts/search_plan_vehicles" width="100%" height="400">
+        						alternative content for browsers which do not support iframe.
+    						</iframe>
+				</div>
+	
+			
+			</td>
+		</tr>
+		<tr>
+
+			<td width=60%>
+				<div class="Boxhdr">
+					<iframe src="/vehicles/vehicle_to_service_visits" width="100%" height="400">
+        					alternative content for browsers which do not support iframe.
+    					</iframe>
+				</div>
+			</td>
+
+			<td width=40%>
+				<div class="Boxhdr">
+					<iframe src="/analytics/pie_mileagediff" width="600" height="400">
+        					alternative content for browsers which do not support iframe.
+    					</iframe>
+				</div>
+			</td>
+		</tr>
+		</table>
+	
+	</div>
+	
+	<div class="veh_pl" select_mode ="color_count" >
+   		 <div class="boxhdr">
+     			 <B>Car Count wrt COLORS</B>
+    	 		 </br>
+     			<tr><td>
+				<a id="cust1id" class="show_hide_popover" 
+				 title="Color Count" 
+			   	 data-placement="center" data-trigger="focus" 
+				 tabindex="0" href='#'>Show Table</a>
+			 	 <a id="xcust1id" class='hide_popover' href='#'>Hide Table</a>
+			</td></tr>
+
+   		</div>
+
+  		<% @k = @bar_int2.keys %>
+   		<% @v = @bar_int2.values %>
+  		<div id="cust1id_div" style="display:none" >
+	
+			<table border="3" cellpadding="10" text-align="center">
+				<tr>
+					<th  align="center" width="70%"> Color  </th>
+					<th  align="center" width="30%"> Count </th>
+     				</tr>
+	
+				<% @k.each_with_index do |name,index| %>
+					<tr>
+						<td align="center" width="70%"> <%= name  %></td>
+						<td align="center" width="30%"> <%= @v[index]  %> </td>
+					</tr>
+				<% end %>
+			</table>
+	
+   		</div>
+
+
+    		<iframe src="/analytics/bar_int2" width=100% height="400">
+   	 		   	alternative content for browsers which do not support iframe.
+   		 </iframe>
+	</div>
+
+	<div class="veh_pl" width=100%>
+   		 <div class="boxhdr">
+      			<B>Car Count wrt Car make</B>
+			</br>
+     			<tr><td>
+				<a id="cust5id" class="show_hide_popover" 
+     				title="Car Makes" 
+	     			data-placement="right" data-trigger="focus" 
+	    			tabindex="0" href='#'>Show Table</a>
+	  			<a id="xcust5id" class='hide_popover' href='#'>Hide Table</a>
+			</td></tr>
+  		</div>
+    		<% @k = @bar_int5.keys %>
+    		<% @v = @bar_int5.values %>
+    		<div id="cust5id_div" style="display:none">
+			<table border="3">
+				<tr>
+					<th  align="center" width="70%"> Make  </th>
+					<th  align="center" width="30%"> Count </th>
+     				</tr>
+			<% @k.each_with_index do |name,index| %>
+				<tr>
+					<td align="center" width="70%"> <%= name  %></td>
+					<td align="center" width="30%"> <%= @v[index]  %> </td>
+				</tr>
+			<% end %>
+			</table>
+	         </div>
+    
+   		 <iframe src="/analytics/bar_int5" width=100% height="500">
+        		alternative content for browsers which do not support iframe.
+    		</iframe>
+	</div>
+	<div class="veh_pl">
+		<div class="carbox" width=50%>
+				<div class="boxhdr">
+     					 <B>Car Count wrt Engine Cylinders</B>
+      					 </br>
+      					 <tr>
+						<td>
+	 					 <a id="cust6id" class="show_hide_popover" 
+	    					 title="Engine Cylinders" 
+	    					 data-placement="right" data-trigger="focus" 
+	    					 tabindex="1" href='#'>Show Table</a>
+	 					 <a id="xcust6id" class='hide_popover' href='#'>Hide Table</a>
+						</td>
+					</tr>
+    				</div>
+  				<% @k = @bar_int4.keys %>
+    				<% @v = @bar_int4.values %>
+    				<div id="cust6id_div" style="display:none">
+				<table border="3">
+					<tr>
+						<th  align="center" width="70%"> Engine Cylinder  </th>
+						<th  align="center" width="30%"> Count </th>
+     					</tr>
+					<% @k.each_with_index do |name,index| %>
+					<tr>
+						<td align="center" width="70%"> <%= name  %></td>
+						<td align="center" width="30%"> <%= @v[index]  %> </td>
+					</tr>
+					<% end %>
+				</table>
+   				</div>
+    
+    				<iframe src="/analytics/bar_int4" width=100% height="300">
+        				alternative content for browsers which do not support iframe.
+    				</iframe>
+		</div>
+
+		<div class="carbox" select_mode ="enginedisp_count" width=50%>
+    				<div class="boxhdr">
+      					<B>Car Count wrt Engine Displacement</B>
+      					</br>
+				<table>
+      					<tr>
+						<td>
+	  						<a id="cust2id" class="show_hide_popover" 
+	     						title="Engine Disp" 
+	     						data-placement="right" data-trigger="focus" 
+	     						tabindex="0" href='#'>Show Table</a>
+	  						<a id="xcust2id" class='hide_popover' href='#'>Hide Table</a>
+						</td>
+					</tr>
+				</table>
+    				</div>
+    				<% @k = @bar_int3.keys %>
+    				<% @v = @bar_int3.values %>
+
+    				<div id="cust2id_div" style="display:none">
+				<table border="3">
+					<tr>
+						<th  align="center" width="70%"> Engine Disp  </th>
+						<th  align="center" width="30%"> Count </th>
+     					</tr>
+					<% @k.each_with_index do |name,index| %>
+					<tr>
+						<td align="center" width="70%"> <%= name  %></td>
+						<td align="center" width="30%"> <%= @v[index]  %> </td>
+					</tr>
+					<% end %>
+				</table>
+   			 	</div>
+
+    				<iframe src="/analytics/bar_int3" width=100% height="300">
+        				alternative content for browsers which do not support iframe.
+    				</iframe>
+		</div>
+<% if false %>
+
+		<div class="genitembox">
+   			<div class="boxhdr">
+     				<B>&nbsp; Membership Parts and Labor Cost &nbsp;</B>
+      				</br>
+      				<tr><td>
+	  				<a id="cust7id" class="show_hide_popover" 
+	     				title="Engine Cylinders" 
+	     				data-placement="right" data-trigger="focus" 
+	     				tabindex="1" href='#'>Show Table</a>
+	  				<a id="xcust7id" class='hide_popover' href='#'>Hide Table</a>
+				</td></tr>
+    			</div>
+
+    			<% @k = @pie_profit %>
+    			<div id="cust7id_div" style="display:none">
+				<table border="3">
+					<tr>
+						<th  align="center" width="70%"> Entity </th>
+						<th  align="center" width="30%"> Value </th>
+     					</tr>
+					<tr>
+						<td align="center" width="70%"> Parts cost</td>
+						<td align="center" width="30%"> <%= @k[0] %></td>
+					</tr>
+					<tr>
+						<td align="center" width="70%"> Labor cost</td>
+						<td align="center" width="30%"> <%= @k[1] %> </td>
+					</tr>
+					<tr>
+						<td align="center" width="70%"> Net Profit</td>
+						<td align="center" width="30%"> <%= @k[2] %></td>
+					</tr>
+				</table>
+   			 </div>
+
+   			 <div class="gendatabox">
+				<iframe src="/analytics/pie_profit" width="490" height="300">
+        				alternative content for browsers which do not support iframe.
+    				</iframe>
+   			 </div>
+  		</div>
+
+	 	<div class="genitembox">
+    			<div class="boxhdr">
+      				<B>&nbsp; Payment Statistics &nbsp;</B>
+      				</br>
+      				<tr><td>
+	  				<a id="cust8id" class="show_hide_popover" 
+	     				title="Engine Cylinders" 
+	     				data-placement="right" data-trigger="focus"  
+					tabindex="1" href='#'>Show Table</a>
+	  				<a id="xcust8id" class='hide_popover' href='#'>Hide Table</a>
+				</td></tr>
+    			</div>
+    			<% @k = @pie_payment %>
+    			<div id="cust8id_div" style="display:none">
+				<table border="3">
+		 			<tr>
+						<th  align="center" width="70%"> Entity </th>
+						<th  align="center" width="30%"> Value </th>
+     					</tr>
+					<tr>
+						<td align="center" width="70%"> Approved </td>
+						<td align="center" width="30%"> <%= @k[0] %></td>
+					</tr>
+					<tr>
+						<td align="center" width="70%"> Denied </td>
+						<td align="center" width="30%"> <%= @k[1] %> </td>
+					</tr>
+					<tr>
+						<td align="center" width="70%"> Late  </td>
+						<td align="center" width="30%"> <%= @k[2] %></td>
+					</tr>
+				</table>
+    			</div>
+    			<div class="gendatabox">
+
+				<iframe src="/analytics/pie_payment" width="490" height="300">
+        				alternative content for browsers which do not support iframe.
+    				</iframe>
+    			</div>
+ 	 	</div>
+<% end %>
+	</div>
+</div>
+</div>
+
+
+
+
+

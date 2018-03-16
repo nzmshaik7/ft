@@ -1,0 +1,77 @@
+<%= form_for(@service_line_item) do |f| %>
+  <% if @service_line_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@service_line_item.errors.count, "error") %> prohibited this service_line_item from being saved:</h2>
+
+      <ul>
+      <% @service_line_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if defined?(given_visit) %>
+    <input name="service_line_item[service_visit_id]" type="hidden" 
+           value="<%= given_visit.id %>" />
+  <% else %>
+    <div class="field">
+      <%= f.label :service_visit_id %><font color="#800000">*</font><br />
+      <%= select("service_line_item", "service_visit_id", 
+                      @serviceVisitCollect, {prompt: 'Select Service Visit'}) %>
+    </div>
+  <% end %>
+  <blockquote>
+  One or both of the following are required:<font color="#800000">*</font>
+  <div class="field">
+    <%= f.label :service_description_id %><br />
+    <%= select("service_line_item", "service_description_id", 
+                                @serviceDescriptionCollect,
+                                {prompt: 'Select Service Description'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :service_description_text %> (optional)<br />
+    <%= f.text_field :service_description_text %>
+  </div>
+  </blockquote>
+  <div class="field">
+    <%= f.label :labor_hours_retail %><font color="#800000">*</font><br />
+    <%= f.text_field :labor_hours_retail %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_rate_retail %><font color="#800000">*</font><br />
+    <%= f.text_field :labor_rate_retail %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_hours_actual %><font color="#800000">*</font><br />
+    <%= f.text_field :labor_hours_actual %>
+  </div>
+  <div class="field">
+    <%= f.label :labor_rate_actual %><font color="#800000">*</font><br />
+    <%= f.text_field :labor_rate_actual %>
+  </div>
+  <div class="field">
+    <%= f.label :technician1_id %><br />
+    <select id="technician1" name="technician1">
+      <%= options_for_select(@technicianOptions, @selTech1) %>
+    </select> <br />
+    <%= f.label :technician2_id %><br />
+    <select id="technician2" name="technician2">
+      <%= options_for_select(@technicianOptions, @selTech2) %>
+    </select> <br />
+    <%= f.label :technician3_id %><br />
+    <select id="technician3" name="technician3">
+      <%= options_for_select(@technicianOptions, @selTech3) %>
+    </select> <br />
+  <div class="field">
+    <%= f.label :stype, 'Service Type' %>
+    <font color="#800000">* Important - controls profit/loss</font>
+    <br />
+    <select id="service_line_item_stype" name="service_line_item[stype]">
+      <%= options_for_select(@stypeOptions, @selStype) %>
+    </select> <br />
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

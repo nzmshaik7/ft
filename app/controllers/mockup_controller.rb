@@ -3,6 +3,8 @@ class MockupController < ApplicationController
     include ApplicationHelper
     ALLOWED_ROLES = [User::ROLE_ADMIN, User::ROLE_MOCKER]
 
+    
+
     def internal_veh
         return  unless roleValid?(ALLOWED_ROLES, 'mockup')
     end
@@ -110,5 +112,26 @@ class MockupController < ApplicationController
     def bgPaper
         return  unless roleValid?(ALLOWED_ROLES, 'mockup')
     end
+
+    def basic
+        return  unless roleValid?(ALLOWED_ROLES, 'mockup')
+    end
+    
+    def pie
+        return  unless roleValid?(ALLOWED_ROLES, 'mockup')
+    end
+    
+    def bar
+        
+	
+	@parts = Part.find(3)
+	return
+	
+	
+    end
+
+    
+
+
 
 end

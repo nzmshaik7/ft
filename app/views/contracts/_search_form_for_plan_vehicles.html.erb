@@ -1,0 +1,34 @@
+<form accept-charset="UTF-8" action="/contracts/match_for_plan_vehicles" 
+      class="search_vehicles" id="search_vehicles" method="get">
+
+  <input name="authenticity_token" type="hidden" 
+                                    value="<%= form_authenticity_token %>" />
+  <input name="target_cm" type="hidden" value="<%= target_cm %>" />
+  <input name="target_label" type="hidden" value="<%= target_label %>" />
+
+  <% if defined?(isGroundFloor) and isGroundFloor %>
+    <input name="is_ground_floor" type="hidden" value="Y" />
+  <% end %>
+
+  <table border="0">
+    <tr>
+      <td>Select Base Cost</td>
+      <td>
+        <select id="contract_plan" 
+                name="contract[plan]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@baseCostCollect) %>
+        </select>
+	&nbsp; &nbsp; &nbsp;
+      </td>
+
+       <td>
+		<div class="actions">
+   			 <input name="go" type="submit" value="Search" />
+  		</div>
+      </td>
+    </tr>
+    </table>
+
+  
+</form>

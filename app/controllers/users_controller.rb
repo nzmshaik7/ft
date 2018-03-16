@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
 
+
+
+
     include ApplicationHelper
 
 
@@ -15,6 +18,7 @@ class UsersController < ApplicationController
             @selectedRole = 0
         end
     end
+
 
 
     # GET /users
@@ -70,9 +74,12 @@ class UsersController < ApplicationController
     # See FtDevise::RegistrationsController#create
     def create
         return  unless roleValid?([User::ROLE_ADMIN], 'user administration')
-        @user = User.new(params[:user])
+        @user = User.new(params.require(:user).permit(:email, :password, :password_confirmation, :remember_me,:first_name, :last_name, :role))
         setRolesForm(@user)
         @user.role = User::ROLE_CUSTOMER
+	#ok = validateUser?(@user)
+	#okUrl, errAction = setSaveAction('new', users_url)
+
 
         respond_to do |format|
             if @user.save
@@ -94,16 +101,20 @@ class UsersController < ApplicationController
     def update
         return  unless roleValid?([User::ROLE_ADMIN], 'user administration')
         # logger.info("=== params: #{params.inspect}")
-        @user = User.find(params[:id])
+        @user = User.find(params[:id]) 
 
         respond_to do |format|
-            if @user.update_attributes(params[:user])
-                format.html { redirect_to users_url,
-                              notice: 'User was successfully updated.' }
-                format.json { head :no_content }
-            else
-                format.html { render action: "edit" }
-                format.json { render json: @user.errors,
+            #if @user.update_attributes(params[:user])
+	     if @user.update_attributes(params.require(:user).permit(:role, :firstname, :lastname))
+
+		#if @user.save
+                	format.html { redirect_to users_url,
+                              	notice: 'User was successfully updated.' }
+                	format.json { head :no_content }
+            	else
+                	format.html { render action: "edit" }
+			#format.html { render action: errAction }
+                	format.json { render json: @user.errors,
                               status: :unprocessable_entity }
             end
         end
@@ -122,4 +133,5 @@ class UsersController < ApplicationController
             format.json { head :no_content }
         end
     end
+
 end

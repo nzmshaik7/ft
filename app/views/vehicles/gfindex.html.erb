@@ -1,5 +1,4 @@
 <h2>Listing vehicles</h2>
-
 <table border="1" class="ft_dbtab">
   <tr bgcolor="#F0FFF0">
     <th>Vin</th>
@@ -35,7 +34,14 @@
       <%= vehicle.customer.first_name %> <%= vehicle.customer.last_name %>
     </td>
     <td><%= vehicle.make.name %></td>
-    <td><%= vehicle.model.name %></td>
+    <td>
+	<% if vehicle.model %>
+        	<%= vehicle.model.name%>
+	<% else %>
+		<i> N/A </i>
+	<% end %>
+    </td>
+
     <td>
       <% if vehicle.submodel %>
         <%= vehicle.submodel.name %>
@@ -46,8 +52,23 @@
     <td><%= countryOrUnk(vehicle) %></td>
     <td>$<%= number_with_precision(vehicle.msrp, precision: 0) %></td>
     <td><%= vehicle.engine_cyl %></td>
-    <td><%= vehicle.engine_displacement.name %></td>
-    <td><%= vehicle.wheel_drive.name %></td>
+
+    <td>
+      <% if vehicle.engine_displacement %>
+        <%= vehicle.engine_displacement.name %>
+      <% else %>
+        <i>no_engine_disp</i>
+      <% end %>
+    </td>
+
+  <%#  <td><%= vehicle.wheel_drive%></td> %>
+    <td>
+      <% if vehicle.wheel_drive %>
+        <%= vehicle.wheel_drive.name %>
+      <% else %>
+        <i>no_engine_disp</i>
+      <% end %>
+    </td>
     <td><%= vehicle.color.name %></td>
     <td><%= vehicle.doors %></td>
     <td><%= vehicle.mileage %></td>

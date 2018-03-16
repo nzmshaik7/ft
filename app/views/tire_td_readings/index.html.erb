@@ -10,7 +10,7 @@
 
 <% @tire_td_readings.each do |tire_td_reading| %>
   <tr>
-    <td><%= tire_td_reading.vehicle.ymmpText %></td>
+    <td><%= tire_td_reading.vehicle.ymmpText unless tire_td_reading.vehicle.nil? %></td>
     <td><%= tire_td_reading.tdate.strftime("%b %d, %Y") %></td>
     <td><%= tire_td_reading.depth32nds %></td>
     <td><%= link_to 'Show', tire_td_reading %></td>

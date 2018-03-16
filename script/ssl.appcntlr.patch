@@ -1,0 +1,9 @@
+--- OLD/application_controller.rb       2015-03-05 17:35:12.768011466 +0000
++++ NEW/application_controller.rb       2015-03-05 17:35:04.448189516 +0000
+@@ -1,4 +1,5 @@
+ class ApplicationController < ActionController::Base
+   protect_from_forgery
+-  force_ssl({:port => '3443'})
++  options[:port] = '3443'
++  force_ssl options
+ end

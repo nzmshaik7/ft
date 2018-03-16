@@ -1,6 +1,10 @@
 class ServiceVisit < ActiveRecord::Base
-    attr_accessible :comments, :description, :invoice_id, :mileage,
-                    :salesperson_id, :sdate, :store_id, :vehicle_id, :status
+    #attr_accessible :comments, :description, :invoice_id, :mileage,
+    #                :salesperson_id, :sdate, :store_id, :vehicle_id, :status
+    def ServiceVisit_params
+    	params.require(:service_visit).permit(:comments, :description, :invoice_id, :mileage,
+                    :salesperson_id, :sdate, :store_id, :vehicle_id, :status)
+    end
     belongs_to :vehicle
     belongs_to :invoice
     belongs_to :salesperson

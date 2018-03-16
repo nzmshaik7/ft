@@ -1,7 +1,9 @@
 class StaticController < ApplicationController
 
-    skip_before_filter :authenticate_user!
+    skip_before_action :authenticate_user!
     layout "anim", :only => [:home]
+
+    
 
     def home
     end

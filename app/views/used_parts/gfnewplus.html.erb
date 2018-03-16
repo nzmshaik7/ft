@@ -1,0 +1,11 @@
+<h2>New Used Part</h2>
+
+<P>
+In order to can enter a new Part, you must first have store, vehicle information and a generic Part Name
+and a Part Manufacturer 
+</P>
+
+<%= render :partial => 'formplus',
+                       :locals => { :isGroundFloor => @isGroundFloor } %>
+
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

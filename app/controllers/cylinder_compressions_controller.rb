@@ -1,6 +1,6 @@
 class CylinderCompressionsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /cylinder_compressions
     # GET /cylinder_compressions.json
@@ -43,7 +43,7 @@ class CylinderCompressionsController < ApplicationController
     # POST /cylinder_compressions
     # POST /cylinder_compressions.json
     def create
-        @cylinder_compression = CylinderCompression.new(params[:cylinder_compression])
+        @cylinder_compression = CylinderCompression.new(params.require(:cylinder_compression).permit(:cyl_num, :psi, :qualification_id))
 
         respond_to do |format|
             if @cylinder_compression.save
@@ -63,7 +63,7 @@ class CylinderCompressionsController < ApplicationController
         @cylinder_compression = CylinderCompression.find(params[:id])
 
         respond_to do |format|
-            if @cylinder_compression.update_attributes(params[:cylinder_compression])
+            if @cylinder_compression.update_attributes(params.require(:cylinder_compression).permit(:cyl_num, :psi, :qualification_id))
                 format.html { redirect_to cylinder_compressions_url,
                               notice: 'CylinderCompression was successfully updated.' }
                 format.json { head :no_content }

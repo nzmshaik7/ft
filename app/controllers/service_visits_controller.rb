@@ -1,10 +1,10 @@
 class ServiceVisitsController < ApplicationController
 
-    before_filter :database_area, :except => [:gfindex, :gfedit2, :gfshow,
+    before_action :database_area, :except => [:gfindex, :gfedit2, :gfshow,
                                               :gfsearch1, :gfmatch1, :gfupdate2,
                                               :gfnew0, :gfnew1, :gfnew2,
                                               :gflist4veh, :gfall_parts_labor, ]
-    before_filter :gf_area,       :only   => [:gfindex, :gfedit2, :gfshow,
+    before_action :gf_area,       :only   => [:gfindex, :gfedit2, :gfshow,
                                               :gfsearch1, :gfmatch1, :gfupdate2,
                                               :gfnew0, :gfnew1, :gfnew2,
                                               :gflist4veh, :gfall_parts_labor, ]
@@ -43,7 +43,7 @@ class ServiceVisitsController < ApplicationController
     # Similar to prepFormVariables in service_visit
     #
     def prepSliVariables(sli=nil)
-        @serviceDescriptions = ServiceDescription.find(:all, :order => 'name')
+        @serviceDescriptions = ServiceDescription.all
         @serviceDescriptionCollect = Array.new
         @serviceDescriptionCollect.push(['Select', 0])
         for p in @serviceDescriptions
@@ -74,7 +74,7 @@ class ServiceVisitsController < ApplicationController
         @partCollect = [
 	    [ "Select",   0  ],
         ]
-        @parts = Part.find(:all, :order => 'part_number')
+        @parts = Part.all
         for p in @parts
             @partCollect.push([ p.part_name.name + '-' + 
                         p.part_manufacturer.name + ':' + p.part_number, p.id ])
@@ -86,7 +86,8 @@ class ServiceVisitsController < ApplicationController
     # GET /service_visits
     # GET /service_visits.json
     def index
-        @service_visits = ServiceVisit.find(:all, :order => 'sdate')
+        #@service_visits = ServiceVisit.find(:all, :order => 'sdate')
+	@service_visits = ServiceVisit.all
 
         respond_to do |format|
             format.html # index.html.erb
@@ -521,7 +522,8 @@ class ServiceVisitsController < ApplicationController
     # POST /service_visits
     # POST /service_visits.json
     def create
-        @service_visit = ServiceVisit.new(params[:service_visit])
+        @service_visit = ServiceVisit.new(params.require(:service_visit).permit(:comments, :description, :invoice_id, :mileage,
+                    :salesperson_id, :sdate, :store_id, :vehicle_id, :status))
 
         respond_to do |format|
             if @service_visit.save
@@ -545,7 +547,8 @@ class ServiceVisitsController < ApplicationController
         @service_visit = ServiceVisit.find(params[:id])
 
         respond_to do |format|
-            if @service_visit.update_attributes(params[:service_visit])
+            if @service_visit.update_attributes(params.require(:service_visit).permit(:comments, :description, :invoice_id, :mileage,
+                    :salesperson_id, :sdate, :store_id, :vehicle_id, :status))
                 format.html { redirect_to service_visits_url,
                               notice: 'ServiceVisit was successfully updated.' }
                 format.json { head :no_content }

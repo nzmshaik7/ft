@@ -1,6 +1,6 @@
 class PaymentTypesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /payment_types
     # GET /payment_types.json
@@ -43,7 +43,7 @@ class PaymentTypesController < ApplicationController
     # POST /payment_types
     # POST /payment_types.json
     def create
-        @payment_type = PaymentType.new(params[:payment_type])
+        @payment_type = PaymentType.new(params.require(:payment_type).permit(:name))
 
         respond_to do |format|
             if @payment_type.save
@@ -63,7 +63,7 @@ class PaymentTypesController < ApplicationController
         @payment_type = PaymentType.find(params[:id])
 
         respond_to do |format|
-            if @payment_type.update_attributes(params[:payment_type])
+            if @payment_type.assign_attributes(params.require(:payment_type).permit(:name))
                 format.html { redirect_to payment_types_url,
                               notice: 'PaymentType was successfully updated.' }
                 format.json { head :no_content }

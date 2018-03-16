@@ -1,0 +1,53 @@
+
+Greetings, <%= @employee.first_name %> from FutureTech<br/>
+===============================================<br/>
+
+This is to inform you that your store is making less than 50% of profit.
+
+Please find the below table for the statistics of your store employees.
+
+<table border="2">
+	<tr>
+		<th> Technician Name </th>
+		<th> Billed Hours </th>
+		<th> Retail Hours</th>
+		<th> Actual Hours </th>
+		<th> Efficiency </th>
+		<th> Productivity </th>
+		<th> Proficiency </th>
+	</tr>
+	<% @technician_array.each do|a|%>
+	<tr>
+		<td> <%= a.technician_id %> </td>
+		<td> <%= a.billed_hours %> </td>
+		<td> <%= a.retail_hours %> </td>
+		<td> <%= a.actual_hours %> </td>
+		<td> <%= a.efficiency %> </td>
+		<td> <%= a.productivity %> </td>
+		<td> <%= a.proficiency %> </td>
+	</tr>
+	<% end %>
+
+</table>
+
+Overall Technician analytics of your store:
+
+<table border = "5">
+	<tr>
+		<th> Efficiency </th>
+		<th> Productivity </th>
+		<th> Proficiency </th>
+	</tr>
+	<tr>
+		<td> <%= @store_eff_flag %> </td>
+		<td> <%= @store_prod_flag %> </td>
+		<td> <%= @store_prof_flag %> </td>
+	</tr>
+
+</table>
+
+Please log in to your futureTech account for detaild analytics. Find out where you fall back, prepare a deailed notes and submit to the admin.
+
+
+
+Thank you. Have a great day!

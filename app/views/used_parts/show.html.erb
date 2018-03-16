@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Store name:</b>
+  <%= @used_part.store.name %>
+</p>
+
+<p>
+  <b>Vehicle name:</b>
+  <%= @used_part.vehicle.vin %>
+</p>
+
+<p>
+  <b>Part Manufacturer name:</b>
+  <%= @used_part.part_manufacturer.name %>
+</p>
+
+<p>
+  <b>Part name:</b>
+  <%= @used_part.part_name.name %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @used_part.quantity %>
+</p>
+
+
+
+
+
+<%= link_to 'Edit', edit_used_part_path(@used_part) %> |
+<%= link_to 'Back', used_parts_path %>

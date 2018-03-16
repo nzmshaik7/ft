@@ -1,6 +1,6 @@
 class GasMileagesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /gas_mileages
     # GET /gas_mileages.json
@@ -43,7 +43,7 @@ class GasMileagesController < ApplicationController
     # POST /gas_mileages
     # POST /gas_mileages.json
     def create
-        @gas_mileage = GasMileage.new(params[:gas_mileage])
+        @gas_mileage = GasMileage.new(params.require(:gas_mileage).permit(:mdate, :mileage, :vehicle_id))
 
         respond_to do |format|
             if @gas_mileage.save
@@ -63,7 +63,7 @@ class GasMileagesController < ApplicationController
         @gas_mileage = GasMileage.find(params[:id])
 
         respond_to do |format|
-            if @gas_mileage.update_attributes(params[:gas_mileage])
+            if @gas_mileage.update_attributes(params.require(:gas_mileage).permit(:mdate, :mileage, :vehicle_id))
                 format.html { redirect_to gas_mileages_url,
                               notice: 'GasMileage was successfully updated.' }
                 format.json { head :no_content }

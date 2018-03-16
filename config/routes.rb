@@ -1,5 +1,6 @@
 Ft::Application.routes.draw do
 
+  #devise_for :users
   resources :backups
 
   resources :service_visit_notes
@@ -11,6 +12,8 @@ Ft::Application.routes.draw do
   resources :purchase_orders
 
   resources :vendors
+
+  
 
   resources :technician_hours
   get "technician_hours/th_for_sli/:id" => 'technician_hours#th_for_sli'
@@ -57,7 +60,17 @@ Ft::Application.routes.draw do
   get 'technicians/:id/gfedit' => 'technicians#gfedit'
   resources :technicians
 
+  
+  get "stores/pie_pl" => 'stores#pie_pl'
+  get "stores/pie_sv" => 'stores#pie_sv'
+  get "stores/store_list" => 'stores#store_list'
+  get "stores/search_store_pl"
+  get "stores/match_for_store_pl"
+  get "stores/search_single_store"
+  get "stores/match_for_single_store"
+ 
   resources :stores
+  
 
   resources :line_item_purposes
 
@@ -71,6 +84,9 @@ Ft::Application.routes.draw do
 
   get 'engine_displacements/gfnew'
   resources :engine_displacements
+
+  get 'ps/gfnew'
+  resources :ps
 
   get 'submodels/gfnew'
   get 'submodels/gfindex'
@@ -99,6 +115,18 @@ Ft::Application.routes.draw do
   get 'parts/gfindex'
   get 'parts/:id/gfedit' => 'parts#gfedit'
   resources :parts
+
+  get 'used_parts/gfnew'
+  get 'used_parts/gfnewplus'
+  get 'used_parts/gfindex'
+  get 'used_parts/:id/gfedit' => 'used_parts#gfedit'
+  resources :used_parts
+
+  get 'added_parts/gfnew'
+  get 'added_parts/gfnewplus'
+  get 'added_parts/gfindex'
+  get 'added_parts/:id/gfedit' => 'added_parts#gfedit'
+  resources :added_parts
 
   resources :service_parts
   get "service_parts/sp_for_sli/:id" => 'service_parts#sp_for_sli'
@@ -173,17 +201,7 @@ Ft::Application.routes.draw do
 
   resources :automatic_data_link_infos
 
-  get "vehicles/search_int1"
-  post "vehicles/match"
-  get 'vehicles/gfnew'
-  get 'vehicles/gfindex'
-  get 'vehicles/:id/gfedit' => 'vehicles#gfedit'
-  get 'vehicles/gfsearch1'
-  get 'vehicles/svsearch1'
-  post 'vehicles/gfmatch1'
-  post 'vehicles/gfnew2'
-  get 'vehicles/svlist'
-  resources :vehicles
+
 
   resources :images
 
@@ -194,6 +212,8 @@ Ft::Application.routes.draw do
 
   resources :upgrades
 
+  get "contracts/search_plan_vehicles"
+  get "contracts/match_for_plan_vehicles"
   get 'contracts/gfnew'
   get 'contracts/gfindex'
   get 'contracts/:id/gfedit' => 'contracts#gfedit'
@@ -217,7 +237,7 @@ Ft::Application.routes.draw do
   }
 
   devise_scope :user  do
-      match '/logout'  => 'devise/sessions#destroy'
+      match '/logout'  => 'devise/sessions#destroy', :via => [:get], :as => 'devise/sessions_destroy'
   end
 
   get "mockup/internal_veh"
@@ -248,11 +268,63 @@ Ft::Application.routes.draw do
   get "mockup/writtenTestm"
   get "mockup/bgPaper"
 
+  get "mockup/basic"
+  get "mockup/pie"
+  get "mockup/bar"
+
+
+  get "analytics/basic"
+  get "analytics/pie_int2_graph"
+  get "analytics/pie" 
+  get "analytics/bar"
+  get "analytics/bar_int2"
+  get "analytics/bar_int3"
+  get "analytics/bar_int4"
+  get "analytics/bar_int5"
+  get "analytics/pie_mileagediff"
+  get "analytics/pie_vehplan"
+  get "analytics/pie_profit"
+  get "analytics/pie_payment"
+  get "analytics/pie_technician"
+  post "analytics/matcher"
+
+  
   get "analytics/int1/:id" => 'analytics#int1'
+  get "analytics/int2" => 'analytics#int2'
+  get "analytics/int3/:id" => 'analytics#int3'
+  get "analytics/int3" => 'analytics#int3'
+
+
   get "analytics/non_ma_maint/:id" => 'analytics#non_ma_maint'
+
+
+  get "vehicles/search_int1"
+  get "vehicles/search_int2"
+  get "vehicles/pie_int2_graph"
+  get "vehicles/vehicle_to_service_visits"
+  get "vehicles/vehlistint2"
+  post "vehicles/match"
+  get "vehicles/match_for_int2"
+  get "vehicles/match_for_service_visits_count"
+  get 'vehicles/gfnew'
+  get 'vehicles/gfindex'
+  get 'vehicles/:id/gfedit' => 'vehicles#gfedit'
+  get 'vehicles/gfsearch1'
+  get 'vehicles/svsearch1'
+  post 'vehicles/gfmatch1'
+  post 'vehicles/gfnew2'
+  get 'vehicles/svlist'
+  resources :vehicles
+
+
+  get "vehicle_profit_losses/search_int3"
+  post "vehicle_profit_losses/match"
+  resources :vehicle_profit_losses
 
   get "static/home"
   get "static/signed_up"
+
+
 
   resources :users
 
@@ -312,4 +384,5 @@ Ft::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+  post 'twilio/voice' => 'twilio#voice'
 end

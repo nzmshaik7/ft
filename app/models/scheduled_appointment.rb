@@ -1,6 +1,8 @@
 class ScheduledAppointment < ActiveRecord::Base
-    attr_accessible :actual_date_time, :date_time, :purpose, :status, 
-                    :store_id, :vehicle_id
+    #attr_accessible :actual_date_time, :date_time, :purpose, :status, :store_id, :vehicle_id
+    def scheduled_appointment_params
+	params.require(:scheduled_appointment).permit(:actual_date_time, :date_time, :purpose, :status, :store_id, :vehicle_id)
+    end
     belongs_to :vehicle
     belongs_to :store
 

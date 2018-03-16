@@ -1,15 +1,16 @@
 class PartManufacturersController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit, 
                                               :update, :create, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
     include ApplicationHelper
 
     # GET /part_manufacturers
     # GET /part_manufacturers.json
     def index
-        @part_manufacturers = PartManufacturer.find(:all, :order => 'name')
+        #@part_manufacturers = PartManufacturer.find(:all, :order => 'name')
+	@part_manufacturers = PartManufacturer.all
 
         respond_to do |format|
             format.html # index.html.erb
@@ -80,8 +81,8 @@ class PartManufacturersController < ApplicationController
 
     # POST /part_manufacturers
     # POST /part_manufacturers.json
-    def create
-        @part_manufacturer = PartManufacturer.new(params[:part_manufacturer])
+    def create;;
+        @part_manufacturer = PartManufacturer.new(params.require(:part_manufacturer).permit(:name))
         ok = validatePartManufacturer?(@part_manufacturer)
         okUrl, errAction = setSaveAction('new', part_manufacturers_url)
 
@@ -107,7 +108,7 @@ class PartManufacturersController < ApplicationController
         @part_manufacturer = PartManufacturer.find(params[:id])
 
         respond_to do |format|
-            @part_manufacturer.assign_attributes(params[:part_manufacturer])
+            @part_manufacturer.assign_attributes(params.require(:part_manufacturer).permit(:name))
             parok = validatePartManufacturer?(@part_manufacturer)
             okUrl, errAction = setSaveAction('edit', part_manufacturers_url)
             saveok = false

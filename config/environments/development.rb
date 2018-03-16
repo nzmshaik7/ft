@@ -9,12 +9,14 @@ Ft::Application.configure do
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
 
+  
+
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  ##config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -23,11 +25,11 @@ Ft::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
+  	#config.active_record.mass_assignment_sanitizer = :strict
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 0.5
+  	#config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Do not compress assets
   config.assets.compress = false
@@ -38,5 +40,31 @@ Ft::Application.configure do
   # Added for devise.  Won't work for cent6631, but will work OK for 
   # dev ma ssl version I think.
   config.action_mailer.default_url_options = { 
-         :host => 'futuretech.membershipauto.com:3443', :protocol => 'https' }
+         :host => 'futuretech.software:3443', :protocol => 'https' }
+
+
+
+
+  config.action_mailer.perform_deliveries = true 
+  config.action_mailer.raise_delivery_errors = true
+
+ 
+
+  config.eager_load = false
+
+  config.action_mailer.delivery_method = :smtp
+  
+config.gem "ambethia-smtp-tls", :lib => "smtp-tls", :source => "http://gems.github.com/"
+
+  
+config.action_mailer.smtp_settings = {
+   enable:		 true,
+   address:              'smtp.fastmail.com',
+   port:                 '587',
+   domain:               'ultimateequityholdings.com',
+   user_name:            'nzm.k@ultimateequityholdings.com',
+   password:             '6u9zlvqeybb35hff',
+   authentication:	 'plain',
+   enable_starttls_auto: true   }
+
 end

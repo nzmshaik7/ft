@@ -17,7 +17,7 @@
 
 <% @payments.each do |payment| %>
   <tr>
-    <td><%= payment.date_time.strftime("%H:%M %b %d, %Y") %></td>
+    <td><%= payment.date_time.in_time_zone('America/New_York').strftime("%H:%M %b %d, %Y") %></td>
     <td>
       <% if payment.invoice %>
         <%= payment.invoice.invoice_number %>

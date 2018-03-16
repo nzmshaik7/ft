@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     include CustomersHelper
 
@@ -69,7 +69,7 @@ class InvoicesController < ApplicationController
     # POST /invoices
     # POST /invoices.json
     def create
-        @invoice = Invoice.new(params[:invoice])
+        @invoice = Invoice.new(params.require(:invoice).permit(:customer_id, :date_time, :invoice_number, :status))
 
         respond_to do |format|
             if @invoice.save
@@ -90,7 +90,7 @@ class InvoicesController < ApplicationController
         @invoice = Invoice.find(params[:id])
 
         respond_to do |format|
-            if @invoice.update_attributes(params[:invoice])
+            if @invoice.update_attributes(params.require(:invoice).permit(:customer_id, :date_time, :invoice_number, :status))
                 format.html { redirect_to invoices_url,
                               notice: 'Invoice was successfully updated.' }
                 format.json { head :no_content }

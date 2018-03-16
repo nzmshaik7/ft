@@ -23,6 +23,8 @@ Ft::Application.configure do
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
+  config.eager_load = true
+
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
@@ -66,7 +68,25 @@ Ft::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+=begin
+  config.action_mailer.delivery_method = :smtp
+
+  
+config.gem "ambethia-smtp-tls", :lib => "smtp-tls", :source => "http://gems.github.com/"
+
+
+config.action_mailer.smtp_settings = {
+   address:              'smtp.gmail.com',
+   port:                 587,
+   user_name:            'naz.sk001',
+   password:             'venkashokgangi',
+   authentication:       'plain',
+   enable_starttls_auto: true  
+}
+=end
+
+
   # Added for devise.  
   config.action_mailer.default_url_options = { 
-         :host => 'futuretech.membershipauto.com:443', :protocol => 'https' }
+         :host => 'futuretech.software:3443', :protocol => 'https' }
 end

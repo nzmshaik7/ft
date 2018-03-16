@@ -1,9 +1,10 @@
 <h2>Listing service_line_items</h2>
 
+
 <table border="1" class="ft_dbtab">
   <tr bgcolor="#F0FFF0">
     <th>Service visit</th>
-    <th>Service description</th>
+   <% if false %> <th>Service description</th> <% end %>
     <th>Service description text</th>
     <th>Type</th>
     <th colspan="3"><i>Actions</i></th>
@@ -11,8 +12,8 @@
 
 <% @service_line_items.each do |service_line_item| %>
   <tr>
-    <td><%= service_line_item.service_visit.visitText %></td>
-    <td><%= service_line_item.service_description.name %></td>
+    <td><%= service_line_item.service_visit.visitText unless service_line_item.service_visit.nil?%></td>
+    <%if false%> <td><%= service_line_item.service_description.name %></td> <% end %>
     <td><%= service_line_item.service_description_text %></td>
     <td><%= stypeText(service_line_item.stype) %></td>
     <td><%= link_to 'Show', service_line_item %></td>

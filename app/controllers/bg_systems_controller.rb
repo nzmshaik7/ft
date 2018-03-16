@@ -1,6 +1,6 @@
 class BgSystemsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /bg_systems
     # GET /bg_systems.json
@@ -43,7 +43,7 @@ class BgSystemsController < ApplicationController
     # POST /bg_systems
     # POST /bg_systems.json
     def create
-        @bg_system = BgSystem.new(params[:bg_system])
+        @bg_system = BgSystem.new(params.require(:bg_system).permit(:name))
 
         respond_to do |format|
             if @bg_system.save
@@ -63,7 +63,7 @@ class BgSystemsController < ApplicationController
         @bg_system = BgSystem.find(params[:id])
 
         respond_to do |format|
-            if @bg_system.update_attributes(params[:bg_system])
+            if @bg_system.update_attributes(params.require(:bg_system).permit(:name))
                 format.html { redirect_to bg_systems_url,
                               notice: 'BgSystem was successfully updated.' }
                 format.json { head :no_content }

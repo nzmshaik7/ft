@@ -1,6 +1,6 @@
 class TsBandRecallsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @vehicles = Vehicle.all
@@ -69,7 +69,7 @@ class TsBandRecallsController < ApplicationController
     # POST /ts_band_recalls
     # POST /ts_band_recalls.json
     def create
-        @ts_band_recall = TsBandRecall.new(params[:ts_band_recall])
+        @ts_band_recall = TsBandRecall.new(params.require(:ts_band_recall).permit(:date_completed, :name, :vehicle_id))
         validateLoad(@ts_band_recall)
 
         respond_to do |format|
@@ -92,7 +92,7 @@ class TsBandRecallsController < ApplicationController
         validateLoad(@ts_band_recall)
 
         respond_to do |format|
-            if @ts_band_recall.update_attributes(params[:ts_band_recall])
+            if @ts_band_recall.update_attributes(params.require(:ts_band_recall).permit(:date_completed, :name, :vehicle_id))
 
                 # DLAW FIXME - this is a double save
                 #

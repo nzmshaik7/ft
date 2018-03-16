@@ -1,6 +1,6 @@
 class CodeHistoriesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @vehicles = Vehicle.all
@@ -54,7 +54,7 @@ class CodeHistoriesController < ApplicationController
     # POST /code_histories
     # POST /code_histories.json
     def create
-        @code_history = CodeHistory.new(params[:code_history])
+        @code_history = CodeHistory.new(params.require(:code_history).permit(:cdate, :code, :vehicle_id))
 
         respond_to do |format|
             if @code_history.save
@@ -75,7 +75,7 @@ class CodeHistoriesController < ApplicationController
         @code_history = CodeHistory.find(params[:id])
 
         respond_to do |format|
-            if @code_history.update_attributes(params[:code_history])
+            if @code_history.update_attributes(params.require(:code_history).permit(:cdate, :code, :vehicle_id))
                 format.html { redirect_to code_histories_url,
                               notice: 'CodeHistory was successfully updated.' }
                 format.json { head :no_content }

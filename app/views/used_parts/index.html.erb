@@ -1,0 +1,32 @@
+<h1>Listing Used Part</h1>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Store</th>
+     <th>Vehicle</th>
+    <th> Part Manufacturer </th>
+    <th>Part name</th>
+    <th>Quantity</th>
+    <th>Created At (date:time)</th>
+    <th colspan="3"><i>Actions</i></th>
+  </tr>
+
+<% @used_parts.each do |used_part| %>
+  <tr>
+    <td><%= used_part.store.name %></td>
+    <td><%= used_part.vehicle.vin %></td>
+    <td><%= used_part.part_manufacturer_id %></td>
+    <td><%= used_part.part_name.name %></td>
+    <td><%= used_part.quantity %></td>
+    <td><%= used_part.created_at.strftime("%m-%d-%Y:%H-%M-%S %Z") %></td>
+    <td><%= link_to 'Show', used_part %></td>
+    <td><%= link_to 'Edit', edit_used_part_path(used_part) %></td>
+    <td><%= link_to 'Destroy', used_part, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Part', new_used_part_path %>
+&nbsp; | &nbsp; <a href="/top/db">All DB tables</a>

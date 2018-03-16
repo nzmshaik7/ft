@@ -1,5 +1,8 @@
 class Invoice < ActiveRecord::Base
-    attr_accessible :customer_id, :date_time, :invoice_number, :status
+    #attr_accessible :customer_id, :date_time, :invoice_number, :status
+    def invoice_params
+	params.require(:invoice).permit(:customer_id, :date_time, :invoice_number, :status)
+    end
     belongs_to :customer
     has_many   :invoice_line_items
 

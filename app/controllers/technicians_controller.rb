@@ -1,8 +1,8 @@
 class TechniciansController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit,
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
     include ApplicationHelper
 
@@ -121,7 +121,7 @@ class TechniciansController < ApplicationController
     # POST /technicians
     # POST /technicians.json
     def create
-        @technician = Technician.new(params[:technician])
+        @technician = Technician.new(params.require(:technician).permit(:employee_id, :hourly_rate, :level))
         ok = validateTechnician?(@technician)
         okUrl, errAction = setSaveAction('new', technicians_url)
 
@@ -148,7 +148,7 @@ class TechniciansController < ApplicationController
         preok = prevalidateTechnician(@technician)
 
         respond_to do |format|
-            @technician.assign_attributes(params[:technician])
+            @technician.assign_attributes(params.require(:technician).permit(:employee_id, :hourly_rate, :level))
             parok = validateTechnician?(@technician)
             okUrl, errAction = setSaveAction('edit', technicians_url)
             saveok = false

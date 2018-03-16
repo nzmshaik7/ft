@@ -1,0 +1,35 @@
+#!/bin/bash
+
+NOTIFY="whttiger01@gmail.com"
+
+if /usr/local/bin/networkDown; then
+    exit 0
+fi
+
+cd /home/dlaw/salient/membershipauto/server/aws
+rm -f top1
+URL=http://membershipauto.com
+wget -O top1 --no-check-certificate $URL > wget1.out 2>&1
+grep -iq "Membership Auto" top1
+if [ $? -ne 0 ]; then
+    echo "Initial missed home page at `date`" >> ck.log
+    sleep 30
+    wget -O top2 --no-check-certificate $URL > wget2.out 2>&1
+    grep -iq "Membership Auto" top2
+    if [ $? -ne 0 ]; then
+	mv top1 top1.miss
+	mv top2 top2.miss
+	mv wget1.out wget1.miss
+	mv wget2.out wget2.miss
+	echo "Missed home page at `date`" >> ck.log
+	f=ntfy
+	find . -cmin +120 -name $f -exec rm $f \;
+	if [ ! -e $f ]; then
+	    touch $f
+	    echo "Nofitying" >> ck.log
+	    msg="MA site home miss"
+	    echo $msg| mail -s "MA web health" $NOTIFY
+	fi
+    fi
+fi
+

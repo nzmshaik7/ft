@@ -15,7 +15,7 @@
   <tr>
     <td>
       <%= automatic_data_link_info.vehicle_id %>:
-      <%= automatic_data_link_info.vehicle.ymmText %>
+      <%= automatic_data_link_info.vehicle.ymmText unless automatic_data_link_info.vehicle.nil? %>
     </td>
     <td><%= automatic_data_link_info.serial_number %></td>
     <td><%= automatic_data_link_info.idate %></td>

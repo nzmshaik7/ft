@@ -1,27 +1,35 @@
 class VehiclesController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit, 
                                               :gfsearch1, :gfmatch1, :gfnew2,
                                               :svlist, :svsearch1,
-                                              :match, :search_int1,
+                                              :match, :search_int1, :search_int2, :match_for_int2, :match_for_service_visits_count, 
+					      :vehicle_to_service_visits, :vehlistint2,
                                               ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :gfsearch1, :gfmatch1, :gfnew2,
                                               :svlist, :svsearch1,
-                                              :match, :search_int1,
+                                              :match, :search_int1, :search_int2, :match_for_int2, :match_for_service_visits_count, 
+						:vehicle_to_service_visits
                                               ]
     include CustomersHelper
     include ApplicationHelper
+    include QualificationsHelper
+    include ServiceLineItemsHelper
 
+
+   
 
     def prepFormVariables(make_id = nil)
-        @makes = Make.find(:all, :order => 'name')
-        @makeCollect = @makes.collect { |p|
-            [ p.name, p.id ] 
-        }
+       # @makes = Make.find(:all, :order => 'name')	
+	@makes = Make.all
+        @makeCollect = @makes.collect { |p| [ p.name, p.id ] }
+
         if make_id.nil?
-            @models = Model.find(:all, :order => 'name')
-            @submodels = Submodel.find(:all, :order => 'name')
+            #@models = Model.order(:name)
+	    @models = Model.all
+            #@submodels = Submodel.find(:all, :order => 'name')
+	    @submodels = Submodel.all
         else
             @models = Model.where("make_id = ?", make_id)
             @submodels = Submodel.where("make_id = ?", make_id)
@@ -36,7 +44,8 @@ class VehiclesController < ApplicationController
         @stateCollect = @states.collect { |p|
             [ p.name, p.id ] 
         }
-        @customers = Customer.find(:all, :order => 'last_name')
+        #@customers = Customer.find(:all, :order => 'last_name')
+	@customers = Customer.all
         @customerCollect = @customers.collect { |p|
             [ customerName2(p), p.id ] 
         }
@@ -44,11 +53,13 @@ class VehiclesController < ApplicationController
         @storeCollect = @stores.collect { |p|
             [ p.number, p.id ] 
         }
-        @countries = Country.find(:all, :order => 'name')
+        #@countries = Country.find(:all, :order => 'name')
+	@countries = Country.all
         @countryCollect = @countries.collect { |p|
             [ p.name, p.id ] 
         }
-        @engineDisplacements = EngineDisplacement.find(:all, :order => 'name')
+        #@engineDisplacements = EngineDisplacement.find(:all, :order => 'name')
+	@engineDisplacements = EngineDisplacement.all
         @engineDisplacementCollect = @engineDisplacements.collect { |p|
             [ p.name, p.id ] 
         }
@@ -60,7 +71,8 @@ class VehiclesController < ApplicationController
         @colorCollect = @colors.collect { |p|
             [ p.name, p.id ] 
         }
-        @contracts = Contract.find(:all, :order => 'number')
+        #@contracts = Contract.find(:all, :order => 'number')
+	@contracts = Contract.all
         @contractCollect = @contracts.collect { |p|
             [ p.number, p.id ] 
         }
@@ -98,6 +110,11 @@ class VehiclesController < ApplicationController
 
 
     def gfindex
+        @isGroundFloor = true
+        index
+    end
+
+ def vehlistint2
         @isGroundFloor = true
         index
     end
@@ -209,8 +226,19 @@ class VehiclesController < ApplicationController
     # POST /vehicles.json
     def create
         cleanUpForm
-        @vehicle = Vehicle.new(params[:vehicle])
-        p = params[:vehicle]
+        @vehicle = Vehicle.new(params.require(:vehicle).permit(:bg_compliant, :carfax_copy_at_qual, :carfax_url,
+                    :color_id, :comments, :consumer_reports_url,
+                    :contract_id, :convertible, :country_of_manufacture_id,
+                    :current_kbb, :customer_id, :date_of_manufacture,
+                    :door_plate_image_id, :doors, :engine_cyl,
+                    :engine_displacement_id, :insurance_company_id,
+                    :insurance_image_id, :insurance_policy_number,
+                    :kbb_on_qual, :license_plate, :license_plate_state_id,
+                    :make_id, :mileage, :model, :mpg30after_initial,
+                    :msrp, :photos_image_id, :qualification_id,
+                    :service_schedule_id, :submodel_id, :vin,
+                    :vin_decoded, :wheel_drive_id))
+        #p = params[:vehicle]
         # logger.info("==== create veh custid #{ @vehicle.customer_id }")
         ok = validateForm?(@vehicle)
         okUrl, errAction = setSaveAction('new', vehicles_url)
@@ -284,7 +312,18 @@ class VehiclesController < ApplicationController
     # POST /vehicles/gfnew2, from _formnew1.html.erb
     #
     def gfnew2
-        @vehicle = Vehicle.new(params[:vehicle])
+        @vehicle = Vehicle.new(params.require(:vehicle).permit(:bg_compliant, :carfax_copy_at_qual, :carfax_url,
+                    :color_id, :comments, :consumer_reports_url,
+                    :contract_id, :convertible, :country_of_manufacture_id,
+                    :current_kbb, :customer_id, :date_of_manufacture,
+                    :door_plate_image_id, :doors, :engine_cyl,
+                    :engine_displacement_id, :insurance_company_id,
+                    :insurance_image_id, :insurance_policy_number,
+                    :kbb_on_qual, :license_plate, :license_plate_state_id,
+                    :make_id, :mileage, :model_id, :mpg30after_initial,
+                    :msrp, :photos_image_id, :qualification_id,
+                    :service_schedule_id, :submodel_id, :vin,
+                    :vin_decoded, :wheel_drive_id))
         valid = validateFormnew1(@vehicle)
 
         if valid
@@ -292,6 +331,7 @@ class VehiclesController < ApplicationController
             @vehicle_customer_id = @vehicle.customer_id
             @vehicle_make_id = @vehicle.make_id
             @vehicle_contract_id = @vehicle.contract_id
+	    @vehicle_model_id = @vehicle.model_id
         else
             prepFormVariables
             render :gfnew
@@ -310,7 +350,18 @@ class VehiclesController < ApplicationController
         preok = prevalidateContract(@vehicle)
 
         respond_to do |format|
-            @vehicle.assign_attributes(params[:vehicle])
+            @vehicle.assign_attributes(params.require(:vehicle).permit(:bg_compliant, :carfax_copy_at_qual, :carfax_url,
+                    :color_id, :comments, :consumer_reports_url,
+                    :contract_id, :convertible, :country_of_manufacture_id,
+                    :current_kbb, :customer_id, :date_of_manufacture,
+                    :door_plate_image_id, :doors, :engine_cyl,
+                    :engine_displacement_id, :insurance_company_id,
+                    :insurance_image_id, :insurance_policy_number,
+                    :kbb_on_qual, :license_plate, :license_plate_state_id,
+                    :make_id, :mileage, :model_id, :mpg30after_initial,
+                    :msrp, :photos_image_id, :qualification_id,
+                    :service_schedule_id, :submodel_id, :vin,
+                    :vin_decoded, :wheel_drive_id))
             parok = validateForm?(@vehicle)
             okUrl, errAction = setSaveAction('edit', vehicles_url)
             saveok = false
@@ -345,6 +396,17 @@ class VehiclesController < ApplicationController
 
 
     def search_int1
+        prepFormVariables
+        prepSearchVariables
+    end
+
+
+    def search_int2
+        prepFormVariables
+        prepSearchVariables
+    end
+    
+     def vehicle_to_service_visits
         prepFormVariables
         prepSearchVariables
     end
@@ -424,9 +486,90 @@ class VehiclesController < ApplicationController
         end
     end
 
+    def match2
+	
+	
+        @target_cm = params[:target_cm]
+        if @target_cm and @target_cm[0] == '/'  # Whack leading slash
+            @target_cm = @target_cm[1..-1] 
+        end
+        @target_label = params[:target_label]
+        @isGroundFloor = true  if formHasGf?
+
+	@isMatchComplete = true
+
+        whereHash = Hash.new
+        whereClause = ''
+        andop = ''
+        veh = params[:vehicle]
+
+        if veh[:year]
+            yr = veh[:year].to_i
+            if yr > 1990 and yr < 2215
+                whereHash[:start_date] = "#{yr}-01-01 00:00:01"
+                whereHash[:end_date] =   "#{yr}-12-31 23:59:59"
+                whereClause += andop + 
+                                   " date_of_manufacture >= :start_date AND "
+                whereClause += "date_of_manufacture <= :end_date"
+                andop = ' AND'
+            end
+        end
+
+        if veh[:make] and veh[:make].to_i > 0
+            whereHash[:make_id] = veh[:make]
+            whereClause += andop + " make_id = :make_id"
+            andop = ' AND'
+        end
+
+        if veh[:model] and veh[:model].to_i > 0
+            whereHash[:model_id] = veh[:model]
+            whereClause += andop + " model_id = :model_id"
+            andop = ' AND'
+        end
+
+        logger.info("==== whereHash: #{whereHash.inspect}")
+        logger.info("==== whereClause: #{whereClause}")
+
+        if whereClause == ''
+            @vehicles = Vehicle.all
+        else
+            @vehicles = Vehicle.where(whereClause, whereHash)
+        end
+
+	
+    end
+
 
     def gfmatch
         match
     end
+ def match_for_int2
+	@vehicle_profit_losses = VehicleProfitLoss.all
+	@total_profit_loss = 0.0
+	@count = Array.new
+	@count = [0, 0, 0]
+	match2
+	prepFormVariables
+        prepSearchVariables
+    end
+
+
+
+   def match_for_service_visits_count
+
+	@vehicle_to_service_visits = VehicleToServiceVisit.all
+	@total_profit_loss = 0.0
+	@sv_count = 0.0
+	@count = 0.0
+	@yield = Array.new
+	@Yield = [0,0,0]
+	@Y = 0.0
+	match2
+	prepFormVariables
+	prepSearchVariables
+	
+   end
+
+
 
 end

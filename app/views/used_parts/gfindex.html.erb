@@ -1,0 +1,33 @@
+<h2>Listing used parts</h2>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Store name</th>
+    <th>Vehicle name</th>
+    <th>Part name</th>
+    <th>Quantity</th>
+    <th><i>Actions</i></th>
+  </tr>
+
+<% @used_parts.each do |used_part| %>
+  <tr>
+    <td><%= used_part.store_id.name %></td>
+    <td><%= used_part.vehicle_id.name %></td>
+    <td><%= used_part.part_name.name %></td>
+    <td><%= used_part.quantity %></td>
+    <td><%= link_to 'Edit', "/used_parts/#{used_parts.id}/gfedit" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<form action="/used_parts/gfnew" style="display: inline;">
+  <input type="submit" value="Add New Used Part Cost"> 
+</form>
+&nbsp; &nbsp; 
+<form action="/used_parts/gfnewplus" style="display: inline;">
+  <input type="submit" value="Add New Used Part Cost"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

@@ -1,6 +1,6 @@
 class CountriesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /countries
     # GET /countries.json
@@ -43,7 +43,7 @@ class CountriesController < ApplicationController
     # POST /countries
     # POST /countries.json
     def create
-        @country = Country.new(params[:country])
+        @country = Country.new(params.require(:country).permit(:abbrev, :name))
 
         respond_to do |format|
             if @country.save
@@ -63,7 +63,7 @@ class CountriesController < ApplicationController
         @country = Country.find(params[:id])
 
         respond_to do |format|
-            if @country.update_attributes(params[:country])
+            if @country.update_attributes(params.require(:country).permit(:abbrev, :name))
                 format.html { redirect_to countries_url,
                               notice: 'Country was successfully updated.' }
                 format.json { head :no_content }

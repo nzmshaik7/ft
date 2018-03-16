@@ -1,9 +1,17 @@
 class Qualification < ActiveRecord::Base
-    attr_accessible :alignment_report_images_id, :cylinder_compression_spec,
+    #attr_accessible :alignment_report_images_id, :cylinder_compression_spec,
+    #                :cylinder_compression_tolerance,
+    #                :leakdown, :qdate, :qual_report_images_id,
+    #                :service_visit_id, :sixgas_report_images_id,
+    #                :spectrum_report_images_id
+
+    def qualification_params
+	params.require(:qualification).permit(:alignment_report_images_id, :cylinder_compression_spec,
                     :cylinder_compression_tolerance,
                     :leakdown, :qdate, :qual_report_images_id,
                     :service_visit_id, :sixgas_report_images_id,
-                    :spectrum_report_images_id
+                    :spectrum_report_images_id)
+    end
 
     belongs_to :vehicle
     belongs_to :qual_report_images, class_name: :Image

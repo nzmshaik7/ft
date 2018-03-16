@@ -1,6 +1,6 @@
 class ServiceJournalsEventsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /service_journals_events
     # GET /service_journals_events.json
@@ -43,7 +43,7 @@ class ServiceJournalsEventsController < ApplicationController
     # POST /service_journals_events
     # POST /service_journals_events.json
     def create
-        @service_journals_event = ServiceJournalsEvent.new(params[:service_journals_event])
+        @service_journals_event = ServiceJournalsEvent.new(params.require(:service_journals_event).permit(:name))
 
         respond_to do |format|
             if @service_journals_event.save
@@ -63,7 +63,7 @@ class ServiceJournalsEventsController < ApplicationController
         @service_journals_event = ServiceJournalsEvent.find(params[:id])
 
         respond_to do |format|
-            if @service_journals_event.update_attributes(params[:service_journals_event])
+            if @service_journals_event.update_attributes(params.require(:service_journals_event).permit(:name))
                 format.html { redirect_to service_journals_events_url,
                               notice: 'ServiceJournalsEvent was successfully updated.' }
                 format.json { head :no_content }

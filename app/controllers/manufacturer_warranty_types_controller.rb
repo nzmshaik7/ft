@@ -40,7 +40,7 @@ class ManufacturerWarrantyTypesController < ApplicationController
     # POST /manufacturer_warranty_types
     # POST /manufacturer_warranty_types.json
     def create
-        @manufacturer_warranty_type = ManufacturerWarrantyType.new(params[:manufacturer_warranty_type])
+        @manufacturer_warranty_type = ManufacturerWarrantyType.new(params.require(:manufacturer_warranty_type).permit(:name))
 
         respond_to do |format|
             if @manufacturer_warranty_type.save
@@ -60,7 +60,7 @@ class ManufacturerWarrantyTypesController < ApplicationController
         @manufacturer_warranty_type = ManufacturerWarrantyType.find(params[:id])
 
         respond_to do |format|
-            if @manufacturer_warranty_type.update_attributes(params[:manufacturer_warranty_type])
+            if @manufacturer_warranty_type.update_attributes(params.require(:manufacturer_warranty_type).permit(:name))
                 format.html { redirect_to manufacturer_warranty_types_url,
                               notice: 'Manufacturer warranty type was successfully updated.' }
                 format.json { head :no_content }

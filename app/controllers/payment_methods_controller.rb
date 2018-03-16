@@ -1,6 +1,6 @@
 class PaymentMethodsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     include CustomersHelper
 
@@ -60,7 +60,9 @@ class PaymentMethodsController < ApplicationController
     # POST /payment_methods
     # POST /payment_methods.json
     def create
-        @payment_method = PaymentMethod.new(params[:payment_method])
+        @payment_method = PaymentMethod.new(params.require(:payment_method).permit(:account_number_id, :customer_id, :expiration_month,
+                    :expiration_year, :image_id, :payment_type_id, :priority, 
+                    :routing_number))
 
         respond_to do |format|
             if @payment_method.save
@@ -81,7 +83,9 @@ class PaymentMethodsController < ApplicationController
         @payment_method = PaymentMethod.find(params[:id])
 
         respond_to do |format|
-            if @payment_method.update_attributes(params[:payment_method])
+            if @payment_method.update_attributes(params.require(:payment_method).permit(:account_number_id, :customer_id, :expiration_month,
+                    :expiration_year, :image_id, :payment_type_id, :priority, 
+                    :routing_number))
                 format.html { redirect_to payment_methods_url,
                               notice: 'PaymentMethod was successfully updated.' }
                 format.json { head :no_content }

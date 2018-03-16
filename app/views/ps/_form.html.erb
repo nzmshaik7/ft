@@ -1,0 +1,24 @@
+<%= form_for(@p) do |f| %>
+  <% if @p.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@p.errors.count, "error") %> prohibited this engine_displacement from being saved:</h2>
+
+      <ul>
+      <% @p.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if defined?(isGroundFloor) and isGroundFloor %>
+     <input name="is_ground_floor" type="hidden" value="Y" />
+  <% end %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

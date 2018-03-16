@@ -1,6 +1,6 @@
 class LineItemPurposesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /line_item_purposes
     # GET /line_item_purposes.json
@@ -43,7 +43,7 @@ class LineItemPurposesController < ApplicationController
     # POST /line_item_purposes
     # POST /line_item_purposes.json
     def create
-        @line_item_purpose = LineItemPurpose.new(params[:line_item_purpose])
+        @line_item_purpose = LineItemPurpose.new(params.require(:line_item_purpose).permit(:name))
 
         respond_to do |format|
             if @line_item_purpose.save
@@ -60,7 +60,7 @@ class LineItemPurposesController < ApplicationController
     # PUT /line_item_purposes/1
     # PUT /line_item_purposes/1.json
     def update
-        @line_item_purpose = LineItemPurpose.find(params[:id])
+        @line_item_purpose = LineItemPurpose.find(params.require(:line_item_purpose).permit(:name))
 
         respond_to do |format|
             if @line_item_purpose.update_attributes(params[:line_item_purpose])

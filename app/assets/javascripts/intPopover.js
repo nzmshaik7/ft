@@ -48,6 +48,30 @@ $(document).ready(function(){
   $('#cust2id').popover({ 
     html : true, content: function() { return $('#cust2id_div').html(); }
   });
+$('#cust3id').popover({ 
+    html : true, content: function() { return $('#cust3id_div').html(); }
+  });
+$('#cust4id').popover({ 
+    html : true, content: function() { return $('#cust4id_div').html(); }
+  });
+$('#cust5id').popover({ 
+    html : true, content: function() { return $('#cust5id_div').html(); }
+  });
+$('#cust6id').popover({ 
+    html : true, content: function() { return $('#cust6id_div').html(); }
+  });
+$('#cust7id').popover({ 
+    html : true, content: function() { return $('#cust7id_div').html(); }
+  });
+$('#cust8id').popover({ 
+    html : true, content: function() { return $('#cust8id_div').html(); }
+  });
+$('#cust8id').popover({ 
+    html : true, content: function() { return $('#cust8id_div').html(); }
+  });
+$('#cust9id').popover({ 
+    html : true, content: function() { return $('#cust9id_div').html(); }
+  });
 
   // Mockup placeholders until we get images working.
   $('#vehphot').popover({ 

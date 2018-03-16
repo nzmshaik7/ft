@@ -1,16 +1,19 @@
+
 class AnalyticsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
     include CustomersHelper
     include QualificationsHelper
     include ServiceLineItemsHelper
     include ApplicationHelper
 
+
+
     def prepFormVariables(veh)
         now = Time.now
         prepDateCollects
 
-        @custDays = (((Time.now - veh.customer.joined_date) / 3600) / 24).to_i
+#        @custDays = (((Time.now - veh.customer.joined_date) / 3600) / 24).to_i
         if veh.customer.date_of_birth
             @custAge = now.year - veh.customer.date_of_birth.year
         else
@@ -23,6 +26,7 @@ class AnalyticsController < ApplicationController
             @custWrittenTestimony = nil
         end
     end
+
 
 
     def junkPrepFormVariables
@@ -75,6 +79,8 @@ class AnalyticsController < ApplicationController
             [ p.name, p.id ] 
         }
     end
+
+    
 
     
     def calcProfitLoss(veh)
@@ -237,10 +243,423 @@ class AnalyticsController < ApplicationController
         end
     end
 
+#######################################################################################################################################
+
+    def veh_profit_loss
+	@vpl = VehicleProfitLoss.all
+	@p = 0.0
+	@l = 0.0
+	temp1 = 0.0
+	temp2 = 0.0
+	@vpl.each do |i|
+		if i.profit_loss >= 0
+			if temp1 <= i.profit_loss
+				@p = i
+				temp1 = i.profit_loss
+			end
+		else
+			if temp2 > i.profit_loss
+				@l = i
+				temp2 = i.profit_loss
+			end
+		end
+	end
+	if @p == 0.0
+		@p_margin = -1	
+	else
+		@p_margin = (temp1/@p.vehicle_revenue)*100
+	end
+	if @l == 0.0
+		@l_margin = -1
+	else
+		@l_margin = (temp2/@l.vehicle_revenue)*100
+	end
+
+	@total_pl = Array.new
+	@total_pl = total_profit_loss
+	@p_morethan_avg = temp1-@total_pl[1]
+	@p_morethan_total = temp1-@total_pl[0]
+	@l_lessthan_avg = @total_pl[1] + temp2
+	@l_lessthan_total = @total_pl[0] + temp2
+	
+	@pl = Array.new
+	#pl[veh_id_with_prifit,2.veh_id_with_loss, 3.veh_profit%, 4.veh_loss%, 5. veh_profit_morethan_avg, 
+	#	6. veh_profit_morethan_total, 7. veh_loss_lessthan_Avg, 8. Veh_loss_lessthan_total]
+	@pl = [@p, @l,@p_margin, @l_margin, @p_morethan_avg, @p_morethan_total, @l_lessthan_avg, @l_lessthan_total]
+	return @pl
+    end
+
+    def veh_count_based_on_average_profit
+	@total_pl = Array.new
+	@total_pl = total_profit_loss
+	@more_than_average = 0
+	@less_than_average = 0
+	
+	@vpl = VehicleProfitLoss.all
+	@vpl.each do |i|
+		if i.profit_loss >= @total_pl[1]
+			@more_than_average += 1
+		else
+			@less_than_average += 1
+		end
+	end
+	@more_less = Array.new
+	@more_less = [@more_than_average, @less_than_average]
+	return @more_less
+    end
+
+    def total_profit_loss
+	@vpl = VehicleProfitLoss.all
+	@pl_value = 0.0
+	@count = 0.0
+	@vpl.each do |i|
+		@pl_value += i.profit_loss
+		@count += 1
+	end
+	if @count >0 
+		@average_pl = @pl_value/@count
+	else
+		@average_pl = 0
+	end
+	@total_pl = Array.new
+	
+	@total_pl = [@pl_value, @average_pl]
+	return @total_pl
+    end
+######################################################################################################################################
+    
+    def basic
+	 @vehicle = Vehicle.find($vid)
+        return  
+    end
+    
+    def pie
+	@vehicle = Vehicle.find($vid)
+        return  
+    end
+    
+    def bar
+	@vehicle = Vehicle.find($vid)  
+        return  
+    end
+
+  
+    
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
+
+
+    def colorCount
+	@colorName = Color.all
+	@veh	   = Vehicle.all
+	
+	
+	colorHash = Hash.new
+
+	@colorName.each do |i|
+		colorHash.store(i.name,0)
+	end
+	
+
+	 
+
+	 @colorName.each do |i| 
+		@veh.each do |j|
+			if i.name == j.color.name
+				@k = colorHash.fetch(i.name) + 1
+				colorHash[i.name] = @k
+			end
+		end 
+
+	end 
+	return colorHash
+
+    end
+
+
+    def bar_int2
+	@bar_int2 = Hash.new
+	@bar_int2.merge!(colorCount)
+	
+	return @bar_int2
+	
+	
+    end
+
+    def engineDispCount
+	@engineDispName = EngineDisplacement.all
+	@veh	   = Vehicle.all
+	
+	
+	engineDispHash = Hash.new
+
+	@engineDispName.each do |i|
+		engineDispHash.store(i.name,0)
+	end
+	
+	 @engineDispName.each do |i| 
+		@veh.each do |j|
+			if i.name == j.engine_displacement.name
+				@k = engineDispHash.fetch(i.name) + 1
+				engineDispHash[i.name] = @k
+			end
+		end 
+
+	end 
+	return engineDispHash
+
+    end
+
+    def bar_int3
+	@bar_int3 = Hash.new
+	@bar_int3.merge!(engineDispCount)
+	
+	return @bar_int3
+    end
+
+    def engineCyl
+   	@veh = Vehicle.all
+	engineCylHash = Hash.new
+	engineCylHash.store(4,0)
+	engineCylHash.store(6,0)
+	engineCylHash.store(8,0)
+
+	@veh.each do |i|
+		if i.engine_cyl == 4
+			engineCylHash[4] = engineCylHash.fetch(4) + 1
+		elsif i.engine_cyl == 6
+			engineCylHash[6] = engineCylHash.fetch(6) + 1
+		else
+			engineCylHash[8] = engineCylHash.fetch(8) + 1
+		end
+	end
+	return engineCylHash
+    end
+
+
+    def bar_int4
+	@bar_int4 = Hash.new
+	@bar_int4.merge!(engineCyl)
+	
+	return @bar_int4
+    end
+
+    def makeCount
+	@makeName = Make.all
+	@veh	   = Vehicle.all
+	
+	
+	makeHash = Hash.new
+
+	@makeName.each do |i|
+		makeHash.store(i.name,0)
+	end
+	
+
+	 
+
+	 @makeName.each do |i| 
+		@veh.each do |j|
+			if i.name == j.make.name
+				@k = makeHash.fetch(i.name) + 1
+				makeHash[i.name] = @k
+			end
+		end 
+	end 
+	return makeHash
+    end
+
+    def bar_int5
+	@bar_int5 = Hash.new
+	@bar_int5.merge!(makeCount)
+	
+	return @bar_int5
+    end
+
+    def mileagediff
+	@veh	   = Vehicle.all
+
+	mileageHash = Hash.new
+	mileageHash.store(2000,0)
+	mileageHash.store(5000,0)
+	mileageHash.store(10000,0)
+	mileageHash.store(12000,0)
+
+	@veh.each do |i|
+		@k =   i.mpg30after_initial - i.mileage
+
+		if @k <=2000
+			mileageHash[2000] = mileageHash.fetch(2000) + 1
+		elsif @k <= 5000
+			mileageHash[5000] = mileageHash.fetch(5000) + 1 
+		elsif @k <= 1000
+			mileageHash[10000] = mileageHash.fetch(10000) + 1 
+		else
+			mileageHash[12000] = mileageHash.fetch(12000) + 1 
+		end
+	end
+	return mileageHash
+    end
+    
+
+    def pie_mileagediff
+	@pie_md = Hash.new
+	@pie_md.merge!(mileagediff)
+	
+	return @pie_md
+    end
+ 
+    def vehPayment
+	pmnt = Array.new
+	@paySuccess = 15
+	@payFail = 2
+	@payLate = 7
+	
+	pmnt = [@paySuccess, @payFail, @payLate]
+	return pmnt
+    end
+    
+
+    def pie_payment
+	@pie_payment = Array.new
+	@pie_payment = vehPayment
+	
+	return @pie_payment
+    end
+
+  
+
+
+ 
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
+
+    def int2
+
+	bar_int2
+	bar_int3
+	bar_int4
+	bar_int5
+	pie_mileagediff
+
+	pie_payment
+	@pl = Array.new
+	@pl = veh_profit_loss
+	@total_pl = Array.new
+	@total_pl = total_profit_loss
+	@more_less = Array.new
+	@more_less = veh_count_based_on_average_profit
+
+	
+    end
+
+
+#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores
+
+    def store_profit_loss
+	@spl = StoreProfitLoss.all
+	@p = 0.0
+	@l = 0.0
+	temp1 = 0.0
+	temp2 = 0.0
+	@spl.each do |i|
+		if i.profit_loss >= 0
+			if temp1 <= i.profit_loss
+				@p = i
+				temp1 = i.profit_loss
+			end
+		else
+			if temp2 > i.profit_loss
+				@l = i
+				temp2 = i.profit_loss
+			end
+		end
+	end
+	if @p == 0.0 
+		@p_margin = -1
+	else
+		@p_margin = (temp1/@p.store_revenue)*100
+	end
+	if @l == 0.0 
+		@l_margin = -1
+	else
+		@l_margin = (temp2/@l.store_revenue)*100
+	end
+
+	@total_pl = Array.new
+	@total_pl = store_total_avg_pl
+	@p_morethan_avg = temp1-@total_pl[1]
+	@p_morethan_total = temp1-@total_pl[0]
+	@l_lessthan_avg = @total_pl[1] - temp2
+	@l_lessthan_total = @total_pl[0] - temp2
+	
+	@pl = Array.new
+	#pl[store_id_with_profit,2.store_id_with_loss, 3.store_profit%, 4.store_loss%, 5. store_profit_morethan_avg, 
+	#	6. store_profit_morethan_total, 7. store_loss_lessthan_Avg, 8. store_loss_lessthan_total]
+	@pl = [@p, @l,@p_margin, @l_margin, @p_morethan_avg, @p_morethan_total, @l_lessthan_avg, @l_lessthan_total]
+	return @pl
+    end
+
+    def store_count_wrt_avg_pl
+    # Returns store count wrt morethan average and lessthan average. [0] => morethan; [1] => lessthan
+	@total_ave_pl = Array.new
+	@total_avg_pl = store_total_avg_pl
+	@more_than_average = 0
+	@less_than_average = 0
+	
+	@spl = StoreProfitLoss.all
+	@spl.each do |i|
+		if i.profit_loss >= @total_avg_pl[1]
+			@more_than_average += 1
+		else
+			@less_than_average += 1
+		end
+	end
+	@more_less = Array.new
+	@more_less = [@more_than_average, @less_than_average]
+	return @more_less
+    end
+
+
+    def store_total_avg_pl
+    # Returns total and average values of profit/loss. [0] => total; [1] => average
+	@spl = StoreProfitLoss.all
+	@pl_value = 0.0
+	@count = 0.0
+	@spl.each do |i|
+		@pl_value += i.profit_loss
+		@count += 1
+	end
+	if @count >0 
+		@average_pl = @pl_value/@count
+	else
+		@average_pl = 0
+	end
+
+	@total_avg_pl = Array.new
+	@total_avg_pl = [@pl_value, @average_pl]
+	return @total_avg_pl
+    end
+
+
+
+    def int3
+    #profit/loss statistics
+	@total_avg_pl = Array.new
+	@total_avg_pl = store_total_avg_pl
+	
+	@more_less = Array.new
+	@more_less = store_count_wrt_avg_pl
+
+	@pl = Array.new
+	@pl = store_profit_loss
+	
+    end
+    
+#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores#Stores
     
     # GET analytics/int1/:id
     def int1
         @vehicle = Vehicle.find(params[:id])
+	$vid = params[:id]
         prepFormVariables(@vehicle)
         calcProfitLoss(@vehicle)
         calcInternal1(@vehicle)
@@ -278,6 +697,10 @@ class AnalyticsController < ApplicationController
                                                     @totalLaborCost) 
 
         @graphUrls = gg.getUrls
+
+
+	
+
     end
 
     
@@ -379,8 +802,8 @@ class AnalyticsController < ApplicationController
 
         # Misc
         dom = @vehicle.date_of_manufacture
-        @contractExpires = Time.local(dom.year + 15, dom.month, dom.day, 
-                                      dom.hour, dom.min, dom.sec)
+	domInt = dom.to_i
+        @contractExpires = Time.local(domInt + 15)
         daysLeft = ((@contractExpires - Time.now) / spd).to_i
         daysLeft = 0  if daysLeft < 0
         @yearsTo15 = (daysLeft / 365).to_i

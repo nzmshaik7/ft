@@ -17,8 +17,9 @@
   <div class="field">
     <%= f.label :make_id, 'Make for this model' %>:
     <font color="#800000">*</font><br />
-    <%= select("model", "make_id", 
-                    @makeCollect, {prompt: 'Select Make'}) %>
+
+    <%= select("model", "make_id", @makeCollect, {prompt: 'Select Make'}) %>
+
     &nbsp; &nbsp; 
     <%= f.label :name, 'Name of model' %>:
     <font color="#800000">*</font>

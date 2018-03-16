@@ -1,6 +1,6 @@
 class ServiceCategoriesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /service_categories
     # GET /service_categories.json
@@ -43,7 +43,7 @@ class ServiceCategoriesController < ApplicationController
     # POST /service_categories
     # POST /service_categories.json
     def create
-        @service_category = ServiceCategory.new(params[:service_category])
+        @service_category = ServiceCategory.new(params.require(:service_category).permit(:name))
 
         respond_to do |format|
             if @service_category.save
@@ -63,7 +63,7 @@ class ServiceCategoriesController < ApplicationController
         @service_category = ServiceCategory.find(params[:id])
 
         respond_to do |format|
-            if @service_category.update_attributes(params[:service_category])
+            if @service_category.update_attributes(params.require(:service_category).permit(:name))
                 format.html { redirect_to service_categories_url,
                               notice: 'ServiceCategory was successfully updated.' }
                 format.json { head :no_content }

@@ -1,6 +1,6 @@
 class BreakdownsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @vehicles = Vehicle.all
@@ -54,7 +54,7 @@ class BreakdownsController < ApplicationController
     # POST /breakdowns
     # POST /breakdowns.json
     def create
-        @breakdown = Breakdown.new(params[:breakdown])
+        @breakdown = Breakdown.new(params.require(:breakdown).permit(:bdate, :description, :vehicle_id))
 
         respond_to do |format|
             if @breakdown.save
@@ -75,7 +75,7 @@ class BreakdownsController < ApplicationController
         @breakdown = Breakdown.find(params[:id])
 
         respond_to do |format|
-            if @breakdown.update_attributes(params[:breakdown])
+            if @breakdown.update_attributes(params.require(:breakdown).permit(:bdate, :description, :vehicle_id))
                 format.html { redirect_to breakdowns_url,
                               notice: 'Breakdown was successfully updated.' }
                 format.json { head :no_content }

@@ -1,6 +1,6 @@
 class ManufacturerWarrantiesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @manufacturer_warranty_types = ManufacturerWarrantyType.all
@@ -58,7 +58,7 @@ class ManufacturerWarrantiesController < ApplicationController
     # POST /manufacturer_warranties
     # POST /manufacturer_warranties.json
     def create
-        @manufacturer_warranty = ManufacturerWarranty.new(params[:manufacturer_warranty])
+        @manufacturer_warranty = ManufacturerWarranty.new(params.require(:manufacturer_warranty).permit(:comment, :image_id, :miles, :months, :vehicle_id, :manufacturer_warranty_type_id))
 
         respond_to do |format|
             if @manufacturer_warranty.save
@@ -79,7 +79,7 @@ class ManufacturerWarrantiesController < ApplicationController
         @manufacturer_warranty = ManufacturerWarranty.find(params[:id])
 
         respond_to do |format|
-            if @manufacturer_warranty.update_attributes(params[:manufacturer_warranty])
+            if @manufacturer_warranty.update_attributes(params.require(:manufacturer_warranty).permit(:comment, :image_id, :miles, :months, :vehicle_id, :manufacturer_warranty_type_id))
                 format.html { redirect_to manufacturer_warranties_url,
                               notice: 'ManufacturerWarranty was successfully updated.' }
                 format.json { head :no_content }

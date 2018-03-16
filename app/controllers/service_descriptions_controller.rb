@@ -1,8 +1,8 @@
 class ServiceDescriptionsController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit,
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
     include ApplicationHelper
 
@@ -97,8 +97,7 @@ class ServiceDescriptionsController < ApplicationController
     # POST /service_descriptions
     # POST /service_descriptions.json
     def create
-        @service_description = ServiceDescription.new(
-                                                  params[:service_description])
+        @service_description = ServiceDescription.new(params.require(:service_description).permit(:labor_hours_retail, :labor_rate_retail, :name, :service_category_id))
         ok = validateServiceDescription?(@service_description)
         okUrl, errAction = setSaveAction('new', service_descriptions_url)
 
@@ -125,7 +124,7 @@ class ServiceDescriptionsController < ApplicationController
         @service_description = ServiceDescription.find(params[:id])
 
         respond_to do |format|
-            @service_description.assign_attributes(params[:service_description])
+            @service_description.assign_attributes(params.require(:service_description).permit(:labor_hours_retail, :labor_rate_retail, :name, :service_category_id))
             parok = validateServiceDescription?(@service_description)
             okUrl, errAction = setSaveAction('edit', service_descriptions_url)
             saveok = false

@@ -21,17 +21,34 @@
        contract number.</i>
   </div>
   <div class="field">
+
+    <%= f.label :store_id, 'Store' %>
+    <%= select("contract", "store_id", @storeCollect, {prompt: 'Select Store'}) %>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+
     <%= f.label :begin_date %><font color="#800000">*</font>
     <%= f.date_select :begin_date %>
     &nbsp; &nbsp; &nbsp; &nbsp;
+
     <%= f.label :status %><font color="#800000">*</font>
     <select id="contract_status" name="contract[status]">
       <%= options_for_select(@statusOptions, @selStatus) %>
     </select>
     &nbsp; &nbsp; &nbsp; &nbsp;
+
     <%= f.label :salesperson_id, 'Salesperson' %>
     <%= select("contract", "salesperson_id", @salespersonCollect,
                                             {prompt: 'Select Salesperson'}) %>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+
+    
+    
+    <%= f.label :base_cost, 'Base Cost' %>
+    <%= select("contract", "base_cost", @baseCostCollect, {prompt: 'Select Base Cost'}) %>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+
+
+    
   </div>
   <% if isGroundFloor %>
      <input name="is_ground_floor" type="hidden" value="Y" />
@@ -45,10 +62,7 @@
     <%= f.label :level %><font color="#800000">*</font>
     <%= f.number_field :level, :size => 4 %>
     &nbsp; &nbsp; &nbsp; &nbsp;
-    <%= f.label :base_cost %><font color="#800000">*</font>
-    $<%= f.text_field :base_cost, :size => 8  %>
-    &nbsp; &nbsp; &nbsp; &nbsp;
-    <%= f.label :day_of_payment, 'Day of month when payment is made' %>
+       <%= f.label :day_of_payment, 'Day of month when payment is made' %>
     <font color="#800000">*</font>
     <%= f.number_field :day_of_payment, :size => 4 %>
   </div>

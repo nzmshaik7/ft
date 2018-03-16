@@ -27,7 +27,7 @@
       <%= qualification.cylinder_compression_spec %> PSI +/- 
       <%= qualification.cylinder_compression_tolerance %>%
     </td>
-    <td><%= qualification.service_visit.visitText %></td>
+    <td><%= qualification.service_visit.visitText unless qualification.service_visit.nil? %></td>
     <td><%= link_to 'Show', qualification %></td>
     <td><%= link_to 'Edit', edit_qualification_path(qualification) %></td>
     <td><%= link_to 'Destroy', qualification, method: :delete, data: { confirm: 'Are you sure?' } %></td>

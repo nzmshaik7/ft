@@ -26,7 +26,23 @@
   <% if params[:controller] == 'mockup' or params[:controller] == 'analytics' %>
     <%= javascript_include_tag 'mockup/bootstrap-tooltip' %>
     <%= javascript_include_tag 'mockup/bootstrap-popover' %>
+    
+    <%= javascript_include_tag 'mockup/Chart.bundle' %>
+    <%= javascript_include_tag 'mockup/utils' %>
+
   <% end %>
+
+ <% if params[:controller] == 'analytics' or params[:controller] == 'vehicles' or params[:controller] == 'contracts'  or params[:controller] == 'stores'%>
+    <%= javascript_include_tag 'mockup/bootstrap-tooltip' %>
+    <%= javascript_include_tag 'mockup/bootstrap-popover' %>
+    
+    <%= javascript_include_tag 'mockup/Chart.bundle' %>
+    <%= javascript_include_tag 'mockup/utils' %>
+
+  <% end %>
+
+
+
   <% if params[:controller] == 'mockup' %>
     <%= javascript_include_tag 'mockup/mockup' %>
     <% bgColr = '#fff0f0' %>
@@ -41,9 +57,73 @@
   <% end %>
   <%= csrf_meta_tags %>
 </head>
+
 <body bgcolor="<%= bgColr %>">
-<%= render :partial => 'layouts/headnav' %>
-<%= render :partial => 'layouts/flash' %>
+
+<% if current_page?('/mockup/basic') %>
+    
+<% elsif current_page?('/mockup/pie') %>
+
+<% elsif current_page?('/mockup/bar') %>
+
+<% elsif current_page?('/analytics/basic') %>
+
+<% elsif current_page?('/analytics/pie') %>
+
+<% elsif current_page?('/analytics/bar') %>
+
+<% elsif current_page?('/analytics/bar_int2') %>
+
+<% elsif current_page?('/analytics/bar_int3') %>
+
+<% elsif current_page?('/analytics/bar_int4') %>
+
+<% elsif current_page?('/analytics/bar_int5') %>
+
+<% elsif current_page?('/analytics/pie_mileagediff') %>
+
+<% elsif current_page?('/analytics/pie_vehplan') %>
+
+<% elsif current_page?('/analytics/pie_profit') %>
+
+<% elsif current_page?('/analytics/pie_payment') %>
+
+<% elsif current_page?('/analytics/pie_technician') %>
+
+<% elsif current_page?('/vehicles/search_int2') %>
+
+<% elsif current_page?('/vehicles/vehicle_to_service_visits') %>
+
+<% elsif current_page?('/vehicles/match_for_int2') %>
+
+<% elsif current_page?('/vehicles/pie_int2_graph') %>
+
+<% elsif current_page?('/vehicles/match_for_service_visits_count') %>
+
+<% elsif current_page?('/contracts/search_plan_vehicles') %>
+
+<% elsif current_page?('/contracts/match_for_plan_vehicles') %>
+
+
+<% elsif current_page?('/stores/match_for_store_pl') %>
+
+<% elsif current_page?('/stores/search_store_pl') %>
+
+<% elsif current_page?('/stores/search_single_store') %>
+
+<% elsif current_page?('/stores/match_for_single_store') %>
+
+<% elsif current_page?('/stores/pie_pl') %>
+
+<% elsif current_page?('/stores/pie_sv') %>
+
+
+
+<% else %>
+
+	<%= render :partial => 'layouts/headnav' %>
+	<%= render :partial => 'layouts/flash' %>
+<% end %>
 
 <%= yield %>
 

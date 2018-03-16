@@ -1,0 +1,166 @@
+<head>
+    <title>Pie Chart</title>
+    <script src="/../assets/javascripts/mockup/Chart.bundle.js"></script>
+    <script src="/../assets/javascripts/mockup/utils.js"></script>
+ <style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
+
+</head>
+
+
+<body>
+<h2 align="Center"> Service Visits Statistics </h2>
+
+<%= render :partial => 'search_form_for_service_visits_count',
+           :locals => { :target_cm => 'analytics/int2',
+                        :target_label => 'View', :isGroundFloor => true } %>             
+  
+
+<% if @vehicles.length == 0 %>
+  <P><i>No matching vehicles found.</i></P>
+<% end %>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Vin</th>
+    <th>Make-Model-Year</th>
+    <th>Service Visits</th>
+    <th>Total Service Visits Cost</th>
+    <th> Vehicle Revenue</th>
+    <th>Profit/Loss</th>
+    <th> Yield = Profit/Loss to Servisits Ratio </th>
+  </tr>
+
+<% if defined?(@isGroundFloor) and @isGroundFloor %>
+  <% eaction = 'gfedit' %>
+<% else %>
+  <% eaction = 'edit' %>
+<% end %>
+
+
+
+<% @vehicles.each do |v| %>
+<% @vehicle_to_service_visits.each do |vehicle|%>
+ <% if vehicle.id == v.id %>
+  <% @sv_count += vehicle.service_visit_count %>
+  <% @count += 1.0 %> 
+  <% @total_profit_loss += vehicle.profit_loss %>
+  <tr>
+    <td><%= vehicle.vin %></td>
+    <td><%= vehicle.make.name %>-<%= vehicle.model.name unless vehicle.model.nil?%>-<%= vehicle.date_of_manufacture %></td>
+    <td><%= vehicle.service_visit_count %></td>
+    <td><%= vehicle.total_cost %></td>
+    <td><%= vehicle.vehicle_revenue %></td>
+    <td><%= vehicle.profit_loss %> </td>  
+    <td> <%= @Y = (vehicle.profit_loss/vehicle.service_visit_count).round(3) %> 
+		<% if @Y <0 %>
+			<% @Yield[2] +=1 %>
+		<% elsif @Y > 1 %>
+			<% @Yield[0] += 1 %>
+		<% else %>
+			<% @Yield[1] += 1 %>
+		<% end %>
+
+    </td>
+  </tr>
+<% end %>
+<% end %>
+<% end %>
+<b> &nbsp; </b>
+<B> &nbsp; &nbsp; Total profit loss  of current selection = <%= @total_profit_loss %> <br/> </B>
+<B> &nbsp; &nbsp; &nbsp; Total Service Visits <%= @sv_count %> <br/> </B>
+<B> &nbsp; &nbsp; &nbsp; Average Number of visits per vehicle = <%= (@sv_count/@count).round(3) %><br/> </B>
+<B> &nbsp; &nbsp; &nbsp; Total ProfitLoss to Service Visits ratio = <%= (@total_profit_loss/@sv_count).round(3) %> </B>
+<b> &nbsp; </b>
+</table>
+
+
+<h3> Number of Vehicles with Positive Yield and Negative Yield </h3>
+<div id="canvas-holder" style="width:100%">
+        <canvas id="chart-area" />
+    </div>
+
+    <script>
+    var randomScalingFactor = function() {
+        return Math.round(Math.random() * 100);
+    };
+
+   //var c =	new Array();
+  // c = <%= raw @pie_int2_graph.to_json %>;
+
+
+    var config = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [<%= raw @Yield[0].to_json %>, <%= raw @Yield[1].to_json %>, <%= raw @Yield[2].to_json %>]
+		//[4,5,3]
+                   
+                ,
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.orange,
+                    window.chartColors.blue,
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+                "Positive Yield",
+                "Negative Yield",
+                "No Yield At All"
+            ]
+        },
+        options: {
+            responsive: true
+        }
+    };
+
+    window.onload = function() {
+        var ctx = document.getElementById("chart-area").getContext("2d");
+        window.myPie = new Chart(ctx, config);
+    };
+
+    document.getElementById('randomizeData').addEventListener('click', function() {
+        config.data.datasets.forEach(function(dataset) {
+            dataset.data = dataset.data.map(function() {
+                return randomScalingFactor();
+            });
+        });
+
+        window.myPie.update();
+    });
+
+    var colorNames = Object.keys(window.chartColors);
+    document.getElementById('addDataset').addEventListener('click', function() {
+        var newDataset = {
+            backgroundColor: [],
+            data: [],
+            label: 'New dataset ' + config.data.datasets.length,
+        };
+
+        for (var index = 0; index < config.data.labels.length; ++index) {
+            newDataset.data.push(randomScalingFactor());
+
+            var colorName = colorNames[index % colorNames.length];;
+            var newColor = window.chartColors[colorName];
+            newDataset.backgroundColor.push(newColor);
+        }
+
+        config.data.datasets.push(newDataset);
+        window.myPie.update();
+    });
+
+    document.getElementById('removeDataset').addEventListener('click', function() {
+        config.data.datasets.splice(0, 1);
+        window.myPie.update();
+    });
+    </script>
+
+
+
+</body>

@@ -1,6 +1,6 @@
 class InsuranceCompaniesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /insurance_companies
     # GET /insurance_companies.json
@@ -43,7 +43,7 @@ class InsuranceCompaniesController < ApplicationController
     # POST /insurance_companies
     # POST /insurance_companies.json
     def create
-        @insurance_company = InsuranceCompany.new(params[:insurance_company])
+        @insurance_company = InsuranceCompany.new(params.require(:insurance_company).permit(:name))
 
         respond_to do |format|
             if @insurance_company.save
@@ -63,7 +63,7 @@ class InsuranceCompaniesController < ApplicationController
         @insurance_company = InsuranceCompany.find(params[:id])
 
         respond_to do |format|
-            if @insurance_company.update_attributes(params[:insurance_company])
+            if @insurance_company.update_attributes(params.require(:insurance_company).permit(:name))
                 format.html { redirect_to insurance_companies_url,
                               notice: 'InsuranceCompany was successfully updated.' }
                 format.json { head :no_content }

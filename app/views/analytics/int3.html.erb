@@ -1,0 +1,133 @@
+
+<div class="navframe">
+  <font color="#000080">
+    <B><I>FUTURETECH ANALYTICS</I></B>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    <a href="/top/analytics">Home</a> &nbsp; 
+    | &nbsp; <a href="/vehicles/search_int1">Search Vehicles</a> &nbsp; 
+    | &nbsp;<a href="/vehicles/search_int2"> All Vehicles</a> &nbsp; 
+    | &nbsp;<a href="/vehicles/search_int3"> All Stores</a> &nbsp; 
+    | &nbsp; Search Customers &nbsp; | &nbsp; Stores &nbsp; 
+    | &nbsp; Demographics &nbsp; | &nbsp; Help
+  </font>
+</div>
+
+<div class="periodframe">
+ <h1> Store Statistics wrt different entities </h1> 
+</div>
+
+
+
+<div class="vehtopframe">
+
+<div class="carbox">
+
+	<div class="vehicle_pl">
+		<table width=100%>
+		<tr>
+			<th width=20%>
+				<h3 align="right"> #Stores in Profit = <%= @more_less[0] %> </h3>
+			</th>
+			<th width=60%>
+			
+				<h2 align="center"> <font size ="4" color="green"> Stores Cummulative Profit/Loss = <%=  @total_avg_pl[0] %> </font></h2>
+			
+		
+				<h3 align="center"> Stores Average Profit/Loss = <%=  @total_avg_pl[1].round(3) %> </h3>
+			
+			</th>
+			<th width=20%>
+				<h3 align="left"> #Stores in Loss = <%= @more_less[1] %> </h3>
+			</th>
+		</tr>
+		</table>
+		<div class="boxhdr">
+			<b>Stores with Highest profit and Highest Loss</b>
+		</div>
+		<table border="3" width=100%>
+		
+			<tr>
+				<th> PROFIT/LOSS </th>
+				<th> Store Name</th>
+				<th> Store Number</th>
+				<th> Manager Name</th>
+				<th> Total Parts Cost</th>
+				<th> Total Labor Cost </th>
+				<th> Total Revenue </th>
+				<th> Profit/Loss Value</th>
+				<th> Profit/Loss %	</th>
+				<th> More/Less than average </th>
+				<th> More/Less than total </th>
+				<th> Profit/Loss Yield </th>
+			</tr>
+		
+			<tr bgcolor="green" style="color:white">
+				<td> <b>PROFIT </b></td>
+				<td><%= @pl[0].name if @pl[0]!=0    %></td>
+				<td><%= @pl[0].number if @pl[0]!=0   %></td>
+				<td><%= @pl[0].manager_id if @pl[0]!=0 %></td>
+				<td><%= @pl[0].store_used_parts_actual_cost if @pl[0]!=0  %></td>
+				<td><%= @pl[0].store_labor_actual_cost if @pl[0]!=0  %></td>
+				<td><%= @pl[0].store_revenue if @pl[0]!=0  %></td>
+				<td><%= @pl[0].profit_loss if @pl[0]!=0  %></td>
+				<td><%= @pl[2].round(3) if @pl[0]!=0 %></td> 
+				<td><%= @pl[4].round(3) if @pl[0]!=0   %></td>
+				<td><%= @pl[5].round(3) if @pl[0]!=0 %></td>
+				<td> TBC </td>
+			</tr>
+			<tr bgcolor="red" style="color:white">
+				<td> <b>LOSS </b></td>
+				<td><%= @pl[1].name if @pl[1]!=0 %></td>
+				<td><%= @pl[1].number if @pl[1]!=0 %></td>
+				<td><%= @pl[1].manager_id if @pl[1]!=0  %></td>
+				<td><%= @pl[1].store_used_parts_actual_cost if @pl[1]!=0 %></td>
+				<td><%= @pl[1].store_labor_actual_cost if @pl[1]!=0 %></td>
+				<td><%= @pl[1].store_revenue if @pl[1]!=0 %></td>
+				<td><%= @pl[1].profit_loss if @pl[1]!=0 %></td>
+				<td><%= @pl[3].round(3) if @pl[1]!=0  %></td> 
+				<td><%= @pl[6].round(3) if @pl[1]!=0  %></td>
+				<td><%= @pl[7].round(3) if @pl[1]!=0 %></td>
+				<td> TBC </td>
+			</tr>
+		
+		</table>
+	</div>
+
+	<div class="vehicle_pl">
+
+		<table border="5" width=1250>
+		<tr>
+			<td>
+			
+				<div class="Boxhdr" >
+					<iframe src="/stores/search_store_pl" width="100%" height="750">
+        					alternative content for browsers which do not support iframe.
+    					</iframe>
+				</div>
+			</td>
+			
+		</tr>
+
+
+		<tr>
+			<td>	
+				<div class="Boxhdr">
+						<iframe src="/stores/search_single_store" width="100%" height="800">
+        						alternative content for browsers which do not support iframe.
+    						</iframe>
+				</div>
+	
+			</td>
+		</tr>
+		</table>
+	
+	</div>
+		
+</div>
+
+</div>
+
+
+
+
+

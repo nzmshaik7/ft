@@ -1,0 +1,14 @@
+/* line 1, /home/rails/ft/app/assets/stylesheets/mockup/unoverride.css.scss */
+table.navtab {
+  background-color: #E0E0E8;
+}
+
+/* line 2, /home/rails/ft/app/assets/stylesheets/mockup/unoverride.css.scss */
+td.navtab {
+  padding: 4px 10px 4px 10px;
+}
+
+/* line 3, /home/rails/ft/app/assets/stylesheets/mockup/unoverride.css.scss */
+table.anatab > tbody > tr > td {
+  padding: 0px 3px 0px 3px;
+}

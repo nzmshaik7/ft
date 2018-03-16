@@ -1,8 +1,8 @@
 class ModelsController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit,
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
     include ApplicationHelper
 
@@ -13,6 +13,8 @@ class ModelsController < ApplicationController
             [ p.name, p.id ] 
         }
     end
+    
+    
 
 
     # GET /models
@@ -123,7 +125,7 @@ class ModelsController < ApplicationController
     # POST /models
     # POST /models.json
     def create
-        @model = Model.new(params[:model])
+        @model = Model.new(params.require(:model).permit(:first_year_made, :last_year_made, :make_id, :name))
         ok = validateModel?(@model, true)
         okUrl, errAction = setSaveAction('new', models_url)
 
@@ -149,7 +151,7 @@ class ModelsController < ApplicationController
         @model = Model.find(params[:id])
 
         respond_to do |format|
-            @model.assign_attributes(params[:model])
+            @model.assign_attributes(params.require(:model).permit(:first_year_made, :last_year_made, :make_id, :name))
             parok = validateModel?(@model, false)
             okUrl, errAction = setSaveAction('edit', models_url)
             saveok = false

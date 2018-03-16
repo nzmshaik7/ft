@@ -1,0 +1,10 @@
+<h2>Editing used part</h2>
+
+<%= render :partial => 'form',
+                       :locals => { :isGroundFloor => @isGroundFloor } %>
+
+<form action="/used_parts/gfindex" style="display: inline;">
+  <input type="submit" value="List/Edit Used Part Costs"> 
+</form>
+&nbsp; &nbsp; 
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

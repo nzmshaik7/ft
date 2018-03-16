@@ -50,8 +50,10 @@
   </div>
   <div class="field">
     <%= f.label :date_of_manufacture %><font color="#800000">*</font>
-    <%= f.date_select :date_of_manufacture, :start_year => 1990 %>
+<% if false %>
+    <%= f.yearsCollect :date_of_manufacture, :start_year => 1990 %>
     &nbsp; &nbsp; &nbsp; &nbsp; 
+<% end %>
     <%= f.label :country_of_manufacture_id %>
     <%= select("vehicle", "country_of_manufacture_id", @countryCollect,
 					      {prompt: 'Select Country'}) %>

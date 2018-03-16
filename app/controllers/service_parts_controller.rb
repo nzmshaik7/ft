@@ -1,7 +1,7 @@
 class ServicePartsController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew_for_sli, :gfedit_for_sp, ]
-    before_filter :gf_area,       :only   => [:gfnew_for_sli, :gfedit_for_sp, ]
+    before_action :database_area, :except => [:gfnew_for_sli, :gfedit_for_sp, ]
+    before_action :gf_area,       :only   => [:gfnew_for_sli, :gfedit_for_sp, ]
     include ApplicationHelper
 
     def prepFormVariables
@@ -119,7 +119,8 @@ class ServicePartsController < ApplicationController
     # POST /service_parts
     # POST /service_parts.json
     def create
-        @service_part = ServicePart.new(params[:service_part])
+        @service_part = ServicePart.new(params.require(:service_part).permit(:part_actual_price, :part_id, :part_retail_price,
+                    :service_line_item_id, :quantity))
         ok = validateServicePart?(@service_part)
         okUrl, errAction = setSaveAction('new', service_parts_url)
         successMsg = 'Service Part was successfully created.'
@@ -155,7 +156,8 @@ class ServicePartsController < ApplicationController
         @service_part = ServicePart.find(params[:id])
 
         respond_to do |format|
-            @service_part.assign_attributes(params[:service_part])
+            @service_part.assign_attributes(params.require(:service_part).permit(:part_actual_price, :part_id, :part_retail_price,
+                    :service_line_item_id, :quantity))
             parok = validateServicePart?(@service_part)
             okUrl, errAction = setSaveAction('edit', service_parts_url)
             if params[:returnToSv] or params[:editToSv]

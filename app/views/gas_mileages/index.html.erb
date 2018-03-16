@@ -10,7 +10,7 @@
 
 <% @gas_mileages.each do |gas_mileage| %>
   <tr>
-    <td><%= gas_mileage.vehicle_id %>:<%= gas_mileage.vehicle.ymmText %></td>
+    <td><%= gas_mileage.vehicle_id %>:<%= gas_mileage.vehicle.ymmText unless gas_mileage.vehicle.nil?%></td>
     <td><%= gas_mileage.mileage %></td>
     <td><%= gas_mileage.mdate.strftime("%b %d, %Y") %></td>
     <td><%= link_to 'Edit', edit_gas_mileage_path(gas_mileage) %></td>

@@ -1,6 +1,6 @@
 class ServiceVisitNotesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /service_visit_notes
     # GET /service_visit_notes.json
@@ -43,7 +43,7 @@ class ServiceVisitNotesController < ApplicationController
     # POST /service_visit_notes
     # POST /service_visit_notes.json
     def create
-        @service_visit_note = ServiceVisitNote.new(params[:service_visit_note])
+        @service_visit_note = ServiceVisitNote.new(params.require(:service_visit_note).permit(:note, :service_visit_id, :user_id))
 
         respond_to do |format|
             if @service_visit_note.save
@@ -62,7 +62,7 @@ class ServiceVisitNotesController < ApplicationController
         @service_visit_note = ServiceVisitNote.find(params[:id])
 
         respond_to do |format|
-            if @service_visit_note.update_attributes(params[:service_visit_note])
+            if @service_visit_note.update_attributes(params.require(:service_visit_note).permit(:note, :service_visit_id, :user_id))
                 format.html { redirect_to service_visit_notes_url, notice: 'Service visit note was successfully updated.' }
                 format.json { head :no_content }
             else

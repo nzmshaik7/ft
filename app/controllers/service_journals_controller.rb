@@ -1,6 +1,6 @@
 class ServiceJournalsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @serviceVisits = ServiceVisit.all
@@ -57,7 +57,7 @@ class ServiceJournalsController < ApplicationController
     # POST /service_journals
     # POST /service_journals.json
     def create
-        @service_journal = ServiceJournal.new(params[:service_journal])
+        @service_journal = ServiceJournal.new(params.require(:service_journal).permit(:date_time, :event_id, :service_visit_id))
 
         respond_to do |format|
             if @service_journal.save
@@ -78,7 +78,7 @@ class ServiceJournalsController < ApplicationController
         @service_journal = ServiceJournal.find(params[:id])
 
         respond_to do |format|
-            if @service_journal.update_attributes(params[:service_journal])
+            if @service_journal.update_attributes(params.require(:service_journal).permit(:date_time, :event_id, :service_visit_id))
                 format.html { redirect_to service_journals_url,
                               notice: 'ServiceJournal was successfully updated.' }
                 format.json { head :no_content }

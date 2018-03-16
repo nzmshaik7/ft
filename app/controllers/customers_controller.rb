@@ -1,10 +1,10 @@
 class CustomersController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit, 
                                               :gfsearch1, :gfmatch1, 
                                               :svsearch1,
                                               ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :gfsearch1, :gfmatch1, 
                                               :svsearch1,
                                               ]
@@ -20,7 +20,7 @@ class CustomersController < ApplicationController
 
         @users = User.all
         @userCollect = @users.collect { |p|
-            [ p.first_name + ' ' + p.last_name, p.id ] 
+            [ p.first_name + ' ' + p.last_name, p.id ] unless p.first_name.nil?
         }
 
         @customers = Customer.all
@@ -223,7 +223,7 @@ class CustomersController < ApplicationController
         cust.work_phone.strip!  if cust.work_phone
         cust.mobile_phone.strip!  if cust.mobile_phone
         cust.other_phone.strip!  if cust.other_phone
-        cust.spouse_name.strip!  if cust.spouse_name
+        #cust.spouse_name.strip!  if cust.spouse_name
         cust.referredBy_other_text.strip!  if cust.referredBy_other_text
         cust.ssn.strip!  if cust.ssn
         cust.driver_lic_num.strip!  if cust.driver_lic_num
@@ -297,7 +297,22 @@ class CustomersController < ApplicationController
     # POST /customers
     # POST /customers.json
     def create
-        @customer = Customer.new(params[:customer])
+        @customer = Customer.new(params.require(:customer).permit(:can_text_home_phone, :can_text_mobile_phone, 
+                    :can_text_other_phone, :can_text_work_phone, :cid, 
+                    :city, :date_of_birth, :driver_lic_image_id, 
+                    :driver_lic_num, :driver_lic_state_id, :gender, 
+                    :home_phone, :is_aaa_member, :is_web_registered, 
+                    :joined_date, :mobile_phone, :other_phone,
+                    :referral_credits_earned, :referral_credits_used,
+                    :referredBy_customer_id, :referredBy_id,
+                    :referredBy_other_text, :signup_store_id,
+                    #:spouse_id, :spouse_name,
+		    :ssn, :state_id,
+                    :street_addr1, :street_addr2, :user_id,
+                    :video_testimony_url, :work_phone,
+                    :written_testimony_id, :zip,
+                    :first_name, :middle_name, :last_name, :email, 
+                    :contact_method))
         ok = validateCustomer?(@customer)
         okUrl, errAction = setSaveAction('new', customers_url)
 
@@ -323,7 +338,22 @@ class CustomersController < ApplicationController
         @customer = Customer.find(params[:id])
 
         respond_to do |format|
-            @customer.assign_attributes(params[:customer])
+            @customer.assign_attributes(params.require(:customer).permit(:can_text_home_phone, :can_text_mobile_phone, 
+                    :can_text_other_phone, :can_text_work_phone, :cid, 
+                    :city, :date_of_birth, :driver_lic_image_id, 
+                    :driver_lic_num, :driver_lic_state_id, :gender, 
+                    :home_phone, :is_aaa_member, :is_web_registered, 
+                    :joined_date, :mobile_phone, :other_phone,
+                    :referral_credits_earned, :referral_credits_used,
+                    :referredBy_customer_id, :referredBy_id,
+                    :referredBy_other_text, :signup_store_id,
+                    #:spouse_id, :spouse_name,
+		    :ssn, :state_id,
+                    :street_addr1, :street_addr2, :user_id,
+                    :video_testimony_url, :work_phone,
+                    :written_testimony_id, :zip,
+                    :first_name, :middle_name, :last_name, :email, 
+                    :contact_method))
             parok = validateCustomer?(@customer)
             okUrl, errAction = setSaveAction('edit', customers_url)
             saveok = false

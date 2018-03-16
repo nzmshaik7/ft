@@ -1,6 +1,6 @@
 class ScheduledServicesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /scheduled_services
     # GET /scheduled_services.json
@@ -43,7 +43,7 @@ class ScheduledServicesController < ApplicationController
     # POST /scheduled_services
     # POST /scheduled_services.json
     def create
-        @scheduled_service = ScheduledService.new(params[:scheduled_service])
+        @scheduled_service = ScheduledService.new(params.require(:scheduled_service).permit(:mileage, :sdate, :service_schedule_id))
 
         respond_to do |format|
             if @scheduled_service.save
@@ -63,7 +63,7 @@ class ScheduledServicesController < ApplicationController
         @scheduled_service = ScheduledService.find(params[:id])
 
         respond_to do |format|
-            if @scheduled_service.update_attributes(params[:scheduled_service])
+            if @scheduled_service.update_attributes(params.require(:scheduled_service).permit(:mileage, :sdate, :service_schedule_id))
                 format.html { redirect_to scheduled_services_url,
                               notice: 'ScheduledService was successfully updated.' }
                 format.json { head :no_content }

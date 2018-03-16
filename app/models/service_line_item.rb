@@ -1,20 +1,26 @@
 class ServiceLineItem < ActiveRecord::Base
-    attr_accessible :labor_hours_actual, :labor_hours_retail,
+    #attr_accessible :labor_hours_actual, :labor_hours_retail,
+    #                :labor_rate_actual, :labor_rate_retail,
+    #                :service_description_id, :service_description_text,
+    #                :service_visit_id, :stype
+    def service_line_item_params
+	params.require(:service_line_item).permit(:labor_hours_actual, :labor_hours_retail,
                     :labor_rate_actual, :labor_rate_retail,
                     :service_description_id, :service_description_text,
-                    :service_visit_id, :stype
+                    :service_visit_id, :stype)
+    end
     belongs_to :service_visit
     belongs_to :service_description
     has_many :service_parts
     has_many :technician_hours
 
-    S_QUALIFICATION = 81
-    S_MEMB_SERVICE = 82
-    S_MEMB_REPAIR = 83
-    S_MEMB_NOT_COVERED = 84
-    S_NON_MEMB_SERVICE = 85
-    S_NON_MEMB_REPAIR = 86
-    S_OTHER = 87
+    S_QUALIFICATION = 20
+    S_MEMB_SERVICE = 21
+    S_MEMB_REPAIR = 22
+    S_MEMB_NOT_COVERED = 23
+    S_NON_MEMB_SERVICE = 24
+    S_NON_MEMB_REPAIR = 25
+    S_OTHER = 26
     
     def descText
         if service_description_id

@@ -1,0 +1,55 @@
+<form accept-charset="UTF-8" action="/vehicles/match_for_int2" 
+      class="search_vehicles" id="search_vehicles" method="get">
+
+  <input name="authenticity_token" type="hidden" 
+                                    value="<%= form_authenticity_token %>" />
+  <input name="target_cm" type="hidden" value="<%= target_cm %>" />
+  <input name="target_label" type="hidden" value="<%= target_label %>" />
+
+  <% if defined?(isGroundFloor) and isGroundFloor %>
+    <input name="is_ground_floor" type="hidden" value="Y" />
+  <% end %>
+
+  <table border="0">
+    <tr>
+      <td>Year</td>
+      <td>
+        <select id="vehicle_year" 
+                name="vehicle[year]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@yearsCollect) %>
+        </select>
+	&nbsp; &nbsp; &nbsp;
+      </td>
+
+      <td>Make</td>
+      <td>
+        <select id="vehicle_make" 
+                name="vehicle[make]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@makeCollect) %>
+        </select>
+	&nbsp; &nbsp; &nbsp;
+
+      </td>
+
+      <td>Model</td>
+      <td>
+        <select id="vehicle_model" 
+                name="vehicle[model]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@modelCollect) %>
+        </select>
+	&nbsp; &nbsp; &nbsp;
+
+      </td>
+      <td>
+		<div class="actions">
+   			 <input name="go" type="submit" value="Search" />
+  		</div>
+      </td>
+    </tr>
+    </table>
+
+  
+</form>

@@ -1,8 +1,8 @@
 class EmployeesController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit,
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
     include ApplicationHelper
 
@@ -105,7 +105,7 @@ class EmployeesController < ApplicationController
     # POST /employees
     # POST /employees.json
     def create
-        @employee = Employee.new(params[:employee])
+        @employee = Employee.new(params.require(:employee).permit(:first_name, :last_name, :ssn, :store_id))
         ok = validateEmployee?(@employee)
         okUrl, errAction = setSaveAction('new', employees_url)
 
@@ -131,7 +131,7 @@ class EmployeesController < ApplicationController
         @employee = Employee.find(params[:id])
 
         respond_to do |format|
-            @employee.assign_attributes(params[:employee])
+            @employee.assign_attributes(params.require(:employee).permit(:first_name, :last_name, :ssn, :store_id))
             parok = validateEmployee?(@employee)
             okUrl, errAction = setSaveAction('edit', employees_url)
             saveok = false

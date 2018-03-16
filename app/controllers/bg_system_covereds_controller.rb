@@ -1,6 +1,6 @@
 class BgSystemCoveredsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @vehicles = Vehicle.all
@@ -58,7 +58,7 @@ class BgSystemCoveredsController < ApplicationController
     # POST /bg_system_covereds
     # POST /bg_system_covereds.json
     def create
-        @bg_system_covered = BgSystemCovered.new(params[:bg_system_covered])
+        @bg_system_covered = BgSystemCovered.new(params.require(:bg_system_covered).permit(:coverage, :system_id, :vehicle_id))
 
         respond_to do |format|
             if @bg_system_covered.save
@@ -79,7 +79,7 @@ class BgSystemCoveredsController < ApplicationController
         @bg_system_covered = BgSystemCovered.find(params[:id])
 
         respond_to do |format|
-            if @bg_system_covered.update_attributes(params[:bg_system_covered])
+            if @bg_system_covered.update_attributes(params.require(:bg_system_covered).permit(:coverage, :system_id, :vehicle_id))
                 format.html { redirect_to bg_system_covereds_url,
                               notice: 'BgSystemCovered was successfully updated.' }
                 format.json { head :no_content }

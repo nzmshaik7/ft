@@ -13,7 +13,7 @@
 
 <% @manufacturer_warranties.each do |manufacturer_warranty| %>
   <tr>
-    <td><%= manufacturer_warranty.vehicle.ymmpText %></td>
+    <td><%= manufacturer_warranty.vehicle.ymmpText unless manufacturer_warranty.vehicle.nil?%></td>
     <td><%= manufacturer_warranty.months %></td>
     <td><%= manufacturer_warranty.miles %></td>
     <td><%= manufacturer_warranty.manufacturer_warranty_type.name %></td>

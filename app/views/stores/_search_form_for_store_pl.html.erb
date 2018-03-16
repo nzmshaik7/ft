@@ -1,0 +1,107 @@
+<form accept-charset="UTF-8" action="/stores/match_for_store_pl" 
+      class="search_stores" id="search_stores" method="get">
+
+  <input name="authenticity_token" type="hidden" 
+                                    value="<%= form_authenticity_token %>" />
+  <input name="target_cm" type="hidden" value="<%= target_cm %>" />
+  <input name="target_label" type="hidden" value="<%= target_label %>" />
+  <% if defined?(isGroundFloor) and isGroundFloor %>
+    <input name="is_ground_floor" type="hidden" value="Y" />
+  <% end %>
+
+  <table border="7" align="center" width= 100%>
+
+    <tr>
+
+      <td align="center">State &nbsp;
+        <select id="store_state" 
+                name="store[state]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@stateCollect) %>
+        </select>
+      </td>
+      <td align="center">Region &nbsp;
+        <select id="store_region" 
+                name="store[region]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@regionCollect) %>
+        </select>
+      </td>
+      <td align="center">County &nbsp;
+        <select id="store_county" 
+                name="store[county]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@countyCollect) %>
+        </select>
+      </td>
+      <td align="center">Store &nbsp;
+        <select id="store_name" 
+                name="store[name]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@nameCollect) %>
+        </select>
+      </td>
+      <td align="center">Manager &nbsp;
+        <select id="store_manager" 
+                name="store[manager]">
+          <option value="0" selected="selected">All</option>
+          <%= options_for_select(@employeeCollect) %>
+        </select>
+      </td>
+
+	<td>
+	<div align="center" class="actions">
+    		<input name="go" type="submit" value="Search" align="down"/>
+  	</div>
+      </td>
+    </tr>
+
+	
+
+<% if false %>
+    <tr>
+      <td>Duration</td>
+	<td> From </td>
+      <td>
+        <select id="vehicle_year_from" 
+                name="vehicle[year_from]">
+         
+          <%= options_for_select(@yearsCollect) %>
+        </select>
+	<select id="vehicle_month_from" 
+                name="vehicle[month_from]">
+          
+          <%= options_for_select(@monthsCollect) %>
+        </select>
+	<select id="vehicle_date_from" 
+                name="vehicle[date_from]">
+         
+          <%= options_for_select(@daysCollect) %>
+        </select>
+      </td>
+	<td> To </td>
+	<td>
+        <select id="vehicle_year_to" 
+                name="vehicle[year_to]">
+         
+          <%= options_for_select(@yearsCollect) %>
+        </select>
+        <select id="vehicle_month_to" 
+                name="vehicle[month_to]">
+        
+          <%= options_for_select(@monthsCollect) %>
+        </select>
+	<select id="vehicle_date_to" 
+                name="vehicle[date_to]">
+          
+          <%= options_for_select(@daysCollect) %>
+        </select>
+      </td>
+      
+  </tr>
+   
+<% end %>
+  </table>
+	
+	
+</form>

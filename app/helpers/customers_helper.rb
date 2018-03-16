@@ -17,9 +17,9 @@ module CustomersHelper
         answer = '<i>None</i>'
         delim = ''
         if cust.referredBy_id
-            answer = cust.referredBy.description
+            answer = cust.referredBy_other_text
             delim = ': '
-            if not cust.referredBy.isNone
+            if not cust.referredBy_id
                 if cust.referredBy_other_text and 
                                           cust.referredBy_other_text.length > 1 
                     answer += delim + cust.referredBy_other_text

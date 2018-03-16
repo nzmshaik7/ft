@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /images
     # GET /images.json
@@ -43,7 +43,7 @@ class ImagesController < ApplicationController
     # POST /images
     # POST /images.json
     def create
-        @image = Image.new(params[:image])
+        @image = Image.new(params.require(:image).permit(:filename, :image_id))
 
         respond_to do |format|
             if @image.save
@@ -63,7 +63,7 @@ class ImagesController < ApplicationController
         @image = Image.find(params[:id])
 
         respond_to do |format|
-            if @image.update_attributes(params[:image])
+            if @image.update_attributes(params.require(:image).permit(:filename, :image_id))
                 format.html { redirect_to images_url,
                               notice: 'Image was successfully updated.' }
                 format.json { head :no_content }

@@ -1,6 +1,6 @@
 class PurchaseOrdersController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @vendors = Vendor.all
@@ -59,7 +59,7 @@ class PurchaseOrdersController < ApplicationController
     # POST /purchase_orders
     # POST /purchase_orders.json
     def create
-        @purchase_order = PurchaseOrder.new(params[:purchase_order])
+        @purchase_order = PurchaseOrder.new(params.require(:purchase_order).permit(:date_time, :po_number, :vendor_id))
 
         respond_to do |format|
             if @purchase_order.save
@@ -83,7 +83,7 @@ class PurchaseOrdersController < ApplicationController
         @purchase_order = PurchaseOrder.find(params[:id])
 
         respond_to do |format|
-            if @purchase_order.update_attributes(params[:purchase_order])
+            if @purchase_order.update_attributes(params.require(:purchase_order).permit(:date_time, :po_number, :vendor_id))
                 format.html { redirect_to purchase_orders_url,
                           notice: 'Purchase order was successfully updated.' }
                 format.json { head :no_content }

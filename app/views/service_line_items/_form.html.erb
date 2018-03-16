@@ -10,13 +10,13 @@
       </ul>
     </div>
   <% end %>
-
+  
   <% if defined?(isGroundFloor) and isGroundFloor %>
     <input name="is_ground_floor" type="hidden" value="Y" />
     <B>Service visit for:</B>
     <% sv = @service_line_item.service_visit %>
-    <%= sv.vehicle.ymmpText %> on
-    <%= sv.sdate.strftime("%b %d, %Y") %>,
+    <%= sv.vehicle.ymmpText unless sv.vehicle.nil?%> on
+    <%= sv.sdate.strftime("%b %d, %Y") unless sv.sdate.nil?%>,
     <%= sv.mileage %> miles.
     &nbsp; &nbsp;
     <a href="/service_visits/gfedit2/<%= sv.id %>">Edit this service visit</a>

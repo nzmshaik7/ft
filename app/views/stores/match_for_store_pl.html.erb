@@ -1,0 +1,145 @@
+
+
+<h2 align="Center"> ProfitLoss Statistics</h2>
+
+
+<%= render :partial => 'search_form_for_store_pl',
+           :locals => { :target_cm => 'analytics/int3',
+                        :target_label => 'View', :isGroundFloor => true } %>                           
+
+<% if @stores.length == 0 %>
+  <P align="center"><i><b>No matching stores found.</b></i></P>
+<% end %>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Vin</th>
+    <th>Manager</th>
+    <th> Region - State - County </th>
+    <th>Labor Cost</th>
+    <th>Parts Cost</th>
+    <th>Revenue</th>
+    <th>Profit/Loss</th>
+  </tr>
+
+<% if defined?(@isGroundFloor) and @isGroundFloor %>
+  <% eaction = 'gfedit' %>
+<% else %>
+  <% eaction = 'edit' %>
+<% end %>
+
+
+
+<% @temp1.each do |t| %>
+  <tr>
+    <td><%= t.name %></td>
+    <td><%= t.manager_id %></td>
+    <td><%= t.region.name %> - <%= t.state.name %> - <%= t.county.name %></td>
+    <td><%= t.store_labor_actual_cost %></td>
+    <td><%= t.store_used_parts_actual_cost %></td>
+    <td><%= t.store_revenue %></td>
+    <td><%= t.profit_loss %> </td>  
+  </tr>
+
+
+<% end %>
+
+<b> &nbsp; </b>
+
+<B> Total profit loss  of current selection = <%= @total_profit_loss %> <br/> </B>
+
+<b> &nbsp; </b>
+</table>
+#####################################################################
+
+<table border="3" class="ft_dbtab">
+	<tr bgcolor="#F0FFF0" align="center">
+		<th> Store ID </th>
+		<th> Profit loss Flag </th>
+		<th> Efficiency Flag </th>
+		<th> Avg Store Efficiency </th>
+		<th> Productivity Flag </th>
+		<th> Avg Store Productivity </th>
+		<th> Proficiency Flag </th>
+		<th> Avg Store Proficiency </th>
+	</tr>
+<% @temp3.each do |s| %>
+	<tr align="center">
+		<td> <%= s[0] %> </td>
+		<td> <%= s[1] %>  </td>
+		<td> <%= s[2] %>  </td>
+		<td> <%= s[3].round(3) %>  </td>
+		<td> <%= s[4] %>  </td>
+		<td> <%= s[5].round(3) %>  </td>
+		<td> <%= s[6] %>  </td>
+		<td> <%= s[7].round(3) %>  </td>
+	</tr>
+
+<% end %>
+</table>
+
+#####################################################################
+
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Vin</th>
+    <th>Region - State - County</th>
+    <th>Service Visits</th>
+    <th>Total Service Visits Cost</th>
+    <th> Vehicle Revenue</th>
+    <th>Profit/Loss</th>
+    <th> Yield = Profit/Loss to Servisits Ratio </th>
+  </tr>
+
+<% if defined?(@isGroundFloor) and @isGroundFloor %>
+  <% eaction = 'gfedit' %>
+<% else %>
+  <% eaction = 'edit' %>
+<% end %>
+
+
+
+<% @temp2.each do |s| %>
+
+  <tr>
+    <td><%= s.name %></td>
+    <td><%= s.region.name %>-<%= s.state.name %>-<%= s.county.name %></td>
+    <td><%= s.service_visit_count %></td>
+    <td><%= s.total_cost %></td>
+    <td><%= s.store_revenue %></td>
+    <td><%= s.profit_loss %> </td>  
+    <td> <%= (s.profit_loss/s.service_visit_count).round(3) %></td>
+  </tr>
+<% end %>
+
+<b> &nbsp; </b><br/>
+<B> &nbsp; &nbsp; &nbsp; Total Service Visits <%= @sv_count %> <br/> </B>
+<B> &nbsp; &nbsp; &nbsp; Average Number of visits per vehicle = <%= @sv_avg %><br/> </B>
+<B> &nbsp; &nbsp; &nbsp; Total ProfitLoss to Service Visits ratio = <%= @pl_sv_ratio %> </B>
+<b> &nbsp; </b>
+</table>
+
+<table width=100% border="3">
+
+	<tr width=100%>
+		<th> Number of Stores in Profit/Loss/Berak-even </th>
+		<th> Number of Stores with Service Visits Yield </th>
+	</tr>
+	<tr width = 100%>
+		<td>
+				<div class="Boxhdr" >
+					<iframe src="/stores/pie_pl" width="100%" height="350">
+        					alternative content for browsers which do not support iframe.
+    					</iframe>
+				</div>
+		</td>
+		<td>
+				<div class="Boxhdr" >
+					<iframe src="/stores/pie_sv" width="100%" height="350">
+        					alternative content for browsers which do not support iframe.
+    					</iframe>
+				</div>
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,20 @@
+<form accept-charset="UTF-8" action="/analytics/pie_mileagediff"
+	class="search_mileage" id="search_mileage" method="get">
+
+<table border="0">
+	<td> Mileage Difference </td>
+	<td>
+		<select id="mileage_diff" name="mileagediff">
+			<option value="0" selected="selected"> All </option>
+			<%= options_for_select (@pie_md.keys) %>
+		</select>
+	</td>
+	<td>
+		 <div class="actions">
+    			<input name="go" type="submit" value="Search" />
+  		</div>
+	</td>
+
+</table>
+
+</form>

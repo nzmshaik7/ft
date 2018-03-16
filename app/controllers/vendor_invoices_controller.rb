@@ -1,6 +1,6 @@
 class VendorInvoicesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
 
     def prepFormVariables(vi=nil)
@@ -77,7 +77,7 @@ class VendorInvoicesController < ApplicationController
     # POST /vendor_invoices
     # POST /vendor_invoices.json
     def create
-        @vendor_invoice = VendorInvoice.new(params[:vendor_invoice])
+        @vendor_invoice = VendorInvoice.new(params.require(:vendor_invoice).permit(:date_time, :invoice_number, :purchase_order_id, :status, :vendor_id))
 
         respond_to do |format|
             if @vendor_invoice.save
@@ -101,7 +101,7 @@ class VendorInvoicesController < ApplicationController
         @vendor_invoice = VendorInvoice.find(params[:id])
 
         respond_to do |format|
-            if @vendor_invoice.update_attributes(params[:vendor_invoice])
+            if @vendor_invoice.update_attributes(params.require(:vendor_invoice).permit(:date_time, :invoice_number, :purchase_order_id, :status, :vendor_id))
                 format.html { redirect_to vendor_invoices_url,
                            notice: 'Vendor invoice was successfully updated.' }
                 format.json { head :no_content }

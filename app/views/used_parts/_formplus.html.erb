@@ -1,0 +1,50 @@
+<%= form_for(@used_part) do |f| %>
+  <% if @used_part.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@used_part.errors.count, "error") %> prohibited this used part cost from being saved:</h2>
+
+      <ul>
+      <% @used_part.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <input name="is_ground_floor" type="hidden" value="Y" />
+  <input name="is_plus" type="hidden" value="Y" />
+  <div class="field">
+    <%= f.label :store_id %><font color="#800000">*</font>
+    <%= select("used_part", "store_id", 
+                @storeCollect, {prompt: 'Select Store'}) %>
+
+    &nbsp; &nbsp;
+<% if false
+     or add new manufacturer:
+    <input id="part_new_manuf" name="part_new_manuf" size="40" type="text">
+    <br />
+<% end %>
+    <%= f.label :vehicle_id %><font color="#800000">*</font>
+    <%= select("used_part", "vehicle_id", 
+                @vehicleCollect, {prompt: 'Select Vehicle'}) %>
+    &nbsp; &nbsp;
+    <%= f.label :part_name_id %><font color="#800000">*</font>
+    <%= select("used_part", "part_name_id", 
+                @part_nameCollect, {prompt: 'Select Generic Part Name'}) %>
+    &nbsp; &nbsp;
+<% if false %>
+  or add new name:
+    <input id="part_new_name" name="part_new_name" size="40" type="text">
+<% end %>
+  </div>
+
+  
+  <div class="field">
+    <%= f.label :quantity %>:<font color="#800000">*</font>
+    <%= f.text_field :quantity, :size => 20 %>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

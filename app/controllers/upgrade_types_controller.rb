@@ -1,6 +1,6 @@
 class UpgradeTypesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /upgrade_types
     # GET /upgrade_types.json
@@ -43,7 +43,7 @@ class UpgradeTypesController < ApplicationController
     # POST /upgrade_types
     # POST /upgrade_types.json
     def create
-        @upgrade_type = UpgradeType.new(params[:upgrade_type])
+        @upgrade_type = UpgradeType.new(params.require(:upgrade_type).permit(:cost, :name, :added_miles))
 
         respond_to do |format|
             if @upgrade_type.save
@@ -63,7 +63,7 @@ class UpgradeTypesController < ApplicationController
         @upgrade_type = UpgradeType.find(params[:id])
 
         respond_to do |format|
-            if @upgrade_type.update_attributes(params[:upgrade_type])
+            if @upgrade_type.update_attributes(params.require(:upgrade_type).permit(:cost, :name, :added_miles))
                 format.html { redirect_to upgrade_types_url,
                               notice: 'UpgradeType was successfully updated.' }
                 format.json { head :no_content }

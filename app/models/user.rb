@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
     # Include default devise modules. Others available are:
     # :token_authenticatable, :confirmable,
     # :lockable, :timeoutable and :omniauthable
@@ -6,8 +10,16 @@ class User < ActiveRecord::Base
            :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
     # Setup accessible (or protected) attributes for your model
-    attr_accessible :email, :password, :password_confirmation, :remember_me
-    attr_accessible :first_name, :last_name, :role
+    #attr_accessible :email, :password, :password_confirmation, :remember_me
+    #attr_accessible :first_name, :last_name, :role
+
+    def user_param
+       params.require(:user).permit(:email, :password, :password_confirmation, :remember_me)
+    end
+
+    def user_param
+       params.require(:user).permit(:first_name, :last_name, :role)
+    end
 
     # validate :password_complexity
     # password complexity is handled in ft_devise/registrations_controller.rb
@@ -38,6 +50,8 @@ class User < ActiveRecord::Base
         if not self.encrypted_password.nil?  # devise called us
             logger.info("==== create from devise")
             self.role = ROLE_CUSTOMER
+	    self.first_name = first_name
+
         end
     end
 

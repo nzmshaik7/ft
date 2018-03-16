@@ -1,6 +1,6 @@
 class StatesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /states
     # GET /states.json
@@ -43,7 +43,7 @@ class StatesController < ApplicationController
     # POST /states
     # POST /states.json
     def create
-        @state = State.new(params[:state])
+        @state = State.new( params.require(:state).permit(:abbrev, :name))
 
         respond_to do |format|
             if @state.save
@@ -63,7 +63,7 @@ class StatesController < ApplicationController
         @state = State.find(params[:id])
 
         respond_to do |format|
-            if @state.update_attributes(params[:state])
+            if @state.update_attributes( params.require(:state).permit(:abbrev, :name))
                 format.html { redirect_to states_url,
                               notice: 'State was successfully updated.' }
                 format.json { head :no_content }

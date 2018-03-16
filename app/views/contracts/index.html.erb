@@ -2,6 +2,7 @@
 
 <table border="1" class="ft_dbtab">
   <tr bgcolor="#F0FFF0">
+    <th> Store </th>
     <th>Begin date</th>
     <th>Number</th>
     <th>Status</th>
@@ -17,7 +18,8 @@
 
 <% @contracts.each do |contract| %>
   <tr>
-    <td><%= contract.begin_date.strftime("%b %d, %Y") %></td>
+    <td> <%= contract.store.name %> </td>
+    <td><%= contract.begin_date.strftime("%b %d, %Y") unless contract.begin_date.nil?%></td>
     <td><%= contract.number %></td>
     <td><%= contract.statusText %></td>
     <td><%= contract.image_id %></td>
@@ -29,7 +31,7 @@
       <% end %>
     </td>
     <td><%= contract.level %></td>
-    <td><%= number_to_currency(contract.base_cost) %></td>
+    <td><%= number_to_currency(contract.base_costText) %></td>
     <td><%= contract.day_of_payment %></td>
     <td><%= number_to_currency(contract.discount) %></td>
     <td><%= contract.discount_percent %>%</td>

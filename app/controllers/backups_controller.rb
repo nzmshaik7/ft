@@ -1,6 +1,6 @@
 class BackupsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /backups
     # GET /backups.json
@@ -43,7 +43,7 @@ class BackupsController < ApplicationController
     # POST /backups
     # POST /backups.json
     def create
-        @backup = Backup.new(params[:backup])
+        @backup = Backup.new(params.require(:backup).permit(:info, :table_name, :user_id))
 
         respond_to do |format|
             if @backup.save
@@ -62,7 +62,7 @@ class BackupsController < ApplicationController
         @backup = Backup.find(params[:id])
 
         respond_to do |format|
-            if @backup.update_attributes(params[:backup])
+            if @backup.update_attributes(params.require(:backup).permit(:info, :table_name, :user_id))
                 format.html { redirect_to backups_url, notice: 'Backup was successfully updated.' }
                 format.json { head :no_content }
             else

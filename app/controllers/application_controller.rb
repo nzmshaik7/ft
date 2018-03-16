@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::Base
 
-    before_filter :authenticate_user!   # Devise
+    before_action :authenticate_user!   # Devise
+    before_action  :configure_permitted_parameters, if:  :devise_controller?
     protect_from_forgery
-    #IF AWS force_ssl({:port => '3443'})
+    force_ssl({:port => '3443'})
 
 
     def after_sign_in_path_for(resource)
@@ -60,6 +61,10 @@ protected
         end
     end
 
+    def configure_permitted_parameters
+    	devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :email, :password])
+    	devise_parameter_sanitizer.permit(:account_update, keys:[:role, :first_name, :last_name])
+    end
 
     def database_area
         # only_allow_admins

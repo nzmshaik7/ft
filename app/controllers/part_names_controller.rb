@@ -1,8 +1,8 @@
 class PartNamesController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit,
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
     include ApplicationHelper
 
@@ -10,7 +10,8 @@ class PartNamesController < ApplicationController
     # GET /part_names
     # GET /part_names.json
     def index
-        @part_names = PartName.find(:all, :order => 'name')
+        #@part_names = PartName.find(:all, :order => 'name')
+	@part_names = PartName.all
 
         respond_to do |format|
             format.html # index.html.erb
@@ -83,7 +84,7 @@ class PartNamesController < ApplicationController
     # POST /part_names
     # POST /part_names.json
     def create
-        @part_name = PartName.new(params[:part_name])
+        @part_name = PartName.new(params.require(:part_name).permit(:name))
         ok = validatePartName?(@part_name)
         okUrl, errAction = setSaveAction('new', part_names_url)
 
@@ -108,7 +109,7 @@ class PartNamesController < ApplicationController
         @part_name = PartName.find(params[:id])
 
         respond_to do |format|
-            @part_name.assign_attributes(params[:part_name])
+            @part_name.assign_attributes(params.require(:part_name).permit(:name))
             parok = validatePartName?(@part_name)
             okUrl, errAction = setSaveAction('edit', part_names_url)
             saveok = false

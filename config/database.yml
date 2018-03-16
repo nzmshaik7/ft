@@ -12,11 +12,13 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: ft_development
+  database: futuretech
   pool: 5
-  username: dlaw
-  password: tkfu0794
-  socket: /var/lib/mysql/mysql.sock
+  username: root
+  password: Ultimate99!
+  host : futuretech.cxfcg9jn5jyf.us-west-2.rds.amazonaws.com
+  port : 3306
+  #socket: /var/lib/mysql/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,18 +27,22 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: ft_test
+  database: futuretech
   pool: 5
   username: root
-  password:
+  password: Ultimate99!
+  host : futuretech.cxfcg9jn5jyf.us-west-2.rds.amazonaws.com
+  port : 3306
   socket: /var/lib/mysql/mysql.sock
 
 production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: ft_production
+  database: futuretech
   pool: 5
-  username: deployer
-  password: to-be-replaced-by-dbpass.rake
-  socket: /var/lib/mysql/mysql.sock
+  username: root
+  password: Ultimate99!
+  host : futuretech.cxfcg9jn5jyf.us-west-2.rds.amazonaws.com
+  port : 3306
+  #socket: /var/lib/mysql/mysql.sock

@@ -10,7 +10,7 @@
 
 <% @upgrades.each do |upgrade| %>
   <tr>
-    <td>ID <%= upgrade.contract_id %>: <%= upgrade.contract.number %></td>
+    <td>ID <%= upgrade.contract_id %>: <%= upgrade.contract.number unless upgrade.contract.nil? %></td>
     <td><%= upgrade.upgrade_type.name %></td>
     <td><%= number_to_currency(upgrade.cost) %></td>
     <td><%= link_to 'Show', upgrade %></td>

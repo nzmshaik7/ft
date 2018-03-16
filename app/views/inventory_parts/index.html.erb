@@ -11,7 +11,7 @@
 
 <% @inventory_parts.each do |inventory_part| %>
   <tr>
-    <td><%= inventory_part.purchase_order.po_number %></td>
+    <td><%= inventory_part.purchase_order.po_number unless inventory_part.purchase_order.nil?%></td>
     <td><%= inventory_part.part.part_number %></td>
     <td><%= inventory_part.quantity %></td>
     <td><%= inventory_part.part_actual_price %></td>

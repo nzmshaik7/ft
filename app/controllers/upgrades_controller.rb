@@ -1,6 +1,6 @@
 class UpgradesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @upgradeTypes = UpgradeType.all
@@ -57,7 +57,7 @@ class UpgradesController < ApplicationController
     # POST /upgrades
     # POST /upgrades.json
     def create
-        @upgrade = Upgrade.new(params[:upgrade])
+        @upgrade = Upgrade.new(params.require(:upgrade).permit(:contract_id, :cost, :upgrade_type_id))
 
         respond_to do |format|
             if @upgrade.save
@@ -78,7 +78,7 @@ class UpgradesController < ApplicationController
         @upgrade = Upgrade.find(params[:id])
 
         respond_to do |format|
-            if @upgrade.update_attributes(params[:upgrade])
+            if @upgrade.update_attributes(params.require(:upgrade).permit(:contract_id, :cost, :upgrade_type_id))
                 format.html { redirect_to upgrades_url,
                               notice: 'Upgrade was successfully updated.' }
                 format.json { head :no_content }

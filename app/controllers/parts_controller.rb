@@ -1,17 +1,19 @@
 class PartsController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, 
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit, 
                                               :gfnewplus, :update, :create,  ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, 
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, 
                                               :gfnewplus, :update, :create,  ]
     include ApplicationHelper
 
     def prepFormVariables
-        @part_manufacturers = PartManufacturer.find(:all, :order => 'name')
+        #@part_manufacturers = PartManufacturer.find(:all, :order => 'name')
+	@part_manufacturers = PartManufacturer.all
         @part_manufacturerCollect = @part_manufacturers.collect { |p|
             [ p.name, p.id ]
         }
-        @part_names = PartName.find(:all, :order => 'name')
+        #@part_names = PartName.find(:all, :order => 'name')
+	@part_names = PartName.all
         @part_nameCollect = @part_names.collect { |p|
             [ p.name, p.id ]
         }
@@ -21,7 +23,8 @@ class PartsController < ApplicationController
     # GET /parts
     # GET /parts.json
     def index
-        @parts = Part.find(:all, :order => 'part_number')
+        #@parts = Part.find(:all, :order => 'part_number')
+	@parts = Part.all
 
         respond_to do |format|
             format.html # index.html.erb
@@ -117,7 +120,7 @@ class PartsController < ApplicationController
     # POST /parts
     # POST /parts.json
     def create
-        @part = Part.new(params[:part])
+        @part = Part.new(params.require(:part).permit(:description, :part_manufacturer_id, :part_name_id, :part_number, :retail_price))
         savok = saveNewManufNam(@part)
         ok = validatePart?(@part)
         okUrl, errAction = setSaveAction('new', parts_url)
@@ -190,7 +193,7 @@ class PartsController < ApplicationController
         @part = Part.find(params[:id])
 
         respond_to do |format|
-            @part.assign_attributes(params[:part])
+            @part.assign_attributes(params.require(:part).permit(:description, :part_manufacturer_id, :part_name_id, :part_number, :retail_price))
             parok = validatePart?(@part)
             okUrl, errAction = setSaveAction('edit', parts_url)
             saveok = false

@@ -1,0 +1,25 @@
+<h2>New Used Part</h2>
+
+<P>
+In order to can enter a new Used Part Cost, you must first have store, vehicle information and generic Part Name
+</P>
+
+<% if false %>
+<P>
+<font color="#606060"><i>
+  (If you need to 
+   <a target="_blank" href="/part_manufacturers/gfnew">
+   add a part manufacturer</a> to the Part Manufacturer dropdown for this 
+   Part, or
+   <a target="_blank" href="/part_names/gfnew">add a generic part name</a>
+   to the Part Name dropdown for this Part, click the
+   link to open a new window, then come back to this
+   window and refresh or hit F5.)
+</i></font>
+</P>
+<% if false %>
+
+<%= render :partial => 'form',
+                       :locals => { :isGroundFloor => @isGroundFloor } %>
+
+<%= link_to 'Back to Ground Floor', '/top/gf' %>

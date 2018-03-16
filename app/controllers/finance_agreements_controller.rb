@@ -1,6 +1,6 @@
 class FinanceAgreementsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /finance_agreements
     # GET /finance_agreements.json
@@ -43,7 +43,10 @@ class FinanceAgreementsController < ApplicationController
     # POST /finance_agreements
     # POST /finance_agreements.json
     def create
-        @finance_agreement = FinanceAgreement.new(params[:finance_agreement])
+        @finance_agreement = FinanceAgreement.new(params.require(:finance_agreement).permit(:agreement_image_id, :customer_id, :end_date,
+                    :finance_fee, :missed_payment_fee,
+                    :monthly_payment_amount, :start_date, :title_image_id,
+                    :total_principal))
 
         respond_to do |format|
             if @finance_agreement.save
@@ -63,7 +66,10 @@ class FinanceAgreementsController < ApplicationController
         @finance_agreement = FinanceAgreement.find(params[:id])
 
         respond_to do |format|
-            if @finance_agreement.update_attributes(params[:finance_agreement])
+            if @finance_agreement.update_attributes(params.require(:finance_agreement).permit(:agreement_image_id, :customer_id, :end_date,
+                    :finance_fee, :missed_payment_fee,
+                    :monthly_payment_amount, :start_date, :title_image_id,
+                    :total_principal))
                 format.html { redirect_to finance_agreements_url,
                               notice: 'FinanceAgreement was successfully updated.' }
                 format.json { head :no_content }

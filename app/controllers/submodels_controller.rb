@@ -1,8 +1,8 @@
 class SubmodelsController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit,
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit,
                                               :update, :create, ]
     include ApplicationHelper
 
@@ -111,7 +111,7 @@ class SubmodelsController < ApplicationController
     # POST /submodels
     # POST /submodels.json
     def create
-        @submodel = Submodel.new(params[:submodel])
+        @submodel = Submodel.new(params.require(:submodel).permit(:make_id, :name))
         ok = validateSubmodel?(@submodel, true)
         okUrl, errAction = setSaveAction('new', submodels_url)
 
@@ -137,7 +137,7 @@ class SubmodelsController < ApplicationController
         @submodel = Submodel.find(params[:id])
 
         respond_to do |format|
-            @submodel.assign_attributes(params[:submodel])
+            @submodel.assign_attributes(params.require(:submodel).permit(:make_id, :name))
             parok = validateSubmodel?(@submodel, false)
             okUrl, errAction = setSaveAction('edit', submodels_url)
             saveok = false

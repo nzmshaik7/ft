@@ -1,6 +1,8 @@
 class VendorInvoice < ActiveRecord::Base
-    attr_accessible :date_time, :invoice_number, :purchase_order_id, :status,
-                    :vendor_id
+    #attr_accessible :date_time, :invoice_number, :purchase_order_id, :status, :vendor_id
+    def vendor_invoice_params
+	params.require(:vendor_invoice).permit(:date_time, :invoice_number, :purchase_order_id, :status, :vendor_id)
+    end
     belongs_to :vendor
     belongs_to :purchase_order
 

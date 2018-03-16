@@ -1,0 +1,166 @@
+/* 4 numbers are: top, right, btm, left  */
+/* line 4, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+table.navtab {
+  padding: 0px 10px 0px 10px;
+  background-color: #ffffff;
+  /* Shows under image on chrome */
+  background-image: url(/assets/gen/bgtile5.png);
+  background-repeat: repeat-x;
+}
+/* line 9, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+table.navtab a:link {
+  color: #016082;
+  background-color: transparent;
+}
+/* line 10, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+table.navtab a:visited {
+  color: #014062;
+  background-color: transparent;
+}
+/* line 11, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+table.navtab a:hover {
+  color: #0160a2;
+  background-color: transparent;
+}
+/* line 12, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+table.navtab a:active {
+  color: blue;
+  background-color: transparent;
+}
+
+/* line 14, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+td.navtablogo {
+  padding: 0px 0px 0px 0px;
+  background-image: url(/assets/gen/ftlogo5.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* line 20, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+.genfloatr {
+  float: right;
+}
+
+/* line 21, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+.endfloat {
+  clear: both;
+}
+
+/* line 23, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+table.ft_dbtab {
+  border-collapse: collapse;
+}
+
+/* line 24, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+table.ft_dbtab th {
+  padding: 0px 4px 0px 4px;
+  border: 1px solid black;
+}
+
+/* line 25, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+table.ft_dbtab td {
+  padding: 0px 4px 1px 4px;
+  border: 1px solid black;
+}
+
+/* line 27, /home/rails/ft/app/assets/stylesheets/common.css.scss */
+div.errorbox {
+  border: 2px solid #800;
+  margin: 3px;
+  padding: 2px 10px 2px 10px;
+}
+/* line 1, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+body {
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* line 8, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* line 14, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+/* line 20, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+a {
+  color: #000;
+}
+/* line 22, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+a:visited {
+  color: #666;
+}
+/* line 25, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+a:hover {
+  color: #fff;
+  background-color: #000;
+}
+
+/* line 32, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+/* line 37, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+#notice {
+  color: green;
+}
+
+/* line 41, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+/* line 47, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+/* line 54, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+/* line 64, /home/rails/ft/app/assets/stylesheets/scaffolds.css.scss */
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+.morris-hover{position:absolute;z-index:1000}.morris-hover.morris-default-style{border-radius:10px;padding:6px;color:#666;background:rgba(255,255,255,0.8);border:solid 2px rgba(230,230,230,0.8);font-family:sans-serif;font-size:12px;text-align:center}.morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0}
+.morris-hover.morris-default-style .morris-hover-point{white-space:nowrap;margin:0.1em 0}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+
+ */
+

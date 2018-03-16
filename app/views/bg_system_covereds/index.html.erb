@@ -14,7 +14,7 @@
   <tr>
     <td>
       <%= bg_system_covered.vehicle_id %>:
-      <%= bg_system_covered.vehicle.ymmText %>
+      <%= bg_system_covered.vehicle.ymmText unless bg_system_covered.vehicle.nil? %>
     </td>
     <td><%= bg_system_covered.system.name %></td>
     <td>$<%= bg_system_covered.coverage %></td>

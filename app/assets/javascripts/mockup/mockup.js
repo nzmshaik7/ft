@@ -55,6 +55,15 @@ $(document).ready(function(){
   $('#cust2id').popover({ 
     html : true, content: function() { return $('#cust2id_div').html(); }
   });
+  $('#cust3id').popover({ 
+    html : true, content: function() { return $('#cust3id_div').html(); }
+  });
+  $('#cust4id').popover({ 
+    html : true, content: function() { return $('#cust4id_div').html(); }
+  });
+  $('#cust5id').popover({ 
+    html : true, content: function() { return $('#cust5id_div').html(); }
+  });
   $('#vehphot').popover({ 
     html : true, content: function() { return $('#vehphot_div').html(); }
   });

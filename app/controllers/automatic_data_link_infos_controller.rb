@@ -1,6 +1,6 @@
 class AutomaticDataLinkInfosController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @vehicles = Vehicle.all

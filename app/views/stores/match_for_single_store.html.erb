@@ -1,0 +1,119 @@
+
+<h2 align="Center"> Single Store Statistics </h2>
+
+<%= render :partial => 'search_form_for_single_store',
+           :locals => { :target_cm => 'analytics/int3',
+                        :target_label => 'View', :isGroundFloor => true } %>               
+<h2 align="center"> Store Profit/Loss Statistics </h2>
+<% if @stores.length == 0 %>
+  <P><i>No matching vehicles found.</i></P>
+<% end %>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Vin</th>
+    <th>Make - Model - Year</th>
+    <th> Store </th>
+    <th>Total Cost</th>
+    <th>Revenue</th>
+    <th>Profit/Loss</th>
+  </tr>
+
+<% if defined?(@isGroundFloor) and @isGroundFloor %>
+  <% eaction = 'gfedit' %>
+<% else %>
+  <% eaction = 'edit' %>
+<% end %>
+
+<% @temp1.each do |s| %>
+
+  <tr>
+    <td><%= s.vin %></td>
+    <td> <%= s.make.name %> - <%= s.model.name unless s.model.nil?%> - <%= s.date_of_manufacture %></td>
+    <td><%= s.store_id %></td>
+    <td><%= s.total_cost %></td>
+    <td><%= s.vehicle_revenue %></td>
+    <td><%= s.profit_loss %> </td>  
+  </tr>
+<% end %>
+<b> &nbsp; </b>
+<B> Total profit loss  of current selection = <%= @total_profit_loss %> <br/> </B>
+<b> &nbsp; </b>
+</table>
+<br/>
+<br/>
+<h2 align="center"> Store Technicians Statistics </h2>
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Technician Name</th>
+    <th>Manager Name</th>
+    <th> Hourly Rate </th>
+    <th>Billed Hours</th>
+    <th>Retail Hours</th>
+    <th>Actual Hours</th>
+    <th> Billed Rate </th>
+    <th>Retail Rate</th>
+    <th>Actual Rate</th>
+    <th>Efficiency</th>
+    <th>Productivity</th>
+    <th>Proficiency</th>
+  </tr>
+
+<% @temp2.each do |s| %>
+
+
+  
+
+  <tr>
+    <td><%= s.technician_id %></td>
+    <td><%= s.employee_id %></td>
+    <td><%= s.hourly_rate %></td>
+    <td><%= s.billed_hours %></td>
+    <td><%= s.retail_hours %></td>
+    <td><%= s.actual_hours %></td>  
+    <td><%= s.billed_rate %></td> 
+    <td><%= s.retail_rate %></td> 
+    <td><%= s.actual_rate %></td> 
+    <td><%= s.efficiency.round(3) %></td> 
+    <td><%= s.productivity.round(3) %></td> 
+    <td><%= s.proficiency.round(3) %></td> 
+  </tr>
+<% end %>
+
+
+<b> &nbsp; </b>
+
+</table>
+<br/>
+<br/>
+<h2 align="center"> Store Available Parts</h2>
+<% if @temp3.length == 0 %>
+  <P><i>No matching stores found.</i></P>
+<% end %>
+<b align="center"> Total Store Parts usage percentage = <%= (($used_total/$inventory_total).round(3))* 100%>%</b>
+<table border="1" class="ft_dbtab">
+
+ <tr bgcolor="#F0FFF0">
+    <th>Store Name</th>
+    <th>Part Manufacturer</th>
+    <th> Part Name </th>
+    <th>Inventory Parts</th>
+    <th>Used Parts</th>
+    <th>Available Parts</th>
+    <th> Parts Usage</th>
+  </tr>
+
+<% @temp3.each do |p| %>
+	<tr>
+		<td> <%= p.store.name %> </td>
+		<td> <%= p.part_manufacturer.name %> </td>
+		<td> <%= p.part_name.name %> </td>
+		<td> <%= p.inventory_parts %> </td>
+		<td> <%= p.used_parts %> </td>
+		<td> <%= p.available_parts %> </td>
+		<td> <%=  (p.used_parts/p.inventory_parts).round(3) %> </td>
+<% end %>
+
+
+</table>

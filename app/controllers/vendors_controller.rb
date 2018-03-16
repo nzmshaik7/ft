@@ -1,6 +1,6 @@
 class VendorsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /vendors
     # GET /vendors.json
@@ -47,7 +47,7 @@ class VendorsController < ApplicationController
     # POST /vendors
     # POST /vendors.json
     def create
-        @vendor = Vendor.new(params[:vendor])
+        @vendor = Vendor.new(params.require(:vendor).permit(:name))
 
         respond_to do |format|
             if @vendor.save
@@ -70,7 +70,7 @@ class VendorsController < ApplicationController
         @vendor = Vendor.find(params[:id])
 
         respond_to do |format|
-            if @vendor.update_attributes(params[:vendor])
+            if @vendor.update_attributes(params.require(:vendor).permit(:name))
                 format.html { redirect_to vendors_url,
                               notice: 'Vendor was successfully updated.' }
                 format.json { head :no_content }

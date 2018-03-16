@@ -2,7 +2,8 @@ class FtDevise::RegistrationsController < Devise::RegistrationsController
 
     def create
         # logger.info("==== RegistrationsController/create")
-        sup = params[:user]
+        	#sup = params[:user]
+	sup = params.require(:user).permit(:email, :password, :password_confirmation,:first_name, :last_name)
 	emsg = ''
         if sup[:first_name].nil? or sup[:first_name].length < 1
 	    emsg = emsg + 'First Name is required.<br>'

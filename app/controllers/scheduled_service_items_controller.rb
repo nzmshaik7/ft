@@ -1,6 +1,6 @@
 class ScheduledServiceItemsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @scheduledServices = ScheduledService.all
@@ -57,7 +57,7 @@ class ScheduledServiceItemsController < ApplicationController
     # POST /scheduled_service_items
     # POST /scheduled_service_items.json
     def create
-        @scheduled_service_item = ScheduledServiceItem.new(params[:scheduled_service_item])
+        @scheduled_service_item = ScheduledServiceItem.new(params.require(:scheduled_service_item).permit(:other, :scheduled_service_id, :service_description_id))
 
         respond_to do |format|
             if @scheduled_service_item.save
@@ -78,7 +78,7 @@ class ScheduledServiceItemsController < ApplicationController
         @scheduled_service_item = ScheduledServiceItem.find(params[:id])
 
         respond_to do |format|
-            if @scheduled_service_item.update_attributes(params[:scheduled_service_item])
+            if @scheduled_service_item.update_attributes(params.require(:scheduled_service_item).permit(:other, :scheduled_service_id, :service_description_id))
                 format.html { redirect_to scheduled_service_items_url,
                               notice: 'ScheduledServiceItem was successfully updated.' }
                 format.json { head :no_content }

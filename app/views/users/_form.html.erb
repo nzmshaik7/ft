@@ -12,16 +12,17 @@
     </div>
   <% end %>
 
+
   <div class="field">
     <%= f.label :role %><br />
     <%= select_tag 'user[role]', options_for_select(@roles, @selectedRole) %>
   </div>
   <div class="field">
-    <%= f.label :first_name %><br />
+    <%= f.label :first_name, 'FIRST NAME' %><br />
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br />
+    <%= f.label :last_name, 'LAST NAME' %><br />
     <%= f.text_field :last_name %>
   </div>
   <div class="actions">

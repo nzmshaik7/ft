@@ -1,0 +1,44 @@
+<h2>Listing stores</h2>
+
+<a href= '/analytics/int3'><b> Retrieve information of all stores </b> </p></a>
+
+
+<table border="1" class="ft_dbtab">
+  <tr bgcolor="#F0FFF0">
+    <th>Name</th>
+    <th>Number</th>
+    <th>Manager</th>
+    <th>Street address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>County</th>
+    <th>Region</th>
+    <th>Zip</th>
+    <th>Phone</th>
+    <th>Lifts</th>
+    <th>Capacity</th>
+    <th>Break even</th>
+   </tr>
+
+<% @stores.each do |store| %>
+  <tr>
+    <td><%= store.name %></td>
+    <td><%= store.number %></td>
+    <td><%= store.manager.first_name %> <%= store.manager.last_name %></td>
+    <td><%= store.street_address %></td>
+    <td><%= store.city %></td>
+    <td><%= store.state.name %></td>
+    <td><%= store.county.name %></td>
+    <td><%= store.region.name unless store.region.nil?%></td>
+    <td><%= store.zip %></td>
+    <td><%= store.phone %></td>
+    <td><%= store.number_of_lifts %></td>
+    <td><%= store.capacity %></td>
+    <td><%= store.break_even %></td>
+  
+  </tr>
+<% end %>
+</table>
+
+<br />
+

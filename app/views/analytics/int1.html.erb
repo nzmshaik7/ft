@@ -5,7 +5,7 @@
     &nbsp; &nbsp; &nbsp; &nbsp;
     <a href="/top/analytics">Home</a> &nbsp; 
     | &nbsp; <a href="/vehicles/search_int1">Search Vehicles</a> &nbsp; 
-    | &nbsp; All Vehicles &nbsp; 
+    | &nbsp;<a href="/vehicles/search_int2"> All Vehicles</a> &nbsp;
     | &nbsp; Search Customers &nbsp; | &nbsp; Stores &nbsp; 
     | &nbsp; Demographics &nbsp; | &nbsp; Help
   </font>
@@ -157,11 +157,7 @@
       </tr>
       <tr>
 	<td>Spouse Name</td>
-        <% if vcust.spouse_id %>
-	  <td><%= customerName2(vcust.spouse) %></td>
-        <% else %>
-	  <td><%= vcust.spouse_name %></td>
-        <% end %>
+       
       </tr>
       <tr>
 	<td>Street</td>
@@ -213,7 +209,7 @@
       <tr>
 	<td>Referred by</td>
 	<td>
-          <%= referredBy(vcust).html_safe %>
+          <%= raw referredBy(vcust) %>
         </td>
       </tr>
       <tr>
@@ -282,7 +278,7 @@
       <tr>
 	<td>Referred by</td>
 	<td>
-          <%= referredBy(vcust).html_safe %>
+          <%= raw referredBy(vcust) %>
         </td>
       </tr>
       <tr>
@@ -317,7 +313,7 @@
 	<tr>
 	  <td><B>Year | Make | Model | Sub</B></td>
 	  <td>
-            <%= @vehicle.date_of_manufacture.year %> | 
+            <%= @vehicle.date_of_manufacture %> | 
             <%= @vehicle.make.name %> | 
             <%= @vehicle.model.name %> | 
             <% if @vehicle.submodel %>
@@ -378,7 +374,7 @@
 	</tr>
 	<tr>
 	  <td><B>Date of Manufacture</B></td>
-	  <td><%= @vehicle.date_of_manufacture.strftime("%b %d, %Y") %></td>
+	  <td><%= @vehicle.date_of_manufacture %></td>
 	</tr>
 	<tr>
 	  <td><B>Country of Manufacture</B></td>
@@ -420,12 +416,11 @@
 	  <td><B>Engine</B></td>
 	  <td>
             <%= @vehicle.engine_cyl %> cyl 
-            <%= @vehicle.engine_displacement.name %>
-          </td>
+                      </td>
 	</tr>
 	<tr>
 	  <td><B>Drive</B></td>
-	  <td><%= @vehicle.wheel_drive.name %></td>
+	  <td></td>
 	</tr>
 	<tr>
 	  <td><B>MPG 30 days after initial service</B></td>
@@ -506,7 +501,9 @@
     <div class="boxhdr">
       <B>Fuel Economy</B>
     </div>
-    <B><I><font color="#800080">Mileage chart TBS</font></I></B>
+    <iframe src="/analytics/basic" width="500" height="300">
+        alternative content for browsers which do not support iframe.
+      </iframe>
   </div>
   <div class="carbox">
     <div class="boxhdr">
@@ -769,7 +766,11 @@
           </table>
         </td>
         <td>
-          <img src="<%= @graphUrls['clubfeespie'] %>">
+         <!-- <img src="<%= @graphUrls['clubfeespie'] %>">-->
+
+	<iframe src="/analytics/pie" width="400" height="300">
+        alternative content for browsers which do not support iframe.
+      </iframe>
         </td>
       </tr></table>
       </center>
@@ -1205,13 +1206,10 @@
           </B></font></td>
 	</tr>
       </table>
-      <B>Total Vehicle Profitability</B><br>
-      <img src="<%= @graphUrls['totprofpie'] %>">
-      &nbsp;<br>
-      <B>Vehicle Profitability Trend</B><br>
-      <B><I><font color="#800080">Trend chart TBS</font></I></B>
-      <img src="images/profitability.png"><br>
-      </center>
+      
+
+
+      
     </div>
   </div>
 
@@ -1221,8 +1219,12 @@
     </div>
     <div class="gendatabox">
       <center>
-        <B><I><font color="#800080">Bar chart TBS</font></I></B>
-        <img src="images/BarPartLabr.png">
+        <B><I>
+	<iframe src="/analytics/bar" width="400" height="300">
+        alternative content for browsers which do not support iframe.
+      </iframe>
+	</I></B>
+       <!-- <img src="images/BarPartLabr.png"> -->
       </center>
     </div>
   </div>
@@ -1399,8 +1401,13 @@
     </div>
     <div class="gendatabox">
       <center>
-        <B><I><font color="#800080">Line chart TBS</font></I></B>
-        <img src="images/15kMilYr.png">
+        <!--<B><I><font color="#800080">Line chart TBS</font></I></B>
+        <img src="images/15kMilYr.png"> -->
+	
+	<iframe src="/analytics/basic" width="450" height="300">
+        alternative content for browsers which do not support iframe.
+      </iframe>
+	
       </center>
     </div>
     <div class="gendatabox">

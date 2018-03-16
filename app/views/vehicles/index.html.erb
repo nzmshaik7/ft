@@ -47,7 +47,7 @@
       <%= vehicle.customer.first_name %> <%= vehicle.customer.last_name %>
     </td>
     <td><%= vehicle.make.name %></td>
-    <td><%= vehicle.model.name %></td>
+    <td><%= vehicle.model.name unless vehicle.model.nil? %></td>
     <td>
       <% if vehicle.submodel %>
         <%= vehicle.submodel.name %>
@@ -55,15 +55,15 @@
         <i>N/A</i>
       <% end %>
     </td>
-    <td><%= vehicle.date_of_manufacture.strftime("%b %d, %Y") %></td>
+    <td><%= vehicle.date_of_manufacture %></td>
     <td><%= countryOrUnk(vehicle) %></td>
     <td>$<%= number_with_precision(vehicle.msrp, precision: 0) %></td>
     <td>$<%= number_with_precision(vehicle.kbb_on_qual, precision: 0) %></td>
     <td>$<%= number_with_precision(vehicle.current_kbb, precision: 0) %></td>
     <td><%= vehicle.consumer_reports_url %></td>
     <td><%= vehicle.engine_cyl %></td>
-    <td><%= vehicle.engine_displacement.name %></td>
-    <td><%= vehicle.wheel_drive.name %></td>
+    <td><%= vehicle.engine_displacement.name unless vehicle.engine_displacement.nil?%></td>
+    <td><%= vehicle.wheel_drive.name unless vehicle.wheel_drive.nil? %></td>
     <td><%= vehicle.color.name %></td>
     <td><%= vehicle.doors %></td>
     <td><%= boolText(vehicle.convertible) %></td>

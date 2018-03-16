@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     include CustomersHelper
     include ApplicationHelper
@@ -88,7 +88,9 @@ class PaymentsController < ApplicationController
     # POST /payments
     # POST /payments.json
     def create
-        @payment = Payment.new(params[:payment])
+        @payment = Payment.new(params.require(:payment).permit(:amount, :comment, :contract_id, :customer_id,
+                    :date_time, :finance_agreement_id, :invoice_id,
+                    :merchant_services_status, :payment_method_id, :status))
         ok = validatePayment?(@payment)
 
         respond_to do |format|
@@ -111,7 +113,9 @@ class PaymentsController < ApplicationController
     def update
         @payment = Payment.find(params[:id])
         respond_to do |format|
-            @payment.assign_attributes(params[:payment])
+            @payment.assign_attributes(params.require(:payment).permit(:amount, :comment, :contract_id, :customer_id,
+                    :date_time, :finance_agreement_id, :invoice_id,
+                    :merchant_services_status, :payment_method_id, :status))
             parok = validatePayment?(@payment)
             saveok = false
             if parok

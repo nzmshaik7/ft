@@ -1,5 +1,18 @@
 class Vehicle < ActiveRecord::Base
-    attr_accessible :bg_compliant, :carfax_copy_at_qual, :carfax_url,
+    #attr_accessible :bg_compliant, :carfax_copy_at_qual, :carfax_url,
+    #                :color_id, :comments, :consumer_reports_url,
+    #                :contract_id, :convertible, :country_of_manufacture_id,
+    #                :current_kbb, :customer_id, :date_of_manufacture,
+    #                :door_plate_image_id, :doors, :engine_cyl,
+    #                :engine_displacement_id, :insurance_company_id,
+    #                :insurance_image_id, :insurance_policy_number,
+    #                :kbb_on_qual, :license_plate, :license_plate_state_id,
+    #                :make_id, :mileage, :model_id, :mpg30after_initial,
+    #                :msrp, :photos_image_id, :qualification_id,
+    #                :service_schedule_id, :submodel_id, :vin,
+    #                :vin_decoded, :wheel_drive_id
+ def vehicle_params
+      params.require(:vehicle).permit(:bg_compliant, :carfax_copy_at_qual, :carfax_url,
                     :color_id, :comments, :consumer_reports_url,
                     :contract_id, :convertible, :country_of_manufacture_id,
                     :current_kbb, :customer_id, :date_of_manufacture,
@@ -10,7 +23,8 @@ class Vehicle < ActiveRecord::Base
                     :make_id, :mileage, :model_id, :mpg30after_initial,
                     :msrp, :photos_image_id, :qualification_id,
                     :service_schedule_id, :submodel_id, :vin,
-                    :vin_decoded, :wheel_drive_id
+                    :vin_decoded, :wheel_drive_id, :ismember)
+    end
 
     belongs_to :color
     belongs_to :contract
@@ -43,9 +57,11 @@ class Vehicle < ActiveRecord::Base
 
     # Return string that describes year, make, and model, and optional submod.
     def ymmText
-        ans = date_of_manufacture.strftime("%Y")
+        ans = date_of_manufacture
         ans += ' ' + make.name 
-        ans += ' ' + model.name
+	if model
+        	ans += ' ' + model.name
+	end
         if submodel
             ans += ' ' + submodel.name
         end

@@ -1,6 +1,6 @@
 class ReferredBiesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     # GET /referred_bies
     # GET /referred_bies.json
@@ -43,7 +43,7 @@ class ReferredBiesController < ApplicationController
     # POST /referred_bies
     # POST /referred_bies.json
     def create
-        @referred_by = ReferredBy.new(params[:referred_by])
+        @referred_by = ReferredBy.new( params.require(:referred_by).permit(:description, :is_other))
 
         respond_to do |format|
             if @referred_by.save
@@ -63,7 +63,7 @@ class ReferredBiesController < ApplicationController
         @referred_by = ReferredBy.find(params[:id])
 
         respond_to do |format|
-            if @referred_by.update_attributes(params[:referred_by])
+            if @referred_by.update_attributes( params.require(:referred_by).permit(:description, :is_other))
                 format.html { redirect_to referred_bies_url,
                               notice: 'ReferredBy was successfully updated.' }
                 format.json { head :no_content }

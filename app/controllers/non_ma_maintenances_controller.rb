@@ -1,6 +1,6 @@
 class NonMaMaintenancesController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables
         @vehicles = Vehicle.all
@@ -53,7 +53,7 @@ class NonMaMaintenancesController < ApplicationController
     # POST /non_ma_maintenances
     # POST /non_ma_maintenances.json
     def create
-        @non_ma_maintenance = NonMaMaintenance.new(params[:non_ma_maintenance])
+        @non_ma_maintenance = NonMaMaintenance.new(params.require(:non_ma_maintenance).permit(:document_image_id, :mdate, :vehicle_id, :where))
 
         respond_to do |format|
             if @non_ma_maintenance.save
@@ -74,7 +74,7 @@ class NonMaMaintenancesController < ApplicationController
         @non_ma_maintenance = NonMaMaintenance.find(params[:id])
 
         respond_to do |format|
-            if @non_ma_maintenance.update_attributes(params[:non_ma_maintenance])
+            if @non_ma_maintenance.update_attributes(params.require(:non_ma_maintenance).permit(:document_image_id, :mdate, :vehicle_id, :where))
                 format.html { redirect_to non_ma_maintenances_url,
                               notice: 'NonMaMaintenance was successfully updated.' }
                 format.json { head :no_content }

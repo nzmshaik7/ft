@@ -54,7 +54,7 @@
         </a>
     </td>
     <td><%= vehicle.make.name %></td>
-    <td><%= vehicle.model.name %></td>
+    <td><%= vehicle.model.name unless vehicle.model.nil?%></td>
     <td>
       <% if vehicle.submodel %>
         <%= vehicle.submodel.name %>
@@ -62,7 +62,7 @@
         <i>N/A</i>
       <% end %>
     </td>
-    <td><%= vehicle.date_of_manufacture.strftime("%b %d, %Y") %></td>
+    <td><%= vehicle.date_of_manufacture %></td>
     <td><%= vehicle.color.name %></td>
     <td><%= vehicle.doors %></td>
     <td><%= vehicle.mileage %></td>

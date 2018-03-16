@@ -1,0 +1,46 @@
+/* 4 numbers are: top, right, btm, left  */
+
+
+.mockframe { background-color: #ffe8e8; }
+.navframe { background-color: #E0E0E8; }
+.footframe { background-color: #E0E0E8; }
+.periodframe { background-color: #FFFFFF; }
+.vehtopframe { background-color: #FFFFFF; }
+
+.custbox { float: left; border:1px solid #060; margin: 3px; padding: 0; }
+.custbox2 { background-color: #F0FFF0; 
+             margin: 0; padding: 4px; }
+.carbox { float: left; border:1px solid #060; margin: 3px; padding: 0; }
+.carbox2 { background-color: #F0FFF0; 
+             margin: 0; padding: 4px; }
+.gendatabox2 { background-color: #F0FFF0; 
+             margin: 0; padding: 4px; }
+.gentextbox { background-color: #F0FFF0; 
+             margin: 0; padding: 12px; }
+
+.vehhistframe { background-color: #D0E0FF;
+                border:1px solid #00f; }
+.storeframe { background-color: #D0E0FF;
+                border:1px solid #00f; }
+
+.payhistbox { float: left; border:1px solid #000; margin: 3px; padding: 0; }
+.payhistbox2 { background-color: #FFFFF0; margin: 0; padding: 4px; }
+.visithistbox { float: left; border:1px solid #060; margin: 3px; padding: 0; }
+.visithistbox2 { background-color: #FFFFF0; margin: 0; padding: 4px; }
+.plbox { float: left; border:1px solid #060; margin: 3px; padding: 0; }
+.plbox2 { background-color: #FFFFF0; margin: 0; padding: 4px; }
+.financetblbox { float: left; margin: 3px; padding: 0; }
+.genitembox { float: left; border:1px solid #060; margin: 3px; padding: 0; }
+.gendatabox { background-color: #FFFFF0; margin: 0; padding: 4px; }
+
+.hide_popover { display: none; }
+.boxhdr { background-color: #E0E0E8; color: #000080; padding: 0 0 2px 0; 
+          text-align: center; }
+.periodbox { border:1px solid #060; margin: 3px; padding: 4px; 
+             background-color: #E0E0E8; }
+
+th { padding: 2px 4px 2px 4px; }
+td { padding: 2px 4px 2px 4px; }
+
+/* Stuff particular to the customer page */
+.custnavframe { background-color: #000040; }

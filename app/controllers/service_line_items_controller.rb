@@ -1,7 +1,7 @@
 class ServiceLineItemsController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, ]
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit, ]
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, ]
     include ApplicationHelper
     include ServiceLineItemsHelper
 
@@ -135,7 +135,10 @@ class ServiceLineItemsController < ApplicationController
     # POST /service_line_items
     # POST /service_line_items.json
     def create
-        @service_line_item = ServiceLineItem.new(params[:service_line_item])
+        @service_line_item = ServiceLineItem.new(params.require(:service_line_item).permit(:labor_hours_actual, :labor_hours_retail,
+                    :labor_rate_actual, :labor_rate_retail,
+                    :service_description_id, :service_description_text,
+                    :service_visit_id, :stype))
         ok = validateServiceLineItem?(@service_line_item)
         okUrl, errAction = setSaveAction('new', service_line_items_url)
         setTechnicians(@service_line_item)
@@ -164,7 +167,10 @@ class ServiceLineItemsController < ApplicationController
         setTechnicians(@service_line_item)
 
         respond_to do |format|
-            @service_line_item.assign_attributes(params[:service_line_item])
+            @service_line_item.assign_attributes(params.require(:service_line_item).permit(:labor_hours_actual, :labor_hours_retail,
+                    :labor_rate_actual, :labor_rate_retail,
+                    :service_description_id, :service_description_text,
+                    :service_visit_id, :stype))
             parok = validateServiceLineItem?(@service_line_item)
             okUrl, errAction = setSaveAction('edit', service_line_items_url)
             if params[:svsv]

@@ -1,6 +1,6 @@
 class ScheduledAppointmentsController < ApplicationController
 
-    before_filter :database_area
+    before_action :database_area
 
     def prepFormVariables(scheduled_appointment=nil)
 
@@ -90,7 +90,7 @@ class ScheduledAppointmentsController < ApplicationController
     # POST /scheduled_appointments
     # POST /scheduled_appointments.json
     def create
-        @scheduled_appointment = ScheduledAppointment.new(params[:scheduled_appointment])
+        @scheduled_appointment = ScheduledAppointment.new(params.require(:scheduled_appointment).permit(:actual_date_time, :date_time, :purpose, :status, :store_id, :vehicle_id))
 
         respond_to do |format|
             if @scheduled_appointment.save
@@ -111,7 +111,7 @@ class ScheduledAppointmentsController < ApplicationController
         @scheduled_appointment = ScheduledAppointment.find(params[:id])
 
         respond_to do |format|
-            if @scheduled_appointment.update_attributes(params[:scheduled_appointment])
+            if @scheduled_appointment.update_attributes(params.require(:scheduled_appointment).permit(:actual_date_time, :date_time, :purpose, :status, :store_id, :vehicle_id))
                 format.html { redirect_to scheduled_appointments_url,
                               notice: 'ScheduledAppointment was successfully updated.' }
                 format.json { head :no_content }

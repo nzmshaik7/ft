@@ -1,7 +1,7 @@
 class EngineDisplacementsController < ApplicationController
 
-    before_filter :database_area, :except => [:gfnew, :gfindex, :gfedit, ]
-    before_filter :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, ]
+    before_action :database_area, :except => [:gfnew, :gfindex, :gfedit, ]
+    before_action :gf_area,       :only   => [:gfnew, :gfindex, :gfedit, ]
     include ApplicationHelper
 
 
@@ -68,7 +68,7 @@ class EngineDisplacementsController < ApplicationController
     # POST /engine_displacements.json
     def create
         @engine_displacement = 
-                           EngineDisplacement.new(params[:engine_displacement])
+                           EngineDisplacement.new(params.require(:engine_displacement).permit(:name))
         ok = validateEngineDisplacement?(@engine_displacement)
         okUrl, errAction = setSaveAction('new', engine_displacements_url)
 
@@ -95,8 +95,7 @@ class EngineDisplacementsController < ApplicationController
         @engine_displacement = EngineDisplacement.find(params[:id])
 
         respond_to do |format|
-            if @engine_displacement.update_attributes(
-                                                 params[:engine_displacement])
+            if @engine_displacement.update_attributes(params.require(:engine_displacement).permit(:name))
                 format.html { redirect_to engine_displacements_url,
                       notice: 'Engine Displacement was successfully updated.' }
                 format.json { head :no_content }
